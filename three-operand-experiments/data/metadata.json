@@ -1,0 +1,1454 @@
+{
+  "seed": 42,
+  "atoms": [
+    "green_cube",
+    "blue_sphere",
+    "red_cylinder"
+  ],
+  "rules": {
+    "rule_1": "(A AND B) OR C",
+    "rule_2": "A AND (B OR C)"
+  },
+  "records": [
+    {
+      "filename": "scene_000_00.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "gray",
+          "cone"
+        ],
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "gray",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_000_01.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "yellow",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "brown",
+          "cone"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_000_02.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "gray",
+          "cone"
+        ],
+        [
+          "red",
+          "cone"
+        ],
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_000_03.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ],
+        [
+          "brown",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_000_04.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "gray",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "sphere"
+        ],
+        [
+          "cyan",
+          "cone"
+        ],
+        [
+          "blue",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_000_05.png",
+      "bits": [
+        0,
+        0,
+        0
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "yellow",
+          "cube"
+        ],
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cube"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_00.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "gray",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cone"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_01.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "cyan",
+          "cube"
+        ],
+        [
+          "brown",
+          "cylinder"
+        ],
+        [
+          "yellow",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_02.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "red",
+          "sphere"
+        ],
+        [
+          "purple",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_03.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "gray",
+          "cube"
+        ],
+        [
+          "blue",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_04.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "sphere"
+        ],
+        [
+          "blue",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_001_05.png",
+      "bits": [
+        0,
+        0,
+        1
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "yellow",
+          "cylinder"
+        ],
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_00.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "yellow",
+          "cone"
+        ],
+        [
+          "yellow",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_01.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "cyan",
+          "cone"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ],
+        [
+          "green",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_02.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "yellow",
+          "sphere"
+        ],
+        [
+          "green",
+          "cone"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_03.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "purple",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "brown",
+          "cube"
+        ],
+        [
+          "yellow",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_04.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "brown",
+          "cone"
+        ],
+        [
+          "green",
+          "cone"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "brown",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_010_05.png",
+      "bits": [
+        0,
+        1,
+        0
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "yellow",
+          "cylinder"
+        ],
+        [
+          "yellow",
+          "cube"
+        ],
+        [
+          "purple",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_00.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "sphere"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "purple",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_01.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_02.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "red",
+          "sphere"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_03.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "cyan",
+          "cone"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_04.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "gray",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_011_05.png",
+      "bits": [
+        0,
+        1,
+        1
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "yellow",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_00.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ],
+        [
+          "cyan",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_01.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "green",
+          "cone"
+        ],
+        [
+          "green",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cone"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_02.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "green",
+          "cylinder"
+        ],
+        [
+          "red",
+          "cone"
+        ],
+        [
+          "blue",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_03.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "brown",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "purple",
+          "cube"
+        ],
+        [
+          "green",
+          "sphere"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_04.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "brown",
+          "cube"
+        ],
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_100_05.png",
+      "bits": [
+        1,
+        0,
+        0
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "blue",
+          "cylinder"
+        ],
+        [
+          "yellow",
+          "cone"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cube"
+        ]
+      ],
+      "rule_1": 0,
+      "rule_2": 0
+    },
+    {
+      "filename": "scene_101_00.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "cyan",
+          "sphere"
+        ],
+        [
+          "gray",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_101_01.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "brown",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_101_02.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "cyan",
+          "cone"
+        ],
+        [
+          "blue",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_101_03.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "green",
+          "sphere"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_101_04.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "gray",
+          "sphere"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "brown",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_101_05.png",
+      "bits": [
+        1,
+        0,
+        1
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "yellow",
+          "sphere"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_00.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "green",
+          "cylinder"
+        ],
+        [
+          "gray",
+          "sphere"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_01.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "gray",
+          "sphere"
+        ],
+        [
+          "brown",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_02.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "cyan",
+          "cylinder"
+        ],
+        [
+          "purple",
+          "cone"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_03.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "blue",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "purple",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_04.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "gray",
+          "cone"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "cyan",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_110_05.png",
+      "bits": [
+        1,
+        1,
+        0
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "yellow",
+          "cone"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "cyan",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_00.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 0,
+      "split": "support",
+      "objects": [
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "purple",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_01.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 1,
+      "split": "support",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "cube"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_02.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 2,
+      "split": "test",
+      "objects": [
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "cyan",
+          "cone"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_03.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 3,
+      "split": "test",
+      "objects": [
+        [
+          "red",
+          "cube"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "blue",
+          "sphere"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_04.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 4,
+      "split": "test",
+      "objects": [
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "blue",
+          "cone"
+        ],
+        [
+          "red",
+          "cylinder"
+        ],
+        [
+          "green",
+          "cube"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    },
+    {
+      "filename": "scene_111_05.png",
+      "bits": [
+        1,
+        1,
+        1
+      ],
+      "variation": 5,
+      "split": "test",
+      "objects": [
+        [
+          "green",
+          "cube"
+        ],
+        [
+          "cyan",
+          "cube"
+        ],
+        [
+          "blue",
+          "sphere"
+        ],
+        [
+          "red",
+          "cylinder"
+        ]
+      ],
+      "rule_1": 1,
+      "rule_2": 1
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "trials": 144,
+  "independent_scene_sets": 24,
+  "accuracy": 0.3263888888888889,
+  "accuracy_95ci_cluster": [
+    0.3125,
+    0.3333333333333333
+  ],
+  "identifiable_fraction": 1.0,
+  "identifiable_accuracy": 0.3263888888888889,
+  "chance_baseline": 0.3333333333333333,
+  "output_entropy_bits": 1.5847537623790509,
+  "mutual_information_bits": 0.00041783968139152364,
+  "mi_null_mean": 0.00041783968139152364,
+  "mi_minus_null": 0.0,
+  "mi_permutation_p": 1.0,
+  "mean_true_prob": 0.3239415130188304,
+  "mean_nll": 3.0075367803745174,
+  "mean_brier": 1.2064539467088593,
+  "chosen_labels": {
+    "X": 49,
+    "Y": 48,
+    "Z": 47
+  },
+  "chosen_positions": {
+    "1": 143,
+    "2": 1
+  },
+  "chosen_rules": {
+    "R1": 49,
+    "R2": 48,
+    "R3": 47
+  },
+  "per_rule": {
+    "R1": {
+      "n": 48,
+      "accuracy": 0.3333333333333333
+    },
+    "R2": {
+      "n": 48,
+      "accuracy": 0.3333333333333333
+    },
+    "R3": {
+      "n": 48,
+      "accuracy": 0.3125
+    }
+  },
+  "confusion": {
+    "R1": {
+      "R1": 16,
+      "R2": 16,
+      "R3": 16
+    },
+    "R2": {
+      "R1": 16,
+      "R2": 16,
+      "R3": 16
+    },
+    "R3": {
+      "R1": 17,
+      "R2": 16,
+      "R3": 15
+    }
+  },
+  "by_diversity": {
+    "5": {
+      "n": 144,
+      "accuracy": 0.3263888888888889
+    }
+  }
+}

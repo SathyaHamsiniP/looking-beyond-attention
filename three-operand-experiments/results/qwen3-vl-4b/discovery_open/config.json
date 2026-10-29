@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "data_hash": "b850d2cf50c849c9",
+  "mode": "open",
+  "sets_per_rule": 8,
+  "seed": 2026,
+  "modality": "text",
+  "sampling": "coverage"
+}

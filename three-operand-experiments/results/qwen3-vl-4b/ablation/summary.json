@@ -1,0 +1,7 @@
+{
+  "n": 24,
+  "full_accuracy": 0.3333333333333333,
+  "mean_decisive_drop": 3.6277865170483647e-06,
+  "mean_control_drop": -0.0008925970505604783,
+  "mean_paired_effect": 0.0008962248370775267
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "data_hash": "b850d2cf50c849c9",
+  "modality": "images",
+  "variation": 4
+}

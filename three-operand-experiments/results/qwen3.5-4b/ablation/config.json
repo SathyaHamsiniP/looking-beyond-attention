@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "model": "Qwen/Qwen3.5-4B",
+  "data_hash": "b850d2cf50c849c9",
+  "n_sets": 8,
+  "seed": 2026
+}

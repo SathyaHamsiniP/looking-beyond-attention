@@ -1,0 +1,28 @@
+{
+  "version": "exp8-three-operand-v1-qwen35-adapter",
+  "model": "Qwen/Qwen3.5-4B",
+  "data_hash": "b850d2cf50c849c9",
+  "sampling": "coverage",
+  "control": "fixed",
+  "modality": "text",
+  "sets_per_rule": 8,
+  "images_per_set": 10,
+  "seed": 2026,
+  "readout": "native Qwen3.5 next-token softmax restricted X/Y/Z",
+  "thinking": false,
+  "expressions": {
+    "R1": "(A AND B) OR C",
+    "R2": "(A AND C) OR B",
+    "R3": "(B AND C) OR A"
+  },
+  "labels": [
+    "X",
+    "Y",
+    "Z"
+  ],
+  "token_ids": {
+    "X": 55,
+    "Y": 56,
+    "Z": 57
+  }
+}

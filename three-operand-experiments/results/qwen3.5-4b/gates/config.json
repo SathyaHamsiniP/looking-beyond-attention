@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "model": "Qwen/Qwen3.5-4B",
+  "task": "two_gate_text",
+  "rule_order": [
+    "R1",
+    "R2",
+    "R3"
+  ]
+}
