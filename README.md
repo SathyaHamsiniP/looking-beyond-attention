@@ -1,112 +1,59 @@
 # Looking Beyond Attention
 
-**Controlled experiments on logical reasoning and evidence use in vision-language models.**
+A vision-language model might recognize everything in an image and still struggle to reason about what it sees. This project explores that gap.
 
-This research asks whether a model uses the relevant visual or textual evidence to infer a Boolean rule, rather than responding to superficial cues such as option placement. Attention weights alone are not causal evidence of information flow, so we test perception, Boolean execution, rule identification, option-order robustness, and sensitivity to decisive evidence separately.
+We're interested in understanding whether vision-language models actually use the information available to them when solving logical problems, or whether their predictions are influenced by simpler patterns and biases.
 
-## Current study: three-operand operator controls
+Rather than relying only on attention weights to understand model behavior, we use controlled experiments to test what information a model recognizes, how it combines evidence, and how its answers change when that evidence is modified.
 
-Ten CLEVR-style scenes are sampled from one of three hidden Boolean rules:
+## What we're working on
 
-- **R1:** `(A AND B) OR C`
-- **R2:** `(A AND C) OR B`
-- **R3:** `(B AND C) OR A`
+Our first set of experiments focuses on **three-operand Boolean rule identification**.
 
-A = green cube; B = blue sphere; C = red cylinder. The main task is **3 rules × 8 sets per rule × 3 cyclic label assignments = 72 scored presentations**, from **24 distinct ten-image sets**.
+We generate CLEVR-style images containing combinations of three concepts:
 
-| Evaluation | Qwen3-VL-4B-Instruct | Qwen3.5-4B |
-| --- | ---: | ---: |
-| Hidden-rule identification (72 presentations) | 33.3% | 31.9% |
-| Both Boolean gate outputs correct (24 cases) | 79.2% | 95.8% |
-| Concept recognition (8 held-out images) | 8/8 | 8/8 |
+- **A:** Green cube
+- **B:** Blue sphere
+- **C:** Red cylinder
 
-The three-choice chance baseline is **33.3%**. Good concept recognition and single-case Boolean execution did not result in reliable hidden-rule identification. Presentation bias is substantial: in the Qwen3-VL position-order control, the first displayed option was chosen in **143 of 144** trials. This is a small, controlled study; the findings should not be generalized to all reasoning tasks or interpreted as a causal mechanism.
+Each set of images is generated using one of three Boolean rules. The model sees ten examples and must identify which rule explains them.
 
-[Detailed experimental protocol, controls and results](three-operand-experiments/experiments/04-three-operand-operator-controls/README.md)
+We tested this with **Qwen3-VL-4B-Instruct** and **Qwen3.5-4B**.
 
-## Repository layout
+To understand what might be going wrong, we also tested whether the models could recognize the objects, evaluate Boolean operations, use decisive examples, and remain consistent when answer choices were rearranged.
 
-```text
-looking-beyond-attention/
-├── .gitignore
-├── README.md                        # project overview, setup, and usage
-└── three-operand-experiments/
-    ├── code/
-    │   ├── exp04_qwen3vl.py
-    │   ├── exp04_qwen35.py
-    │   ├── requirements-qwen3vl.txt
-    │   └── requirements-qwen35.txt
-    ├── tests/
-    │   ├── test_exp04_qwen3vl.py
-    │   └── test_exp04_qwen35.py
-    ├── data/
-    │   ├── metadata.json
-    │   └── images/                   # 48 saved CLEVR-style PNG scenes
-    ├── experiments/
-    │   └── 04-three-operand-operator-controls/
-    │       └── README.md            # methodology and full controls
-    └── results/                     # curated historical outputs; commit these
-        ├── qwen3-vl-4b/
-        └── qwen3.5-4b/
-```
+[Read more about the experiments](three-operand-experiments/experiments/04-three-operand-operator-controls/README.md)
 
-**Python scripts are the supported execution interface.** `notebooks/` and newly generated `runs/` are excluded by the **single root `.gitignore`**. A clone therefore needs neither Google Drive nor Colab; it includes the scripts, metadata, images, and curated outputs. Model weights download on first inference run. Qwen inference requires appropriate hardware (the 4-bit setup expects a CUDA-enabled GPU); CPU-only validation does not.
+## What we found
 
-## Reproduce on your machine or a GPU server
+| Task | Qwen3-VL-4B | Qwen3.5-4B |
+|---|---:|---:|
+| Rule identification | 33.3% | 31.9% |
+| Object recognition (8 images) | 100% | 100% |
+| Boolean gate evaluation (both stages correct) | 79.2% | 95.8% |
 
-Run the following from **`three-operand-experiments/`** after cloning this repository. Use **separate Python environments** for the two models because the required Transformers versions differ.
+Both models recognized the objects correctly in our small perception test and performed considerably better when asked to evaluate explicit Boolean operations.
 
-**CPU-only dataset and sampling validation** (no model download or GPU):
+However, neither reliably identified the rule behind a set of images. Their accuracy remained close to the three-choice chance level of 33.3%.
 
-```bash
-python -m pip install numpy
-python code/exp04_qwen35.py --validate-only
-python code/exp04_qwen3vl.py --validate-only
-```
+We also observed strong answer-position biases. For example, Qwen3-VL selected the first displayed option in 143 out of 144 trials in our option-order experiment.
 
-These checks should print **48 images, 24 rule/scene sets, seed 2026**.
+These findings suggest that **recognizing concepts and evaluating individual logical expressions do not necessarily translate into inferring a rule from multiple examples**.
 
-**Qwen3.5-4B** — uses native Hugging Face processing, with Transformers **5.x**:
+The experiments are small and controlled, so we don't treat these observations as a general verdict on the models' reasoning abilities.
 
-```bash
-python -m pip install -r code/requirements-qwen35.txt
-python code/exp04_qwen35.py --label-sanity --smoke-test
-python code/exp04_qwen35.py --experiment main_72
-```
+## Repository structure
 
-**Qwen3-VL-4B-Instruct** — uses Transformers **4.57.6**, plus the **separately obtained** original *looking-beyond-attention* repository by Roshan and collaborators:
+- `three-operand-experiments/code/` — Python implementations for both models and their dependencies
+- `three-operand-experiments/data/` — Generated images and metadata
+- `three-operand-experiments/tests/` — Automated checks for the experimental code
+- `three-operand-experiments/results/` — Recorded predictions and experiment summaries
+- `three-operand-experiments/experiments/` — Experimental methodology and findings
 
-```bash
-python -m pip install -r code/requirements-qwen3vl.txt
-python code/exp04_qwen3vl.py --upstream /path/to/original/looking-beyond-attention --smoke-test
-python code/exp04_qwen3vl.py --upstream /path/to/original/looking-beyond-attention --experiment main_72
-```
+The experiments are implemented as Python scripts and can be run on a machine with suitable GPU resources. Each model has its own requirements file.
 
-The `--upstream` argument accepts the upstream checkout, its `code/` directory, or a ZIP archive containing `code/vlm/runner.py` and `code/experiments/readout.py`. Upstream code is **not** redistributed here; consult the original project's license and permissions.
+The Qwen3.5 Python runner has been tested with actual model inference. The converted Qwen3-VL runner has passed CPU-based tests but still needs a separate GPU verification.
 
-**Choose an experiment:** Use `--experiment` with `main_72`, `text_only`, `captioned`, `position_order`, `label_assignment`, `iid_positive`, `ablation`, `perception`, or `gates`. Qwen3-VL additionally supports `discovery_open` and `discovery_guided`; the Qwen3.5 discovery runs were inconclusive due to truncated final responses and are not included in the maintained runner. Example:
+## Project status
 
-```bash
-python code/exp04_qwen35.py --experiment ablation
-```
-
-**Override input/output paths** with `--data-dir PATH` and `--out PATH`. By default, scripts find `data/` relative to their own source file and save fresh runs to `runs/<model>/<experiment>/`. These runs are resumable by trial ID; archived `results/` files remain unchanged. Each condition saves `config.json`, `runs.jsonl` and `summary.json`.
-
-**Run regression checks** (CPU-only, using mocked model predictions):
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-## Reproducibility status and limitations
-
-- **Qwen3.5 Python runner:** A real Colab T4 test successfully scored deliberately requested X/Y/Z labels, ran one ten-image smoke test, and completed 72 presentations, yielding **31.9% accuracy**. Matching aggregate accuracy to an earlier run does not by itself establish that per-trial logits are identical.
-- **Qwen3-VL Python runner:** Passed CPU-only conversion tests; **the converted script still requires a fresh GPU smoke test**. Its earlier experiments were executed and are preserved in `results/`.
-- Both conversions passed **10 combined CPU-only unit tests**. These tests do not establish GPU correctness.
-- The 72 presentations reuse 24 scene sets; repeated layouts are not independent observations. X/Y/Z next-token probabilities are normalized over those three tokens only, not the entire output vocabulary. Image preprocessing also differs across the two model wrappers.
-
-## Attribution
-
-This is a follow-up to the operator-control experiments in **Roshan and collaborators' original _looking-beyond-attention_ research code**. Roshan's Qwen3-VL wrapper and readout remain an external dependency, not code claimed as original here. Any upstream redistribution must respect its licensing and permissions.
-
-**Research in progress.** Findings refer only to the experiments and saved outputs supplied here.
+This is ongoing research. We're using these initial experiments to understand the difference between perceiving evidence, carrying out logical operations, and identifying relationships across multiple examples.
