@@ -1,81 +1,112 @@
 # Looking Beyond Attention
 
-**Experiments on logical reasoning and evidence use in vision-language models.**
+**Controlled experiments on logical reasoning and evidence use in vision-language models.**
 
-This project investigates a question that cannot be answered by inspecting attention weights alone: **does a model use the relevant evidence to perform a logical computation, or does it arrive at an answer through other cues and biases?**
+This research asks whether a model uses the relevant visual or textual evidence to infer a Boolean rule, rather than responding to superficial cues such as option placement. Attention weights alone are not causal evidence of information flow, so we test perception, Boolean execution, rule identification, option-order robustness, and sensitivity to decisive evidence separately.
 
-The work uses controlled visual and text-based tasks to separate several abilities that are easy to conflate:
+## Current study: three-operand operator controls
 
-- **Perception:** recognizing the concepts present in an image.
-- **Boolean execution:** evaluating an explicitly supplied logical expression.
-- **Rule identification:** inferring a hidden rule from multiple examples.
-- **Evidence sensitivity:** changing predictions appropriately when decisive evidence is added or removed.
-- **Presentation robustness:** preserving the inferred rule when answer labels or option positions change.
+Ten CLEVR-style scenes are sampled from one of three hidden Boolean rules:
 
-Successful concept recognition or individual Boolean calculations do not, by themselves, establish successful multi-example rule inference. Likewise, attention patterns alone are not causal evidence of how a model computed its answer.
+- **R1:** `(A AND B) OR C`
+- **R2:** `(A AND C) OR B`
+- **R3:** `(B AND C) OR A`
 
-## Experiments
+A = green cube; B = blue sphere; C = red cylinder. The main task is **3 rules × 8 sets per rule × 3 cyclic label assignments = 72 scored presentations**, from **24 distinct ten-image sets**.
 
-| Study | Focus | Materials |
-| --- | --- | --- |
-| **Three-operand operator controls** | Can Qwen vision-language models identify a hidden three-concept Boolean rule from CLEVR-style scenes? How do visual input, text controls, label order, and other interventions affect their choices? | [Experiment folder](three-operand-experiments/) · [Methodology and results](three-operand-experiments/experiments/04-three-operand-operator-controls/README.md) |
-
-The repository is organized to accommodate further experiments. Only the study above is documented here at present; additional experiments should be added when their code, data, and results are ready.
-
-## Current findings: three-operand rule identification
-
-The first study compares **Qwen3-VL-4B-Instruct** with **Qwen3.5-4B**. Models are shown ten positive CLEVR-style scenes and asked to choose among three candidate rules:
-
-- `R1 = (A AND B) OR C`
-- `R2 = (A AND C) OR B`
-- `R3 = (B AND C) OR A`
-
-Here, `A` is a green cube, `B` a blue sphere, and `C` a red cylinder. The main evaluation includes **72 presentations per model**: three generating rules, eight scene sets per rule, and three cyclic answer-label assignments.
-
-| Evaluation | Qwen3-VL-4B | Qwen3.5-4B |
+| Evaluation | Qwen3-VL-4B-Instruct | Qwen3.5-4B |
 | --- | ---: | ---: |
 | Hidden-rule identification (72 presentations) | 33.3% | 31.9% |
-| Both stages of an explicit Boolean gate calculation correct (24 cases) | 79.2% | 95.8% |
+| Both Boolean gate outputs correct (24 cases) | 79.2% | 95.8% |
 | Concept recognition (8 held-out images) | 8/8 | 8/8 |
 
-The three-choice chance baseline is **33.3%**. Both models performed near that baseline on the hidden-rule task despite strong concept recognition, and their selections exhibited substantial option-position bias. The gate results suggest that the difficulty is not simply an inability to evaluate the candidate Boolean expressions when these are given explicitly.
+The three-choice chance baseline is **33.3%**. Good concept recognition and single-case Boolean execution did not result in reliable hidden-rule identification. Presentation bias is substantial: in the Qwen3-VL position-order control, the first displayed option was chosen in **143 of 144** trials. This is a small, controlled study; the findings should not be generalized to all reasoning tasks or interpreted as a causal mechanism.
 
-**Interpretation limits:** Repeated option layouts of a given scene set are not independent samples. Candidate next-token probabilities are normalized over the three offered labels, not the full vocabulary. Positive-only datasets must be checked for whether they uniquely identify a rule. The Qwen3.5 open/guided free-text discovery runs were excluded from the cleaned comparison because truncated responses prevented reliable evaluation; unparseable responses must not be treated as proof of failed reasoning. See the experiment README for controls, methodology, and caveats.
+[Detailed experimental protocol, controls and results](three-operand-experiments/experiments/04-three-operand-operator-controls/README.md)
 
 ## Repository layout
 
 ```text
 looking-beyond-attention/
-├── README.md
+├── .gitignore
+├── README.md                        # project overview, setup, and usage
 └── three-operand-experiments/
-    ├── README.md
-    ├── notebooks/
-    │   └── exp04/
-    │       ├── Qwen3_VL_4B.ipynb
-    │       └── Qwen3_5_4B.ipynb
-    ├── experiments/
-    │   └── 04-three-operand-operator-controls/
-    │       └── README.md
+    ├── code/
+    │   ├── exp04_qwen3vl.py
+    │   ├── exp04_qwen35.py
+    │   ├── requirements-qwen3vl.txt
+    │   └── requirements-qwen35.txt
+    ├── tests/
+    │   ├── test_exp04_qwen3vl.py
+    │   └── test_exp04_qwen35.py
     ├── data/
     │   ├── metadata.json
-    │   └── images/
-    └── results/
+    │   └── images/                   # 48 saved CLEVR-style PNG scenes
+    ├── experiments/
+    │   └── 04-three-operand-operator-controls/
+    │       └── README.md            # methodology and full controls
+    └── results/                     # curated historical outputs; commit these
         ├── qwen3-vl-4b/
         └── qwen3.5-4b/
 ```
 
-For each retained experiment condition, `config.json` records how it was run, `runs.jsonl` contains trial-level outputs, and `summary.json` records aggregate metrics. These three files are complementary and are kept together for auditability.
+**Python scripts are the supported execution interface.** `notebooks/` and newly generated `runs/` are excluded by the **single root `.gitignore`**. A clone therefore needs neither Google Drive nor Colab; it includes the scripts, metadata, images, and curated outputs. Model weights download on first inference run. Qwen inference requires appropriate hardware (the 4-bit setup expects a CUDA-enabled GPU); CPU-only validation does not.
 
-## Reproducing a study
+## Reproduce on your machine or a GPU server
 
-Start with the [three-operand experiment README](three-operand-experiments/README.md), then open the relevant notebook in Google Colab with a GPU runtime. The Qwen3-VL and Qwen3.5 notebooks have different Transformers dependencies and should be run in separate environments.
+Run the following from **`three-operand-experiments/`** after cloning this repository. Use **separate Python environments** for the two models because the required Transformers versions differ.
 
-**Current reproducibility constraint:** The notebooks were originally designed for a Google Drive layout under `MyDrive/LogicCBM++/` and expect their experiment data and result directories there. The Qwen3-VL notebook additionally expects access to the original upstream `looking-beyond-attention` source archive for its model wrapper and answer-logit readout. A GitHub clone by itself does not currently supply that archive. Consult the notebook setup cells before running; this is research code, not yet a portable one-command package.
+**CPU-only dataset and sampling validation** (no model download or GPU):
 
-## Relationship to earlier work
+```bash
+python -m pip install numpy
+python code/exp04_qwen35.py --validate-only
+python code/exp04_qwen3vl.py --validate-only
+```
 
-The three-operand experiments extend the operator-control methodology in **Roshan and collaborators' _looking-beyond-attention_ research code**, including its CLEVR-style logic tasks and controlled option-scoring approach. This repository documents our follow-up experimental setup and results; it is **not a claim of authorship or a replacement for the upstream project**. Please check the upstream project's licensing/permission terms before copying or redistributing its implementation.
+These checks should print **48 images, 24 rule/scene sets, seed 2026**.
 
-## Status
+**Qwen3.5-4B** — uses native Hugging Face processing, with Transformers **5.x**:
 
-Research in progress. The available notebooks and recorded results document experiments already performed; ideas discussed for future experiments should not be interpreted as implemented or validated results.
+```bash
+python -m pip install -r code/requirements-qwen35.txt
+python code/exp04_qwen35.py --label-sanity --smoke-test
+python code/exp04_qwen35.py --experiment main_72
+```
+
+**Qwen3-VL-4B-Instruct** — uses Transformers **4.57.6**, plus the **separately obtained** original *looking-beyond-attention* repository by Roshan and collaborators:
+
+```bash
+python -m pip install -r code/requirements-qwen3vl.txt
+python code/exp04_qwen3vl.py --upstream /path/to/original/looking-beyond-attention --smoke-test
+python code/exp04_qwen3vl.py --upstream /path/to/original/looking-beyond-attention --experiment main_72
+```
+
+The `--upstream` argument accepts the upstream checkout, its `code/` directory, or a ZIP archive containing `code/vlm/runner.py` and `code/experiments/readout.py`. Upstream code is **not** redistributed here; consult the original project's license and permissions.
+
+**Choose an experiment:** Use `--experiment` with `main_72`, `text_only`, `captioned`, `position_order`, `label_assignment`, `iid_positive`, `ablation`, `perception`, or `gates`. Qwen3-VL additionally supports `discovery_open` and `discovery_guided`; the Qwen3.5 discovery runs were inconclusive due to truncated final responses and are not included in the maintained runner. Example:
+
+```bash
+python code/exp04_qwen35.py --experiment ablation
+```
+
+**Override input/output paths** with `--data-dir PATH` and `--out PATH`. By default, scripts find `data/` relative to their own source file and save fresh runs to `runs/<model>/<experiment>/`. These runs are resumable by trial ID; archived `results/` files remain unchanged. Each condition saves `config.json`, `runs.jsonl` and `summary.json`.
+
+**Run regression checks** (CPU-only, using mocked model predictions):
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Reproducibility status and limitations
+
+- **Qwen3.5 Python runner:** A real Colab T4 test successfully scored deliberately requested X/Y/Z labels, ran one ten-image smoke test, and completed 72 presentations, yielding **31.9% accuracy**. Matching aggregate accuracy to an earlier run does not by itself establish that per-trial logits are identical.
+- **Qwen3-VL Python runner:** Passed CPU-only conversion tests; **the converted script still requires a fresh GPU smoke test**. Its earlier experiments were executed and are preserved in `results/`.
+- Both conversions passed **10 combined CPU-only unit tests**. These tests do not establish GPU correctness.
+- The 72 presentations reuse 24 scene sets; repeated layouts are not independent observations. X/Y/Z next-token probabilities are normalized over those three tokens only, not the entire output vocabulary. Image preprocessing also differs across the two model wrappers.
+
+## Attribution
+
+This is a follow-up to the operator-control experiments in **Roshan and collaborators' original _looking-beyond-attention_ research code**. Roshan's Qwen3-VL wrapper and readout remain an external dependency, not code claimed as original here. Any upstream redistribution must respect its licensing and permissions.
+
+**Research in progress.** Findings refer only to the experiments and saved outputs supplied here.

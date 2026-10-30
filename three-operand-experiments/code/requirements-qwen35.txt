@@ -1,0 +1,6 @@
+transformers>=5.0
+accelerate
+bitsandbytes
+pillow
+numpy
+scikit-learn

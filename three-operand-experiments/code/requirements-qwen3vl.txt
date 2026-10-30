@@ -1,0 +1,9 @@
+# Use a Python environment with CUDA-compatible PyTorch already installed.
+# Matches the Qwen3-VL notebook's key model/runtime dependency versions.
+transformers==4.57.6
+bitsandbytes==0.50.2
+accelerate
+qwen-vl-utils
+scikit-learn
+numpy
+pillow

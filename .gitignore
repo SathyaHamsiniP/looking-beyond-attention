@@ -1,0 +1,25 @@
+# Keep generated experiments, local notebooks, and environments off GitHub.
+# These patterns apply at any depth of the repository.
+notebooks/
+runs/
+*.ipynb
+.ipynb_checkpoints/
+
+# Python caches and local virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+
+# Model weights, untracked archives, and OS files
+*.safetensors
+*.bin
+*.zip
+.DS_Store
+Thumbs.db
+
+# Intentionally TRACK the curated results/ folders, including
+# config.json, runs.jsonl, and summary.json.
