@@ -19,9 +19,10 @@ representations. Both Colab runs are complete. Their outputs stay on Google Driv
 the measured scores reported from those runs and their limitations.
 
 The next question is whether the correct **rule**, rather than just the objects,
-is readable internally after ten images. Rule probing is now implemented as an image-disjoint pilot; its GPU runs and
-findings are still pending. Activation patching will follow as experiment 03 to
-test whether changing representations changes the final prediction.
+is readable internally after ten images. In the reported Qwen3.5 rule-probing pilot, early visual probes reached 100% on
+three held-out sets, but simple scene-based baselines did too. Experiment 03 now
+implements activation patching to test whether changing internal representations
+changes the final prediction. Its GPU runs and findings are still pending.
 
 ## Experiments
 
@@ -31,6 +32,9 @@ explains the task, controls and recorded results.
 [02 — Probing](three-operand-experiments/experiments/02-probing/README.md)
 explains the concept probes, their limits and exact Colab
 commands for both models.
+
+[03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md)
+explains the matched image pairs, final-token interventions, controls and Colab commands.
 
 Code and experiment notes use the same experiment numbers under
 `three-operand-experiments/`. The original 48 images and metadata remain in
@@ -51,7 +55,7 @@ Drive. Experiment subfolders are created only for the run being executed.
 
 Future scripts should use the same default and root check in `code/results_paths.py`,
 then save under the relevant experiment subfolder. Rule probing uses
-`probing/<model>/rule/`; future patching will use `activation_patching/<model>/`. Do not create their folders in advance. Findings
+`probing/<model>/rule/`; Experiment 03 uses `activation-patching/qwen3_5/`. Do not create their folders in advance. Findings
 belong in the experiment READMEs, with the measured scores and limitations;
 output files do not need to be uploaded to GitHub.
 

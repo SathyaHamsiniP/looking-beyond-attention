@@ -255,6 +255,7 @@ single-image concept extraction; check the smoke test before starting the pilot.
 The folder structure, CPU split checks and synthetic software checks have been
 tested here; GPU extraction must still be checked in Colab.
 
-Activation patching remains future experiment 03. Reading out a rule does not
-show that the model uses the representation in its answer. Later interventions
-will address a different question, with their own controls and limitations.
+[Experiment 03](../03-activation-patching/README.md) now implements final-token
+activation patching; its GPU findings remain pending. Reading out a rule does
+not show that the model uses that representation in its answer. These
+interventions address a different question, with their own controls and limitations.
