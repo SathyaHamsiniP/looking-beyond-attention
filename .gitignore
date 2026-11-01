@@ -21,8 +21,8 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Intentionally TRACK the curated results/ folders, including
-# config.json, runs.jsonl, and summary.json.
+# Preserve already tracked results; new experiment outputs stay on Drive.
+/three-operand-experiments/results/
 
 # Keep pooled activations and model checkpoints on Drive.
 *.npz

@@ -6,6 +6,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from results_paths import DEFAULT_RESULTS_ROOT, require_results_root
+
 import numpy as np
 
 POOLS = ('last', 'text_mean', 'visual_mean')
@@ -113,7 +116,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model', choices=('qwen3', 'qwen3_5'), required=True)
     parser.add_argument('--data-dir', type=Path, required=True)
-    parser.add_argument('--experiment-dir', type=Path, required=True,
+    parser.add_argument('--experiment-dir', type=Path, default=DEFAULT_RESULTS_ROOT,
                         help='Drive results directory; probing/<model>/concept is appended')
     parser.add_argument('--upstream', type=Path)
     parser.add_argument('--precision', choices=('4bit', 'fp16', 'bf16', 'fp32'), default='4bit')
@@ -125,7 +128,10 @@ def main():
         import operator_controls_qwen3 as experiment
     else:
         import operator_controls_qwen35 as experiment
-    out = args.experiment_dir / 'probing' / args.model / ('concept_smoke' if args.smoke_test else 'concept')
+    root = args.experiment_dir.expanduser().resolve()
+    if not args.validate_only:
+        root = require_results_root(root)
+    out = root / 'probing' / args.model / ('concept_smoke' if args.smoke_test else 'concept')
     experiment.configure_data(args.data_dir, out)
     experiment.verify_sampling()
     records = sorted(experiment.records, key=lambda r: r['filename'])

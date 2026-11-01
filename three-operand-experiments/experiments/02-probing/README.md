@@ -38,15 +38,22 @@ not a statistical significance test. Eight-class chance accuracy is 12.5%.
 
 ## What we have observed so far
 
-Both concept runs have finished on Colab. The researcher reports stronger best
-visual-mean accuracy for Qwen3.5 and decodable visual concept information in both
-models. **The actual CSV, JSON and PNG files are not available in this checkout,
-so the numerical comparison is pending file verification.** We have not recreated
-missing outputs or treated reported scores as independently verified results.
-The copy command below prints each best observed layer accuracy directly from
-the actual CSV; those values can then be added here with links to the files.
+Both concept runs have finished on Colab. On the 16 held-out images, the
+researcher reported these best observed layer accuracies:
 
-Even after verification, best observed layer accuracy is not an average over
+| Representation | Qwen3-VL-4B | Qwen3.5-4B |
+|---|---:|---:|
+| Visual-token mean | 68.75% | 87.5% |
+| Text-token mean | 62.5% | 43.75% |
+| Last token | 43.75% | 43.75% |
+
+These are measured scores reported from the completed runs, not synthetic
+examples or averages across layers. The underlying files remain on Drive and
+have not been independently inspected in this checkout. Both models contain
+decodable visual concept information, but this does not establish successful
+Boolean rule induction.
+
+Best observed layer accuracy is not an average over
 layers. Choosing the best layer using this test set makes that score exploratory,
 not an unbiased estimate for a separately selected layer. There are only 16 test
 images; one changed prediction is 6.25 percentage points. These findings are
@@ -109,37 +116,18 @@ alongside `config.json`, `concept_predictions.csv` and `concept_accuracy.png`.
 The CSV gives held-out predictions and true-class probabilities for each layer,
 pool and control. The plot shows their accuracies across layers.
 
-## Recovering and copying the completed runs
+## Keeping outputs on Drive
 
-The earlier instructions accidentally led to a Drive folder literally named
-`YOUR_EXISTING_EXPERIMENT_FOLDER`. First check where that folder exists. If it
-is directly under MyDrive as in the earlier commands, run:
+All outputs stay under the verified Drive results root. There is no result-copy,
+synchronization or Git commit step. Read the CSVs and plots on Drive, then update
+this README with concise measured findings. Existing tracked results remain as
+an archive. The results root must already exist; a missing root produces an error
+asking for the actual path via `--experiment-dir`, rather than creating a new
+folder. Only this run's experiment subfolders are created.
 
-```bash
-cd /content/looking-beyond-attention
-python three-operand-experiments/code/02-probing/copy_concept_results.py \
-  --recover-from '/content/drive/MyDrive/YOUR_EXISTING_EXPERIMENT_FOLDER'
-```
-
-That argument refers to the **existing mistaken folder**, not a new output path.
-If it is elsewhere, use its actual location. The script copies the completed
-concept outputs, including activation checkpoints, to the intended Drive root.
-It checks file hashes and refuses conflicting destinations. It never deletes the
-originals. Keep the originals until both models have passed the printed checks.
-
-The same command then copies only the three lightweight files per model into
-`three-operand-experiments/results/02-probing/qwen3/concept/` and
-`qwen3_5/concept/` in the Colab checkout. It checks model/configuration metadata,
-the 16 held-out image labels, layer/pool/control coverage, CSV correctness, and
-PNG integrity. It reads existing results; it never fits probes or creates plots.
-For files already in the correct Drive location, omit `--recover-from`.
-Use `--drive-results` only if you intentionally use another results root.
-
-After checking the printed best-layer scores and files, review and commit those
-six lightweight outputs on the feature branch. The activation checkpoints must
-stay on Drive; `.gitignore` excludes `.npz` and model checkpoints. The copy checks
-validate output structure and consistency, not the original GPU execution or
-whether a plot exactly matches its CSV.
+If the earlier runs are still in the mistakenly named Drive folder, copy them
+within Drive to the intended project results folder using Drive's file manager.
+Check both copies before deleting anything. No automatic migration is performed.
 
 ## What we want to test next
 

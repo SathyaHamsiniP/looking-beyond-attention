@@ -86,7 +86,7 @@ Drive `data/` directory; use their actual existing path if different.
 python -m pip install -r three-operand-experiments/code/requirements-qwen35.txt
 python three-operand-experiments/code/01-operator-controls/operator_controls_qwen35.py \
   --data-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data' \
-  --out '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/operator-controls/qwen3_5' \
+  --experiment-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results' \
   --precision 4bit --smoke-test
 ```
 
@@ -97,14 +97,16 @@ python -m pip install -r three-operand-experiments/code/requirements-qwen3vl.txt
 python three-operand-experiments/code/01-operator-controls/operator_controls_qwen3.py \
   --upstream '/content/roshan/looking-beyond-attention-main' \
   --data-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data' \
-  --out '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/operator-controls/qwen3' \
+  --experiment-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results' \
   --precision 4bit --smoke-test
 ```
 
 Replace `--smoke-test` with `--experiment main_72` for the main experiment; use
 `--help` for the other controls. `--validate-only` checks data and sampling
-without loading weights. Default outputs remain under ignored local `runs/`;
-these explicit Drive output paths do not change the archived results.
+without loading weights. All new outputs stay on Drive under `operator-controls/qwen3/` or
+`operator-controls/qwen3_5/`. The results root defaults to the path above and
+must already exist; `--experiment-dir` overrides it when Drive is mounted
+differently. No results are copied to GitHub. Archived results remain unchanged.
 
 ## Implementation credit
 

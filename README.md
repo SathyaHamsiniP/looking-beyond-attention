@@ -14,10 +14,9 @@ probabilities very little in our controls.
 
 That led us to look inside the models. Our concept probes ask whether a small
 classifier can recover the eight combinations of these concepts from internal
-representations. Both Colab runs are complete according to the experiment
-records reported by the researcher; their output files are still on Drive and
-have not yet been checked into this repository. We keep those reported findings
-separate from the verified operator-control results.
+representations. Both Colab runs are complete. Their outputs stay on Google Drive; the
+[probing notes](three-operand-experiments/experiments/02-probing/README.md) summarize
+the measured scores reported from those runs and their limitations.
 
 The next question is whether the correct **rule**, rather than just the objects,
 is readable internally after ten images. Rule probing is next. Activation
@@ -30,14 +29,31 @@ changes the final prediction. Neither is implemented yet.
 explains the task, controls and recorded results.
 
 [02 — Probing](three-operand-experiments/experiments/02-probing/README.md)
-explains the concept probes, their limits, Drive result transfer and exact Colab
+explains the concept probes, their limits and exact Colab
 commands for both models.
 
-Code, experiment notes and curated results use the same experiment numbers under
+Code and experiment notes use the same experiment numbers under
 `three-operand-experiments/`. The original 48 images and metadata remain in
-`data/`. Model requirements are shared across experiments in `code/`. GPU runs
-use Colab; activation caches stay on Drive. Existing operator-control JSONL
-records are preserved, while new curated probing outputs are CSV, JSON and PNG.
+`data/`. Model requirements are shared across experiments in `code/`.
+
+## Where outputs go
+
+GitHub holds code and documentation. All new experiment outputs stay on Google
+Drive, including CSVs, configurations, plots and activation checkpoints. Existing
+tracked results are preserved as an archive; there is no copying or syncing step.
+
+Scripts default to the existing results root:
+`/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results`.
+Mount Drive before running. If it is mounted differently, pass the actual
+existing root using `--experiment-dir`. Scripts check it before saving and never
+create a missing results root. Dataset-only `--validate-only` checks do not need
+Drive. Experiment subfolders are created only for the run being executed.
+
+Future scripts should use the same default and root check in `code/results_paths.py`,
+then save under `probing/<model>/rule/` or `activation_patching/<model>/` when those
+experiments are implemented. Do not create their folders in advance. Findings
+belong in the experiment READMEs, with the measured scores and limitations;
+output files do not need to be uploaded to GitHub.
 
 ## Acknowledgements
 
