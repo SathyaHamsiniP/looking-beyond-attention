@@ -30,6 +30,8 @@ class ResultsPathsTests(unittest.TestCase):
             ('01-operator-controls/operator_controls_qwen35.py', []),
             ('02-probing/probe_concepts.py', ['--model', 'qwen3', '--data-dir', str(CODE.parent / 'data')]),
             ('02-probing/probe_concepts.py', ['--model', 'qwen3_5', '--data-dir', str(CODE.parent / 'data')]),
+            ('02-probing/probe_rules.py', ['--model', 'qwen3']),
+            ('02-probing/probe_rules.py', ['--model', 'qwen3_5']),
         ]
         with tempfile.TemporaryDirectory() as folder:
             missing = Path(folder) / 'missing/results'
