@@ -134,7 +134,11 @@ Check both copies before deleting anything. No automatic migration is performed.
 The concept results tell us that image information is readable. We now want to
 ask whether a linear classifier can recover R1, R2 or R3 after the model has
 processed a complete ten-image set. `code/02-probing/probe_rules.py` implements
-this next step as a **pilot**. No GPU rule-probing results have been measured yet.
+this step as a **pilot**. In the completed Qwen3.5 run, early visual probes
+reached 100% on the three held-out sets, according to the reported Colab results.
+The diagnostic-scene and scene-count baselines also reached 100%. This does not
+separate rule integration from recognizing a diagnostic scene pattern. The
+underlying output files remain on Drive and were not independently inspected here.
 
 We reuse the operator-control sampler and both model loaders. We also reuse the
 concept probe's extraction function, collecting visual-token mean, text-token
@@ -253,8 +257,132 @@ it never fits probes or reports accuracy. The last command runs the full
 to reuse completed checkpoints. Ten-image extraction uses more GPU memory than
 single-image concept extraction; check the smoke test before starting the pilot.
 The folder structure, CPU split checks and synthetic software checks have been
-tested here; GPU extraction must still be checked in Colab.
+tested here; the original Qwen3.5 pilot has since run in Colab, as reported above. Qwen3-VL
+rule-probing results have not been reported here.
 
 Activation patching remains future experiment 03. Reading out a rule does not
 show that the model uses the representation in its answer. Later interventions
 will address a different question, with their own controls and limitations.
+
+
+## Combining evidence from more than one image
+
+The initial Qwen3.5 pilot left us with an important limitation: a single positive
+scene configuration could identify the rule. We now want to test a task where
+neither of two diagnostic examples is enough on its own. This continues the
+rule-probing investigation within Experiment 02; it is not a new numbered
+experiment or an activation-patching study.
+
+We use labelled positive and negative images. A positive example satisfies the
+hidden rule; a negative example does not. These pairs of negative configurations
+are jointly identifying:
+
+| Hidden rule | First negative | Second negative | Candidates after first | Candidates after second |
+|---|---|---|---|---|
+| R1 | 010 | 100 | R1, R3 | R1, R2 |
+| R2 | 001 | 100 | R2, R3 | R1, R2 |
+| R3 | 001 | 010 | R2, R3 | R1, R3 |
+
+Each column alone leaves two rules, while their intersection leaves only the
+intended rule. Positive 111 and negative 000 are consistent with all three rules.
+They are useful matched fillers, not additional identifying evidence.
+
+`code/02-probing/rule_evidence.py` constructs and checks a four-slot task. The
+paired condition contains the two diagnostic negatives, a positive 111, and a
+negative 000. The first-only and second-only conditions replace the missing
+diagnostic scene with a different 000 image. Every condition has four distinct
+images, one positive label and three negative labels. The shared fillers and
+retained diagnostic images are the same within a matched family. The labels
+refer explicitly to Image 1, Image 2, and so on in the model prompt.
+
+We cycle the four image positions and three answer-label assignments. Each image
+appears equally often in each position, and each rule equally often under X, Y
+and Z. These are four cyclic image orders, not all possible permutations. The
+full comparison has 12 presentations per condition, three conditions per family,
+and three held-out families: 108 forward passes. We reuse the existing Qwen3.5
+4-bit loader and normalized next-token X/Y/Z probabilities, mapped back to rules.
+There is no generated-reasoning evaluation or activation patching in this script.
+
+### What this small pilot can tell us
+
+We use variation blocks 0–1 and 2–3 for the baseline's training families, and
+4–5 for testing. No image crosses the train/test boundary. Each block has one
+family per rule. The six training families use 12 unique images; the three test
+families use six unique images. Families within a block share filler and diagnostic
+images, so the largest mutually image-disjoint collection is two training
+families or one test family. The 108 presentations are not 108 independent tests.
+The model is frozen; only the metadata scene-pattern baseline uses training data.
+
+A symbolic baseline eliminates every rule inconsistent with the labelled scenes
+and distributes probability uniformly over the survivors. A simple scene-pattern
+baseline learns a table from labelled scene-count patterns to rule frequencies
+in training, then applies it to the image-disjoint test families. It ignores
+image order and visual appearance. For this exact design, both baselines assign
+probability 1 to the true rule with both diagnostic examples and 1/2 with either
+example alone. This is a checked property of the construction, not a measured
+model finding. Neither baseline needs an abstract learned reasoning procedure.
+
+We measure rule-selection accuracy, true-rule probability and probability mass
+on logically consistent rules. Summaries average probabilities over presentation
+orders and answer labels within each family before scoring. They also retain
+mean presentation accuracy and paired changes from each single condition to the
+paired condition. Exact ties receive fractional credit. The overall three-way
+chance level is 1/3, but single-evidence conditions are intentionally ambiguous:
+choosing the other consistent rule is not a logical error. A rational baseline
+has only 1/2 target accuracy there. The task tests sensitivity to combined
+evidence; even a paired improvement would not distinguish rule elimination from
+memorized scene-pattern matching.
+
+Four images require less sequence memory than the earlier ten-image prompts,
+and the existing loaders can prepare these inputs. We provide a three-condition
+smoke test before the 108-call pilot. This is a computational feasibility design,
+not a claim that the new GPU run has passed. No model results for this evidence
+comparison have been measured here.
+
+For reliable evaluation, a useful next dataset would have at least 20 fresh,
+image-disjoint held-out families per rule. Each matched family needs five unique
+images across its three conditions, so 60 fully disjoint families require 300
+held-out images, plus a separate training pool. Vary object arrangements,
+backgrounds and distractors independently. More permutations of the current
+images cannot supply that evidence. We have not changed or regenerated any of
+the existing images.
+
+### Running the evidence comparison
+
+Mount Drive and select a fresh Colab GPU runtime. Use the new branch:
+
+```bash
+git clone --branch feature/evidence-integration https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+cd /content/looking-beyond-attention
+python -m pip install -r three-operand-experiments/code/requirements-qwen35.txt
+export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data'
+export SCRIPT='three-operand-experiments/code/02-probing/rule_evidence.py'
+
+# Logical, label, image-split and presentation-balance checks; no model or writes.
+python "$SCRIPT" --data-dir "$DATA" --validate-only
+
+# Save the validated design on Drive; no model inference.
+python "$SCRIPT" --data-dir "$DATA" --generate-only
+
+# Three matched conditions for one family, image order and answer layout.
+python "$SCRIPT" --data-dir "$DATA" --smoke-test
+
+# Complete pilot; rerun the same command to resume completed presentations.
+python "$SCRIPT" --data-dir "$DATA"
+```
+
+If the checkout already exists, fetch and switch to `feature/evidence-integration`
+instead of cloning over it. Use the actual existing `--data-dir` if your dataset
+is elsewhere. Outputs default to the verified existing Drive results root,
+under `probing/qwen3_5/rule/evidence_integration/`; `--experiment-dir` overrides
+the root if Drive is mounted differently. The script never creates a missing
+root. Smoke outputs are separate under `evidence_integration/smoke/`.
+
+`config.json` contains the labelled examples, split, prompts, data hashes and
+software versions. `predictions.jsonl` is the atomic, resumable checkpoint;
+`predictions.csv` exposes all model and baseline probabilities.
+`family_summary.csv`, `condition_summary.csv` and `paired_changes.csv` give the
+matched comparisons. Interrupted runs reuse complete presentations and reject
+incompatible configurations. All files stay on Drive; prior rule-probing
+checkpoints and results are untouched. No result-upload or synchronization step
+is required.

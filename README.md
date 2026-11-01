@@ -19,8 +19,9 @@ representations. Both Colab runs are complete. Their outputs stay on Google Driv
 the measured scores reported from those runs and their limitations.
 
 The next question is whether the correct **rule**, rather than just the objects,
-is readable internally after ten images. Rule probing is now implemented as an image-disjoint pilot; its GPU runs and
-findings are still pending. Activation patching will follow as experiment 03 to
+is readable internally after ten images. The Qwen3.5 rule-probing pilot reached 100% on three held-out sets, but simple
+scene-based baselines did too. We are now testing paired positive/negative
+evidence to ask whether predictions respond to information from multiple images. Activation patching will follow as experiment 03 to
 test whether changing representations changes the final prediction.
 
 ## Experiments
