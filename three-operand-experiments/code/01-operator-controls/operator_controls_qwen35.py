@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Experiment 04: identify three-operand Boolean rules with Qwen3.5-4B.
 
-Converted from ``notebooks/exp04/Qwen3_5_4B.ipynb``.
+Standalone version of our earlier Qwen3.5 operator-controls notebook.
 The experimental functions (sampling, prompts, scoring, statistics and
 controls) are copied unchanged from the cleaned notebook. This CLI replaces
 Colab-only setup and avoids automatically running every experiment.
 
 Examples (from the three-operand-experiments directory):
-    python code/exp04_qwen35.py --validate-only
-    python code/exp04_qwen35.py --label-sanity --smoke-test
-    python code/exp04_qwen35.py --experiment main_72
+    python code/01-operator-controls/operator_controls_qwen35.py --validate-only
+    python code/01-operator-controls/operator_controls_qwen35.py --label-sanity --smoke-test
+    python code/01-operator-controls/operator_controls_qwen35.py --experiment main_72
 """
 
 from __future__ import annotations
@@ -569,7 +569,7 @@ def run_selected(name: str) -> None:
 
 
 def make_parser() -> argparse.ArgumentParser:
-    script_root = Path(__file__).resolve().parent.parent
+    script_root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(
         description='Run Qwen3.5-4B three-operand Boolean rule experiments (Exp 04).',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,

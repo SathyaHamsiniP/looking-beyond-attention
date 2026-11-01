@@ -23,3 +23,9 @@ Thumbs.db
 
 # Intentionally TRACK the curated results/ folders, including
 # config.json, runs.jsonl, and summary.json.
+
+# Keep pooled activations and model checkpoints on Drive.
+*.npz
+*.pt
+*.pth
+*.ckpt

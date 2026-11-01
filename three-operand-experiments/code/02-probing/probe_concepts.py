@@ -3,6 +3,7 @@ import argparse
 import csv
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -112,16 +113,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model', choices=('qwen3', 'qwen3_5'), required=True)
     parser.add_argument('--data-dir', type=Path, required=True)
-    parser.add_argument('--experiment-dir', type=Path, required=True)
+    parser.add_argument('--experiment-dir', type=Path, required=True,
+                        help='Drive results directory; probing/<model>/concept is appended')
     parser.add_argument('--upstream', type=Path)
     parser.add_argument('--precision', choices=('4bit', 'fp16', 'bf16', 'fp32'), default='4bit')
     parser.add_argument('--smoke-test', action='store_true', help='Extract two images; do not fit probes.')
     parser.add_argument('--validate-only', action='store_true', help='Check data and split without loading weights.')
     args = parser.parse_args()
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '01-operator-controls'))
     if args.model == 'qwen3':
-        import exp04_qwen3vl as experiment
+        import operator_controls_qwen3 as experiment
     else:
-        import exp04_qwen35 as experiment
+        import operator_controls_qwen35 as experiment
     out = args.experiment_dir / 'probing' / args.model / ('concept_smoke' if args.smoke_test else 'concept')
     experiment.configure_data(args.data_dir, out)
     experiment.verify_sampling()

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Experiment 04: identify three-operand Boolean rules with Qwen3-VL-4B.
 
-Converted from ``notebooks/exp04/Qwen3_VL_4B.ipynb``.
+Standalone version of our earlier Qwen3-VL operator-controls notebook.
 The experimental functions (sampling, prompts, scoring, statistics and
 controls) are copied unchanged. This CLI replaces Colab-only setup and
 avoids automatically running every experiment.
 
 Examples (from the three-operand-experiments directory):
-    python code/exp04_qwen3vl.py --validate-only
-    python code/exp04_qwen3vl.py --upstream ../looking-beyond-attention-main --smoke-test
-    python code/exp04_qwen3vl.py --upstream ../looking-beyond-attention-main --experiment main_72
+    python code/01-operator-controls/operator_controls_qwen3.py --validate-only
+    python code/01-operator-controls/operator_controls_qwen3.py --upstream ../looking-beyond-attention-main --smoke-test
+    python code/01-operator-controls/operator_controls_qwen3.py --upstream ../looking-beyond-attention-main --experiment main_72
 """
 
 from __future__ import annotations
@@ -582,7 +582,7 @@ def run_selected(name: str) -> None:
 
 
 def make_parser() -> argparse.ArgumentParser:
-    script_root = Path(__file__).resolve().parent.parent
+    script_root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(
         description='Run Qwen3-VL three-operand Boolean rule experiments (Exp 04).',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -618,7 +618,7 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit('Missing --upstream PATH_TO_ROSHAN_REPOSITORY (see README).')
     # Accept a checkout or a ZIP of the upstream repository. Extraction uses a
     # short-lived directory; no upstream code is redistributed with our script.
-    with tempfile.TemporaryDirectory(prefix='exp04_qwen3_upstream_') as tmp:
+    with tempfile.TemporaryDirectory(prefix='operator_controls_upstream_') as tmp:
         upstream = args.upstream.expanduser().resolve()
         if upstream.is_file() and upstream.suffix.lower() == '.zip':
             with zipfile.ZipFile(upstream) as archive:
