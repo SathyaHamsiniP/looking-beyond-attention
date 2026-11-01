@@ -129,17 +129,132 @@ If the earlier runs are still in the mistakenly named Drive folder, copy them
 within Drive to the intended project results folder using Drive's file manager.
 Check both copies before deleting anything. No automatic migration is performed.
 
-## What we want to test next
+## Next: can we read out the rule after ten images?
 
-The next step is rule probing after ten images. It will need grouped scene-set
-splits, answer-layout controls, shuffled labels and an eight-bin scene-count
-baseline. Recovering a rule from image frequencies alone would not show abstract
-reasoning. With only two held-out variations per configuration, each rule has
-just ten positive held-out images; repeated prompts would not be independent
-new evidence. We need to account for this before interpreting rule probes.
+The concept results tell us that image information is readable. We now want to
+ask whether a linear classifier can recover R1, R2 or R3 after the model has
+processed a complete ten-image set. `code/02-probing/probe_rules.py` implements
+this next step as a **pilot**. No GPU rule-probing results have been measured yet.
 
-Later, experiment 03 will use activation patching to ask whether replacing a
-representation changes rule probabilities. Self-patches and same-rule donors
-will be controls for different-rule donors. Neither rule probing nor patching is
-implemented yet. Decoding information does not show that a model uses it, and a
-patch can introduce an unnatural internal state. These are separate questions.
+We reuse the operator-control sampler and both model loaders. We also reuse the
+concept probe's extraction function, collecting visual-token mean, text-token
+mean and last-token representations at every decoder block. The neutral prompt
+names the three concepts and asks for the Boolean relationship explaining the
+ten positive images. It gives no generating rule, candidate expressions, R1/R2/R3
+labels or answer ordering. We do not mix the old multiple-choice prompt into
+this condition. This is a readout from the input pass, before any generated answer.
+
+### Why this is only a pilot
+
+A random split of sampled sets would leak the same images into training and
+testing. Instead, training uses variations 0–3 and testing uses variations 4–5,
+with no shared images across the two partitions. The script rejects duplicate
+unordered sets and uses just one presentation of each set. It restores the
+original sampler pool after constructing the split.
+
+| Partition | Unique images actually used | Distinct ten-image sets | Sets per rule |
+|---|---:|---:|---:|
+| Training | 28 | 24 | 8 |
+| Testing | 14 | 3 | 1 |
+
+Six 000 images are unused because they are negative for all three rules. All
+training sets reuse images within training. Each rule has five positive
+configurations; with two held-out variations of each, there are exactly ten
+positive test images for that rule. Any coverage-based ten-image test set must
+therefore use all ten. Reordering these images would not create another
+underlying set. Test sets for different rules also overlap with one another.
+For this fixed sample, the largest collection of mutually image-disjoint sets
+within either partition contains only one set. The configuration reports these
+counts rather than calling 27 presentations independent observations.
+
+The test has only three predictions per layer and pooling choice. Accuracy moves
+in steps of 33.3 percentage points; even 100% would mean only three correct
+predictions on overlapping sets. We do not compute independent-set confidence
+intervals or select and advertise a best layer as a generalization result.
+
+For a stronger evaluation we need fresh rendered scenes, not extra permutations
+of these images. As a practical starting point, ten mutually image-disjoint
+held-out sets per rule would require 300 held-out image instances with distinct
+underlying scenes, separate from training data. Training also needs a larger,
+separate scene pool. More independently generated backgrounds, distractors and
+object arrangements would help test visual generalization. We have not generated
+or requested changes to the existing dataset for this pilot.
+
+### Controls and saved outputs
+
+Each layer/pool uses the same training and testing sets, a training-only standard
+scaler, and logistic regression with C=1 and seed 2026. A shuffled-training-label
+probe uses the same features and split. This is one fixed shuffle, not a
+significance test. The plot includes the 1/3 chance line.
+
+We fit the same classifier to an eight-bin vector of ground-truth scene
+frequencies, with its own shuffled-label control. We also include a direct
+metadata baseline: 001 identifies R1, 010 identifies R2, and 100 identifies R3.
+Coverage construction always includes the relevant diagnostic type. That baseline
+can identify the rule by construction, without inspecting model representations.
+It is an oracle based on scene annotations, not model perception accuracy. Its
+perfect performance would be a property of the task design, not evidence of a
+successful model experiment. A hidden-state probe could simply detect that type;
+this pilot cannot distinguish that shortcut from abstract rule induction.
+
+All outputs stay on Drive under `probing/qwen3/rule/` or
+`probing/qwen3_5/rule/`: `config.json` records the prompt, split manifest, data
+hashes and package versions; each set has a pooled `.npz` checkpoint;
+`predictions.csv` gives test predictions and R1/R2/R3 probabilities;
+`layer_accuracy.csv` gives probe and baseline accuracies; and `rule_accuracy.png`
+plots the layer comparison. Checkpoints are written through temporary files and
+renamed when complete. Resume refuses different settings, data or package
+versions instead of silently combining runs. Keep the same reference wrapper
+and runtime setup when resuming Qwen3-VL.
+
+### Running the rule pilot in Colab
+
+Use a fresh GPU runtime for each model, mount Drive, and work from the
+`feature/rule-probing` branch. If you already have a checkout, fetch and switch to
+that branch instead of cloning over it. From a fresh runtime:
+
+```bash
+git clone --branch feature/rule-probing https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+cd /content/looking-beyond-attention
+```
+
+The commands below use the existing sibling `data/` folder on Drive. If your
+images live elsewhere, pass their actual existing directory with `--data-dir`.
+The results root defaults to the existing project results folder. It is checked
+before any files are saved; if Drive is mounted differently, supply the actual
+existing root with `--experiment-dir`.
+
+Qwen3.5 (CUDA PyTorch is already supplied by Colab):
+
+```bash
+python -m pip install -r three-operand-experiments/code/requirements-qwen35.txt matplotlib
+export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data'
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3_5 --data-dir "$DATA" --validate-only
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3_5 --data-dir "$DATA" --precision 4bit --smoke-test
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3_5 --data-dir "$DATA" --precision 4bit
+```
+
+Qwen3-VL, in another runtime, after extracting the supplied reference repository
+to `/content/roshan/looking-beyond-attention-main`:
+
+```bash
+python -m pip install -r three-operand-experiments/code/requirements-qwen3vl.txt matplotlib
+export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data'
+export UPSTREAM='/content/roshan/looking-beyond-attention-main'
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3 --data-dir "$DATA" --validate-only
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3 --data-dir "$DATA" --upstream "$UPSTREAM" --precision 4bit --smoke-test
+python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3 --data-dir "$DATA" --upstream "$UPSTREAM" --precision 4bit
+```
+
+Validation is CPU-only and writes nothing. The smoke test extracts two complete
+ten-image sets (one training R1 set and one held-out R2 set) into `rule/smoke/`;
+it never fits probes or reports accuracy. The last command runs the full
+27-set pilot, then fits the probes and baselines. Rerun it after a disconnection
+to reuse completed checkpoints. Ten-image extraction uses more GPU memory than
+single-image concept extraction; check the smoke test before starting the pilot.
+The folder structure, CPU split checks and synthetic software checks have been
+tested here; GPU extraction must still be checked in Colab.
+
+Activation patching remains future experiment 03. Reading out a rule does not
+show that the model uses the representation in its answer. Later interventions
+will address a different question, with their own controls and limitations.
