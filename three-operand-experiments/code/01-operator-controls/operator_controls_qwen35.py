@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Experiment 04: identify three-operand Boolean rules with Qwen3.5-4B.
 
-Converted from ``notebooks/exp04/Qwen3_5_4B.ipynb``.
+Standalone version of our earlier Qwen3.5 operator-controls notebook.
 The experimental functions (sampling, prompts, scoring, statistics and
 controls) are copied unchanged from the cleaned notebook. This CLI replaces
 Colab-only setup and avoids automatically running every experiment.
 
 Examples (from the three-operand-experiments directory):
-    python code/exp04_qwen35.py --validate-only
-    python code/exp04_qwen35.py --label-sanity --smoke-test
-    python code/exp04_qwen35.py --experiment main_72
+    python code/01-operator-controls/operator_controls_qwen35.py --validate-only
+    python code/01-operator-controls/operator_controls_qwen35.py --label-sanity --smoke-test
+    python code/01-operator-controls/operator_controls_qwen35.py --experiment main_72
 """
 
 from __future__ import annotations
@@ -25,6 +25,9 @@ import sys
 from collections import Counter, defaultdict
 from itertools import product, permutations
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from results_paths import DEFAULT_RESULTS_ROOT, require_results_root
 
 import numpy as np
 
@@ -569,15 +572,15 @@ def run_selected(name: str) -> None:
 
 
 def make_parser() -> argparse.ArgumentParser:
-    script_root = Path(__file__).resolve().parent.parent
+    script_root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(
-        description='Run Qwen3.5-4B three-operand Boolean rule experiments (Exp 04).',
+        description='Run Qwen3.5-4B three-operand Boolean rule experiments (01-operator-controls).',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument('--data-dir', type=Path, default=script_root / 'data',
                         help='Directory containing metadata.json and images/')
-    parser.add_argument('--out', type=Path, default=script_root / 'runs' / 'qwen3.5-4b',
-                        help='Directory for NEW results; existing archive is never overwritten by default')
+    parser.add_argument('--experiment-dir', type=Path, default=DEFAULT_RESULTS_ROOT,
+                        help='Existing Drive results root; operator-controls/<model> is appended')
     parser.add_argument('--experiment', choices=EXPERIMENTS, default='main_72',
                         help='Run exactly one experiment; no others are triggered')
     parser.add_argument('--validate-only', action='store_true',
@@ -594,7 +597,10 @@ def make_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = make_parser().parse_args(argv)
-    configure_data(args.data_dir, args.out)
+    root = args.experiment_dir.expanduser().resolve()
+    if not args.validate_only:
+        root = require_results_root(root)
+    configure_data(args.data_dir, root / 'operator-controls' / 'qwen3_5')
     verify_sampling()
     if args.validate_only:
         print('CPU-only validation passed; no GPU or model inference was used.')

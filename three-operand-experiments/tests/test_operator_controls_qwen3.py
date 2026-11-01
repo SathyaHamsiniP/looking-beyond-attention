@@ -8,32 +8,33 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import math
 import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[1] / 'code' / 'exp04_qwen35.py'
-spec = importlib.util.spec_from_file_location('exp04_qwen35', SCRIPT)
+SCRIPT = Path(__file__).resolve().parents[1] / 'code' / '01-operator-controls' / 'operator_controls_qwen3.py'
+spec = importlib.util.spec_from_file_location('operator_controls_qwen3', SCRIPT)
 mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
 
 
 class DummyVLM:
     def chat(self, images, prompt, max_new_tokens=150, temperature=0.0):
+        if 'Decisive scene:' in prompt:
+            return 'Decisive scene: 1\nOutside variable: C\nExpression: (A AND B) OR C'
+        if 'Return ONLY the completed expression' in prompt:
+            return '(A AND B) OR C'
         if 'Reply exactly on two lines: D=' in prompt:
             return 'D=0\nY=0'
         return 'A=0, B=0, C=0'
 
 
 def fake_option_probs(vlm, paths, prompt, token_ids):
-    if 'The correct answer is Y' in prompt:
-        return {'X': 0.1, 'Y': 0.8, 'Z': 0.1}
-    if 'The correct answer is Z' in prompt:
-        return {'X': 0.1, 'Y': 0.1, 'Z': 0.8}
-    return {'X': 0.7, 'Y': 0.2, 'Z': 0.1}
+    return {'X': 0.70, 'Y': 0.20, 'Z': 0.10}
 
 
-class Exp04Qwen35ConversionTests(unittest.TestCase):
+class OperatorControlsQwen3Tests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
@@ -52,7 +53,7 @@ class Exp04Qwen35ConversionTests(unittest.TestCase):
         mod.vlm = DummyVLM()
         mod.TOKEN_IDS = {'X': 100, 'Y': 200, 'Z': 300}
         mod.option_probs = fake_option_probs
-        mod.MODEL_ID = 'Qwen/Qwen3.5-4B'
+        mod.MODEL_ID = 'Qwen/Qwen3-VL-4B-Instruct'
 
     def test_sample_coverage_and_seed_determinism(self):
         for rule in mod.RULES:
@@ -80,7 +81,7 @@ class Exp04Qwen35ConversionTests(unittest.TestCase):
         self.assertEqual(trial['chosen_rule'], 'R1')
         self.assertEqual(trial['chosen_label'], 'X')
         self.assertTrue(trial['correct'])
-        self.assertAlmostEqual(sum(trial['probabilities'].values()), 1.0)
+        self.assertAlmostEqual(sum(trial['probabilities'].values()), 1.)
 
     def test_main_72_and_resume_skip_completed_trials(self):
         calls = []
@@ -116,8 +117,13 @@ class Exp04Qwen35ConversionTests(unittest.TestCase):
                 self.assertTrue((folder / 'config.json').is_file())
                 self.assertGreater(len((folder / 'runs.jsonl').read_text().splitlines()), 0)
 
-    def test_label_sanity_helper(self):
-        mod.label_sanity()  # should run without raising
+    def test_upstream_archive_resolution(self):
+        repo = Path(self.tmp.name) / 'upstream'
+        (repo / 'code' / 'vlm').mkdir(parents=True)
+        (repo / 'code' / 'experiments').mkdir(parents=True)
+        (repo / 'code' / 'vlm' / 'runner.py').touch()
+        (repo / 'code' / 'experiments' / 'readout.py').touch()
+        self.assertEqual(mod.resolve_upstream_code(repo), repo / 'code')
 
 
 if __name__ == '__main__':

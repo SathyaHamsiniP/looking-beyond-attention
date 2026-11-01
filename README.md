@@ -1,59 +1,64 @@
 # Looking Beyond Attention
 
-A vision-language model might recognize everything in an image and still struggle to reason about what it sees. This project explores that gap.
+Can a vision-language model work out a Boolean rule from examples? We wanted to
+understand whether recognizing what is in an image is enough to reason about a
+set of images.
 
-We're interested in understanding whether vision-language models actually use the information available to them when solving logical problems, or whether their predictions are influenced by simpler patterns and biases.
+We extended an earlier two-operand task to three concepts: a green cube, a blue
+sphere and a red cylinder. We showed Qwen3-VL-4B and Qwen3.5-4B ten images and
+asked which of three Boolean rules explained them. Both models recognized the
+objects well and did much better when we gave them explicit Boolean operations.
+But their rule-identification accuracy stayed close to chance. Changing answer
+positions had a large effect, while removing decisive evidence changed output
+probabilities very little in our controls.
 
-Rather than relying only on attention weights to understand model behavior, we use controlled experiments to test what information a model recognizes, how it combines evidence, and how its answers change when that evidence is modified.
+That led us to look inside the models. Our concept probes ask whether a small
+classifier can recover the eight combinations of these concepts from internal
+representations. Both Colab runs are complete. Their outputs stay on Google Drive; the
+[probing notes](three-operand-experiments/experiments/02-probing/README.md) summarize
+the measured scores reported from those runs and their limitations.
 
-## What we're working on
+The next question is whether the correct **rule**, rather than just the objects,
+is readable internally after ten images. Rule probing is next. Activation
+patching will follow as experiment 03, to test whether changing representations
+changes the final prediction. Neither is implemented yet.
 
-Our first set of experiments focuses on **three-operand Boolean rule identification**.
+## Experiments
 
-We generate CLEVR-style images containing combinations of three concepts:
+[01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md)
+explains the task, controls and recorded results.
 
-- **A:** Green cube
-- **B:** Blue sphere
-- **C:** Red cylinder
+[02 — Probing](three-operand-experiments/experiments/02-probing/README.md)
+explains the concept probes, their limits and exact Colab
+commands for both models.
 
-Each set of images is generated using one of three Boolean rules. The model sees ten examples and must identify which rule explains them.
+Code and experiment notes use the same experiment numbers under
+`three-operand-experiments/`. The original 48 images and metadata remain in
+`data/`. Model requirements are shared across experiments in `code/`.
 
-We tested this with **Qwen3-VL-4B-Instruct** and **Qwen3.5-4B**.
+## Where outputs go
 
-To understand what might be going wrong, we also tested whether the models could recognize the objects, evaluate Boolean operations, use decisive examples, and remain consistent when answer choices were rearranged.
+GitHub holds code and documentation. All new experiment outputs stay on Google
+Drive, including CSVs, configurations, plots and activation checkpoints. Existing
+tracked results are preserved as an archive; there is no copying or syncing step.
 
-[Read more about the experiments](three-operand-experiments/experiments/04-three-operand-operator-controls/README.md)
+Scripts default to the existing results root:
+`/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results`.
+Mount Drive before running. If it is mounted differently, pass the actual
+existing root using `--experiment-dir`. Scripts check it before saving and never
+create a missing results root. Dataset-only `--validate-only` checks do not need
+Drive. Experiment subfolders are created only for the run being executed.
 
-## What we found
+Future scripts should use the same default and root check in `code/results_paths.py`,
+then save under `probing/<model>/rule/` or `activation_patching/<model>/` when those
+experiments are implemented. Do not create their folders in advance. Findings
+belong in the experiment READMEs, with the measured scores and limitations;
+output files do not need to be uploaded to GitHub.
 
-| Task | Qwen3-VL-4B | Qwen3.5-4B |
-|---|---:|---:|
-| Rule identification | 33.3% | 31.9% |
-| Object recognition (8 images) | 100% | 100% |
-| Boolean gate evaluation (both stages correct) | 79.2% | 95.8% |
+## Acknowledgements
 
-Both models recognized the objects correctly in our small perception test and performed considerably better when asked to evaluate explicit Boolean operations.
-
-However, neither reliably identified the rule behind a set of images. Their accuracy remained close to the three-choice chance level of 33.3%.
-
-We also observed strong answer-position biases. For example, Qwen3-VL selected the first displayed option in 143 out of 144 trials in our option-order experiment.
-
-These findings suggest that **recognizing concepts and evaluating individual logical expressions do not necessarily translate into inferring a rule from multiple examples**.
-
-The experiments are small and controlled, so we don't treat these observations as a general verdict on the models' reasoning abilities.
-
-## Repository structure
-
-- `three-operand-experiments/code/` — Python implementations for both models and their dependencies
-- `three-operand-experiments/data/` — Generated images and metadata
-- `three-operand-experiments/tests/` — Automated checks for the experimental code
-- `three-operand-experiments/results/` — Recorded predictions and experiment summaries
-- `three-operand-experiments/experiments/` — Experimental methodology and findings
-
-The experiments are implemented as Python scripts and can be run on a machine with suitable GPU resources. Each model has its own requirements file.
-
-The Qwen3.5 Python runner has been tested with actual model inference. The converted Qwen3-VL runner has passed CPU-based tests but still needs a separate GPU verification.
-
-## Project status
-
-This is ongoing research. We're using these initial experiments to understand the difference between perceiving evidence, carrying out logical operations, and identifying relationships across multiple examples.
+This project extends Roshan and collaborators' two-operand experiments. The
+Qwen3-VL loader still uses their external model wrapper, and the probing hooks
+follow their layer-pooling approach. The reference implementation must be
+provided separately for Qwen3-VL runs. Qwen3.5 uses the maintained native loader.
+These different preprocessing and inference paths matter when comparing models.

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Experiment 04: identify three-operand Boolean rules with Qwen3-VL-4B.
 
-Converted from ``notebooks/exp04/Qwen3_VL_4B.ipynb``.
+Standalone version of our earlier Qwen3-VL operator-controls notebook.
 The experimental functions (sampling, prompts, scoring, statistics and
 controls) are copied unchanged. This CLI replaces Colab-only setup and
 avoids automatically running every experiment.
 
 Examples (from the three-operand-experiments directory):
-    python code/exp04_qwen3vl.py --validate-only
-    python code/exp04_qwen3vl.py --upstream ../looking-beyond-attention-main --smoke-test
-    python code/exp04_qwen3vl.py --upstream ../looking-beyond-attention-main --experiment main_72
+    python code/01-operator-controls/operator_controls_qwen3.py --validate-only
+    python code/01-operator-controls/operator_controls_qwen3.py --upstream ../looking-beyond-attention-main --smoke-test
+    python code/01-operator-controls/operator_controls_qwen3.py --upstream ../looking-beyond-attention-main --experiment main_72
 """
 
 from __future__ import annotations
@@ -27,6 +27,9 @@ import zipfile
 from collections import Counter, defaultdict
 from itertools import product, permutations
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from results_paths import DEFAULT_RESULTS_ROOT, require_results_root
 
 import numpy as np
 
@@ -582,15 +585,15 @@ def run_selected(name: str) -> None:
 
 
 def make_parser() -> argparse.ArgumentParser:
-    script_root = Path(__file__).resolve().parent.parent
+    script_root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(
-        description='Run Qwen3-VL three-operand Boolean rule experiments (Exp 04).',
+        description='Run Qwen3-VL three-operand Boolean rule experiments (01-operator-controls).',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument('--data-dir', type=Path, default=script_root / 'data',
                         help='Directory containing metadata.json and images/')
-    parser.add_argument('--out', type=Path, default=script_root / 'runs' / 'qwen3-vl-4b',
-                        help='Directory for NEW results; existing archive is never overwritten by default')
+    parser.add_argument('--experiment-dir', type=Path, default=DEFAULT_RESULTS_ROOT,
+                        help='Existing Drive results root; operator-controls/<model> is appended')
     parser.add_argument('--upstream', type=Path,
                         help="Path to Roshan's repository root, its code/ directory, or its ZIP archive")
     parser.add_argument('--experiment', choices=EXPERIMENTS, default='main_72',
@@ -609,7 +612,10 @@ def make_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = make_parser().parse_args(argv)
-    configure_data(args.data_dir, args.out)
+    root = args.experiment_dir.expanduser().resolve()
+    if not args.validate_only:
+        root = require_results_root(root)
+    configure_data(args.data_dir, root / 'operator-controls' / 'qwen3')
     verify_sampling()
     if args.validate_only:
         print('CPU-only validation passed; no GPU or model inference was used.')
@@ -618,7 +624,7 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit('Missing --upstream PATH_TO_ROSHAN_REPOSITORY (see README).')
     # Accept a checkout or a ZIP of the upstream repository. Extraction uses a
     # short-lived directory; no upstream code is redistributed with our script.
-    with tempfile.TemporaryDirectory(prefix='exp04_qwen3_upstream_') as tmp:
+    with tempfile.TemporaryDirectory(prefix='operator_controls_upstream_') as tmp:
         upstream = args.upstream.expanduser().resolve()
         if upstream.is_file() and upstream.suffix.lower() == '.zip':
             with zipfile.ZipFile(upstream) as archive:
