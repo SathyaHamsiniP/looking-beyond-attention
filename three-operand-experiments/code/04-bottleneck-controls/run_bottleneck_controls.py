@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Experiment 04: locate bottlenecks in Qwen3.5's evidence-based rule selection.
 
-Default: 60 model calls over the same three held-out families used in Experiment 02.
---smoke-test: six calls for checking a Colab setup.
+Default: 87 model calls over the same three held-out families used in Experiment 02.
+--smoke-test: 11 calls for checking a Colab setup.
 --validate-only: no GPU. Results print to console AND are checkpointed to Drive.
 """
 from __future__ import annotations
@@ -26,6 +26,8 @@ from results_paths import DEFAULT_RESULTS_ROOT, require_results_root
 
 ex = evidence.experiment
 MODES = ("oracle", "original", "interleaved")
+BINDING_LABELS = tuple("ABCDEFGHIJKLMNOP")
+BINDING_VALUES = tuple((f"{n:03b}", status) for n in range(8) for status in ("negative", "positive"))
 RULES = ex.RULES
 LABELS = ex.LABELS
 
@@ -62,13 +64,18 @@ def make_prompt(job, mode, task, candidate=None, readout=None):
         return (intro + "Find the ONE rule consistent with ALL four examples.\n"
                 + choices + "\nReply with only X, Y, or Z.\nANSWER:")
     if task == "verify":
+        yes_label, no_label = (("Z", "X") if readout == "swapped" else ("X", "Z"))
         return (intro + "Is the following candidate rule consistent with ALL four examples?\n"
-                + ex.EXPRESSIONS[candidate] + "\nReply with exactly YES or NO.\nANSWER:")
+                + ex.EXPRESSIONS[candidate]
+                + f"\n{yes_label}: YES\n{no_label}: NO"
+                + "\nReply with ONLY the choice letter.\nANSWER:")
     if task == "binding":
-        return (intro + "For each numbered image, give its A/B/C bits and its "
-                "provided positive/negative label. Exactly four lines; format:\n"
-                "1: [3-bit ABC configuration] [positive/negative]\n"
-                "Report the actual content of images 1 through 4.\nANSWER:")
+        options = "\n".join(f"{letter}: {bits} {status}"
+                             for letter, (bits, status) in zip(BINDING_LABELS, BINDING_VALUES))
+        return (intro + f"Identify the THREE A/B/C bits AND the supplied label "
+                f"for Image {candidate} only.\n"
+                + "Choose one of the following combined configuration/label options:\n"
+                + options + "\nReply with ONLY its letter (A through P).\nANSWER:")
     if task == "readout":
         if readout == "rule_id":
             return (intro + "Which rule is consistent with ALL examples?\n"
@@ -114,14 +121,35 @@ def infer(vlm, job, mode, task, candidate=None, readout=None):
         ]
         inputs = vlm._inputs(paths, prompt)
     with torch.inference_mode():
-        if task == "choice":
+        if task in ("choice", "verify", "binding"):
             output = vlm.model(**inputs, logits_to_keep=1, use_cache=False)
             scores = output.logits[0, -1].float()
-            values = torch.stack([scores[ex.TOKEN_IDS[l]] for l in LABELS])
+            if task == "choice":
+                labels = LABELS
+                ids = [ex.TOKEN_IDS[label] for label in labels]
+            elif task == "verify":
+                labels = ("X", "Z")
+                ids = [ex.TOKEN_IDS[label] for label in labels]
+            else:
+                labels = BINDING_LABELS
+                encoded = [vlm.processor.tokenizer.encode(label, add_special_tokens=False)
+                           for label in labels]
+                if not all(len(ids) == 1 for ids in encoded):
+                    raise ValueError("Binding answer letters A-P must each be one token.")
+                ids = [ids[0] for ids in encoded]
+                if len(set(ids)) != len(ids):
+                    raise ValueError("Binding answer tokens are not unique.")
+            values = torch.stack([scores[token_id] for token_id in ids])
             probs = torch.softmax(values, dim=0).cpu().tolist()
             del output, scores, values
-            return {job["mapping"][l]: float(p) for l, p in zip(LABELS, probs)}
-        max_tokens = 96 if task == "binding" else (40 if readout == "expression" else 12)
+            if task == "choice":
+                return {job["mapping"][l]: float(p) for l, p in zip(labels, probs)}
+            if task == "verify":
+                p = dict(zip(labels, probs))
+                return {"YES": float(p["Z"] if readout == "swapped" else p["X"]),
+                        "NO": float(p["X"] if readout == "swapped" else p["Z"])}
+            return {value: float(p) for value, p in zip(BINDING_VALUES, probs)}
+        max_tokens = 40 if readout == "expression" else 12
         output = vlm.model.generate(
             **inputs, max_new_tokens=max_tokens, do_sample=False,
             pad_token_id=vlm.processor.tokenizer.eos_token_id,
@@ -180,20 +208,23 @@ def build_jobs(families, smoke=False):
         for mode in ("oracle", "interleaved"):
             for candidate in (("R1", "R2") if smoke else RULES):
                 job = presentations[0]
-                jobs.append(dict(id=f"{job['job_id']}_{mode}_verify_{candidate}",
-                                 task="verify", mode=mode, job=job,
-                                 candidate=candidate))
+                for order in ("normal", "swapped"):
+                    jobs.append(dict(id=f"{job['job_id']}_{mode}_verify_{candidate}_{order}",
+                                     task="verify", mode=mode, job=job,
+                                     candidate=candidate, readout=order))
         job = presentations[0]
-        jobs.append(dict(id=f"{job['job_id']}_interleaved_binding",
-                         task="binding", mode="interleaved", job=job))
+        for image_no in range(1, 5):
+            jobs.append(dict(id=f"{job['job_id']}_interleaved_binding_{image_no}",
+                             task="binding", mode="interleaved", job=job,
+                             candidate=image_no))
         if not smoke:
             for mode in ("oracle", "interleaved"):
                 for readout in ("rule_id", "expression"):
                     jobs.append(dict(id=f"{job['job_id']}_{mode}_readout_{readout}",
                                      task="readout", mode=mode, job=job,
                                      readout=readout))
-    # Full: 3 families x (9 choices + 6 verifications + 1 binding + 4 readouts) = 60.
-    assert len(jobs) == (8 if smoke else 60), len(jobs)
+    # Full: 3 families x (9 choices + 12 verifications + 4 binding + 4 readouts) = 87.
+    assert len(jobs) == (11 if smoke else 87), len(jobs)
     return jobs
 
 
@@ -228,24 +259,24 @@ def result_for(item, response):
                    chosen_label="|".join(l for l in LABELS if job["mapping"][l] in winners))
     elif task == "verify":
         expected = "YES" if item["candidate"] == truth else "NO"
-        predicted = parse_yes_no(response)
-        row.update(candidate=item["candidate"], expected=expected, prediction=predicted,
-                   correct=int(predicted == expected), raw=response)
+        predicted = "YES" if response["YES"] > response["NO"] else "NO"
+        row.update(candidate=item["candidate"], answer_order=item["readout"],
+                   expected=expected, prediction=predicted,
+                   p_yes=response["YES"], p_no=response["NO"],
+                   correct=int(predicted == expected))
     elif task == "readout":
         predicted = parse_rule(response, item["readout"])
         row.update(readout=item["readout"], prediction=predicted,
                    correct=int(predicted == truth), raw=response)
     else:
-        parsed = parse_binding(response)
-        scene_correct = 0
-        label_correct = 0
-        for i, exm in enumerate(job["examples"], 1):
-            got_bits, got_label = parsed.get(i, ("", ""))
-            scene_correct += got_bits == "".join(map(str, exm["bits"]))
-            label_correct += got_label == ("positive" if exm["positive"] else "negative")
-        row.update(scene_correct=scene_correct, label_correct=label_correct,
-                   parsed_lines=len(parsed), correct=int(scene_correct == 4 and label_correct == 4),
-                   raw=response)
+        target = job["examples"][item["candidate"] - 1]
+        expected = ("".join(map(str, target["bits"])),
+                    "positive" if target["positive"] else "negative")
+        best = max(response, key=response.get)
+        row.update(image_no=item["candidate"], expected=str(expected),
+                   prediction=str(best), scene_correct=int(best[0] == expected[0]),
+                   label_correct=int(best[1] == expected[1]),
+                   correct=int(best == expected), p_true=response[expected])
     return row
 
 
@@ -322,7 +353,7 @@ def main():
     mode.add_argument("--smoke-test", action="store_true")
     args = parser.parse_args()
     root = Path(".") if args.validate_only else require_results_root(args.experiment_dir)
-    out = root / "bottleneck-controls" / ("smoke" if args.smoke_test else "quick")
+    out = root / "bottleneck-controls" / ("smoke-v2" if args.smoke_test else "quick-v2")
     ex.configure_data(args.data_dir, out)
     families = evidence.make_dataset(ex.records)
     jobs = build_jobs(families, smoke=args.smoke_test)
@@ -332,7 +363,7 @@ def main():
         print("CPU-only validation complete. No model loaded.")
         return
     out.mkdir(parents=True, exist_ok=True)
-    config = {"experiment": 4, "model": ex.MODEL_ID,
+    config = {"experiment": 4, "version": 2, "model": ex.MODEL_ID,
               "jobs": [item["id"] for item in jobs],
               "data_hash": ex.DATA_HASH}
     path = out / "config.json"
