@@ -20,8 +20,8 @@ class BottleneckControlsTests(unittest.TestCase):
     def test_job_design(self):
         quick = mod.build_jobs(self.families)
         smoke = mod.build_jobs(self.families, smoke=True)
-        self.assertEqual(len(quick), 60)
-        self.assertEqual(len(smoke), 8)
+        self.assertEqual(len(quick), 87)
+        self.assertEqual(len(smoke), 11)
         mod.validate_design(self.families, quick)
         mod.validate_design(self.families, smoke)
 
@@ -56,7 +56,7 @@ class BottleneckControlsTests(unittest.TestCase):
         self.assertAlmostEqual(row["correct"], 1.0)
         self.assertEqual(row["chosen_label"], "X")
         chk = mod.result_for({"id": "b", "job": job, "task": "verify",
-                              "mode": "oracle", "candidate": "R2"}, "NO")
+                              "mode": "oracle", "candidate": "R2", "readout": "normal"}, {"YES": 0.1, "NO": 0.9})
         self.assertEqual(chk["correct"], 1)
 
 
