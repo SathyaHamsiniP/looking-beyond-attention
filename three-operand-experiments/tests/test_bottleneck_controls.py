@@ -31,9 +31,15 @@ class BottleneckControlsTests(unittest.TestCase):
             p = mod.make_prompt(job, mode, "choice")
             self.assertIn("Positive means", p)
             self.assertEqual(sum(f"{x}:" in p for x in "XYZ"), 3)
-        binding = mod.make_prompt(job, "interleaved", "binding")
-        self.assertNotIn("1: 010 negative", binding)
-        self.assertIn("3-bit ABC", binding)
+        binding_item = next(item for item in mod.build_jobs(self.families)
+                            if item["task"] == "binding")
+        binding = mod.make_prompt(binding_item["job"], "interleaved", "binding",
+                                  candidate=binding_item["candidate"])
+        self.assertIn(f"Image {binding_item['candidate']} only", binding)
+        self.assertNotIn("Image None", binding)
+        self.assertIn("A: 000 negative", binding)
+        self.assertIn("P: 111 positive", binding)
+        self.assertIn("Reply with ONLY its letter", binding)
 
     def test_parsers(self):
         self.assertEqual(mod.parse_yes_no("YES"), "YES")
