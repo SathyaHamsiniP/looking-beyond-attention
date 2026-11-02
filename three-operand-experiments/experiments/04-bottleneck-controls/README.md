@@ -23,7 +23,7 @@ python three-operand-experiments/code/04-bottleneck-controls/run_bottleneck_cont
  --experiment-dir "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results"
 ~~~
 
-Adjust data/results paths if your Drive structure differs. The smoke test takes **11 model calls**; the full pilot is **87 calls** across only **three underlying families**. The console prints every prediction and a final score summary. Run state automatically resumes from Drive; results are saved under bottleneck-controls/smoke-v2 or bottleneck-controls/quick-v2, with JSONL checkpoints plus CSV and JSON summaries.
+Adjust data/results paths if your Drive structure differs. The smoke test takes **15 model calls**; the full pilot is **87 calls** across only **three underlying families**. The console prints every prediction and a final score summary. Run state automatically resumes from Drive; results are saved under bottleneck-controls/smoke-v2 or bottleneck-controls/quick-v2, with JSONL checkpoints plus CSV and JSON summaries.
 
 To test code without GPU:
 
