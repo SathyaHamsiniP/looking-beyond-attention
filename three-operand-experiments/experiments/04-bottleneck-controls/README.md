@@ -23,7 +23,7 @@ python three-operand-experiments/code/04-bottleneck-controls/run_bottleneck_cont
  --experiment-dir "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results"
 ~~~
 
-Adjust data/results paths if your Drive structure differs. The smoke test takes **8 model calls**; the full pilot is **60 calls** across only **three underlying families**. The console prints every prediction and a final score summary. Run state automatically resumes from Drive; results are saved under bottleneck-controls/smoke or bottleneck-controls/quick, with JSONL checkpoints plus CSV and JSON summaries.
+Adjust data/results paths if your Drive structure differs. The smoke test takes **11 model calls**; the full pilot is **87 calls** across only **three underlying families**. The console prints every prediction and a final score summary. Run state automatically resumes from Drive; results are saved under bottleneck-controls/smoke-v2 or bottleneck-controls/quick-v2, with JSONL checkpoints plus CSV and JSON summaries.
 
 To test code without GPU:
 
@@ -43,7 +43,7 @@ python -m unittest discover -s three-operand-experiments/tests -p 'test_bottlene
 | Answer readout | Does asking for R1/R2/R3 versus the complete expression change success? |
 | Counterfactual sensitivity | Does the output distribution shift when one decisive diagnostic scene is changed? |
 
-Each held-out family yields 3 answer-layouts × 3 input modes = 9 choices, 6 candidate checks, 1 binding test, and 4 generated readouts, totaling 20 calls per family.
+Each held-out family yields 3 answer-layouts × 3 input modes = 9 choices, 12 candidate checks (both YES/NO label orders), 4 individual-image binding tests, and 4 generated readouts, totaling 29 calls per family.
 
 The script computes per-trial correctness against the uniquely valid rule in the both-clue condition, mean correct-rule probability, X/Y/Z distribution, candidate-check accuracy, scene/label accuracy, and paired counterfactual distribution changes.
 
@@ -55,4 +55,8 @@ The script computes per-trial correctness against the uniquely valid rule in the
 * Answer-format results differ: scoring/prompt format is a serious confound.
 * Small counterfactual change: model output does not noticeably track the decisive image change, but output bias can mask this.
 
-**Caution:** only three families with overlapping image configurations. The 60 calls are not 60 independent problems. This is a diagnostic pilot, not a definitive measure of reasoning. Original experiments remain unchanged.
+**Caution:** only three families with overlapping image configurations. The 87 calls are not 87 independent problems. This is a diagnostic pilot, not a definitive measure of reasoning. Original experiments remain unchanged.
+
+## Important v2 correction (November 2)
+
+The initial smoke run used short free-form generation for YES/NO and four-line binding responses. Qwen produced reasoning text instead of the strict formats; some 0% scores were parsing/truncation artifacts, not demonstrated perception errors. **Do not interpret the old smoke results as valid binding or verification accuracy.** Version 2 uses normalized next-token scores among explicit labels instead of parsing generated explanations. It checks each image independently for its ABC bits and provided label, and swaps the X/Z YES/NO mapping in candidate verification. Version 2 saves into new smoke-v2/quick-v2 folders, keeping the original results intact. Please run validation and smoke again before the full pilot.
