@@ -67,8 +67,8 @@ def make_prompt(job, mode, task, candidate=None, readout=None):
     if task == "binding":
         return (intro + "For each numbered image, give its A/B/C bits and its "
                 "provided positive/negative label. Exactly four lines; format:\n"
-                "1: 010 negative\n2: 100 negative\n3: 111 positive\n4: 000 negative\n"
-                "These are FORMAT EXAMPLES ONLY; read the actual images.\nANSWER:")
+                "1: [3-bit ABC configuration] [positive/negative]\n"
+                "Report the actual content of images 1 through 4.\nANSWER:")
     if task == "readout":
         if readout == "rule_id":
             return (intro + "Which rule is consistent with ALL examples?\n"
