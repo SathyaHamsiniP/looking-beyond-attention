@@ -21,7 +21,7 @@ class BottleneckControlsTests(unittest.TestCase):
         quick = mod.build_jobs(self.families)
         smoke = mod.build_jobs(self.families, smoke=True)
         self.assertEqual(len(quick), 87)
-        self.assertEqual(len(smoke), 11)
+        self.assertEqual(len(smoke), 15)
         mod.validate_design(self.families, quick)
         mod.validate_design(self.families, smoke)
 
