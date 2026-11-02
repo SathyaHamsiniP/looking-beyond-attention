@@ -2,25 +2,42 @@
 
 This script recreates the *type of scenes* used in the original 48-image Colab pilot, and scales the dataset to 1,000 new images. It uses the same external clevr_logic renderer calls (place_objects, render, jitter_camera, jitter_lights). It is **not** a byte-for-byte reconstruction of the old 48 images: its random seeds are independent per image, allowing safe resume.
 
-## Before running
+## Renderer dependency and attribution
 
-- Use a Colab session with the reference renderer available at /content/roshan/looking-beyond-attention-main/code/clevr_logic (or supply the correct directory via --renderer-root). The reference renderer is **not** bundled in this GitHub repo. Extract the same reference repository ZIP you used for the original 48-image generation.
-- Install the reference renderer's requirements as in your working Colab setup. Pillow and NumPy must also be available.
-- Mount Google Drive. The path below is separate from the existing 48-image data folder.
+The image renderer comes from [RoshanYSingh23/looking-beyond-attention](https://github.com/RoshanYSingh23/looking-beyond-attention), specifically `code/clevr_logic/{colorshape,raytracer,scene}.py` (and their internal imports). The reference repository is **public**. You do **not** need a privately shared ZIP. Clone it at the commit tested for this setup:
+
+```bash
+git clone https://github.com/RoshanYSingh23/looking-beyond-attention.git /content/roshan/looking-beyond-attention-main
+git -C /content/roshan/looking-beyond-attention-main checkout 71ee6120e129bd466f5cc99745a20060e61403b6
+```
+
+This generator imports that code; it does not redistribute the upstream source. A root `LICENSE` file was not found in the reference repository at the time these instructions were written. Check upstream licensing/permission before copying renderer files into another repository.
+
+Install lightweight image-generation dependencies:
+
+```bash
+python -m pip install numpy pillow
+```
 
 ## In Colab
 
-Cell 1 — mount Drive and clone this repo (or run git pull if it is already cloned):
+Cell 1 — mount Drive and clone this repo (or run `git pull` if it is already cloned):
 
-    from google.colab import drive
-    drive.mount('/content/drive')
-    !git clone https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+!git clone https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+```
 
-Cell 2 — check for the original renderer:
+Cell 2 — obtain the reference renderer from its **public repository**:
 
-    !test -d /content/roshan/looking-beyond-attention-main/code/clevr_logic && echo "Renderer found"
+```python
+!git clone https://github.com/RoshanYSingh23/looking-beyond-attention.git /content/roshan/looking-beyond-attention-main
+!git -C /content/roshan/looking-beyond-attention-main checkout 71ee6120e129bd466f5cc99745a20060e61403b6
+!python -m pip install -q numpy pillow
+```
 
-If that does not print "Renderer found", first extract the reference ZIP to that location, or change --renderer-root to the actual path containing code/clevr_logic.
+If you already cloned either repository in the same Colab session, skip its clone command. Check that `/content/roshan/looking-beyond-attention-main/code/clevr_logic/` exists.
 
 Cell 3 — render and save to Drive:
 
@@ -49,4 +66,4 @@ The output is:
 
 The older experiment scripts assume exactly 48 images and split records based on variation < 4 versus variations 4-5. That code must be updated to use the explicit metadata split values in the new dataset before training/evaluation. In particular, build image-disjoint train/test sets and check the rule labels against R1/R2/R3. Generating 1,000 images does not automatically update model experiments.
 
-Inspect sample images for object occlusions and other rendering artifacts before relying on the dataset. Store large generated assets on Google Drive; GitHub hosts this generator and documentation only.
+Inspect sample images for object occlusions and other rendering artifacts before relying on the dataset. Store large generated assets on Google Drive; GitHub hosts this generator and documentation only. For local runs (no Colab or Drive), supply a local --output-dir and a local --renderer-root pointing to your clone of the public reference repository.
