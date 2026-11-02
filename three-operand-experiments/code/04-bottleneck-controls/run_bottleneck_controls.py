@@ -2,7 +2,7 @@
 """Experiment 04: locate bottlenecks in Qwen3.5's evidence-based rule selection.
 
 Default: 87 model calls over the same three held-out families used in Experiment 02.
---smoke-test: 11 calls for checking a Colab setup.
+--smoke-test: 15 calls for checking a Colab setup.
 --validate-only: no GPU. Results print to console AND are checkpointed to Drive.
 """
 from __future__ import annotations
@@ -224,7 +224,7 @@ def build_jobs(families, smoke=False):
                                      task="readout", mode=mode, job=job,
                                      readout=readout))
     # Full: 3 families x (9 choices + 12 verifications + 4 binding + 4 readouts) = 87.
-    assert len(jobs) == (11 if smoke else 87), len(jobs)
+    assert len(jobs) == (15 if smoke else 87), len(jobs)
     return jobs
 
 
