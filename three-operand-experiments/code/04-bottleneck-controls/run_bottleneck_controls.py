@@ -304,17 +304,28 @@ def summarize(rows):
     for mode in ("oracle", "interleaved"):
         data = [r for r in rows if r["task"] == "verify" and r["mode"] == mode]
         if data:
-            by_family = defaultdict(list)
+            paired = defaultdict(list)
             for row in data:
-                by_family[row["family"]].append(row["correct"])
-            print(f"Candidate checks [{mode:11s}] {np.mean([r['correct'] for r in data]):.1%} "
-                  f"individual; {sum(all(x) for x in by_family.values())}/{len(by_family)} "
-                  "families fully correct")
-    for row in (r for r in rows if r["task"] == "binding"):
-        print(f"Binding [{row['truth']}] bits {row['scene_correct']}/4, "
-              f"labels {row['label_correct']}/4, parsed {row['parsed_lines']}/4")
-        if not row["correct"]:
-            print("  Model output:", repr(row["raw"][:180]))
+                paired[row["family"], row["candidate"]].append(row)
+            results = []
+            by_family = defaultdict(list)
+            for (family, candidate), vals in paired.items():
+                mean_yes = float(np.mean([v["p_yes"] for v in vals]))
+                expected_yes = vals[0]["expected"] == "YES"
+                correct = (mean_yes > 0.5) == expected_yes
+                results.append(correct)
+                by_family[family].append(correct)
+            print(f"Candidate checks [{mode:11s}] {np.mean(results):.1%} "
+                  "after YES/NO label swap; "
+                  f"{sum(len(x) == 3 and all(x) for x in by_family.values())}"
+                  f"/{len(by_family)} families fully correct")
+    binding = [r for r in rows if r["task"] == "binding"]
+    for family in sorted({r["family"] for r in binding}):
+        vals = [r for r in binding if r["family"] == family]
+        print(f"Binding [{family}] scene bits "
+              f"{sum(r['scene_correct'] for r in vals)}/{len(vals)}; "
+              f"provided labels {sum(r['label_correct'] for r in vals)}/{len(vals)}; "
+              f"both {sum(r['correct'] for r in vals)}/{len(vals)}")
     for mode in ("oracle", "interleaved"):
         for form in ("rule_id", "expression"):
             subset = [r for r in rows if r["task"] == "readout"
