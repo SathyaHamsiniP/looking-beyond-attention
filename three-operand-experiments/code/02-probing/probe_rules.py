@@ -24,6 +24,50 @@ Consider all ten images and identify the Boolean relationship that explains them
 
 
 def make_sets(experiment):
+    if len(experiment.records) == 1000:
+        # Make separate ten-image sets. A picture is never reused.
+        # The rule is clear because all five positive ABC patterns appear.
+        sets = []
+        for split, count in (('train', 8), ('test', 5)):
+            rng = random.Random(SEED + (0 if split == 'train' else 100000))
+            by_bits = {}
+            for bits in product((0, 1), repeat=3):
+                by_bits[bits] = [
+                    r for r in experiment.records
+                    if r['split'] == split and tuple(r['bits']) == bits
+                ]
+                rng.shuffle(by_bits[bits])
+            for rule_index, rule in enumerate(experiment.RULES):
+                positive = [
+                    bits for bits in product((0, 1), repeat=3)
+                    if experiment.satisfies(rule, bits)
+                ]
+                unique = next(bits for bits in positive if sum(bits) == 1)
+                shared = [bits for bits in positive if bits != unique]
+                for index in range(count):
+                    set_index = rule_index * count + index
+                    # 5 patterns, then 3 extra images of the unique type and
+                    # 2 extra shared types. This fits in the 200-image test split.
+                    needed = positive + [unique] * 3 + [
+                        shared[(2 * set_index + offset) % len(shared)]
+                        for offset in range(2)
+                    ]
+                    if any(len(by_bits[bits]) < needed.count(bits) for bits in set(needed)):
+                        raise ValueError(f'Not enough unused {split} images for {rule}.')
+                    chosen = [by_bits[bits].pop() for bits in needed]
+                    rng.shuffle(chosen)
+                    assert experiment.compatible_rules(chosen) == [rule]
+                    sets.append(dict(
+                        set_id=f'{split}_{rule}_{index:02d}',
+                        split=split, rule=rule,
+                        image_files=[r['filename'] for r in chosen],
+                        bits=[r['bits'] for r in chosen],
+                    ))
+        names = [name for item in sets for name in item['image_files']]
+        assert len(names) == len(set(names))
+        return sets
+
+    # Keep the original 48-image pilot unchanged.
     original_pool = experiment.POOL
     sets = []
     try:
@@ -48,8 +92,18 @@ def make_sets(experiment):
     assert train_images.isdisjoint(test_images)
     return sets
 
-
 def split_report(sets):
+    if len(sets) == 39:
+        used = [name for item in sets for name in item['image_files']]
+        assert len(used) == len(set(used))
+        return {
+            'evaluation': 'No image is reused across sets.',
+            'chance_accuracy': 1 / 3,
+            'dataset_images': 1000,
+            'train': {'sets': 24, 'images_used': 240, 'sets_per_rule': 8},
+            'test': {'sets': 15, 'images_used': 150, 'sets_per_rule': 5},
+        }
+
     report = {'evaluation': 'image-disjoint pilot; overlapping sets within each partition',
               'chance_accuracy': 1 / 3, 'dataset_images': 48,
               'unused_images': 48 - len({n for s in sets for n in s['image_files']})}
@@ -139,14 +193,14 @@ def score_rules(features, sets, out):
         plt.axhline(accuracy, color=color, linestyle=':', label=method)
     plt.axhline(1 / 3, color='red', linestyle=':', label='Chance (1/3)')
     plt.xlabel('Decoder layer output (1-based)')
-    plt.ylabel('Accuracy on three overlapping held-out sets')
-    plt.title('Rule-probing pilot: image-disjoint evaluation')
+    plt.ylabel('Accuracy on held-out sets')
+    plt.title('Rule probing: held-out images')
     plt.ylim(-0.05, 1.05)
     plt.legend(fontsize=6)
     plt.tight_layout()
     plt.savefig(out / 'rule_accuracy.png', dpi=160)
     plt.close()
-    print('Pilot scores saved. Only three held-out sets; no independent-set confidence interval.')
+    print(f'Rule scores saved for {sum(s["split"] == "test" for s in sets)} test sets.')
 
 
 def main():
@@ -172,6 +226,8 @@ def main():
     if args.smoke_test:
         out = out / 'smoke'
     experiment.configure_data(args.data_dir, out)
+    if len(experiment.records) == 1000:
+        out = out / 'dataset-v1'
     sets = make_sets(experiment)
     report = split_report(sets)
     print(json.dumps(report, indent=2))
