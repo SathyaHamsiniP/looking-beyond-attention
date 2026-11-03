@@ -54,6 +54,23 @@ The concept test has only 16 test images. One wrong prediction changes the score
 
 **Rule probing:** The code is ready, but no GPU results have been reported yet. The test has only three sets, so its accuracy cannot support a strong conclusion. A probe may also identify a rule just by spotting one special type of image, without doing the full reasoning task.
 
+## Using the 1,000-image dataset
+
+The scores above are from the original 48 images. New results have not been measured yet.
+
+Download the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1):
+
+```bash
+python three-operand-experiments/code/00-data-generation/download_dataset.py
+```
+
+For a new run, use `--data-dir three-operand-experiments/data-1000` instead of the old `data` path.
+
+- Concept probing: 800 training images and 200 test images.
+- Rule probing: 24 training sets and 15 test sets, with ten different images per set. No image is reused across these sets.
+
+New results save in separate `dataset-v1/` folders. The old 48-image results are kept.
+
 ## Run on Colab
 
 Use a GPU. Mount Google Drive. Clone this repository if needed:
@@ -102,4 +119,4 @@ Results go to Google Drive, under `results/probing/<model>/concept/` or `results
 
 Run the same command again to reuse completed files after a disconnect.
 
-The probing scripts still assume the old 48-image data. They must be updated before using the 1,000 new images.
+The old commands shown above use the 48-image dataset. Change the data path to run on the 1,000 images.
