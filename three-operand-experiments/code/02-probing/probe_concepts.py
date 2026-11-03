@@ -16,8 +16,12 @@ POOLS = ('last', 'text_mean', 'visual_mean')
 
 def concept_split(records):
     # All eight classes occur in each variation. No image crosses the split.
-    train = [i for i, r in enumerate(records) if r['variation'] < 4]
-    test = [i for i, r in enumerate(records) if r['variation'] >= 4]
+    if len(records) == 1000:
+        train = [i for i, r in enumerate(records) if r['split'] == 'train']
+        test = [i for i, r in enumerate(records) if r['split'] == 'test']
+    else:
+        train = [i for i, r in enumerate(records) if r['variation'] < 4]
+        test = [i for i, r in enumerate(records) if r['variation'] >= 4]
     assert set(records[i]['filename'] for i in train).isdisjoint(
         records[i]['filename'] for i in test)
     return train, test
@@ -136,10 +140,14 @@ def main():
     experiment.verify_sampling()
     records = sorted(experiment.records, key=lambda r: r['filename'])
     train, test = concept_split(records)
-    assert len(train) == 32 and len(test) == 16
+    if len(records) == 1000:
+        assert len(train) == 800 and len(test) == 200
+        out = out / 'dataset-v1'
+    else:
+        assert len(train) == 32 and len(test) == 16
     assert len({tuple(records[i]['bits']) for i in train}) == 8
     assert len({tuple(records[i]['bits']) for i in test}) == 8
-    print('Concept split: 32 training images, 16 held-out images; eight classes each.')
+    print(f'Concept data: {len(train)} training images, {len(test)} test images.')
     if args.validate_only:
         return
     out.mkdir(parents=True, exist_ok=True)
