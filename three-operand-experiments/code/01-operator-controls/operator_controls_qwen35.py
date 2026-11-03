@@ -348,7 +348,11 @@ def run_perception():
     else:
         chosen = [r for r in records if r['variation'] == 4]
     jobs = [(str(r['filename']), r) for r in chosen]
-    cfg={'version':1,'model':MODEL_ID,'data_hash':DATA_HASH,'modality':'images','sample':'one test image per ABC pattern'}
+    cfg = ({'version': 1, 'model': MODEL_ID, 'data_hash': DATA_HASH,
+            'modality': 'images', 'sample': 'one test image per ABC pattern'}
+           if len(records) == 1000 else
+           {'version': 1, 'model': MODEL_ID, 'data_hash': DATA_HASH,
+            'modality': 'images', 'variation': 4})
     prompt="""Inspect this image. A = green cube, B = blue sphere, C = red cylinder.
 Each means exact colour AND shape. Ignore distractors.
 Reply with three binary values in format A=0, B=0, C=0 (replace as needed)."""
