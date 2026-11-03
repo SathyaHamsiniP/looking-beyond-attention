@@ -8,10 +8,10 @@ from types import SimpleNamespace
 
 import torch
 
-import operator_controls_qwen35 as exp
 from patch_activations_qwen35 import (
     check_sets, make_pairs, patched_probabilities, record_original,
 )
+import operator_controls_qwen35 as exp
 from probe_rules import make_sets
 
 
