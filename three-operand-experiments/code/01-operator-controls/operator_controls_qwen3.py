@@ -410,8 +410,12 @@ def run_discovery(mode='open',n_sets=SETS_PER_RULE):
 
 def run_perception():
     """Eight held-out images; parse A/B/C. Note: only tests one variation per type."""
-    jobs=[(str(r['filename']),r) for r in records if r['variation']==4]
-    cfg={'version':1,'model':MODEL_ID,'data_hash':DATA_HASH,'modality':'images','variation':4}
+    if len(records) == 1000:
+        chosen = [r for r in records if r['split'] == 'test' and r['variation'] == 100]
+    else:
+        chosen = [r for r in records if r['variation'] == 4]
+    jobs = [(str(r['filename']), r) for r in chosen]
+    cfg={'version':1,'model':MODEL_ID,'data_hash':DATA_HASH,'modality':'images','sample':'one test image per ABC pattern'}
     prompt="""Inspect this image. A = green cube, B = blue sphere, C = red cylinder.
 Each means exact colour AND shape. Ignore distractors.
 Reply with three binary values in format A=0, B=0, C=0 (replace as needed)."""
@@ -499,14 +503,24 @@ def configure_data(data_dir: Path, out_dir: Path) -> None:
         raise FileNotFoundError(f'Missing scene metadata: {metadata_path}')
     metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
     records = metadata['records']
-    POOL = [r for r in records if r['variation'] < 4]
-    if len(records) != 48:
-        raise ValueError(f'Expected 48 scene records, found {len(records)}')
+    if len(records) not in (48, 1000):
+        raise ValueError(f'Expected 48 or 1000 images, found {len(records)}')
+    # Use the saved split for the larger dataset. Keep the original split
+    # for the 48-image experiments.
+    if len(records) == 1000:
+        POOL = [r for r in records if r['split'] == 'train']
+        test_records = [r for r in records if r['split'] == 'test']
+        if len(POOL) != 800 or len(test_records) != 200:
+            raise ValueError('Expected 800 training and 200 test images.')
+    else:
+        POOL = [r for r in records if r['variation'] < 4]
     missing = [r['filename'] for r in records if not (IMAGE_DIR / r['filename']).is_file()]
     if missing:
         raise FileNotFoundError(f'Missing {len(missing)} scene images; first: {missing[:3]}')
     DATA_HASH = hashlib.sha256(metadata_path.read_bytes()).hexdigest()[:16]
     OUT = out_dir.expanduser().resolve()
+    if len(records) == 1000:
+        OUT = OUT / 'dataset-v1'
 
 
 def verify_sampling() -> None:
