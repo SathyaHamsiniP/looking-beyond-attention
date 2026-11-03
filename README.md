@@ -4,13 +4,13 @@ We test whether vision-language models can find a Boolean rule from a set of ima
 
 A is a green cube. B is a blue sphere. C is a red cylinder. We give the model ten images and ask which rule explains them.
 
-Models: Qwen3-VL-4B and Qwen3.5-4B.
+Earlier experiments compared Qwen3-VL-4B and Qwen3.5-4B. New runs use **Qwen3.5-4B only**.
 
 ## Experiments
 
 - [01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md): Ask the model to find the rule. Test changes to prompts and answer choices.
 - [02 — Probing](three-operand-experiments/experiments/02-probing/README.md): Check which object and rule information is present at each model layer.
-- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Planned. Check which layers change the answer.
+- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. Code is ready for the first Colab test; no results yet.
 
 The earlier experiments used **48 images**. Their saved results have not been changed.
 
