@@ -1,4 +1,16 @@
-# 00 — Generate logic images
+# 00 — CLEVR logic images
+
+## Download the ready-made images
+
+You do not need to generate them again. Download the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1) or run:
+
+```bash
+python three-operand-experiments/code/00-data-generation/download_dataset.py
+```
+
+This saves `images/` and `metadata.json` inside `three-operand-experiments/data-1000/`.
+
+## Generate them yourself
 
 This script makes 1,000 images with green cubes, blue spheres, red cylinders, and other objects.
 
