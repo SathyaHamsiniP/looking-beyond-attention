@@ -37,6 +37,12 @@ The following commands assume that you already have the images at:
 
 Use your own path if it is different.
 
+**Optional CPU checks (no Qwen model):**
+
+```bash
+python three-operand-experiments/code/03-activation-patching/test_patching.py
+```
+
 **1. Check the data and pairs (no GPU inference):**
 
 ```bash
