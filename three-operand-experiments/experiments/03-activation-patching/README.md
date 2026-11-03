@@ -40,7 +40,13 @@ Use the same rule task, test data, scoring and layer numbering across runs. Keep
 
 ## Data
 
-The plan is to use the new 1,000-image dataset for these tests. The experiment code is not ready yet. The older probing and sampling scripts must first be updated for the new data.
+We will use the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1). Download it with:
+
+```bash
+python three-operand-experiments/code/00-data-generation/download_dataset.py
+```
+
+The patching experiment code is not ready yet. We will first run patching on the unchanged model. Then we will compare it with the fine-tuned models.
 
 ## Reference
 
