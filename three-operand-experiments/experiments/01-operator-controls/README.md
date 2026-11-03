@@ -74,6 +74,26 @@ the final answer was wrong. That led to [experiment 02](../02-probing/README.md)
 Good recognition and explicit gate evaluation do not by themselves establish
 successful rule induction.
 
+## Using the 1,000-image dataset
+
+The results above are from the old 48-image dataset. They have not been rerun on the new images.
+
+Get the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1) with:
+
+```bash
+python three-operand-experiments/code/00-data-generation/download_dataset.py
+```
+
+To use it in an operator-control run, replace the old `--data-dir` with:
+
+```bash
+--data-dir three-operand-experiments/data-1000
+```
+
+The new dataset has 800 training images and 200 test images. Rule sets are drawn from the training images. The saved results go to a separate `dataset-v1/` folder.
+
+The default main test still uses 8 sets per rule. It does not use all 1,000 pictures in one run.
+
 ## Running these controls
 
 Use Colab with a GPU and mounted Drive. From `/content/looking-beyond-attention`,
