@@ -12,9 +12,8 @@ import csv
 import hashlib
 import json
 import math
-import random
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -313,9 +312,10 @@ def summarize(rows_path: Path, out: Path, layer_count: int, smoke: bool,
     )
     first_over_control = next((
         layer for layer in layers_tested
-        if final_different[layer] - final_same[layer] >= THRESHOLD
+        if final_different[layer] >= THRESHOLD
+        and final_different[layer] - abs(final_same[layer]) >= THRESHOLD
         and (not previous_control
-             or final_different[layer] - previous[layer] >= THRESHOLD)
+             or final_different[layer] - abs(previous[layer]) >= THRESHOLD)
     ), None)
     report = {
         "status": "smoke test, not research results" if smoke else "completed",
@@ -385,8 +385,6 @@ def make_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    import torch
-
     args = make_parser().parse_args()
     data_dir = args.data_dir.expanduser().resolve()
     base = args.experiment_dir.expanduser().resolve()
@@ -459,7 +457,6 @@ def main() -> None:
                   args.previous_token_control)
         return
 
-    import torch
     rotations = exp.layouts("cyclic")[:args.rotations]
     with results_path.open("a", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
