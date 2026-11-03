@@ -1,55 +1,98 @@
 # 03 — Activation patching
 
-**Status: Planned. No runs or results yet.**
-
 ## Goal
 
-Find which model layers affect the final answer.
+Find which Qwen3.5-4B layers change the model's answer to a Boolean rule question.
 
-In activation patching, we take saved activations from one input and replace the activations of another input at one layer. We check how much the answer changes.
+We use the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1). The model sees **10 images at a time**. We use only the 200 held-out images for this experiment. No model weights are changed.
 
-## Planned test
+## What we do
 
-1. Choose two ten-image sets with different rules.
-2. Run both through the model without changing its weights.
-3. Replace the receiving model's final-token activation with the donor's activation at one layer.
-4. Repeat at each layer. Keep the same image sets and settings.
-5. Check whether the donor rule becomes more likely.
+Take two different sets of ten images:
 
-Also check two controls: patch from another set with the same rule, and patch at a position other than the final token.
+- **Same rule:** Both sets have the same rule, such as R1 and R1. This is a control.
+- **Different rules:** The sets have different rules, such as R1 and R2. We test whether the answer moves toward R2.
 
-## What to save
+We first run each set normally. Then, at **one decoder layer at a time**, we replace the final token's activations for the first set with those from the second set. We run the model again and record the change in its answer.
 
-Save one row per pair, layer and control. Include the original answer, new answer and change in probability for the donor rule.
+The script tests **every layer**, not every third layer. Layer numbers start at **1**. It also records the unchanged model's answer for both sets.
 
-Report these separately:
+For an extra check, `--previous-token-control` patches the token immediately before the last one. With `--rotations 3`, we repeat the test with all three cyclic answer-label orders. This helps reveal answer-position bias.
 
-- **First clear effect:** The earliest layer where patching changes the answer beyond the controls. Set the cutoff before running.
-- **Largest step:** The biggest increase in effect from one tested layer to the next.
-- **Highest effect:** The layer where patching changes the probability the most.
+## Run on Colab
 
-Save a layer-by-layer CSV, a plot and a short summary. Show the layer numbers and the size of each change. Use every layer when finding the largest step. If only some layers are tested, say so.
+Use a **T4 GPU** and mount Google Drive. Clone or pull this repository.
 
-## Next comparisons
-
-**A. Full-model LoRA:** Train LoRA adapters across the model using training images. Use held-out examples that the tuned model answers correctly. Repeat patching and compare the layers with the untuned model.
-
-**B. One-layer LoRA:** Tune adapters at one chosen layer at a time. Use the same training data and training settings for each layer. Measure held-out accuracy and patching effects. Check whether the layer with the largest effect changes.
-
-Use the same rule task, test data, scoring and layer numbering across runs. Keep training and test images separate. Do not pick and report a layer using only the test data.
-
-## Data
-
-We will use the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1). Download it with:
+Install requirements:
 
 ```bash
-python three-operand-experiments/code/00-data-generation/download_dataset.py
+pip install -r three-operand-experiments/code/requirements-qwen35.txt matplotlib
 ```
 
-The patching experiment code is not ready yet. We will first run patching on the unchanged model. Then we will compare it with the fine-tuned models.
+The following commands assume that you already have the images at:
+
+```text
+/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000
+```
+
+Use your own path if it is different.
+
+**1. Check the data and pairs (no GPU inference):**
+
+```bash
+python three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py \
+  --data-dir "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000" \
+  --validate-only
+```
+
+**2. Small GPU test:**
+
+```bash
+python three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py \
+  --data-dir "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000" \
+  --smoke-test
+```
+
+**3. Main run, including the extra checks:**
+
+```bash
+python three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py \
+  --data-dir "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000" \
+  --pairs-per-rule 2 --rotations 3 --previous-token-control
+```
+
+The main command uses **6 receiving sets** (2 for each rule). Each receiver is paired with **one same-rule donor** and **two different-rule donors**, making **18 pairs**. Three answer orders and two token positions are tested at every layer. The script saves each result as it finishes, so you can rerun the same command if Colab disconnects.
+
+For a smaller run, omit `--previous-token-control` and use `--rotations 1`. To test up to five receivers per rule, set `--pairs-per-rule 5`.
+
+**Note:** A full run with ten images per input and multiple controls is computationally heavy. Run the small test first. Qwen3.5-4B still needs to fit in Colab GPU memory.
+
+## What gets saved
+
+Results go to your existing Google Drive results folder, under:
+
+```text
+results/activation_patching/qwen3_5/dataset-v1/
+```
+
+Each set of run settings has its own folder containing:
+
+- `patches.csv` — One row per pair, answer order, layer and token position. Includes the exact layer number, predictions and probability changes.
+- `layer_effects.csv` — Average change at each layer for same-rule and different-rule pairs.
+- `layer_effects.png` — Graph of the changes across layers.
+- `summary.json` — Layer with the highest effect, layer with the largest step, and first layer that passes the control cutoff.
+- `config.json` — Settings and image pairs used.
+
+The first clear effect uses a **0.05 probability-point difference from the controls**. This is a chosen cutoff, **not** a statistical significance test. We also report the largest adjacent-layer increase and the highest overall effect separately.
+
+## What the results mean
+
+A large effect at a layer means changing its activation can change the final answer. It does **not** prove that the layer alone performs Boolean reasoning.
+
+Comparing same-rule and different-rule patches helps us see whether the effect is related to the rule or simply caused by changing the image set. The previous-token and answer-order checks add further controls.
+
+**Status:** Code added. No Colab GPU results have been reported yet.
 
 ## Reference
 
-Roshan's [patching code](https://github.com/RoshanYSingh23/looking-beyond-attention/blob/main/code/experiments/exp7_patching.py) is for the older two-operand task. His run checks selected layers and saves layer-by-layer probability changes. It reports the layer with the highest effect, not a separate largest-step summary.
-
-We will use it as a reference, not treat its results as results from our three-operand task.
+We used [Roshan's two-operand patching experiment](https://github.com/RoshanYSingh23/looking-beyond-attention/blob/main/code/experiments/exp7_patching.py) as a reference. Our code is for Qwen3.5-4B, three rules and the new 1,000-image dataset.
