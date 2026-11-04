@@ -64,7 +64,7 @@ class PatchingTests(unittest.TestCase):
         try:
             exp.TOKEN_IDS = {"X": 0, "Y": 1, "Z": 2}
             inputs = {"input_ids": torch.tensor(
-                [[[3.0, 0.0, 0.0], [3.0, 0.0, 0.0], [3.0, 0.0, 0.0]]
+                [[[3.0, 0.0, 0.0], [3.0, 0.0, 0.0], [3.0, 0.0, 0.0]]]
             )}
             before = record_original(adapter, inputs, mapping, [model.layer])
             self.assertEqual(before["prediction"], "R1")

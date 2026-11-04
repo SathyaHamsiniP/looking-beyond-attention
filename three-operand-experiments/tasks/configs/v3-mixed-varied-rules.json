@@ -1,0 +1,7 @@
+{
+  "task_version": "v3-mixed-varied-rules",
+  "seed": 2026,
+  "examples_per_set": 10,
+  "sets_per_rule": 12,
+  "positive_count": 5
+}

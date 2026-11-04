@@ -4,3 +4,5 @@ bitsandbytes
 pillow
 numpy
 scikit-learn
+peft>=0.18
+matplotlib

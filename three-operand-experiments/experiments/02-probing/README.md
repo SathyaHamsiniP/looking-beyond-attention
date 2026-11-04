@@ -120,3 +120,9 @@ Results go to Google Drive, under `results/probing/<model>/concept/` or `results
 Run the same command again to reuse completed files after a disconnect.
 
 The old commands shown above use the 48-image dataset. Change the data path to run on the 1,000 images.
+
+## New manifest workflow
+
+The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
+
+`code/02-probing/probe_tasks.py` supports both concept and V3 rule probes with explicit 800/100/100 image partitions. Training scalers and classifiers use only training examples. The historical 800/200 and pilot protocols remain unchanged.

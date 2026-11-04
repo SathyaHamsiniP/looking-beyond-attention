@@ -136,3 +136,9 @@ Their preprocessing paths differ, so model comparisons include that limitation.
 The folder cleanup preserves the previous prompts, model settings, calculations,
 images and result-file contents. The old internal version strings in archived
 configurations are retained as provenance, not used as our experiment numbering.
+
+## New manifest workflow
+
+The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
+
+`code/01-operator-controls/evaluate_tasks.py` handles V2/V3 correctness, balanced rule manifests, cyclic answer-order controls and per-rule probabilities. It does not reinterpret the historical perception/gate controls for labelled sets.
