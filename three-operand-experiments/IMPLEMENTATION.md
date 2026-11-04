@@ -7,9 +7,9 @@ Branch: `feature/complete-research-pipeline`. Starting commit: `4fd6e0c12db368c3
 - Audited the existing 01–03 runners, samplers, model adapter, three-pool probing, result formats, archived pilot results, dependency files and tests.
 - Kept the legacy baseline patching runner, imports and output manager unchanged. Its active Drive path is protected by using entirely separate new entry points; Drive was not accessed.
 - Added deterministic 800/100/100 derived splits, V1/V2/V3 generation, singleton/consistency checks and symbolic oracle validation. Source images and metadata remain untouched.
-- Added variable-option/full-sequence answer scoring, manifest validation, runtime token checks, revision/dependency run details, input hashes, named using a hash of the settings directories, and duplicate-checked journals.
+- Added variable-option/full-sequence answer scoring, manifest validation, runtime token checks, revision/dependency run details, input checksums, results folders named using a hash of the run settings, and duplicate-checked journals.
 - Added manifest evaluation, explicit concept/rule partitions and layer-wise probes.
-- Added found in the loaded model hybrid-layer QLoRA targets, across-layer and fresh single-layer entry points, frozen-base checks, token-aligned targets, validation selection, trusted checkpoint resumption and adapter compatibility metadata.
+- The code finds the supported LoRA modules in the loaded model. It supports across-layer and fresh single-layer runs, checks that base weights stay frozen, aligns training targets with answer options, selects checkpoints using validation loss, and saves the information needed to resume training and check adapter compatibility.
 - Added separate matched baseline/adapter patching and complete-plan comparisons. Receiver-probability outcomes are defined identically across same/different-rule conditions.
 - Added documentation and CPU tests. No pretrained model was downloaded or run. GPU validation remains outstanding.
 

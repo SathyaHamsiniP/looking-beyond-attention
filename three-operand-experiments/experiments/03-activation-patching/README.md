@@ -97,7 +97,13 @@ A large effect at a layer means changing its activation can change the final ans
 
 Comparing same-rule and different-rule patches helps us see whether the effect is related to the rule or simply caused by changing the image set. The previous-token and answer-order checks add further controls.
 
-**Status:** The recorded Colab status is: smoke test passed; full baseline run in progress. Those Drive outputs have not been inspected in this task.
+**Status:** The full baseline activation-patching run on Qwen3.5-4B is complete. Results remain in the existing Google Drive folder:
+
+```text
+results/activation_patching/qwen3_5/dataset-v1/pairs2_rot3_prev1/
+```
+
+The recorded findings show answer bias, and patching later layers affects predictions. No clear rule-specific effect was identified. The summary lists layer 6 as having the least negative average donor-rule probability change. This is not a positive rule-specific effect, and it does not make layer 6 the reasoning layer. No layer passed the chosen control threshold. These results do not prove logical reasoning.
 
 ## Reference
 
@@ -107,4 +113,4 @@ We used [Roshan's two-operand patching experiment](https://github.com/RoshanYSin
 
 The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
 
-The user reports a successful Colab smoke test and a full baseline run in progress. Its results were not accessed here. `patch_activations_qwen35.py` and `results/activation_patching/qwen3_5/dataset-v1/` remain unchanged. `patch_tasks.py` supplies future matched manifest experiments in a separate numbered directory.
+The completed baseline uses the existing results folder above. `patch_activations_qwen35.py` and `results/activation_patching/qwen3_5/dataset-v1/` remain unchanged. `patch_tasks.py` supplies future matched manifest experiments in a separate numbered directory.

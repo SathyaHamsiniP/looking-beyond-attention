@@ -22,12 +22,14 @@ Dataset-v1 originally has 800 training and 200 held-out images. The newer pipeli
 
 - [01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md): Ask the model to find the rule. Test changes to prompts and answer choices.
 - [02 — Probing](three-operand-experiments/experiments/02-probing/README.md): Check which object and rule information is present at each model layer.
-- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. The recorded Colab smoke test passed; the full baseline run is in progress.
+- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. The full baseline run is complete.
 
 - [04 — LoRA](three-operand-experiments/experiments/04-lora/README.md): Train small adapters while keeping the base model frozen, then check accuracy on held-out images.
 - [05 — Post-LoRA patching](three-operand-experiments/experiments/05-post-lora-comparison/README.md): Repeat matched activation changes before and after training.
 
 The earlier experiments used **48 images**. Their saved results have not been changed.
+
+The completed Qwen3.5-4B baseline patching run uses dataset-v1, the 1,000-image dataset. The recorded findings show answer bias, and patching later layers affects predictions. No clear rule-specific effect was identified. Layer 6 had the least negative average change in donor-rule probability, but no layer passed the chosen control threshold. This does not identify layer 6 as a reasoning layer or prove logical reasoning. See [Experiment 03](three-operand-experiments/experiments/03-activation-patching/README.md) for the results location.
 
 ## Get the 1,000 images
 
@@ -65,4 +67,4 @@ Use `--experiment-dir` if your results folder is elsewhere. Runs using the 1,000
 This work builds on [Roshan's two-operand experiments](https://github.com/RoshanYSingh23/looking-beyond-attention). Our image generator and Qwen3-VL runs use parts of that public repository. Qwen3.5 uses a separate model loader.
 
 
-Follow [COLAB.md](three-operand-experiments/COLAB.md) for exact commands, smoke tests and results folders. [IMPLEMENTATION.md](three-operand-experiments/IMPLEMENTATION.md) lists what was built and tested. New LoRA and V3 model runs still need GPU testing; no new model results are claimed.
+Follow [COLAB.md](three-operand-experiments/COLAB.md) for exact commands, smoke tests and results folders. [IMPLEMENTATION.md](three-operand-experiments/IMPLEMENTATION.md) lists what was built and tested. New LoRA and V3 model runs still need GPU testing; no LoRA or V3 model results are claimed.
