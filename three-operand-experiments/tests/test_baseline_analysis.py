@@ -73,7 +73,8 @@ class SavedRunTests(unittest.TestCase):
         provenance=json.loads((root/'derived/provenance.json').read_text())
         for name,value in provenance['source_checksums'].items():
             self.assertEqual(checksum(root/'raw'/name),value)
-        script=Path(__file__).resolve().parents[1]/'code/03-activation-patching/analyze_baseline.py'
+        # The provenance describes the original analysis, before the notebook change.
+        script=root/'derived/analyze_baseline_original.py.txt'
         self.assertEqual(checksum(script),provenance['analysis_script_checksum'])
 
 

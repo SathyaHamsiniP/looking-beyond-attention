@@ -402,20 +402,6 @@ def main():
         "Source files are copied byte-for-byte into raw/. No model was rerun. Read the parent guide for the beginner explanation.",
     ]
     (out / "analysis.md").write_text("\n".join(lines) + "\n")
-    # Images remain local dataset files. The report needs no server or framework.
-    image_root = data.as_uri() + "/images/"
-    payload = json.dumps(dict(rows=rows, manifest=manifest, images=image_root)).replace(
-        "<", "\\u003c"
-    )
-    page = """<!doctype html><meta charset="utf-8"><title>Baseline patching explorer</title><h1>Inspect one saved patch</h1><p>A patch copies one token vector from the donor into the receiver. Original weights stay fixed. Null probabilities mean unknown; reconstructed probabilities are marked in examples.json.</p><p>Select the dataset images folder to display pictures on another machine: <input id="folder" type="file" webkitdirectory multiple></p><div id="controls"></div><pre id="details"></pre><div id="images"></div><script>
-const data=PAYLOAD;
-const localImages={};document.querySelector('#folder').onchange=e=>{for(const f of e.target.files)localImages[f.name]=URL.createObjectURL(f);show()};
-const fields=['pair_id','rotation','layer','position'];const controls={};
-for(const field of fields){let label=document.createElement('label');label.textContent=field+' ';let s=document.createElement('select');for(const v of [...new Set(data.rows.map(r=>r[field]))]){let o=document.createElement('option');o.value=v;o.textContent=v;s.append(o)}label.append(s);document.querySelector('#controls').append(label);controls[field]=s;s.onchange=show}
-function show(){const r=data.rows.find(r=>fields.every(f=>r[f]===controls[f].value));let target=document.querySelector('#images');target.replaceChildren();if(!r){document.querySelector('#details').textContent='No such saved trial';return}const available={};for(const prefix of ['receiver','patched']){let p={};p[r.donor_rule]=Number(r[prefix+'_p_donor_rule']);p[r.receiver_rule]=Number(r[prefix+'_p_receiver_rule']);if(r.donor_rule!==r.receiver_rule){let third=['R1','R2','R3'].find(x=>!(x in p));p[third]=1-Object.values(p).reduce((a,b)=>a+b,0);p.reconstructed_rule=third}available[prefix]=p}document.querySelector('#details').textContent=JSON.stringify({saved:r,available_probabilities:available,meaning:'Copy donor vector at layer '+r.layer+' into receiver '+r.position+' token. Missing probabilities are unknown.'},null,2);for(const kind of ['receiver','donor']){let m=data.manifest[r[kind+'_set']+':'+r.rotation];let h=document.createElement('h2');h.textContent=kind;target.append(h);let text=document.createElement('pre');text.textContent=JSON.stringify(m,null,2);target.append(text);for(const name of m.images){let img=document.createElement('img');img.src=localImages[name]||data.images+encodeURIComponent(name);img.width=100;img.alt=name;img.title=name;target.append(img)}}}show();</script>""".replace(
-        "PAYLOAD", payload
-    )
-    (out / "explorer.html").write_text(page)
     write_json(
         out / "provenance.json",
         dict(
