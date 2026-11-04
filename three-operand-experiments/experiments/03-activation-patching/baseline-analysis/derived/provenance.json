@@ -1,0 +1,23 @@
+{
+  "source_checksums": {
+    "config.json": "a99d2d56f41646b59d7d7c2850de6a630737aa12ef7322e3f8013f7c05804931",
+    "patches.csv": "8f39afdde06b53d997fda8e62fd31183463faebaee13cd7e87d9ebb822ed2154",
+    "layer_effects.csv": "637e511e996a892fae450afa53d7d09076a1bcb963ae8d723fa4761c877dc933",
+    "summary.json": "0aaa12b0b165d58faaa61d85ff5df46724f706c50ab4cbf25c73f63954692635"
+  },
+  "dataset_fingerprint": "fb44a35d404dad3d7aa5756b77e0f3acd1e239012ed083bf815675b3fa2e8211",
+  "analysis_script_checksum": "a885b59984a8206571688f4045d82ea692a9ea0e32b061412afd6c687ada71b1",
+  "baseline_script_checksum": "6acf1bb7282fc82059ad07029112f856b0a36cee50e60adedd1a45fe4e7dcd47",
+  "sampler_checksum": "3c1d0d067a691e580b363930930ec2012526f60751d7dbc034fd2bea7f2b8f65",
+  "baseline_run_code_commit": "not recorded in original config",
+  "analysis_working_tree_dirty": true,
+  "code_commit": "a51bdebfafa9e5f26c3bdd569b356724583d7972",
+  "command": [
+    "--source",
+    "/workspace/baseline-source/dataset-v1/pairs2_rot3_prev1",
+    "--data-dir",
+    "/workspace/datasets/clevr-logic-1000",
+    "--output",
+    "/workspace/baseline-publish"
+  ]
+}
