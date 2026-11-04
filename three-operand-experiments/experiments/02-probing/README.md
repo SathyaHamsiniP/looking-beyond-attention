@@ -121,7 +121,7 @@ Run the same command again to reuse completed files after a disconnect.
 
 The old commands shown above use the 48-image dataset. Change the data path to run on the 1,000 images.
 
-## New manifest workflow
+## Running the newer tasks
 
 The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
 

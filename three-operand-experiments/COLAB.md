@@ -50,7 +50,7 @@ python "$P/code/01-operator-controls/operator_controls_qwen35.py" --data-dir "$D
 python "$P/code/01-operator-controls/evaluate_tasks.py" --manifest "$M" --data-dir "$DATA" --results-root "$RESULTS" --partition validation --shortcut-control
 ```
 
-The second command is the untuned V3 baseline required before training. For V2, pass its manifest instead. It reports per-rule and overall accuracy, chance (1/8 for V3), majority baseline, probabilities, and cyclic-order consistency. Historical caption/perception/gate controls are unchanged and are not automatically reinterpreted for mixed tasks. `--symbolic` is an explicit text-configurations control. `--shortcut-control` removes all distinguishing observations: remaining candidates and their probability mass are logged, with **no accuracy assigned to ambiguous inputs**.
+The second command is the pretrained V3 baseline required before training. For V2, pass its manifest instead. It reports per-rule and overall accuracy, chance (1/8 for V3), majority baseline, probabilities, and cyclic-order consistency. Historical caption/perception/gate controls are unchanged and are not automatically reinterpreted for mixed tasks. `--symbolic` is an explicit text-configurations control. `--shortcut-control` removes all distinguishing observations: remaining candidates and their probability mass are logged, with **no accuracy assigned to ambiguous inputs**.
 
 ## 02: concept and rule probing
 
@@ -61,7 +61,7 @@ python "$P/code/02-probing/probe_tasks.py" --kind concepts --manifest "$M" --dat
 python "$P/code/02-probing/probe_tasks.py" --kind rules --manifest "$M" --data-dir "$DATA" --results-root "$RESULTS" --partition validation
 ```
 
-Concepts use single images and eight A/B/C classes, with 800 train / 100 validation images. Rules use ten-image sets and fit only manifest training labels. Choices are omitted from rule-probe prompts. These fixed linear probes use scaled inputs, a shuffled-training-label control, all decoder layers, three pools, majority baseline and class counts. Probe accuracy measures information available to a classifier, not causal use. Select layers/settings on validation, then use `--partition test` once.
+Concepts use single images and eight A/B/C classes, with 800 train / 100 validation images. Rules use ten-image sets and fit only manifest training labels. Choices are omitted from rule-probe prompts. These fixed linear probes use scaled inputs, a shuffled-training-label control, all decoder layers, three pools, majority baseline and class counts. Probe accuracy measures information available to a classifier, not use when producing an answer. Select layers/settings on validation, then use `--partition test` once.
 
 Historical dataset-v1 protocols are also preserved (800/200 concepts; 24/15 rule sets):
 
@@ -90,7 +90,7 @@ This deterministically chooses one receiver per rule with one image-disjoint don
 
 ## 04: QLoRA
 
-The baseline evaluator prints its full run directory. Set `BASELINE_EVAL` to that directory. It must contain a completed visual, untuned evaluation on the same manifest, revision and image resolution. A smoke evaluation does not qualify.
+The baseline evaluator prints its full run directory. Set `BASELINE_EVAL` to that directory. It must contain a completed visual, pretrained evaluation on the same manifest, revision and image resolution. A smoke evaluation does not qualify.
 
 ```bash
 export BASELINE_EVAL='/path/printed/by/evaluate_tasks.py'
@@ -111,7 +111,7 @@ export ADAPTER='/full/training/run/best_adapter'
 python "$P/code/04-lora/evaluate_lora.py" --manifest "$M" --data-dir "$DATA" --results-root "$RESULTS" --adapter "$ADAPTER" --partition validation --shortcut-control
 ```
 
-After selecting all settings, repeat the **untuned evaluator and adapter evaluator** with `--partition test` on the identical manifest and full cyclic orders. Use full evaluation accuracy for before/after claims, rather than only the patching subset.
+After selecting all settings, repeat the **pretrained evaluator and adapter evaluator** with `--partition test` on the identical manifest and full cyclic orders. Use full evaluation accuracy for before/after claims, rather than only the patching subset.
 
 ## 05: post-LoRA patching and comparisons
 
@@ -146,7 +146,7 @@ python "$P/code/04-lora/train_lora.py" --manifest "$M" --data-dir "$DATA" --resu
 
 ## Exact output locations
 
-Every new run prints its full path. The 16-character run ID hashes the configuration, manifest and provenance; do not guess or manually reuse it. New results use these exact templates below `$RESULTS`:
+Every new run prints its full path. The 16-character run ID hashes the configuration, manifest and run details; do not guess or manually reuse it. New results use these exact templates below `$RESULTS`:
 
 | Runner | Relative directory |
 |---|---|
@@ -157,7 +157,7 @@ Every new run prints its full path. The 16-character run ID hashes the configura
 | patch_finetuned | `05-post-lora-comparison/qwen3_5/dataset-v1/<task>/<run-id>/` |
 | protected active historical patching | `activation_patching/qwen3_5/dataset-v1/pairs2_rot3_prev1/` |
 
-New runs include config/provenance, embedded task and split manifests, predictions or patch journals, summaries, CSVs/plots where appropriate, and adapters/checkpoints for training. Journals refuse duplicates. Changed settings get a different directory; exact settings resume safely. Large model checkpoints, task manifests and activations stay on Drive. The source repository retains historical archives without modifying them.
+New runs include config/run details, embedded task and split manifests, predictions or patch journals, summaries, CSVs/plots where appropriate, and adapters/checkpoints for training. Journals refuse duplicates. Changed settings get a different directory; exact settings resume safely. Large model checkpoints, task manifests and activations stay on Drive. The source repository retains historical archives without modifying them.
 
 ## Evidence status
 

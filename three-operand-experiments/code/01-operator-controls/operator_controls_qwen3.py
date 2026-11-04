@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Experiment 04: identify three-operand Boolean rules with Qwen3-VL-4B.
+"""Experiment 01 (called Experiment 04 in the original notebook): identify three-operand Boolean rules with Qwen3-VL-4B.
 
 Standalone version of our earlier Qwen3-VL operator-controls notebook.
 The experimental functions (sampling, prompts, scoring, statistics and
@@ -44,9 +44,7 @@ vlm = None
 TOKEN_IDS = {}
 LABELS = ('X', 'Y', 'Z')
 
-# ---------------------------------------------------------------------------
 # ORIGINAL EXPERIMENT FUNCTIONS — copied without changing their computations
-# ---------------------------------------------------------------------------
 
 EXPRESSIONS = {'R1': '(A AND B) OR C', 'R2': '(A AND C) OR B', 'R3': '(B AND C) OR A'}
 RULES = tuple(EXPRESSIONS)
@@ -466,9 +464,7 @@ Use Boolean gates. Reply exactly on two lines: D=<0/1> and Y=<0/1>."""
     return rows,summary
 
 
-# ---------------------------------------------------------------------------
 # REPRODUCIBLE CLI — notebook setup and manually selected run cells replaced
-# ---------------------------------------------------------------------------
 
 EXPERIMENTS = (
     'main_72', 'text_only', 'captioned', 'position_order',

@@ -1,8 +1,8 @@
 # 05 — Post-LoRA activation patching and comparison
 
-## Goal and method
+## What we want to find out
 
-Compare causal output sensitivity before and after adapter training on matched inputs. Load the base or adapter, record donor/receiver predictions, then replace a token's decoder-block output at one layer. Use the same pair plan, option rotations, layers, image resolution and scoring for every variant. Include same-rule donors and optional previous-token controls.
+Does LoRA change which decoder layers affect the model’s answer? We compare the pretrained model and trained adapters on the same image sets. First, we record the answers for two image sets: a receiver and a donor. Activation patching copies one token’s activation from the donor into the receiver at a chosen decoder layer. We then run the receiver again and check whether its answer changes. Use the same pair plan, option rotations, layers, image resolution and scoring for every variant. Include same-rule donors and optional previous-token controls.
 
 The primary outcome is change in probability of the receiver's true rule, defined identically in both conditions. Raw donor-rule changes and full probability vectors remain available. We include every selected receiver regardless of whether either model is correct. Peak effects and adjacent-layer changes are descriptive, not proof of a unique reasoning layer or statistical significance.
 

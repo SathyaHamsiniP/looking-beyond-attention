@@ -1,12 +1,16 @@
 # 04 — LoRA fine-tuning
 
-## Goal and method
+## What we want to find out
 
-Test whether training small adapters improves Qwen3.5-4B rule selection. QLoRA freezes the pretrained model and trains low-rank updates to decoder linear modules. Across-layer and fresh single-layer runs use the same training manifest. The actual module list and trainable counts are saved, rather than assuming every decoder layer uses the same attention architecture.
+Can a small amount of training help Qwen3.5-4B choose the right rule? We give it ten images, their true/false labels, and a list of possible rules.
+
+LoRA adds small trainable adapters while keeping the original model weights fixed. QLoRA also loads the base weights in 4-bit form to save memory. We either train adapters across decoder layers or start a separate adapter at one selected layer. Each run starts from the same pretrained base.
+
+The code checks which modules exist in each layer and records exactly which ones it trains. It changes the option order during training so the correct answer is not always the same letter. We use validation loss to choose a checkpoint, then measure model accuracy, per-rule accuracy and consistency across answer orders on held-out examples.
 
 ## Data and commands
 
-Use dataset-v1 V3 balanced ten-image labelled sets. The original 800 training images supply optimizer examples. Derived 100-image validation sets select the checkpoint; 100 final-test images are reserved. See the executable setup, untuned baseline prerequisite, training, resume and evaluation commands in [COLAB.md](../../COLAB.md#04-qlora).
+Use dataset-v1 V3 balanced ten-image labelled sets. The original 800 training images supply optimizer examples. Derived 100-image validation sets select the checkpoint; 100 final-test images are reserved. See the executable setup, pretrained baseline prerequisite, training, resume and evaluation commands in [COLAB.md](../../COLAB.md#04-qlora).
 
 ## Outputs
 

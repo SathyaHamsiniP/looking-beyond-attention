@@ -6,11 +6,26 @@ A is a green cube. B is a blue sphere. C is a red cylinder. We give the model te
 
 Earlier experiments compared Qwen3-VL-4B and Qwen3.5-4B. New runs use **Qwen3.5-4B only**.
 
+## Three versions of the task
+
+V1 asks which rule explains ten images that all satisfy it. The three rules are R1 = `(A AND B) OR C`, R2 = `(A AND C) OR B`, and R3 = `(B AND C) OR A`.
+
+There is a shortcut. Bits describe whether A, B and C are present. A positive `001` identifies R1, `010` identifies R2, and `100` identifies R3. One image can therefore reveal the answer without testing the whole expression.
+
+V2 shows both true and false examples. For example, a false `010` rules out R2 but leaves R1 and R3. A false `100` then rules out R3. Together they identify R1, although neither observation does so alone. The generator checks this property for every set.
+
+V3 adds eight different Boolean rules, including XOR, negation and different groupings of AND and OR. This lets us test more than three closely related expressions. V2 and V3 each use five true and five false observations per ten-image set. See [the task guide](three-operand-experiments/tasks/README.md) for the exact rules and checks.
+
+Dataset-v1 originally has 800 training and 200 held-out images. The newer pipeline divides the held-out group into 100 validation images for choosing settings and 100 final-test images for final evaluation. All groups contain the same Boolean configurations and rules, but different image files. This does not test whether the model can handle new kinds of logical expressions.
+
 ## Experiments
 
 - [01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md): Ask the model to find the rule. Test changes to prompts and answer choices.
 - [02 — Probing](three-operand-experiments/experiments/02-probing/README.md): Check which object and rule information is present at each model layer.
-- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. The user reports a successful Colab smoke test; the full baseline run is in progress.
+- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. The recorded Colab smoke test passed; the full baseline run is in progress.
+
+- [04 — LoRA](three-operand-experiments/experiments/04-lora/README.md): Train small adapters while keeping the base model frozen, then check accuracy on held-out images.
+- [05 — Post-LoRA patching](three-operand-experiments/experiments/05-post-lora-comparison/README.md): Repeat matched activation changes before and after training.
 
 The earlier experiments used **48 images**. Their saved results have not been changed.
 
@@ -27,7 +42,7 @@ This creates `three-operand-experiments/data-1000/` with:
 - `images/` — 1,000 images.
 - `metadata.json` — object labels and train/test groups.
 
-There are 800 training images and 200 test images. The download is checked before it is saved.
+There are 800 training images and 200 held-out images. The download is checked before it is saved.
 
 To use these images, pass `--data-dir three-operand-experiments/data-1000` to an experiment script. The original 48-image dataset still works with the old `data/` path.
 
@@ -49,18 +64,5 @@ Use `--experiment-dir` if your results folder is elsewhere. Runs using the 1,000
 
 This work builds on [Roshan's two-operand experiments](https://github.com/RoshanYSingh23/looking-beyond-attention). Our image generator and Qwen3-VL runs use parts of that public repository. Qwen3.5 uses a separate model loader.
 
-## Research pipeline: tasks and Experiments 01–05
 
-We ask whether Qwen3.5-4B identifies Boolean rules from multiple images, where useful information appears, and whether adapter training changes performance and causal sensitivity.
-
-The original positive-only three-rule question has a shortcut: a single positive 001, 010 or 100 scene identifies R1, R2 or R3. High accuracy alone does not demonstrate full Boolean reasoning. New V2 sets combine labelled positive/negative observations; V3 expands to eight distinct rules. Both require the whole set to identify the rule while every single observation remains ambiguous. See [task definitions and truth tables](three-operand-experiments/tasks/README.md).
-
-Dataset-v1 images are reused without regeneration. A derived seeded split preserves the 800 training images and divides the existing 200 held-out images into 100 validation and 100 final-test images. All partitions share Boolean configurations and rules; only visual variations are held out.
-
-1. **Operator controls:** historical V1 controls plus separate V2/V3 untuned evaluation with answer-order controls.
-2. **Probing:** single-image concept and ten-image rule probes; historical protocols and new explicit partition runners.
-3. **Baseline patching:** preserve the current V1 run; separate matched manifest patching for future V3 comparisons.
-4. **LoRA:** across-decoder and fresh single-layer QLoRA, validation checkpoint selection, held-out evaluation and shortcut controls.
-5. **Post-LoRA patching:** matched baseline/adapter comparisons with fixed receiver-probability metrics and raw results.
-
-[The Colab runbook](three-operand-experiments/COLAB.md) contains setup, dataset/task generation, exact experiment commands, smoke checks, output paths and limitations. Large new artifacts belong on Drive. Existing archives and the active Experiment 03 location are preserved. Historical pilot findings remain in each experiment README. New model-dependent implementations require real GPU validation; no new LoRA or V3 model results are claimed.
+Follow [COLAB.md](three-operand-experiments/COLAB.md) for exact commands, smoke tests and results folders. [IMPLEMENTATION.md](three-operand-experiments/IMPLEMENTATION.md) lists what was built and tested. New LoRA and V3 model runs still need GPU testing; no new model results are claimed.

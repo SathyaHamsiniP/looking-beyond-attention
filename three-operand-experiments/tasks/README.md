@@ -4,7 +4,7 @@ V1 preserves the positive-only three-rule question. The historical runner remain
 
 V2 uses the same three rules and ten labelled observations. Every set has five true and five false labels. Each observation leaves at least two possible rules, while all observations together leave exactly the generating rule. For these three rules, the identifying evidence must combine negative diagnostic observations. The five shared truth-table rows alone cannot distinguish the candidates.
 
-V3 uses eight distinct rules. It includes different AND/OR parentheses, XOR, and negation. This is a selected, finite candidate library, not a benchmark of arbitrary logical expressions. All eight rules can form balanced, singleton-safe, uniquely solvable sets. Generation rejection-samples sets until these invariants hold, with a bounded failure and a clear error. We hold the positive count fixed across rules. Configuration frequencies can still provide shortcuts; inspect each set's saved counts. No claim of unseen logical structure generalization is supported.
+V3 uses eight distinct rules. It includes different AND/OR parentheses, XOR, and negation. This is a selected, finite candidate library, not a benchmark of arbitrary logical expressions. All eight rules can form balanced, where one example alone cannot reveal the answer, uniquely solvable sets. Generation rejection-samples sets until these invariants hold, with a bounded failure and a clear error. We hold the positive count fixed across rules. Configuration frequencies can still provide shortcuts; inspect each set's saved counts. No claim of unseen logical structure generalization is supported.
 
 ## Truth tables
 

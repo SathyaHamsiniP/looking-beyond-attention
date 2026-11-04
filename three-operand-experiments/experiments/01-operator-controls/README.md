@@ -135,9 +135,9 @@ next-token readout. Qwen3.5 uses Hugging Face through our maintained adapter.
 Their preprocessing paths differ, so model comparisons include that limitation.
 The folder cleanup preserves the previous prompts, model settings, calculations,
 images and result-file contents. The old internal version strings in archived
-configurations are retained as provenance, not used as our experiment numbering.
+configurations are retained as run details, not used as our experiment numbering.
 
-## New manifest workflow
+## Running the newer tasks
 
 The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
 

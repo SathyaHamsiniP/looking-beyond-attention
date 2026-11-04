@@ -58,4 +58,4 @@ Images and `metadata.json` are saved to `data-1000/` on Google Drive.
 
 The old 48 images stay unchanged. Run the same command again if Colab stops. Finished images will be reused.
 
-**Note:** The current probing scripts still use the old 48-image setup. Update them before using this new dataset. The images are **not** uploaded to GitHub automatically.
+**Note:** The probing scripts support the 1,000-image dataset. The older protocol uses 800 training and 200 held-out images. The newer pipeline splits those held-out images into 100 validation and 100 final-test images. The images are **not** uploaded to GitHub automatically.

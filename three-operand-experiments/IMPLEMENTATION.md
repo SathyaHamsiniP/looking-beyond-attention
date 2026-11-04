@@ -7,9 +7,9 @@ Branch: `feature/complete-research-pipeline`. Starting commit: `4fd6e0c12db368c3
 - Audited the existing 01–03 runners, samplers, model adapter, three-pool probing, result formats, archived pilot results, dependency files and tests.
 - Kept the legacy baseline patching runner, imports and output manager unchanged. Its active Drive path is protected by using entirely separate new entry points; Drive was not accessed.
 - Added deterministic 800/100/100 derived splits, V1/V2/V3 generation, singleton/consistency checks and symbolic oracle validation. Source images and metadata remain untouched.
-- Added variable-option/full-sequence answer scoring, manifest validation, runtime token checks, revision/dependency provenance, input hashes, content-addressed directories, and duplicate-checked journals.
+- Added variable-option/full-sequence answer scoring, manifest validation, runtime token checks, revision/dependency run details, input hashes, named using a hash of the settings directories, and duplicate-checked journals.
 - Added manifest evaluation, explicit concept/rule partitions and layer-wise probes.
-- Added runtime-discovered hybrid-layer QLoRA targets, across-layer and fresh single-layer entry points, frozen-base checks, token-aligned targets, validation selection, trusted checkpoint resumption and adapter compatibility metadata.
+- Added found in the loaded model hybrid-layer QLoRA targets, across-layer and fresh single-layer entry points, frozen-base checks, token-aligned targets, validation selection, trusted checkpoint resumption and adapter compatibility metadata.
 - Added separate matched baseline/adapter patching and complete-plan comparisons. Receiver-probability outcomes are defined identically across same/different-rule conditions.
 - Added documentation and CPU tests. No pretrained model was downloaded or run. GPU validation remains outstanding.
 
@@ -97,13 +97,13 @@ CPU test fixtures may use synthetic records or random model weights. They are so
 
 ## Commands and output locations
 
-[COLAB.md](COLAB.md) contains complete executable commands for dataset download, V2/V3 validation, historical and new Experiment 01, both concept/rule probe protocols, the untuned V3 baseline, across-layer and single-layer QLoRA, validation/final-test evaluation, baseline and post-LoRA patching, smoke tests, and final comparisons. Its output table gives exact Drive path templates, including the protected historical location. Every new runner prints its actual configuration-derived run directory.
+[COLAB.md](COLAB.md) contains complete executable commands for dataset download, V2/V3 validation, historical and new Experiment 01, both concept/rule probe protocols, the pretrained V3 baseline, across-layer and single-layer QLoRA, validation/final-test evaluation, baseline and post-LoRA patching, smoke tests, and final comparisons. Its output table gives exact Drive path templates, including the protected historical location. Every new runner prints its actual separate results folder for each run.
 
 ## Remaining limitations and external access
 
 - Real-image Qwen3.5 tokenizer mappings are verified at runtime but were not downloaded/tested here. Complete multi-token scoring is CPU-tested with controlled tokenizers.
 - Pretrained 4-bit GPU inference/training, T4 memory limits with ten images, GPU checkpoint recovery and new post-LoRA patching require Colab smoke validation. Do not call those workflows GPU-validated yet. Use a pinned model revision for research runs.
-- No new pretrained-model metrics, LoRA outcomes or patching research findings exist. The user reports a passed historical Colab patching smoke test and an active full baseline; its Drive files were not inspected.
+- No new pretrained-model metrics, LoRA outcomes or patching research findings exist. The recorded status is a passed Colab patching smoke test and a full baseline in progress; its Drive files were not inspected.
 - New mixed-task manifests are image-disjoint across partitions but share logical configurations and rules. Within-partition overlapping sets are explicitly marked and are not independent samples. Cyclic option controls do not cover all 8! permutations. Label balance does not eliminate every configuration-frequency shortcut.
 - Legacy V1 patching output cannot be treated as matched V3 evidence. Comparison accepts explicit paths, reads sources without changing them, and rejects incompatible protocols. Run the new manifest baseline for a valid before/after comparison.
 - Google Drive and GitHub connector tools are unavailable in this session. HTTPS Git reads work. The GitHub API operation needed for a draft PR returned `Forbidden`; no draft PR is claimed unless separately confirmed.

@@ -97,13 +97,13 @@ A large effect at a layer means changing its activation can change the final ans
 
 Comparing same-rule and different-rule patches helps us see whether the effect is related to the rule or simply caused by changing the image set. The previous-token and answer-order checks add further controls.
 
-**Status:** The user reports that the Colab smoke test passed and the full baseline run is in progress. Those Drive outputs have not been inspected in this task.
+**Status:** The recorded Colab status is: smoke test passed; full baseline run in progress. Those Drive outputs have not been inspected in this task.
 
 ## Reference
 
 We used [Roshan's two-operand patching experiment](https://github.com/RoshanYSingh23/looking-beyond-attention/blob/main/code/experiments/exp7_patching.py) as a reference. Our code is for Qwen3.5-4B, three rules and the new 1,000-image dataset.
 
-## New manifest workflow
+## Running the newer tasks
 
 The historical code, data and results above are preserved. New task versions use separate runners and configuration-based directories. See [the Colab runbook](../../COLAB.md) for exact commands, output locations, split definitions and smoke tests. New runs have no pretrained-model results yet.
 
