@@ -255,6 +255,37 @@ Each curve shows the fraction of final-token trials where the answer changes. Th
 
 This graph ignores the sign of each donor-rule change before averaging. Similar-sized effects occur in both conditions; size alone does not establish a rule-specific effect.
 
+### Reading the layer-wise results: what actually shifts?
+
+The graphs answer **three different questions**. For each different-rule patch, the donor's *true* rule is the target. We calculate its probability **after patching minus before patching**:
+
+- **Signed mean change**: Is the donor's true rule more or less likely *on average*? A positive value means more likely; a negative value means less likely. Positive and negative trials can cancel.
+- **Mean absolute change**: How large is the change, ignoring its direction? This shows sensitivity, **not** successful rule transfer.
+- **Answer-change rate**: How often does the most likely rule change? A changed answer may copy the donor's *wrong prediction*, not the donor's true rule.
+
+For example, changes of **+2 and −4 percentage points** have a signed mean of **−1**, but a mean absolute change of **3**. The small signed mean hides two noticeable changes.
+
+Here are selected measurements from the **36 different-rule, final-token trials at each layer** (these reuse the same pairs and rotations):
+
+| Layer | Mean signed change in P(donor true rule) | Mean absolute change | Receiver answer changed | Changed to donor's true rule |
+|---|---:|---:|---:|---:|
+| 1 | −0.0484 pp | 0.34 pp | 0/36 | 0/36 |
+| **6** | **−0.0466 pp** | **1.20 pp** | **1/36** | **0/36** |
+| 19 | −0.2912 pp | 3.97 pp | 8/36 | 1/36 |
+| 23 | −0.8286 pp | 4.83 pp | 7/36 | 1/36 |
+| 31 | −1.4884 pp | 5.11 pp | 10/36 | 4/36 |
+| **32** | **−1.7147 pp** | **7.13 pp** | **16/36** | **7/36** |
+
+**Why is layer 6 called the “highest” effect if its average is negative?** Its signed mean is the largest *numerically* because **−0.0466 is closer to zero** than the other layers' signed means. It did **not** cause the largest shift, either toward or away from the true donor rule. At layer 6, **15/36 trials increased** that probability, **20/36 decreased** it and **1/36 was effectively unchanged**. The positive and negative changes nearly canceled. This arithmetic explains the negative mean; it does not reveal why Qwen made those individual changes.
+
+**Was there a better layer with a positive average?** **No**: all **32 different-rule final-token signed means were negative** in this completed run. This does **not** mean every individual patch was negative. It means that averaging over the selected pairs and answer rotations did not reveal a consistent increase toward the donor's true rule.
+
+**What happens across depth?** Early layers generally change the score and the chosen answer less. Middle layers become more influential, but not monotonically. Later layers produce larger absolute changes and more answer switches: the different-rule answer-change rate rises from **10/36 at layer 31** to **16/36 at layer 32**. At layer 32, the final-token vector sits immediately before the answer readout; the model may simply copy the donor's predicted answer. Indeed, all **54 final-token patches** there matched the donor's prediction, including incorrect ones.
+
+**Does any layer look rule-specific?** We should compare different-rule effects against **same-rule** patches, and distinguish changes to the donor's **true rule** from changes to its **predicted answer**. Even at layer 32, the average absolute changes are **7.13 pp (different)** versus **7.04 pp (same)**. A large effect alone is not a rule-specific effect. No layer passed the baseline's chosen five-percentage-point control cutoff; this is **not** a statistical significance test.
+
+**Can we select a layer for single-layer LoRA?** Not conclusively from this run. “Shift” must first be defined (signed probability increase, absolute change, adjacent-layer jump, answer change, or difference from same-rule controls). If selecting a candidate for a new experiment, choose the criterion *before* evaluating the new model, select on validation data, and compare against a control layer. **Neither layer 6 nor layer 32 is established as a Boolean-reasoning layer.**
+
 See the [analysis folder](baseline-analysis/README.md) for original files, the remaining graphs, exact values and a CPU notebook.
 
 ## 12. What can and cannot be concluded?
