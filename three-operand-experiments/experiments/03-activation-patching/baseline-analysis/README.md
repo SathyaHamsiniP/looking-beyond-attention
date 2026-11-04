@@ -8,6 +8,7 @@ The [analysis script](../../../code/03-activation-patching/analyze_baseline.py) 
 
 - [raw/](raw/): byte-for-byte copies of the five original files. Google Drive was not modified.
 - [derived/analysis.md](derived/analysis.md): findings and limitations checked against the raw CSV.
+  - Start with its **How to interpret the changes across all 32 layers** section, or the corresponding section in the [Experiment 03 guide](../README.md#reading-the-layer-wise-results-what-actually-shifts), to understand why layer 6 is not a reasoning-layer discovery.
 - [derived/](derived/): input manifest, metrics, plots, examples, provenance.
 - [explore_baseline.ipynb](explore_baseline.ipynb): open this CPU notebook in Jupyter or Colab. Edit four variables to inspect a saved trial. No model or Drive login is needed.
 
@@ -34,7 +35,7 @@ The script writes ordered input manifests, metrics, original predictions, counts
 
 Install `pandas matplotlib Pillow` in a Python notebook environment. Open `explore_baseline.ipynb` and run all cells from top to bottom. There are four short sections. To inspect another trial, edit `pair`, `rotation`, `layer` and `token_position`, then rerun section 2.
 
-In Colab, clone `feature/complete-research-pipeline` first. Run the notebook from the checkout root or from this folder. It finds the saved files using relative paths. There is no Drive authentication or model download. For local Jupyter, open the notebook directly in the clone.
+In Colab, clone `main` first (the baseline analysis is already merged into `main`). Run the notebook from the checkout root or from this folder. It finds the saved files using relative paths. There is no Drive authentication or model download. For local Jupyter, open the notebook directly in the clone.
 
 Images are separate from the results. Download them from the [dataset-v1 release](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1) and extract them into `three-operand-experiments/data-1000/`, or edit `dataset` in the notebook. Missing images show a helpful message; all numerical inspection still works. The Boolean labels are inspection aids, not the input text given to Qwen.
 
