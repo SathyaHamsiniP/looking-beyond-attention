@@ -107,3 +107,9 @@ CPU test fixtures may use synthetic records or random model weights. They are so
 - New mixed-task manifests are image-disjoint across partitions but share logical configurations and rules. Within-partition overlapping sets are explicitly marked and are not independent samples. Cyclic option controls do not cover all 8! permutations. Label balance does not eliminate every configuration-frequency shortcut.
 - Legacy V1 patching output cannot be treated as matched V3 evidence. Comparison accepts explicit paths, reads sources without changing them, and rejects incompatible protocols. Run the new manifest baseline for a valid before/after comparison.
 - Google Drive and GitHub connector tools are unavailable in this session. HTTPS Git reads work. The GitHub API operation needed for a draft PR returned `Forbidden`; no draft PR is claimed unless separately confirmed.
+
+## Remote delivery status
+
+The implementation commit `5dbaac2` was pushed successfully to `origin/feature/complete-research-pipeline`. Draft PR creation was attempted with `gh pr create --draft --base main`; it failed with `Post https://api.github.com/graphql: Forbidden`. No PR was created or merged. The current enforced network policy does not include `api.github.com`. That hostname has been added to the environment configuration **draft**, preserving existing presets; review/save and publish are still required to activate the configuration. API authorization must be verified again afterward. No token values were requested or exposed.
+
+The prepared PR description is saved at `/workspace/research-pipeline-pr.md`. The branch can also be reviewed on GitHub at https://github.com/SathyaHamsiniP/looking-beyond-attention/tree/feature/complete-research-pipeline . Updated environment startup instructions point to this implementation and its CPU checks, replacing the earlier onboarding note about the now-fixed patching-test syntax error.
