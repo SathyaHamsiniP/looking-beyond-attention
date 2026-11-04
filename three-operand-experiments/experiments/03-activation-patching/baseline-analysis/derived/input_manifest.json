@@ -1,0 +1,1946 @@
+{
+  "test_R1_00:0": {
+    "images": [
+      "scene_001_109.png",
+      "scene_110_123.png",
+      "scene_011_100.png",
+      "scene_001_123.png",
+      "scene_101_106.png",
+      "scene_111_113.png",
+      "scene_011_114.png",
+      "scene_001_105.png",
+      "scene_001_104.png",
+      "scene_101_104.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R1_00:1": {
+    "images": [
+      "scene_001_109.png",
+      "scene_110_123.png",
+      "scene_011_100.png",
+      "scene_001_123.png",
+      "scene_101_106.png",
+      "scene_111_113.png",
+      "scene_011_114.png",
+      "scene_001_105.png",
+      "scene_001_104.png",
+      "scene_101_104.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R1_00:2": {
+    "images": [
+      "scene_001_109.png",
+      "scene_110_123.png",
+      "scene_011_100.png",
+      "scene_001_123.png",
+      "scene_101_106.png",
+      "scene_111_113.png",
+      "scene_011_114.png",
+      "scene_001_105.png",
+      "scene_001_104.png",
+      "scene_101_104.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R1_01:0": {
+    "images": [
+      "scene_110_121.png",
+      "scene_001_117.png",
+      "scene_110_122.png",
+      "scene_111_111.png",
+      "scene_011_110.png",
+      "scene_001_114.png",
+      "scene_101_100.png",
+      "scene_001_110.png",
+      "scene_111_101.png",
+      "scene_001_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R1_01:1": {
+    "images": [
+      "scene_110_121.png",
+      "scene_001_117.png",
+      "scene_110_122.png",
+      "scene_111_111.png",
+      "scene_011_110.png",
+      "scene_001_114.png",
+      "scene_101_100.png",
+      "scene_001_110.png",
+      "scene_111_101.png",
+      "scene_001_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R1_01:2": {
+    "images": [
+      "scene_110_121.png",
+      "scene_001_117.png",
+      "scene_110_122.png",
+      "scene_111_111.png",
+      "scene_011_110.png",
+      "scene_001_114.png",
+      "scene_101_100.png",
+      "scene_001_110.png",
+      "scene_111_101.png",
+      "scene_001_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R1_02:0": {
+    "images": [
+      "scene_001_111.png",
+      "scene_001_103.png",
+      "scene_111_107.png",
+      "scene_011_118.png",
+      "scene_110_120.png",
+      "scene_101_115.png",
+      "scene_011_103.png",
+      "scene_001_106.png",
+      "scene_001_101.png",
+      "scene_101_117.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R1_02:1": {
+    "images": [
+      "scene_001_111.png",
+      "scene_001_103.png",
+      "scene_111_107.png",
+      "scene_011_118.png",
+      "scene_110_120.png",
+      "scene_101_115.png",
+      "scene_011_103.png",
+      "scene_001_106.png",
+      "scene_001_101.png",
+      "scene_101_117.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R1_02:2": {
+    "images": [
+      "scene_001_111.png",
+      "scene_001_103.png",
+      "scene_111_107.png",
+      "scene_011_118.png",
+      "scene_110_120.png",
+      "scene_101_115.png",
+      "scene_011_103.png",
+      "scene_001_106.png",
+      "scene_001_101.png",
+      "scene_101_117.png"
+    ],
+    "bits": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R2_00:0": {
+    "images": [
+      "scene_010_119.png",
+      "scene_111_103.png",
+      "scene_010_104.png",
+      "scene_110_101.png",
+      "scene_110_119.png",
+      "scene_111_110.png",
+      "scene_010_110.png",
+      "scene_010_100.png",
+      "scene_011_124.png",
+      "scene_101_120.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R2_00:1": {
+    "images": [
+      "scene_010_119.png",
+      "scene_111_103.png",
+      "scene_010_104.png",
+      "scene_110_101.png",
+      "scene_110_119.png",
+      "scene_111_110.png",
+      "scene_010_110.png",
+      "scene_010_100.png",
+      "scene_011_124.png",
+      "scene_101_120.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R2_00:2": {
+    "images": [
+      "scene_010_119.png",
+      "scene_111_103.png",
+      "scene_010_104.png",
+      "scene_110_101.png",
+      "scene_110_119.png",
+      "scene_111_110.png",
+      "scene_010_110.png",
+      "scene_010_100.png",
+      "scene_011_124.png",
+      "scene_101_120.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R2_01:0": {
+    "images": [
+      "scene_010_116.png",
+      "scene_010_121.png",
+      "scene_101_107.png",
+      "scene_101_103.png",
+      "scene_110_116.png",
+      "scene_111_102.png",
+      "scene_010_123.png",
+      "scene_011_108.png",
+      "scene_010_112.png",
+      "scene_011_106.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R2_01:1": {
+    "images": [
+      "scene_010_116.png",
+      "scene_010_121.png",
+      "scene_101_107.png",
+      "scene_101_103.png",
+      "scene_110_116.png",
+      "scene_111_102.png",
+      "scene_010_123.png",
+      "scene_011_108.png",
+      "scene_010_112.png",
+      "scene_011_106.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R2_01:2": {
+    "images": [
+      "scene_010_116.png",
+      "scene_010_121.png",
+      "scene_101_107.png",
+      "scene_101_103.png",
+      "scene_110_116.png",
+      "scene_111_102.png",
+      "scene_010_123.png",
+      "scene_011_108.png",
+      "scene_010_112.png",
+      "scene_011_106.png"
+    ],
+    "bits": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R2_02:0": {
+    "images": [
+      "scene_111_121.png",
+      "scene_110_105.png",
+      "scene_010_118.png",
+      "scene_101_110.png",
+      "scene_010_101.png",
+      "scene_011_120.png",
+      "scene_010_117.png",
+      "scene_110_109.png",
+      "scene_111_100.png",
+      "scene_010_114.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R2_02:1": {
+    "images": [
+      "scene_111_121.png",
+      "scene_110_105.png",
+      "scene_010_118.png",
+      "scene_101_110.png",
+      "scene_010_101.png",
+      "scene_011_120.png",
+      "scene_010_117.png",
+      "scene_110_109.png",
+      "scene_111_100.png",
+      "scene_010_114.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R2_02:2": {
+    "images": [
+      "scene_111_121.png",
+      "scene_110_105.png",
+      "scene_010_118.png",
+      "scene_101_110.png",
+      "scene_010_101.png",
+      "scene_011_120.png",
+      "scene_010_117.png",
+      "scene_110_109.png",
+      "scene_111_100.png",
+      "scene_010_114.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R3_00:0": {
+    "images": [
+      "scene_110_124.png",
+      "scene_100_106.png",
+      "scene_101_119.png",
+      "scene_011_115.png",
+      "scene_100_102.png",
+      "scene_100_101.png",
+      "scene_100_109.png",
+      "scene_011_122.png",
+      "scene_111_118.png",
+      "scene_101_121.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R3_00:1": {
+    "images": [
+      "scene_110_124.png",
+      "scene_100_106.png",
+      "scene_101_119.png",
+      "scene_011_115.png",
+      "scene_100_102.png",
+      "scene_100_101.png",
+      "scene_100_109.png",
+      "scene_011_122.png",
+      "scene_111_118.png",
+      "scene_101_121.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R3_00:2": {
+    "images": [
+      "scene_110_124.png",
+      "scene_100_106.png",
+      "scene_101_119.png",
+      "scene_011_115.png",
+      "scene_100_102.png",
+      "scene_100_101.png",
+      "scene_100_109.png",
+      "scene_011_122.png",
+      "scene_111_118.png",
+      "scene_101_121.png"
+    ],
+    "bits": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R3_01:0": {
+    "images": [
+      "scene_100_105.png",
+      "scene_011_107.png",
+      "scene_101_116.png",
+      "scene_100_124.png",
+      "scene_100_100.png",
+      "scene_100_118.png",
+      "scene_111_112.png",
+      "scene_110_118.png",
+      "scene_110_108.png",
+      "scene_111_120.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R3_01:1": {
+    "images": [
+      "scene_100_105.png",
+      "scene_011_107.png",
+      "scene_101_116.png",
+      "scene_100_124.png",
+      "scene_100_100.png",
+      "scene_100_118.png",
+      "scene_111_112.png",
+      "scene_110_118.png",
+      "scene_110_108.png",
+      "scene_111_120.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R3_01:2": {
+    "images": [
+      "scene_100_105.png",
+      "scene_011_107.png",
+      "scene_101_116.png",
+      "scene_100_124.png",
+      "scene_100_100.png",
+      "scene_100_118.png",
+      "scene_111_112.png",
+      "scene_110_118.png",
+      "scene_110_108.png",
+      "scene_111_120.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  },
+  "test_R3_02:0": {
+    "images": [
+      "scene_101_108.png",
+      "scene_110_114.png",
+      "scene_100_120.png",
+      "scene_100_111.png",
+      "scene_111_123.png",
+      "scene_101_111.png",
+      "scene_100_123.png",
+      "scene_100_112.png",
+      "scene_011_113.png",
+      "scene_011_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND B) OR C\nY: (A AND C) OR B\nZ: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R1",
+      "Y": "R2",
+      "Z": "R3"
+    }
+  },
+  "test_R3_02:1": {
+    "images": [
+      "scene_101_108.png",
+      "scene_110_114.png",
+      "scene_100_120.png",
+      "scene_100_111.png",
+      "scene_111_123.png",
+      "scene_101_111.png",
+      "scene_100_123.png",
+      "scene_100_112.png",
+      "scene_011_113.png",
+      "scene_011_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (A AND C) OR B\nY: (B AND C) OR A\nZ: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R2",
+      "Y": "R3",
+      "Z": "R1"
+    }
+  },
+  "test_R3_02:2": {
+    "images": [
+      "scene_101_108.png",
+      "scene_110_114.png",
+      "scene_100_120.png",
+      "scene_100_111.png",
+      "scene_111_123.png",
+      "scene_101_111.png",
+      "scene_100_123.png",
+      "scene_100_112.png",
+      "scene_011_113.png",
+      "scene_011_116.png"
+    ],
+    "bits": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "prompt": "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour AND shape.\nAny other object is an irrelevant distractor.\n\nCandidate rules:\nX: (B AND C) OR A\nY: (A AND B) OR C\nZ: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its label: X, Y, or Z.\nANSWER:",
+    "mapping": {
+      "X": "R3",
+      "Y": "R1",
+      "Z": "R2"
+    }
+  }
+}

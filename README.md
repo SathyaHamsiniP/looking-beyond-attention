@@ -29,7 +29,7 @@ Dataset-v1 originally has 800 training and 200 held-out images. The newer pipeli
 
 The earlier experiments used **48 images**. Their saved results have not been changed.
 
-The completed Qwen3.5-4B baseline patching run uses dataset-v1, the 1,000-image dataset. The recorded findings show answer bias, and patching later layers affects predictions. No clear rule-specific effect was identified. Layer 6 had the least negative average change in donor-rule probability, but no layer passed the chosen control threshold. This does not identify layer 6 as a reasoning layer or prove logical reasoning. See [Experiment 03](three-operand-experiments/experiments/03-activation-patching/README.md) for the results location.
+The Qwen3.5-4B baseline patching run on dataset-v1 is complete. Read [Experiment 03](three-operand-experiments/experiments/03-activation-patching/README.md) for the beginner guide, reported findings, verification status and results location.
 
 ## Get the 1,000 images
 

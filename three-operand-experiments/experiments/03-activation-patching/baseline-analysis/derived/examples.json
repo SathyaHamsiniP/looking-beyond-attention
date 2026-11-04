@@ -1,0 +1,80 @@
+[
+  {
+    "record": {
+      "pair_id": "test_R1_00__same__test_R1_01",
+      "condition": "same",
+      "receiver_set": "test_R1_00",
+      "receiver_rule": "R1",
+      "donor_set": "test_R1_01",
+      "donor_rule": "R1",
+      "rotation": "0",
+      "layer": "32",
+      "position": "final",
+      "receiver_prediction": "R2",
+      "donor_prediction": "R3",
+      "patched_prediction": "R3",
+      "receiver_correct": "0",
+      "donor_correct": "0",
+      "receiver_p_donor_rule": "0.1647765040397644",
+      "donor_p_donor_rule": "0.22611725330352783",
+      "patched_p_donor_rule": "0.22611725330352783",
+      "delta_p_donor_rule": "0.06134074926376343",
+      "receiver_p_receiver_rule": "0.1647765040397644",
+      "patched_p_receiver_rule": "0.22611725330352783",
+      "delta_p_receiver_rule": "0.06134074926376343",
+      "changed_answer": "1",
+      "changed_to_donor_rule": "0"
+    },
+    "receiver": {
+      "R1": 0.1647765040397644,
+      "R2": null,
+      "R3": null
+    },
+    "patched": {
+      "R1": 0.22611725330352783,
+      "R2": null,
+      "R3": null
+    },
+    "reconstructed_rules": []
+  },
+  {
+    "record": {
+      "pair_id": "test_R1_00__different__test_R2_00",
+      "condition": "different",
+      "receiver_set": "test_R1_00",
+      "receiver_rule": "R1",
+      "donor_set": "test_R2_00",
+      "donor_rule": "R2",
+      "rotation": "0",
+      "layer": "32",
+      "position": "final",
+      "receiver_prediction": "R2",
+      "donor_prediction": "R3",
+      "patched_prediction": "R3",
+      "receiver_correct": "0",
+      "donor_correct": "0",
+      "receiver_p_donor_rule": "0.4273977279663086",
+      "donor_p_donor_rule": "0.36279308795928955",
+      "patched_p_donor_rule": "0.36279308795928955",
+      "delta_p_donor_rule": "-0.06460464000701904",
+      "receiver_p_receiver_rule": "0.1647765040397644",
+      "patched_p_receiver_rule": "0.17137134075164795",
+      "delta_p_receiver_rule": "0.006594836711883545",
+      "changed_answer": "1",
+      "changed_to_donor_rule": "0"
+    },
+    "receiver": {
+      "R1": 0.1647765040397644,
+      "R2": 0.4273977279663086,
+      "R3": 0.407825767993927
+    },
+    "patched": {
+      "R1": 0.17137134075164795,
+      "R2": 0.36279308795928955,
+      "R3": 0.4658355712890625
+    },
+    "reconstructed_rules": [
+      "R3"
+    ]
+  }
+]
