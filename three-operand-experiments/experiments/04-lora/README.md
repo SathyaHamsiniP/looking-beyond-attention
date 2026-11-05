@@ -478,3 +478,83 @@ CPU tests cover data generation, label mapping, answer-token alignment and sever
 - This implementation intentionally does **not** train only one selected decoder layer. That would be a **separate experiment requiring a justified layer-selection rule**.
 
 **Where to read next:** [Experiment 05 — What changes in activation patching after LoRA?](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md).
+
+## Check that AMP really updates the adapter
+
+FP16 training uses a gradient scaler. It multiplies the loss before backward, then divides the gradients before AdamW. A very large scale can overflow FP16 gradients. When that happens, the scaler skips the optimizer update and lowers its scale. Finishing two forward/backward passes therefore does not mean training worked.
+
+The starting scale is now **16**, rather than PyTorch's default 65,536. Set `--initial-gradient-scale` to change it. We inspect gradients after unscaling and before clipping. Infinite or NaN gradients are not clipped or applied to the weights.
+
+Each `losses.jsonl` record includes:
+
+- `step`: attempted update number.
+- `optimizer_step_occurred`: whether AdamW actually ran, checked with an optimizer hook.
+- `optimizer_step_number`: count of real updates so far.
+- `gradient_scale_before` and `gradient_scale_after`.
+- `nonfinite_gradient_values` and `nonfinite_gradient_parameters`.
+- `missing_gradient_parameters` and the gradient norm before clipping.
+- `lora_b_matrices_changed`: how many B matrices changed in that attempt.
+- `optimizer_state_entries`: how many parameters have optimizer state.
+
+A smoke test fails if no real updates occur or no B matrix changes. It does not write a successful completion marker in that case. The log remains available to explain the failure. A successful test need not change every B matrix in two steps. Check both the update flags and the weight-change counts. `complete.json` records total real updates and steps with B changes.
+
+### Retry without touching the failed run
+
+Use the failed run's `config.json` to keep its exact manifest, ten-image preprocessing, pinned model revision and training settings. Do not resume the old failed checkpoint for this check. The new scale is part of the saved settings and gives a separate run ID.
+
+In a GPU Colab runtime, after mounting Drive, run this setup cell. Replace the two paths with your actual saved folders:
+
+```python
+%cd /content/looking-beyond-attention
+!git switch feature/04-simple-lora-patching
+!git pull --ff-only origin feature/04-simple-lora-patching
+
+import json
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+FAILED_RUN = Path('/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/training/PASTE_FAILED_RUN_ID')
+BASELINE_RUN = Path('/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/pretrained/PASTE_VALIDATION_RUN_ID')
+old = json.loads((FAILED_RUN / 'config.json').read_text())
+assert old['precision'] == '4bit', 'Use the same four-bit setup as the failed run.'
+FRESH_ROOT = FAILED_RUN.parent / ('amp-check-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'))
+FRESH_ROOT.mkdir(exist_ok=False)
+script = 'three-operand-experiments/code/04-lora/train_lora.py'
+keep = ['manifest', 'data_dir', 'revision', 'precision', 'max_pixels', 'rank', 'alpha',
+        'dropout', 'learning_rate', 'gradient_accumulation', 'validation_frequency',
+        'checkpoint_interval', 'max_tokens']
+command = [sys.executable, script]
+for key in keep:
+    command += ['--' + key.replace('_', '-'), str(old[key])]
+command += ['--initial-gradient-scale', '16', '--output-root', str(FRESH_ROOT / 'smoke')]
+subprocess.run(command + ['--smoke-test'], check=True)
+print('Fresh verification folder:', FRESH_ROOT)
+```
+
+This starts only the two-step smoke test. A failure stops the cell. If both attempts still overflow, inspect the parameter names in the log. Try `--initial-gradient-scale 1` in another fresh folder. A lower scale cannot fix gradients that are already non-finite before scaling; do not treat repeated skips as success.
+
+Inspect the check in a separate cell:
+
+```python
+smoke_file = next((FRESH_ROOT / 'smoke').glob('*/complete.json'))
+smoke_result = json.loads(smoke_file.read_text())
+print(smoke_result)
+assert smoke_result['optimizer_updates'] > 0
+assert smoke_result['steps_with_lora_b_changes'] > 0
+for line in (smoke_file.parent / 'losses.jsonl').read_text().splitlines():
+    print(json.loads(line))
+```
+
+Only after that passes, run this **separate cell** to start the full two-epoch training. It uses the same manifest, revision, resolution and rank, and requires the existing pretrained validation baseline:
+
+```python
+assert BASELINE_RUN.is_dir(), 'Set the complete pretrained validation folder first.'
+full_command = command[:]
+index = full_command.index('--output-root')
+full_command[index + 1] = str(FRESH_ROOT / 'full-two-epochs')
+subprocess.run(full_command + ['--epochs', '2', '--baseline-run', str(BASELINE_RUN)], check=True)
+```
+
+No full training is started by the smoke-test or inspection cells. The older results remain untouched. The lower starting scale and the skip checks have CPU tests, but the actual four-bit T4 smoke test must still be run before claiming the overflow is resolved on Qwen.

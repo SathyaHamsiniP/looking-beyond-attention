@@ -38,6 +38,87 @@ def trainable(model, selected):
     return dict(parameters=names, total=sum(names.values()), target_modules=selected)
 
 
+def optimizer_update(model, optimizer, scaler):
+    """Check gradients before clipping, and record whether AdamW actually ran."""
+    import torch
+
+    parameters = [(name, p) for name, p in model.named_parameters() if p.requires_grad]
+    before = {
+        name: p.detach().cpu().clone() for name, p in parameters if "lora_B" in name
+    }
+    if not before:
+        raise ValueError("No trainable LoRA B weights found")
+    scale_before = scaler.get_scale()
+    scaler.unscale_(optimizer)
+    bad = []
+    nonfinite_count = 0
+    missing = []
+    for name, parameter in parameters:
+        if parameter.grad is None:
+            missing.append(name)
+            continue
+        count = int((~torch.isfinite(parameter.grad)).sum().item())
+        if count:
+            bad.append(name)
+            nonfinite_count += count
+    if len(missing) == len(parameters):
+        raise RuntimeError("No trainable parameter received a gradient")
+    grad_norm = None
+    if not bad:
+        # Do not clip infinite gradients: that can turn other gradients into NaNs.
+        grad_norm = float(
+            torch.nn.utils.clip_grad_norm_(
+                [p for _, p in parameters if p.grad is not None],
+                1.0,
+                error_if_nonfinite=True,
+            )
+        )
+    called = []
+    handle = optimizer.register_step_post_hook(lambda *_: called.append(True))
+    try:
+        # GradScaler skips AdamW when unscale_ found an infinite or NaN gradient.
+        # Without AMP, reject bad gradients rather than passing them to AdamW.
+        if scaler.is_enabled() or not bad:
+            scaler.step(optimizer)
+        scaler.update()
+    finally:
+        handle.remove()
+    changed = sum(
+        not torch.equal(before[name], p.detach().cpu())
+        for name, p in parameters
+        if name in before
+    )
+    finite_weights = all(bool(torch.isfinite(p).all()) for _, p in parameters)
+    if not finite_weights:
+        raise RuntimeError("An optimizer update produced non-finite adapter weights")
+    return dict(
+        optimizer_step_occurred=bool(called),
+        gradient_scale_before=scale_before,
+        gradient_scale_after=scaler.get_scale(),
+        nonfinite_gradient_values=nonfinite_count,
+        nonfinite_gradient_parameters=bad,
+        missing_gradient_parameters=missing,
+        gradient_norm_before_clipping=grad_norm,
+        lora_b_matrices=len(before),
+        lora_b_matrices_changed=changed,
+        lora_b_weights_changed=changed > 0,
+        optimizer_state_entries=len(optimizer.state),
+    )
+
+
+def check_smoke_updates(records):
+    """A completed forward/backward pass is not enough for a successful smoke test."""
+    updates = sum(bool(r.get("optimizer_step_occurred")) for r in records)
+    changes = sum(bool(r.get("lora_b_weights_changed")) for r in records)
+    if not updates or not changes:
+        raise RuntimeError(
+            "Smoke test failed: no real optimizer update or no LoRA B weight change. "
+            "Inspect losses.jsonl and retry with a smaller --initial-gradient-scale "
+            "in a fresh output folder. No successful completion marker was written."
+        )
+    return updates, changes
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     model_args(p)
@@ -52,6 +133,7 @@ def main():
     p.add_argument("--checkpoint-interval", type=int, default=10)
     p.add_argument("--resume", type=Path)
     p.add_argument("--max-tokens", type=int, default=16000)
+    p.add_argument("--initial-gradient-scale", type=float, default=16.0)
     a = p.parse_args()
     m = load(a.manifest, a.data_dir)
     model_settings = settings(a)
@@ -69,6 +151,8 @@ def main():
         < 1
     ):
         p.error("Counts must be positive")
+    if not math.isfinite(a.initial_gradient_scale) or a.initial_gradient_scale <= 0:
+        p.error("Initial gradient scale must be finite and positive")
     if not 0 <= a.dropout < 1 or a.learning_rate <= 0:
         p.error("Invalid dropout or learning rate")
     if a.validate_only:
@@ -167,7 +251,9 @@ def main():
         [p for p in adapter.model.parameters() if p.requires_grad], lr=a.learning_rate
     )
     scaler = torch.amp.GradScaler(
-        "cuda", enabled=torch.cuda.is_available() and a.precision in ("4bit", "fp16")
+        "cuda",
+        init_scale=a.initial_gradient_scale,
+        enabled=torch.cuda.is_available() and a.precision in ("4bit", "fp16"),
     )
     best = float("inf")
     start = 0
@@ -229,15 +315,24 @@ def main():
                     raise ValueError("Nonfinite loss")
                 value += float(one.detach()) / len(indices)
                 scaler.scale(one / len(indices)).backward()
-            scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(
-                [p for p in adapter.model.parameters() if p.requires_grad], 1.0
-            )
-            scaler.step(optimizer)
-            scaler.update()
+            diagnostics = optimizer_update(adapter.model, optimizer, scaler)
             record = dict(
-                step=step + 1, training_loss=value, learning_rate=a.learning_rate
+                step=step + 1,
+                training_loss=value,
+                learning_rate=a.learning_rate,
+                optimizer_step_number=sum(
+                    bool(r.get("optimizer_step_occurred")) for r in logged.values()
+                )
+                + int(diagnostics["optimizer_step_occurred"]),
+                **diagnostics,
             )
+            # Save the update evidence before validation or checkpointing can fail.
+            if str(step + 1) not in logged:
+                append(journal, str(step + 1), record)
+            logged[str(step + 1)] = record
+            print(record, flush=True)
+            if step + 1 == total and a.smoke_test:
+                check_smoke_updates(logged.values())
             if (step + 1) % a.validation_frequency == 0 or step + 1 == total:
                 adapter.model.eval()
                 with torch.no_grad():
@@ -280,18 +375,40 @@ def main():
                     ),
                     path / "training_state.pt",
                 )
-            if str(step + 1) not in logged:
-                append(journal, str(step + 1), record)
-            print(record, flush=True)
+            # Update the same record with validation loss; never add a duplicate key.
+            logged[str(step + 1)] = record
+            temp = journal.with_suffix(".tmp")
+            temp.write_text(
+                "".join(
+                    json.dumps({**r, "key": key}) + "\n" for key, r in logged.items()
+                )
+            )
+            temp.replace(journal)
             memory()
     except torch.OutOfMemoryError as error:
         memory()
         raise RuntimeError(
             "CUDA memory exhausted. Lower --max-pixels or --rank, then use the same preprocessing for both comparison models. Ten images were not dropped."
         ) from error
+    if a.smoke_test:
+        check_smoke_updates(logged.values())
+    elif not any(r.get("optimizer_step_occurred") for r in logged.values()):
+        raise RuntimeError(
+            "Training failed: no optimizer update occurred. Inspect losses.jsonl."
+        )
     save(
         out / "complete.json",
-        dict(steps=total, best_validation_loss=best, test_used=False),
+        dict(
+            steps=total,
+            best_validation_loss=best,
+            test_used=False,
+            optimizer_updates=sum(
+                bool(r.get("optimizer_step_occurred")) for r in logged.values()
+            ),
+            steps_with_lora_b_changes=sum(
+                bool(r.get("lora_b_weights_changed")) for r in logged.values()
+            ),
+        ),
     )
 
 
