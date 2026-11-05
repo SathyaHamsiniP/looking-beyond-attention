@@ -265,7 +265,7 @@ For example, if the pretrained model predicts R1 for a true R2 set, but the LoRA
 
 Random guessing among three balanced rules gives **1/3 accuracy**. But merely beating chance does not establish that Qwen used all ten images or computed the full rule.
 
-The separate [Experiment 05 guide](../05-post-lora-comparison/README.md) explains the **second comparison**, which tests activation patching before and after training.
+The separate [Experiment 05 guide](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) explains the **second comparison**, which tests activation patching before and after training.
 
 ## 8. What are the scripts and saved files?
 
@@ -278,12 +278,9 @@ code/
     evaluate_lora.py         Get original or LoRA rule predictions
     compare_predictions.py   Compare those predictions without a GPU
     requirements.txt         Needed Python packages
-  05-post-lora-comparison/
-    patch_finetuned.py        Run patching on either model
-    compare_patching.py      Compare the two patching runs
 ~~~
 
-Everything is saved in **new run folders**. We never overwrite the completed Experiment 03 results.
+The Experiment 05 patching scripts live on the separate `feature/05-post-lora-patching` branch; they are deliberately absent here until Experiment 04 results have been committed. Everything is saved in **new run folders**. We never overwrite the completed Experiment 03 results.
 
 | Saved file or folder | What to look for |
 |---|---|
@@ -446,7 +443,7 @@ python "$CODE/04-lora/compare_predictions.py" \
 
 The script rejects incomplete runs or different inputs/settings. Its output folder must be **new**. For a preliminary comparison, use matching **validation** folders instead.
 
-Then follow [Experiment 05](../05-post-lora-comparison/README.md) to repeat activation patching with both models and compare the layer-wise changes.
+After completing Experiment 04 and pushing its results, switch to the separate branch and follow [Experiment 05](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) to repeat activation patching with both models and compare the layer-wise changes.
 
 ## 10. What should we expect, and what would the findings mean?
 
@@ -460,7 +457,7 @@ We have **not** established that LoRA improves accuracy. Several outcomes are po
 
 Even the best outcome would be an observation about **this three-rule, positive-only, image-reusing task**. It would not, on its own, establish general Boolean reasoning.
 
-For our research question, the next step is to ask whether **activation patching changes in a more rule-specific way after LoRA**. That is what [Experiment 05](../05-post-lora-comparison/README.md) is designed to test.
+For our research question, the next step is to ask whether **activation patching changes in a more rule-specific way after LoRA**. That is what [Experiment 05](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) is designed to test.
 
 ## 11. Quick checks and important limits
 
@@ -480,4 +477,4 @@ CPU tests cover data generation, label mapping, answer-token alignment and sever
 - Do not overwrite or reinterpret the existing Experiment 03 baseline results as this experiment's matched pretrained results.
 - This implementation intentionally does **not** train only one selected decoder layer. That would be a **separate experiment requiring a justified layer-selection rule**.
 
-**Where to read next:** [Experiment 05 — What changes in activation patching after LoRA?](../05-post-lora-comparison/README.md).
+**Where to read next:** [Experiment 05 — What changes in activation patching after LoRA?](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md).
