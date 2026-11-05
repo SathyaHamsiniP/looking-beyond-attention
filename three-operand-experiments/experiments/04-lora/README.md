@@ -50,11 +50,11 @@ Other objects are distractions. A Boolean rule is a statement about which combin
 
 | Name | Rule |
 |---|---|
-| R1 | \`(A AND B) OR C\` |
-| R2 | \`(A AND C) OR B\` |
-| R3 | \`(B AND C) OR A\` |
+| R1 | `(A AND B) OR C` |
+| R2 | `(A AND C) OR B` |
+| R3 | `(B AND C) OR A` |
 
-For example, \`001\` means A is absent, B is absent and C is present. That configuration satisfies R1, but not R2 or R3.
+For example, `001` means A is absent, B is absent and C is present. That configuration satisfies R1, but not R2 or R3.
 
 **One training example is an entire set of ten actual images, not a single image.** All ten images satisfy one of the rules. Qwen sees the pictures and a text prompt listing the three possible rules; its job is to answer **X, Y or Z**.
 
@@ -78,9 +78,9 @@ Certain images are particularly revealing:
 
 | Configuration | Unique rule it satisfies |
 |---|---|
-| \`001\`: only C present | R1 |
-| \`010\`: only B present | R2 |
-| \`100\`: only A present | R3 |
+| `001`: only C present | R1 |
+| `010`: only B present | R2 |
+| `100`: only A present | R3 |
 
 So a model might spot a decisive image and answer correctly **without evaluating all ten pictures**. We are deliberately keeping that original task for a controlled pilot. **Better accuracy would not, by itself, prove that Qwen learned multi-image logical reasoning.**
 
@@ -88,7 +88,7 @@ So a model might spot a decisive image and answer correctly **without evaluating
 
 We already have **1,000 unique image files**. We are not drawing or generating 900 new pictures.
 
-The original dataset contains 125 images for each of the eight possible A/B/C combinations. We keep its original **800 training images** and divide the other 200 into two groups using the fixed random seed \`2026\`.
+The original dataset contains 125 images for each of the eight possible A/B/C combinations. We keep its original **800 training images** and divide the other 200 into two groups using the fixed random seed `2026`.
 
 | Purpose | Distinct image files | Ten-image sets made from those files | Sets for R1 / R2 / R3 |
 |---|---:|---:|---|
@@ -104,10 +104,10 @@ This matters for interpreting results: 30 validation sets are **not 30 completel
 
 ### How the code actually builds a set
 
-Open [\`build_training_sets.py\`](../../code/04-lora/build_training_sets.py). Its \`build()\` function:
+Open [`build_training_sets.py`](../../code/04-lora/build_training_sets.py). Its `build()` function:
 
-1. Reads the filenames, A/B/C labels and original split from \`data-1000/metadata.json\`.
-2. Uses seed \`2026\` to split the original held-out images evenly into validation and test, keeping the eight A/B/C configurations balanced.
+1. Reads the filenames, A/B/C labels and original split from `data-1000/metadata.json`.
+2. Uses seed `2026` to split the original held-out images evenly into validation and test, keeping the eight A/B/C configurations balanced.
 3. Chooses one image of **each of the five satisfying configurations** for the intended rule.
 4. Adds **five more different satisfying images** to reach ten.
 5. Shuffles their order and assigns a candidate-rule mapping to X/Y/Z.
@@ -121,7 +121,7 @@ The answer labels are deliberately balanced in training: for each rule, the corr
 
 The builder saves a file called the **manifest**. Think of it as the complete record of the experiment: every set ID, which ten filenames are used, the generating rule, the right answer letter, the split, the seed and image fingerprints.
 
-The \`load()\` function does not blindly trust that file. It **rebuilds the sets from the actual image metadata and seed**, then checks whether they match the saved manifest. It also checks that all expected image files exist.
+The `load()` function does not blindly trust that file. It **rebuilds the sets from the actual image metadata and seed**, then checks whether they match the saved manifest. It also checks that all expected image files exist.
 
 The construction ensures that each set includes the rule's decisive configuration, so its generating rule is uniquely identifiable among R1/R2/R3. A validation failure stops the run rather than silently changing the labels or image split.
 
@@ -165,7 +165,7 @@ The code finds the actual supported linear modules inside each decoder block. Qw
 
 **Why rank 8?** It is a reasonable small starting point, not a rank proved optimal for Boolean logic. Rank 4 or 16 would be a different experiment setting. We begin with 8 to keep this pilot manageable.
 
-The actual training code is [\`train_lora.py\`](../../code/04-lora/train_lora.py). It records every adapter target and checks that no unrelated original model parameter is trainable.
+The actual training code is [`train_lora.py`](../../code/04-lora/train_lora.py). It records every adapter target and checks that no unrelated original model parameter is trainable.
 
 ## 5. How does the model learn from a correct answer?
 
@@ -231,7 +231,7 @@ For validation, the program checks **all three cyclic answer-option rotations** 
 
 Thus, **30 validation sets × 3 rotations = 90 prediction evaluations per validation check**. The same 30 sets are being seen with different answer mappings; these are not 90 independent examples.
 
-After every ten optimizer updates, and at the end, training measures the validation loss and keeps the adapter with the **lowest validation loss**. This saved adapter is called \`best_adapter/\`. The last training step is not automatically the best checkpoint.
+After every ten optimizer updates, and at the end, training measures the validation loss and keeps the adapter with the **lowest validation loss**. This saved adapter is called `best_adapter/`. The last training step is not automatically the best checkpoint.
 
 We should not inspect final-test accuracy repeatedly to decide how many epochs to train or which settings to use.
 
@@ -247,9 +247,9 @@ Open these scripts:
 
 | File | What it does |
 |---|---|
-| [\`evaluate_lora.py\`](../../code/04-lora/evaluate_lora.py) | Runs rule prediction on either the pretrained model or the fine-tuned model |
-| [\`compare_predictions.py\`](../../code/04-lora/compare_predictions.py) | Reads the two saved result files and calculates the before/after differences; no model needs to be loaded |
-| [\`common.py\`](../../code/04-lora/common.py) | Reuses the original model wrapper and prompt, prepares the images, scores X/Y/Z and checks that run settings match |
+| [`evaluate_lora.py`](../../code/04-lora/evaluate_lora.py) | Runs rule prediction on either the pretrained model or the fine-tuned model |
+| [`compare_predictions.py`](../../code/04-lora/compare_predictions.py) | Reads the two saved result files and calculates the before/after differences; no model needs to be loaded |
+| [`common.py`](../../code/04-lora/common.py) | Reuses the original model wrapper and prompt, prepares the images, scores X/Y/Z and checks that run settings match |
 
 We record:
 
@@ -287,19 +287,19 @@ Everything is saved in **new run folders**. We never overwrite the completed Exp
 
 | Saved file or folder | What to look for |
 |---|---|
-| \`rule_identification_manifest.json\` | Exact image splits, set membership and correct answer labels |
-| \`config.json\`, \`manifest.json\` | Exact settings and data used for one run |
-| \`trainable.json\` | Which adapter parameters were trained, and how many |
-| \`losses.jsonl\` | Training loss and occasional validation loss at each optimizer update |
-| \`selection.json\` | Which checkpoint had the lowest validation loss |
-| \`best_adapter/\` | Saved adapter to use for evaluation |
-| \`checkpoint-N/\` | Adapter plus optimizer and random state for resuming training |
-| \`predictions.jsonl\` | One line per set and answer rotation: true rule, predicted rule, probability scores |
-| \`metrics.json\` | Accuracy, per-rule accuracy, option bias and confusion counts |
-| \`matched_predictions.csv\` | Which answers changed from pretrained to LoRA |
-| \`comparison.json\` and PNG plots | Before/after summary, rule accuracy and biases |
+| `rule_identification_manifest.json` | Exact image splits, set membership and correct answer labels |
+| `config.json`, `manifest.json` | Exact settings and data used for one run |
+| `trainable.json` | Which adapter parameters were trained, and how many |
+| `losses.jsonl` | Training loss and occasional validation loss at each optimizer update |
+| `selection.json` | Which checkpoint had the lowest validation loss |
+| `best_adapter/` | Saved adapter to use for evaluation |
+| `checkpoint-N/` | Adapter plus optimizer and random state for resuming training |
+| `predictions.jsonl` | One line per set and answer rotation: true rule, predicted rule, probability scores |
+| `metrics.json` | Accuracy, per-rule accuracy, option bias and confusion counts |
+| `matched_predictions.csv` | Which answers changed from pretrained to LoRA |
+| `comparison.json` and PNG plots | Before/after summary, rule accuracy and biases |
 
-A \`.jsonl\` file has **one JSON record per line**. A \`.csv\` is a table you can open in a spreadsheet. A \`.png\` is a graph. The model is **not needed** to read saved metrics or generate comparison graphs.
+A `.jsonl` file has **one JSON record per line**. A `.csv` is a table you can open in a spreadsheet. A `.png` is a graph. The model is **not needed** to read saved metrics or generate comparison graphs.
 
 The program prints a run folder after starting. It adds a short identifier based on the settings, dataset and software versions. Copy the **printed folder path** rather than guessing it. Changing code or package versions may change that identifier.
 
@@ -316,7 +316,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 ~~~
 
-In a new Colab cell, put \`%%bash\` on the first line, then:
+In a new Colab cell, put `%%bash` on the first line, then:
 
 ~~~bash
 git clone --branch feature/04-simple-lora-patching https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
@@ -338,7 +338,7 @@ mkdir -p "$RUNS" "$PATCH_RUNS"
 export MANIFEST="$RUNS/rule_identification_manifest.json"
 ~~~
 
-**Important for Colab:** Each \`%%bash\` cell starts a new shell. Re-run the path and \`export\` block at the top of **each new shell cell**, or execute related commands in one cell. The command snippets below assume these variables have been set in that shell.
+**Important for Colab:** Each `%%bash` cell starts a new shell. Re-run the path and `export` block at the top of **each new shell cell**, or execute related commands in one cell. The command snippets below assume these variables have been set in that shell.
 
 ### 9.2 Build and check the examples (no GPU needed)
 
@@ -361,7 +361,7 @@ fi
 export REV="$(cat "$RUNS/model_revision.txt")"
 ~~~
 
-Keep \`REV\` the same for **every** original-model, LoRA-model and activation-patching command. Do not replace it with \`main\`. Keep the image resolution (\`--max-pixels\`) and precision the same too.
+Keep `REV` the same for **every** original-model, LoRA-model and activation-patching command. Do not replace it with `main`. Keep the image resolution (`--max-pixels`) and precision the same too.
 
 ### 9.4 First check whether training can run on the GPU
 
@@ -375,7 +375,7 @@ A **smoke test** is a tiny real training run that catches loading, tokenization 
 
 A smoke test finishing does **not** prove that the full run will fit or finish. Never use smoke-test results as research measurements.
 
-If memory runs out, reduce \`--max-pixels\` or \`--rank\` explicitly. Do not silently drop images. If resolution changes, restart the pretrained and LoRA comparisons with the **same new resolution**. The \`--max-tokens\` limit rejects excessively long inputs; it does not silently shorten them.
+If memory runs out, reduce `--max-pixels` or `--rank` explicitly. Do not silently drop images. If resolution changes, restart the pretrained and LoRA comparisons with the **same new resolution**. The `--max-tokens` limit rejects excessively long inputs; it does not silently shorten them.
 
 ### 9.5 Measure the original model before training
 
@@ -405,13 +405,13 @@ python "$CODE/04-lora/train_lora.py" \
 
 This is the **full** two-epoch run with rank 8 and the other settings from Section 4. It refuses to start unless the supplied original-model baseline is complete and matches the manifest and model settings.
 
-Training saves its losses, checkpoints and \`best_adapter/\`. Set:
+Training saves its losses, checkpoints and `best_adapter/`. Set:
 
 ~~~bash
 export ADAPTER='/paste/the/printed/training/run/folder/best_adapter'
 ~~~
 
-To resume interrupted training, rerun with identical settings and \`--resume /full/run/checkpoint-N\`. Use a trusted checkpoint from this experiment, preferably the latest one. The saved checkpoint contains more than adapter weights: it also stores the optimizer, step number and random state.
+To resume interrupted training, rerun with identical settings and `--resume /full/run/checkpoint-N`. Use a trusted checkpoint from this experiment, preferably the latest one. The saved checkpoint contains more than adapter weights: it also stores the optimizer, step number and random state.
 
 ### 9.7 Evaluate LoRA on validation, then use the final test only once settings are fixed
 
