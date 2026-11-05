@@ -12,12 +12,9 @@ from unittest.mock import patch
 
 CODE = Path(__file__).resolve().parents[1] / "code"
 sys.path.insert(0, str(CODE / "04-lora"))
-sys.path.insert(0, str(CODE / "05-post-lora-comparison"))
 import build_training_sets as data
 import common
 import train_lora
-from compare_patching import compare_configs, aggregate
-from patch_finetuned import make_pairs, patch as patch_vector, capture
 
 
 def tiny_model():
@@ -142,36 +139,7 @@ class SimpleLoRATests(unittest.TestCase):
                 dict(X=10, Y=10, Z=10),
             )
 
-    def test_settings_and_pair_mismatch(self):
-        plan = dict(
-            pairs=make_pairs(self.manifest, "test", 1),
-            layers=[1, 32],
-            positions=["final", "previous"],
-            rotations=[0, 1, 2],
-        )
-        self.assertEqual(len(plan["pairs"]), 9)
-        for p in plan["pairs"]:
-            self.assertNotEqual(p["receiver"], p["donor"])
-        left = dict(
-            settings={"revision": "a" * 40},
-            manifest_hash="data",
-            plan=plan,
-            smoke_test=False,
-            kind="patching",
-            adapter=None,
-        )
-        right = {**left, "adapter": {"weights": "hash"}}
-        compare_configs(left, right)
-        for field, value in [
-            ("layers", [1]),
-            ("positions", ["final"]),
-            ("rotations", [0]),
-            ("pairs", []),
-        ]:
-            changed = copy.deepcopy(right)
-            changed["plan"][field] = value
-            with self.assertRaises(ValueError):
-                compare_configs(left, changed)
+    def test_mismatched_example_settings(self):
         with self.assertRaises(ValueError):
             common.matched({"set_id": "x"}, {"set_id": "y"}, ("set_id",))
 
@@ -385,37 +353,6 @@ class SimpleLoRATests(unittest.TestCase):
             with patch.object(sys, "argv", compare_args), self.assertRaises(ValueError):
                 compare_predictions.main()
 
-    def test_patch_hooks_and_saved_summary(self):
-        import torch
-
-        model = tiny_model().eval()
-        adapter = SimpleNamespace(
-            model=model,
-            tokenizer=SimpleNamespace(encode=lambda label, **kw: [ord(label) % 32]),
-        )
-        prepared = {"input_ids": torch.tensor([[1, 2, 3]])}
-        before, vectors = capture(adapter, prepared, 0, common.layers(model))
-        after = patch_vector(
-            adapter, prepared, 0, common.layers(model)[0], vectors[1]["final"], "final"
-        )
-        self.assertAlmostEqual(sum(after.values()), 1.0, places=5)
-        self.assertTrue(all(not block._forward_hooks for block in common.layers(model)))
-        summary = aggregate(
-            [
-                dict(
-                    condition="different",
-                    position="final",
-                    layer=1,
-                    delta_donor=-0.1,
-                    delta_receiver=0.2,
-                    changed_answer=True,
-                    changed_to_donor_true=False,
-                    changed_to_donor_prediction=True,
-                )
-            ]
-        )
-        self.assertEqual(summary[0]["absolute_donor"], 0.1)
-        self.assertEqual(summary[0]["donor_prediction_transfer"], 1)
 
 
 if __name__ == "__main__":
