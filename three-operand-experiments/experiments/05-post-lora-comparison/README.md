@@ -83,7 +83,7 @@ Use the **validation** sets while deciding which layers or settings to investiga
 
 We have **30 validation ten-image sets** in Experiment 04, ten for each of R1, R2 and R3. The default patching plan deliberately starts smaller, because every pair requires many model runs.
 
-With \`--receivers-per-rule 1\`, we choose:
+With `--receivers-per-rule 1`, we choose:
 
 - One R1 receiver.
 - One R2 receiver.
@@ -107,7 +107,7 @@ The selector tries to use donors whose image filenames **do not overlap** the re
 
 This matters because our validation and test partitions each contain only **100 distinct pictures**, reused across their sets. The pairs are not automatically image-disjoint just because they have different set IDs.
 
-You can change the receiver count later with \`--receivers-per-rule\`, but use **exactly the same value and resulting pair plan** for the original and LoRA models.
+You can change the receiver count later with `--receivers-per-rule`, but use **exactly the same value and resulting pair plan** for the original and LoRA models.
 
 ## 5. What are we changing in each patching trial?
 
@@ -117,11 +117,11 @@ A **trial** means one receiver–donor pair, one answer-option rotation, one pat
 
 The default small plan patches layers:
 
-\`1, 8, 16, 24, 32\`
+`1, 8, 16, 24, 32`
 
 This samples early, middle and late processing stages without immediately testing every layer. It does **not** claim these are the scientifically important layers.
 
-You may later pass other layer numbers using \`--layers\`. A full 32-layer sweep is also possible but more expensive.
+You may later pass other layer numbers using `--layers`. A full 32-layer sweep is also possible but more expensive.
 
 ### Which token position?
 
@@ -185,11 +185,11 @@ The **smoke test** is smaller: one same-rule pair and one different-rule pair, t
 
 If we test all 32 layers with the same nine pairs, the count becomes:
 
-\`9 × 3 × 32 × 2 = 1,728 trials per model.\`
+`9 × 3 × 32 × 2 = 1,728 trials per model.`
 
 ## 7. How does the code perform activation patching?
 
-The script is [\`patch_finetuned.py\`](../../code/05-post-lora-comparison/patch_finetuned.py).
+The script is [`patch_finetuned.py`](../../code/05-post-lora-comparison/patch_finetuned.py).
 
 For each pair and answer rotation, it:
 
@@ -205,8 +205,8 @@ A **forward hook** is just a callback run when a model layer produces an output.
 
 The same script works with either model:
 
-- Without \`--adapter\`: run the original pretrained Qwen.
-- With \`--adapter "$ADAPTER"\`: load the same base Qwen **plus the trained adapter**.
+- Without `--adapter`: run the original pretrained Qwen.
+- With `--adapter "$ADAPTER"`: load the same base Qwen **plus the trained adapter**.
 
 This is how we avoid writing two different patching methods that might behave differently for unrelated reasons.
 
@@ -245,7 +245,7 @@ These metrics tell us **whether and how much outputs changed**. By themselves, t
 
 ## 9. How do we compare pretrained and LoRA patching results?
 
-The comparison program is [\`compare_patching.py\`](../../code/05-post-lora-comparison/compare_patching.py).
+The comparison program is [`compare_patching.py`](../../code/05-post-lora-comparison/compare_patching.py).
 
 It reads two saved, completed runs without loading Qwen. It first checks that both runs used **matching examples and settings**.
 
@@ -284,26 +284,26 @@ Each patching run saves:
 
 | File | Meaning |
 |---|---|
-| \`config.json\` | Model revision, precision, image settings, adapter identity and complete plan |
-| \`manifest.json\` | Exact dataset split and ten-image sets |
-| \`pair_plan.json\` | Exact receiver–donor pairs, their true rules, shared images, rotations, layers and positions |
-| \`patches.jsonl\` | Every patching trial: original receiver/donor and patched answer probabilities |
-| \`complete.json\` | Confirms the expected patching trials were recorded |
+| `config.json` | Model revision, precision, image settings, adapter identity and complete plan |
+| `manifest.json` | Exact dataset split and ten-image sets |
+| `pair_plan.json` | Exact receiver–donor pairs, their true rules, shared images, rotations, layers and positions |
+| `patches.jsonl` | Every patching trial: original receiver/donor and patched answer probabilities |
+| `complete.json` | Confirms the expected patching trials were recorded |
 
 The comparison saves:
 
 | File | Meaning |
 |---|---|
-| \`before.json\` | Summary of pretrained-model patching |
-| \`after.json\` | Summary of LoRA-model patching |
-| \`differences.csv\` | For each layer/condition/position, LoRA summary minus pretrained summary |
-| \`sources.json\` | Which original runs and settings the comparison used |
-| \`signed_donor.png\` | Change toward/away from the donor's true rule |
-| \`absolute_donor.png\` | Magnitude of donor-rule probability shifts |
-| \`receiver_change.png\` | Change in probability of the receiver's true rule |
-| \`answer_change.png\` | Rate at which the chosen answer changes |
-| \`donor_true_transfer.png\` | Switches to the donor's actual rule |
-| \`donor_prediction_transfer.png\` | Switches to the donor's predicted answer |
+| `before.json` | Summary of pretrained-model patching |
+| `after.json` | Summary of LoRA-model patching |
+| `differences.csv` | For each layer/condition/position, LoRA summary minus pretrained summary |
+| `sources.json` | Which original runs and settings the comparison used |
+| `signed_donor.png` | Change toward/away from the donor's true rule |
+| `absolute_donor.png` | Magnitude of donor-rule probability shifts |
+| `receiver_change.png` | Change in probability of the receiver's true rule |
+| `answer_change.png` | Rate at which the chosen answer changes |
+| `donor_true_transfer.png` | Switches to the donor's actual rule |
+| `donor_prediction_transfer.png` | Switches to the donor's predicted answer |
 
 Read a graph by checking: **which model, same/different rule, final/previous token, and which layer?** A larger curve does not automatically mean better reasoning.
 
@@ -313,7 +313,7 @@ The comparison uses **all selected trials**, not just cases where the original m
 
 First complete the setup and fine-tuning in the [Experiment 04 guide](../04-lora/README.md#9-how-to-run-experiment-04-in-colab).
 
-You need the same exported variables: \`CODE\`, \`DATA\`, \`MANIFEST\`, \`REV\`, \`PATCH_RUNS\` and the saved \`ADAPTER\` folder. In Colab, a new \`%%bash\` cell **does not remember** exported variables from previous shell cells, so redefine them or run the commands together.
+You need the same exported variables: `CODE`, `DATA`, `MANIFEST`, `REV`, `PATCH_RUNS` and the saved `ADAPTER` folder. In Colab, a new `%%bash` cell **does not remember** exported variables from previous shell cells, so redefine them or run the commands together.
 
 ### 11.1 Check the pair plan on CPU
 
@@ -324,7 +324,7 @@ python "$CODE/05-post-lora-comparison/patch_finetuned.py" \
   --partition validation --validate-only
 ~~~
 
-This prints how many receiver–donor pairs and patching trials are planned, and reports how many pairs share images. The \`--validate-only\` mode does **not** load the large model.
+This prints how many receiver–donor pairs and patching trials are planned, and reports how many pairs share images. The `--validate-only` mode does **not** load the large model.
 
 ### 11.2 Try the small real GPU runs
 
@@ -373,7 +373,7 @@ python "$CODE/05-post-lora-comparison/compare_patching.py" \
 
 The comparison output directory must be **new and empty**. You can inspect the plots there without loading Qwen or running any patches again.
 
-After the experimental decisions are fixed, repeat the two patching commands with \`--partition test\`, then compare the two final-test run folders into a **different new output folder**. Do not use test results to decide which layers to patch.
+After the experimental decisions are fixed, repeat the two patching commands with `--partition test`, then compare the two final-test run folders into a **different new output folder**. Do not use test results to decide which layers to patch.
 
 ### What if we want all 32 layers?
 
@@ -426,4 +426,4 @@ For Monday, we want a **careful before/after comparison**: what changed in rule 
 
 If we later try **single-layer LoRA**, we must first define *how* to choose that layer (for example, a rule-specific effect beyond same-rule controls on validation data). We should not automatically pick the layer with the biggest absolute shift or the least-negative signed mean.
 
-**Where to go next:** read the [Experiment 04 guide](../04-lora/README.md), then inspect \`before.json\`, \`after.json\`, \`differences.csv\` and the comparison graphs **after the GPU runs complete**.
+**Where to go next:** read the [Experiment 04 guide](../04-lora/README.md), then inspect `before.json`, `after.json`, `differences.csv` and the comparison graphs **after the GPU runs complete**.
