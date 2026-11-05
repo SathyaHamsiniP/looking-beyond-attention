@@ -1,0 +1,4 @@
+-r ../requirements-qwen35.txt
+peft>=0.18
+bitsandbytes>=0.46.1
+matplotlib
