@@ -1,0 +1,107 @@
+{
+  "source_base": "looking-beyond-attention/three-operand-experiments/results/04-simple-lora",
+  "source_runs": {
+    "training": "training-full-amp8/19624e351a86e4af",
+    "pretrained": "pretrained/f5eba3974733a1ea",
+    "finetuned": "finetuned-validation-amp8/e09db6ba9e7dff5f",
+    "comparison": "prediction-comparison-validation-amp8"
+  },
+  "artifacts": {
+    "pretrained/metrics.json": {
+      "drive_url": "https://drive.google.com/file/d/1IhnjiK_Po5yyr9kU_gd5NxMfjLk0o6EQ/view",
+      "sha256": "57a5a0a16ad4cc58c6f4e61ac9ab994cfa5b7f9b0bf71dc659c94c01e86c862a",
+      "bytes": 741
+    },
+    "pretrained/predictions.jsonl": {
+      "drive_url": "https://drive.google.com/file/d/1fNwunSGQ7WhugY5JKxrPqWaH-9iphbY4/view",
+      "sha256": "d23124b92bf3f11cda9953eef889a9ef02dece514a35d71c65cbcd3242604f80",
+      "bytes": 47162
+    },
+    "finetuned/metrics.json": {
+      "drive_url": "https://drive.google.com/file/d/1jIHqpIh1gHu4GlH3nB_y4v6YWBNcOEma/view",
+      "sha256": "659c846f92b3d144dcdfae905f50d9d4da858a74f90a476483146453ec4f7d3a",
+      "bytes": 765
+    },
+    "finetuned/predictions.jsonl": {
+      "drive_url": "https://drive.google.com/file/d/1qJjQsgAWmBv5aXPPKwik6qyfegjPyt6v/view",
+      "sha256": "d54fa813acc0ef838ed413d9d77c560b20f8252cb59b41ad3be344e9fc7488bb",
+      "bytes": 47220
+    },
+    "comparison/comparison.json": {
+      "drive_url": "https://drive.google.com/file/d/13jNmpWzs8tmPaZtZ1OeKhi8l3Tv_UpLT/view",
+      "sha256": "ddaf66f2b5dff2aae03d9b32a9c8254c73f541d553a7743a777e61ea3ed145a1",
+      "bytes": 2086
+    },
+    "comparison/matched_predictions.csv": {
+      "drive_url": "https://drive.google.com/file/d/1aSl19OR0ir256W4ZhLeOnhhhieY5hOee/view",
+      "sha256": "96ef8289f63ac43c8212164ad88254debbc350e2ac5acf68d4286f4245f941b6",
+      "bytes": 11859
+    },
+    "training/losses.jsonl": {
+      "drive_url": "https://drive.google.com/file/d/13x24FMlcc5KWzQSOFbRMilcy8fNlfIPb/view",
+      "sha256": "79849e2eef8e82089fa72444d56df3825aded7f70fcc68d312e48d414548adaa",
+      "bytes": 22481
+    },
+    "training/complete.json": {
+      "drive_url": "https://drive.google.com/file/d/165VFdkmzvLfrdcgi1hMB2CslwGsuhXRi/view",
+      "sha256": "4ab411f0168eb1fa30fa170ef86f1c712712a15550a1aa1bc870e8edd6f48a80",
+      "bytes": 148
+    },
+    "training/selection.json": {
+      "drive_url": "https://drive.google.com/file/d/170_IMyKIMJhd7XNzQ0mgfgzH5lONwisj/view",
+      "sha256": "974637373216fdd53a30374902f945bf6a5aa2c016e0f4ad9c39ab5bf220b4f2",
+      "bytes": 295
+    },
+    "training/trainable.json": {
+      "drive_url": "https://drive.google.com/file/d/1jzG9GzLEZTUASjgc1OPszVoxu8u9V7F8/view",
+      "sha256": "a8c5b96f28d1d194259d89f29f096334775d1452ffcef604ff9d292fd64c5407",
+      "bytes": 64278
+    },
+    "training/config.json": {
+      "drive_url": "https://drive.google.com/file/d/1Gu7MOaHlJ4-rUWYlQLKeQwo_YPZ8SmnE/view",
+      "sha256": "84d1765cdb96d75a73c568012b9a3e3102e20cb574e3413325c3e785831e2fcb",
+      "bytes": 15184
+    },
+    "finetuned/config.json": {
+      "drive_url": "https://drive.google.com/file/d/13t96sBSku60PlhwTx7q6C9oenqQ13m-G/view",
+      "sha256": "984d1ed63e0dc6c8c9d2977569cb7cb2d661d5fe04809f6271cd9c3caaea8333",
+      "bytes": 1461
+    },
+    "pretrained/config.json": {
+      "drive_url": "https://drive.google.com/file/d/1ePOe26msIIsTIhJuC1F6DW23efcQx6Os/view",
+      "sha256": "47a096535858a75d4a7ecd71f2c4bee883a57bd7206c930f85a7df14e59a546b",
+      "bytes": 710
+    },
+    "model_revision.txt": {
+      "drive_url": "https://drive.google.com/file/d/19zQQLtT26MYpeDlSPsePeUgF5kJFqH0S/view",
+      "sha256": "38ae7c82d0defdc431fce9fcf68befbecbff7c8e43750d55ab6cb77367121475",
+      "bytes": 41
+    },
+    "rule_identification_manifest.json": {
+      "drive_url": "https://drive.google.com/file/d/1QDBaWoK15M6am_rdYrLHSrUvxDDgP5QU/view",
+      "sha256": "99e97034a333c78118ddc95ad48550f27afd2e9af0104dd02b5b50369c89aff2",
+      "bytes": 249364
+    },
+    "comparison/answer_bias.png": {
+      "drive_url": "https://drive.google.com/file/d/1VPctFmQ8ikavcxznAAAUtxWizNJzivGq/view",
+      "sha256": "7ae323ec74184161c0dcbfcebb0f86c08e7163f26515284907f955a700ad87a2",
+      "bytes": 12706
+    },
+    "comparison/per_rule_accuracy.png": {
+      "drive_url": "https://drive.google.com/file/d/1o-gqRF9F2e28ywvAhVWwFMXJXgrwAX__/view",
+      "sha256": "1306232035da3f8b5c2639d44138e4d87b6e548f8aea436639338eee5a155c9b",
+      "bytes": 18196
+    },
+    "comparison/pretrained_confusion.png": {
+      "drive_url": "https://drive.google.com/file/d/1e3GHKyZyvgKkYqCxJpPcxXrExpGDEftm/view",
+      "sha256": "99741402b22bb70dba3cbd5e10ca09539a4fedc5ce5f518d54642dad97452335",
+      "bytes": 13026
+    },
+    "comparison/LoRA_confusion.png": {
+      "drive_url": "https://drive.google.com/file/d/19KOQPo4pko_J873eNSwixVUjjGdO_qcO/view",
+      "sha256": "21bfcf2fe0c0365f8f2a89131b7e253c1d55244cd99424b3af3cac7874f6ba1b",
+      "bytes": 16750
+    }
+  },
+  "note": "Source artifacts copied byte-for-byte from Drive. Original absolute paths are retained as provenance, not required reproduction inputs. Weights and images are not included. Derived analysis uses CPU only."
+}

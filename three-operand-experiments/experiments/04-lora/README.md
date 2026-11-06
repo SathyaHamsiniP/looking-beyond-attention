@@ -1,560 +1,225 @@
-# 04 — Teaching Qwen to identify Boolean rules with LoRA
+# Experiment 04 — QLoRA training changed the model, but its answers collapsed to Y
 
-## 1. What question are we trying to answer?
+## Research question
 
-In [Experiment 03](../03-activation-patching/README.md), we showed Qwen3.5-4B ten pictures and asked it to identify the Boolean rule that explained them. We then replaced one internal activation vector at a time to see how its answer changed.
+Can a small amount of task-specific training help Qwen3.5-4B identify a Boolean rule from pictures? We fine-tuned small QLoRA adapters and compared the selected adapter with the pretrained model on **exactly the same validation images and option orders**.
 
-Now we want to ask two new questions:
+Training completed and changed the adapter weights. Validation accuracy moved from **29/90 (32.22%) to 30/90 (33.33%)**, but the selected adapter answered **Y on every trial**. This is the central finding: the experiment does **not demonstrate that the model learned the Boolean rules**.
 
-1. **If we give Qwen a little training on this exact task, will it identify the correct rules more often?**
-2. **If it improves, will activation patching affect it differently afterward?**
+## Experimental setup: one question, ten pictures, three rules
 
-We must compare the model **before and after training on the same evaluation examples**. Otherwise, a difference in performance might come from changing the questions rather than changing the model.
+Each picture may contain three relevant objects:
 
-The complete plan is:
+- **A:** a green cube.
+- **B:** a blue sphere.
+- **C:** a red cylinder.
 
-~~~text
-Existing 1,000 images
-        |
-        v
-Build fixed ten-image sets
-        |
-        +----> Pretrained Qwen: save its answers
-        |
-        +----> Train small LoRA adapters on 90 sets
-                         |
-                         v
-                  Qwen + trained adapters
-                         |
-                         v
-                 Save answers on the SAME sets
-                         |
-                         v
-               Compare answers and accuracy
-                         |
-                         v
-          Repeat matched activation patching (Exp 05)
-~~~
+Other objects are distractions. The model sees ten actual images, all satisfying one hidden rule, and chooses among these candidates:
 
-**Status:** The code is implemented, but this experiment has **not yet been run successfully on the full pretrained model**. There are no real LoRA performance results to interpret yet. CPU tests do not prove that ten-image QLoRA training will fit on a Colab T4.
-
-## 2. What exactly is the task?
-
-An image can contain three important objects:
-
-- **A**: green cube present.
-- **B**: blue sphere present.
-- **C**: red cylinder present.
-
-Other objects are distractions. A Boolean rule is a statement about which combinations of A, B and C count as true.
-
-| Name | Rule |
-|---|---|
-| R1 | `(A AND B) OR C` |
-| R2 | `(A AND C) OR B` |
-| R3 | `(B AND C) OR A` |
-
-For example, `001` means A is absent, B is absent and C is present. That configuration satisfies R1, but not R2 or R3.
-
-**One training example is an entire set of ten actual images, not a single image.** All ten images satisfy one of the rules. Qwen sees the pictures and a text prompt listing the three possible rules; its job is to answer **X, Y or Z**.
-
-For example, imagine the prompt shows:
-
-~~~text
-X: (A AND B) OR C
-Y: (A AND C) OR B
-Z: (B AND C) OR A
-~~~
-
-If the ten images were selected using R2, the correct training answer is **Y**. For another set, the rule order might be different, so the correct letter must change too.
-
-We reuse the exact original image-plus-text prompt from [Experiment 03](../03-activation-patching/README.md#5-what-exactly-does-qwen-receive). It tells Qwen that every picture follows one hidden rule, defines A/B/C, lists the choices and asks for one answer label. The actual images are sent to the model; **we do not give it the ground-truth A/B/C bit values**. Those bits are only for preparing and checking the dataset.
-
-### A limitation built into our original task
-
-Our task is **positive-only**: every picture in an R1 set satisfies R1, and similarly for R2 and R3. Each set contains examples of all five A/B/C configurations that satisfy its rule.
-
-Certain images are particularly revealing:
-
-| Configuration | Unique rule it satisfies |
-|---|---|
-| `001`: only C present | R1 |
-| `010`: only B present | R2 |
-| `100`: only A present | R3 |
-
-So a model might spot a decisive image and answer correctly **without evaluating all ten pictures**. We are deliberately keeping that original task for a controlled pilot. **Better accuracy would not, by itself, prove that Qwen learned multi-image logical reasoning.**
-
-## 3. Where do the 90 training examples come from?
-
-We already have **1,000 unique image files**. We are not drawing or generating 900 new pictures.
-
-The original dataset contains 125 images for each of the eight possible A/B/C combinations. We keep its original **800 training images** and divide the other 200 into two groups using the fixed random seed `2026`.
-
-| Purpose | Distinct image files | Ten-image sets made from those files | Sets for R1 / R2 / R3 |
-|---|---:|---:|---|
-| Training | 800 | **90** | 30 / 30 / 30 |
-| Validation | 100 | **30** | 10 / 10 / 10 |
-| Final test | 100 | **30** | 10 / 10 / 10 |
-
-**An image file is not a training example. A ten-image set is one training example.**
-
-Why can 100 validation images produce 30 ten-image sets, which contain 300 image appearances? Because we allow an image to appear in **different sets within the same partition**. But no image can appear in two partitions. We also do not repeat an image **inside the same set**.
-
-This matters for interpreting results: 30 validation sets are **not 30 completely independent collections of pictures**.
-
-### How the code actually builds a set
-
-Open [`build_training_sets.py`](../../code/04-lora/build_training_sets.py). Its `build()` function:
-
-1. Reads the filenames, A/B/C labels and original split from `data-1000/metadata.json`.
-2. Uses seed `2026` to split the original held-out images evenly into validation and test, keeping the eight A/B/C configurations balanced.
-3. Chooses one image of **each of the five satisfying configurations** for the intended rule.
-4. Adds **five more different satisfying images** to reach ten.
-5. Shuffles their order and assigns a candidate-rule mapping to X/Y/Z.
-6. Repeats this until it has 30 training sets per rule, and 10 validation and 10 test sets per rule.
-
-It avoids duplicate ten-image collections even if the same ten filenames would have appeared in a different order. Each set also records which image filenames it shares with other sets in its partition.
-
-The answer labels are deliberately balanced in training: for each rule, the correct answer is X in ten training sets, Y in ten and Z in ten. **The current training loop uses the mapping saved in each set; it does not reshuffle a set's options on every epoch.**
-
-### How do we know the sets are valid?
-
-The builder saves a file called the **manifest**. Think of it as the complete record of the experiment: every set ID, which ten filenames are used, the generating rule, the right answer letter, the split, the seed and image fingerprints.
-
-The `load()` function does not blindly trust that file. It **rebuilds the sets from the actual image metadata and seed**, then checks whether they match the saved manifest. It also checks that all expected image files exist.
-
-The construction ensures that each set includes the rule's decisive configuration, so its generating rule is uniquely identifiable among R1/R2/R3. A validation failure stops the run rather than silently changing the labels or image split.
-
-### What is an epoch, then?
-
-**One epoch means one pass through all 90 training sets.** It is not ten images and it is not 90 epochs.
-
-- **One training example:** 10 images + prompt → one correct answer label.
-- **One epoch:** all 90 training examples once.
-- **Two epochs:** 180 example presentations; many pictures appear more than once.
-- **Batch size 1:** the model processes one ten-image example at a time.
-- **Gradient accumulation 4:** after up to four examples, the code combines their training signals and updates the adapter weights once.
-
-With 90 sets, that is **23 optimizer updates per epoch** (the last update covers two examples), or **46 updates over two epochs**. The code shuffles set order each epoch.
-
-## 4. What does LoRA actually train?
-
-Qwen3.5-4B already has pretrained weights: a very large collection of numbers learned before our experiment. Updating all those numbers would be expensive.
-
-**LoRA** keeps those original weights frozen and inserts small **trainable adapter matrices** into selected parts of the model. During training, we change only these added matrices.
-
-**QLoRA** additionally stores the pretrained model in a compressed **4-bit** form, which reduces the memory needed for the frozen weights. It does **not** mean the LoRA adapters are only four bits.
-
-Our first experiment attaches LoRA to the supported linear modules **throughout all 32 language decoder layers**. It does **not** train the vision encoder, and it does **not** update every original weight in the model.
-
-The code finds the actual supported linear modules inside each decoder block. Qwen3.5's blocks are not all identical, so we must discover their real names rather than assume they all use the same attention structure.
-
-| Setting | Current value | Plain-English meaning |
+| Rule | Boolean expression | A revealing example |
 |---|---|---|
-| Base model | Qwen3.5-4B | The pretrained model we start from |
-| QLoRA precision | 4-bit NF4 | Compress frozen base weights to save GPU memory |
-| **Rank** | **8** | Size/capacity of the small LoRA updates |
-| Alpha | 16 | Scaling applied to those LoRA updates |
-| Dropout | 0.05 | Randomly drop a small fraction of adapter input during training |
-| Epochs | **2** | Two passes through the 90 training examples |
-| Learning rate | 0.0002 | Size of the optimizer's updates |
-| Optimizer | AdamW | Chooses how adapter weights are updated from the loss |
-| Per-device batch | 1 | One ten-image example processed at a time |
-| Gradient accumulation | 4 | Combine training signals from up to four examples per update |
-| Validation frequency | Every 10 optimizer updates and at the end | Check whether the model is improving on unseen examples |
+| R1 | `(A AND B) OR C` | Only C present (`001`) satisfies R1 alone |
+| R2 | `(A AND C) OR B` | Only B present (`010`) satisfies R2 alone |
+| R3 | `(B AND C) OR A` | Only A present (`100`) satisfies R3 alone |
 
-**Why rank 8?** It is a reasonable small starting point, not a rank proved optimal for Boolean logic. Rank 4 or 16 would be a different experiment setting. We begin with 8 to keep this pilot manageable.
+For example, an R1 set includes pictures with C alone as well as other configurations satisfying R1. Each set contains all five satisfying A/B/C configurations, then five additional satisfying images, with no duplicate image inside the set. The model receives the pictures and object definitions, **not** the A/B/C labels used to construct the sets. The task is positive-only: it contains no negative examples. A decisive picture can distinguish the candidate rules, so success would not itself establish reasoning over all ten images.
 
-The actual training code is [`train_lora.py`](../../code/04-lora/train_lora.py). It records every adapter target and checks that no unrelated original model parameter is trainable.
+The fixed dataset has 1,000 images, 125 for each of the eight A/B/C configurations. Seed **2026** preserves the original 800 training images and divides the held-out 200 into balanced validation and test pools.
 
-## 5. How does the model learn from a correct answer?
+| Partition | Distinct images | Ten-image sets | Sets per rule |
+|---|---:|---:|---:|
+| Training | 800 | 90 | 30 |
+| Validation | 100 | 30 | 10 |
+| Test | 100 | 30 | 10 |
 
-This is the part called **the loss**.
+Images never cross partitions, but sets **reuse images within a partition**. The [fixed manifest](results/rule_identification_manifest.json) records the sets, image fingerprints and split. These are 90 training **sets**, not 90 individual images.
 
-Suppose our ten images follow R2, and R2 is shown as option Y. We want Qwen to become more likely to produce **Y**.
+Training uses each set's saved option mapping, balanced across X/Y/Z, for both epochs. Validation repeats every set in three cyclic option orders. If an R1 set is shown with mappings `X=R1,Y=R2,Z=R3`, then `X=R2,Y=R3,Z=R1`, then `X=R3,Y=R1,Z=R2`, its correct letters are X, Z and Y. A model identifying the rule should keep choosing R1 as its letter changes.
 
-Imagine Qwen initially assigns the correct answer only a small probability. The training loss is large. If it assigns Y a higher probability after training, the loss becomes smaller.
+Thus validation has **30 sets × 3 rotations = 90 trials**. The rotations are repeated measurements, not independent examples. **Every accuracy in this report is validation accuracy. The final-test partition remains untouched.**
 
-The code uses the **negative log-likelihood of the correct answer tokens**:
+## Training method: small adapters on a frozen quantized model
 
-~~~text
-Training loss = -log P(correct answer | ten images, prompt)
-~~~
+QLoRA keeps the large base model frozen in 4-bit form and trains small low-rank additions to selected linear layers. For a weight matrix W, the adapter adds a scaled product of two smaller matrices. This reduces the trainable parameter and memory requirements while allowing the language model's behavior to change.
 
-This is a standard way to train a language model to prefer the correct answer. It does not tell Qwen *how* to reason; it only tells it what answer was correct.
+We used **Qwen/Qwen3.5-4B** at fixed revision [`851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`](results/model_revision.txt). The successful configuration is saved in [training/config.json](results/training/config.json).
 
-There is one important distinction from our graphs in Experiment 03:
-
-- **During training**, the answer's probability is calculated using the model's **full vocabulary**, not only X/Y/Z. Only the correct answer tokens contribute to the loss; the prompt itself is not a target.
-- **During evaluation**, the code compares the three permitted answers X, Y and Z. Their scores are converted into three probabilities that sum to one. It then chooses the most likely rule.
-
-The code also handles an answer label that might require more than one token. It checks the right token positions so it does not accidentally train on the prompt or on the wrong answer token.
-
-The steps for each training set are:
-
-~~~text
-Read ten images and their correct generating rule
-                  |
-                  v
-Make the prompt and find the correct X/Y/Z label
-                  |
-                  v
-Qwen processes the actual images and the text
-                  |
-                  v
-Calculate loss on the correct answer token(s)
-                  |
-                  v
-Backpropagate the error into LoRA adapters only
-                  |
-                  v
-Update adapters; repeat for the next examples
-~~~
-
-This is supervised fine-tuning. There is **no separate reward model** and no training on free-text explanations.
-
-## 6. Why do we need a validation set and a test set?
-
-We have to avoid grading the model only on the examples it just learned.
-
-- **Training sets (90):** used to update LoRA weights.
-- **Validation sets (30):** used to decide which saved adapter is best. They are not used to update weights.
-- **Test sets (30):** set aside until the training setup is fixed. They give our final before/after comparison.
-
-For validation, the program checks **all three cyclic answer-option rotations** for each set:
-
-| Rotation | X | Y | Z |
-|---|---|---|---|
-| 0 | R1 | R2 | R3 |
-| 1 | R2 | R3 | R1 |
-| 2 | R3 | R1 | R2 |
-
-Thus, **30 validation sets × 3 rotations = 90 prediction evaluations per validation check**. The same 30 sets are being seen with different answer mappings; these are not 90 independent examples.
-
-After every ten optimizer updates, and at the end, training measures the validation loss and keeps the adapter with the **lowest validation loss**. This saved adapter is called `best_adapter/`. The last training step is not automatically the best checkpoint.
-
-We should not inspect final-test accuracy repeatedly to decide how many epochs to train or which settings to use.
-
-## 7. What do we compare before and after LoRA?
-
-First, we run the **original pretrained Qwen** on the validation sets and save its answers. This is the **baseline**.
-
-Then we train QLoRA, load the best adapter, and ask the **same validation questions** again.
-
-Only after choosing settings do we use the untouched test sets. Both models see exactly the same ten-image sets and three answer-option rotations.
-
-Open these scripts:
-
-| File | What it does |
+| Setting | Successful experiment |
 |---|---|
-| [`evaluate_lora.py`](../../code/04-lora/evaluate_lora.py) | Runs rule prediction on either the pretrained model or the fine-tuned model |
-| [`compare_predictions.py`](../../code/04-lora/compare_predictions.py) | Reads the two saved result files and calculates the before/after differences; no model needs to be loaded |
-| [`common.py`](../../code/04-lora/common.py) | Reuses the original model wrapper and prompt, prepares the images, scores X/Y/Z and checks that run settings match |
+| Quantization | 4-bit NF4, double quantization, FP16 compute |
+| LoRA | Rank 8, alpha 16, dropout 0.05 |
+| Targets | Language-model attention and MLP linear layers; vision encoder frozen |
+| Optimizer | PyTorch AdamW, constant learning rate 0.0002; default betas (0.9, 0.999), epsilon 1e-8, weight decay 0.01 |
+| Training | 90 sets, two epochs, one set per microbatch, gradient accumulation 4 |
+| Numerical settings | Initial AMP gradient scale **8**, gradient clipping norm 1 |
+| Input limits | 100,352 pixels per image; 16,000 token guard |
+| Validation/checkpoints | Every 10 updates, plus final validation |
+| Selection | Lowest validation full-vocabulary answer-token loss over three rotations |
 
-We record:
+Only the answer tokens contribute to the training loss; the image and prompt tokens are masked. Checkpoint selection uses the answer's probability under the **full vocabulary**, not validation accuracy. Evaluation separately scores X/Y/Z by conditional answer-sequence likelihood and normalizes those three scores into saved probabilities. These probabilities are relative choice scores, not calibrated probabilities of logical understanding.
 
-- **Overall accuracy:** fraction of predictions matching the generating rule.
-- **Per-rule accuracy:** did it improve for R1, R2 and R3 equally?
-- **Answer-label bias:** does the model prefer X, Y or Z regardless of the pictures?
-- **Rule bias:** does it overpredict R1, R2 or R3?
-- **Confusion matrix:** which rules does it confuse with which others?
-- **Changes on the same examples:** which wrong answers became correct, and which correct answers became wrong?
-- **Probability change:** did the correct rule's score increase, even when the chosen answer stayed the same?
+### Evidence that training succeeded
 
-For example, if the pretrained model predicts R1 for a true R2 set, but the LoRA model predicts R2, that is one corrected prediction. If the reverse happens on another set, that is one new error. **We need both counts, not merely a final accuracy percentage.**
+The [completion record](results/training/complete.json) and [update log](results/training/losses.jsonl) show **46 successful optimizer updates**. All **248 LoRA B matrices changed at every update**. With accumulation 4, each epoch has 23 updates, including its final partial batch. The [trainable parameter inventory](results/training/trainable.json) records the adapter scope.
 
-Random guessing among three balanced rules gives **1/3 accuracy**. But merely beating chance does not establish that Qwen used all ten images or computed the full rule.
+The lowest recorded validation loss was **1.1470619327492184 at step 20**, which selected the adapter reported below; see [selection.json](results/training/selection.json). The final step was not the selected checkpoint. Training updates succeeded, but this alone says nothing about rule learning.
 
-The separate [Experiment 05 guide](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) explains the **second comparison**, which tests activation patching before and after training.
+![Training and validation loss, with selected checkpoint](results/derived/loss_curve.png)
 
-## 8. What are the scripts and saved files?
+The [CPU-generated loss curve](results/derived/loss_curve.png) uses the actual logged update losses and validation observations. Training points cover changing batches; validation points cover all validation rotations, so their values are not directly interchangeable.
 
-~~~text
-code/
-  04-lora/
-    build_training_sets.py   Make and check the image sets
-    common.py                Shared prompt, model and scoring helpers
-    train_lora.py            Train the LoRA adapters
-    evaluate_lora.py         Get original or LoRA rule predictions
-    compare_predictions.py   Compare those predictions without a GPU
-    requirements.txt         Needed Python packages
-~~~
+## Results: a one-answer gain hides a stronger position bias
 
-The Experiment 05 patching scripts live on the separate `feature/05-post-lora-patching` branch; they are deliberately absent here until Experiment 04 results have been committed. Everything is saved in **new run folders**. We never overwrite the completed Experiment 03 results.
+| Model | Correct / trials | Validation accuracy | Difference from pretrained |
+|---|---:|---:|---:|
+| Pretrained | 29/90 | 32.22% | — |
+| Selected QLoRA adapter | 30/90 | 33.33% | +1.11 percentage points |
+| Uniform-choice chance reference | — | 33.33% | — |
 
-| Saved file or folder | What to look for |
+The [saved comparison](results/comparison/comparison.json) and [matched trial table](results/comparison/matched_predictions.csv) compare identical examples. The one additional correct answer is not persuasive evidence of improvement: the selected adapter simply chose the middle answer label every time.
+
+| Predicted letter | Pretrained | Selected QLoRA |
+|---|---:|---:|
+| X | 9 | 0 |
+| Y | 62 | **90** |
+| Z | 19 | 0 |
+
+![Answer-label counts before and after training](results/comparison/answer_bias.png)
+
+The pretrained model already favored Y. Fine-tuning made that bias complete on this validation evaluation: **every saved answer is Y, across all image sets and all rotations**. This observed invariance does not prove the model ignores images under every possible input; it describes the evaluated examples.
+
+### Per-rule performance and confusion matrices
+
+| True rule | Pretrained correct | Pretrained accuracy | QLoRA correct | QLoRA accuracy |
+|---|---:|---:|---:|---:|
+| R1 | 6/30 | 20.00% | 10/30 | 33.33% |
+| R2 | 5/30 | 16.67% | 10/30 | 33.33% |
+| R3 | 18/30 | 60.00% | 10/30 | 33.33% |
+
+![Per-rule validation accuracy](results/comparison/per_rule_accuracy.png)
+
+In the matrices, rows are true rules and columns are predicted rules, both ordered R1, R2, R3. The pretrained counts are `[6,6,18]`, `[5,5,20]`, `[8,4,18]`. It often predicted R3.
+
+![Pretrained confusion matrix](results/comparison/pretrained_confusion.png)
+
+After fine-tuning, **every row is `[10,10,10]`**. This apparent balance comes from rotating which rule is labeled Y, not from distinguishing the rules correctly.
+
+![Selected QLoRA confusion matrix](results/comparison/LoRA_confusion.png)
+
+### What happened to the 28 changed predictions?
+
+| Transition | Trials |
+|---|---:|
+| Wrong → correct | 11 |
+| Correct → wrong | 10 |
+| Wrong → different wrong | 7 |
+| **Total changed** | **28** |
+
+The remaining 62 predictions stayed the same. The net gain is **11 − 10 = 1** correct trial. The [matched CSV](results/comparison/matched_predictions.csv) includes every trial and its probability changes; the [derived analysis](results/derived/analysis.json) verifies these transitions from the raw predictions.
+
+### One real set across three rotations
+
+Consider **validation_R1_00**, whose true rule is R1. Its ten saved image filenames are:
+
+```text
+scene_110_121.png, scene_111_124.png, scene_110_116.png,
+scene_001_100.png, scene_011_120.png, scene_101_111.png,
+scene_101_123.png, scene_111_101.png, scene_001_109.png,
+scene_001_101.png
+```
+
+The same images appear in the same order in each rotation. The table reports saved probabilities in **R1/R2/R3 order**, rounded to nine decimal places for display. Full precision is retained in both [pretrained](results/pretrained/predictions.jsonl) and [fine-tuned](results/finetuned/predictions.jsonl) files and in the [extracted example](results/derived/analysis.json).
+
+| Rotation | X / Y / Z rules | Correct letter | Pretrained probabilities R1 / R2 / R3 | Pretrained answer | QLoRA probabilities R1 / R2 / R3 | QLoRA answer |
+|---|---|---|---|---|---|---|
+| 0 | R1 / R2 / R3 | X | 0.205451950 / 0.338732988 / 0.455815077 | Z → R3 | 0.209831834 / 0.444213986 / 0.345954210 | Y → R2 |
+| 1 | R2 / R3 / R1 | Z | 0.314919680 / 0.173915178 / 0.511165142 | Y → R3 | 0.349498123 / 0.208694860 / 0.441807002 | Y → R3 |
+| 2 | R3 / R1 / R2 | Y | 0.319353282 / 0.324382365 / 0.356264353 | X → R3 | 0.441807002 / 0.349498123 / 0.208694860 | Y → R1 |
+
+The pretrained model consistently chose the wrong **rule**, R3, using three different letters. The adapter consistently chose the same **letter**, Y, which meant three different rules. It was correct only when R1 occupied Y.
+
+### Rotation consistency: Y=90 is the key finding
+
+We call a set rule-consistent when all three rotations predict the **same rule**, after translating letters through each option mapping. Consistency need not imply correctness, as the example above shows.
+
+| Model | Rule-consistent sets | Rate |
+|---|---:|---:|
+| Pretrained | 6/30 | 20.00% |
+| Selected QLoRA | **0/30** | **0.00%** |
+
+Always answering Y guarantees one correct rotation per set and zero rule consistency. It explains the 33.33% aggregate accuracy and all three equal per-rule accuracies without requiring rule identification.
+
+A paired set-clustered percentile bootstrap (seed **2026**, **20,000** resamples) retains each set's three rotations and resamples the same sets for both models. Its descriptive 95% intervals are **22.22–42.22%** for pretrained accuracy, **33.33–33.33%** for QLoRA accuracy, and **−8.89 to +11.11 percentage points** for the paired difference. The degenerate QLoRA interval follows from getting exactly one of three rotations correct in every set; it does not indicate certainty about future data.
+
+These intervals account for rotations within sets but **do not account for shared images across sets**, checkpoint selection, or training-seed variability. They are not a formal demonstration of improvement or a population-level guarantee.
+
+## Interpretation, limitations and future diagnostics
+
+The adapter changed, but its selected checkpoint showed answer-position collapse. Lower answer-token validation loss did not translate into demonstrated rule identification. A plausible diagnostic direction is to examine how full-vocabulary answer loss and relative X/Y/Z scores evolve at each checkpoint; this experiment does not establish the cause of the collapse.
+
+This is a small pilot with one training run and one validation-selected adapter. Its positive-only task admits decisive-image shortcuts. Reused images introduce dependence, and selecting on validation means these are not unbiased final-test results. Rule consistency measures resistance to option rotation, not Boolean understanding. Adapter weights and source images are omitted from this small results release.
+
+Useful future diagnostics include comparing checkpoint accuracy, answer balance and rule consistency alongside loss; evaluating shuffled option orders during training; testing image ablations or mismatches to probe visual dependence; and running multiple seeds with richer positive/negative evidence. Such studies would be new experiments. No GPU inference, retraining, activation patching or final-test evaluation was performed for this publication.
+
+## Reproduction
+
+### Recheck the published results on CPU
+
+From the repository root, install NumPy and Matplotlib in a Python environment, then run:
+
+```bash
+python -m pip install numpy matplotlib
+python three-operand-experiments/code/04-lora/analyze_results.py \
+  --results three-operand-experiments/experiments/04-lora/results \
+  --output /tmp/experiment04-analysis
+python -m unittest discover -s three-operand-experiments/tests -p 'test_lora_results.py'
+```
+
+This checks matched IDs, mappings, probabilities, correctness, saved metrics, CSV deltas, successful updates and checkpoint selection. It regenerates the analysis and loss curve without loading model weights. All four original comparison PNGs were regenerated from the raw predictions and verified pixel for pixel before publication.
+
+### Repeat the training and validation protocol
+
+A new training run requires a suitable GPU and the original `data-1000` dataset (`metadata.json` and `images/`). Put the dataset at a configurable location, create a fresh results directory, and use the committed manifest. Install the [model requirements](../../code/04-lora/requirements.txt); the saved configs record the original software versions. No personal paths or saved run IDs are required.
+
+```bash
+EXP=three-operand-experiments
+DATA=/path/to/data-1000
+OUT=/path/to/fresh-results
+MANIFEST="$EXP/experiments/04-lora/results/rule_identification_manifest.json"
+REVISION=$(cat "$EXP/experiments/04-lora/results/model_revision.txt")
+python "$EXP/code/04-lora/build_training_sets.py" \
+  --data-dir "$DATA" --manifest "$MANIFEST" --validate-only
+python "$EXP/code/04-lora/evaluate_lora.py" \
+  --data-dir "$DATA" --manifest "$MANIFEST" --revision "$REVISION" \
+  --precision 4bit --partition validation --output-root "$OUT/pretrained"
+python "$EXP/code/04-lora/train_lora.py" \
+  --data-dir "$DATA" --manifest "$MANIFEST" --revision "$REVISION" \
+  --precision 4bit --epochs 2 --initial-gradient-scale 8 \
+  --output-root "$OUT/training"
+```
+
+Each command writes a configuration-addressed subdirectory. Set `BASELINE_RUN` to the emitted pretrained directory and `TRAINING_RUN` to the emitted training directory. Evaluate `--adapter "$TRAINING_RUN/best_adapter"` with the same evaluation command, validation partition and `--output-root "$OUT/finetuned"`. Set `FINETUNED_RUN` to that emitted directory, then compare:
+
+```bash
+python "$EXP/code/04-lora/compare_predictions.py" \
+  --baseline "$BASELINE_RUN" --finetuned "$FINETUNED_RUN" \
+  --output "$OUT/comparison"
+```
+
+Keep the final-test partition reserved. Hardware and library differences can affect numerical results; these instructions describe the protocol, not a guarantee of identical training outcomes.
+
+### Technical record and artifact index
+
+The original software record is PyTorch **2.11.0+cu130**, Transformers **5.22.0**, PEFT **0.21.2** and bitsandbytes **0.50.2**, with source commit `680e8a7d51ac36b08c60e11cc0ee7280404ee65d`. The [pretrained config](results/pretrained/config.json) and [fine-tuned config](results/finetuned/config.json) retain matching prompt hashes, manifest hashes, model settings and adapter fingerprints. The [source provenance](results/provenance.json) links every copied artifact to Drive and records its SHA-256; original paths inside raw records are provenance only.
+
+| Record | Committed files |
 |---|---|
-| `rule_identification_manifest.json` | Exact image splits, set membership and correct answer labels |
-| `config.json`, `manifest.json` | Exact settings and data used for one run |
-| `trainable.json` | Which adapter parameters were trained, and how many |
-| `losses.jsonl` | Training loss and occasional validation loss at each optimizer update |
-| `selection.json` | Which checkpoint had the lowest validation loss |
-| `best_adapter/` | Saved adapter to use for evaluation |
-| `checkpoint-N/` | Adapter plus optimizer and random state for resuming training |
-| `predictions.jsonl` | One line per set and answer rotation: true rule, predicted rule, probability scores |
-| `metrics.json` | Accuracy, per-rule accuracy, option bias and confusion counts |
-| `matched_predictions.csv` | Which answers changed from pretrained to LoRA |
-| `comparison.json` and PNG plots | Before/after summary, rule accuracy and biases |
-
-A `.jsonl` file has **one JSON record per line**. A `.csv` is a table you can open in a spreadsheet. A `.png` is a graph. The model is **not needed** to read saved metrics or generate comparison graphs.
-
-The program prints a run folder after starting. It adds a short identifier based on the settings, dataset and software versions. Copy the **printed folder path** rather than guessing it. Changing code or package versions may change that identifier.
-
-## 9. How to run Experiment 04 in Colab
-
-These are the actual script interfaces on this branch. Steps **9.1 and 9.2 are CPU work**; loading Qwen, training and evaluation need a suitable GPU. The comparison script only needs saved files and a CPU.
-
-### 9.1 Get the code, connect Drive and prepare paths
-
-Select a GPU runtime in Colab (for example T4). In a Python cell:
-
-~~~python
-from google.colab import drive
-drive.mount('/content/drive')
-~~~
-
-In a new Colab cell, put `%%bash` on the first line, then:
-
-~~~bash
-git clone --branch feature/04-simple-lora-patching https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
-cd /content/looking-beyond-attention
-pip install -r three-operand-experiments/code/04-lora/requirements.txt
-~~~
-
-If Colab asks you to restart after package installation, restart, remount Drive and continue with the existing checkout.
-
-Use these paths in a shell cell:
-
-~~~bash
-cd /content/looking-beyond-attention
-export CODE=three-operand-experiments/code
-export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000'
-export RUNS='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora'
-export PATCH_RUNS='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/05-simple-lora-patching'
-mkdir -p "$RUNS" "$PATCH_RUNS"
-export MANIFEST="$RUNS/rule_identification_manifest.json"
-~~~
-
-**Important for Colab:** Each `%%bash` cell starts a new shell. Re-run the path and `export` block at the top of **each new shell cell**, or execute related commands in one cell. The command snippets below assume these variables have been set in that shell.
-
-### 9.2 Build and check the examples (no GPU needed)
-
-~~~bash
-python "$CODE/00-data-generation/download_dataset.py" --output-dir "$DATA"
-python "$CODE/04-lora/build_training_sets.py" --data-dir "$DATA" --manifest "$MANIFEST"
-python "$CODE/04-lora/build_training_sets.py" --data-dir "$DATA" --manifest "$MANIFEST" --validate-only
-~~~
-
-If the dataset already exists, the downloader checks it without replacing it. The builder checks the real files and should report **800/100/100 images** and **90/30/30 ten-image sets**.
-
-### 9.3 Fix the exact Qwen version
-
-Online model weights can be updated. For a meaningful comparison, the pretrained model used before training must be the **same original version** used after training. We save a fixed 40-character model commit ID.
-
-~~~bash
-if [ ! -f "$RUNS/model_revision.txt" ]; then
-  python -c 'from huggingface_hub import model_info; print(model_info("Qwen/Qwen3.5-4B").sha)' > "$RUNS/model_revision.txt"
-fi
-export REV="$(cat "$RUNS/model_revision.txt")"
-~~~
-
-Keep `REV` the same for **every** original-model, LoRA-model and activation-patching command. Do not replace it with `main`. Keep the image resolution (`--max-pixels`) and precision the same too.
-
-### 9.4 First check whether training can run on the GPU
-
-~~~bash
-python "$CODE/04-lora/train_lora.py" \
-  --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/training" --smoke-test
-~~~
-
-A **smoke test** is a tiny real training run that catches loading, tokenization and memory problems before we commit to the complete experiment. Here it uses just two training sets, up to two optimizer updates, and two validation sets. **It still processes all ten images in each set.**
-
-A smoke test finishing does **not** prove that the full run will fit or finish. Never use smoke-test results as research measurements.
-
-If memory runs out, reduce `--max-pixels` or `--rank` explicitly. Do not silently drop images. If resolution changes, restart the pretrained and LoRA comparisons with the **same new resolution**. The `--max-tokens` limit rejects excessively long inputs; it does not silently shorten them.
-
-### 9.5 Measure the original model before training
-
-~~~bash
-python "$CODE/04-lora/evaluate_lora.py" \
-  --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/pretrained" \
-  --partition validation
-~~~
-
-This evaluates **30 validation sets × 3 answer orders = 90 predictions**. It prints the exact results folder. Copy it:
-
-~~~bash
-export BASELINE='/paste/the/printed/pretrained/validation/run/folder'
-~~~
-
-Do **not** substitute a smoke-test folder.
-
-### 9.6 Fine-tune the LoRA adapters
-
-~~~bash
-python "$CODE/04-lora/train_lora.py" \
-  --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/training" \
-  --baseline-run "$BASELINE" --epochs 2
-~~~
-
-This is the **full** two-epoch run with rank 8 and the other settings from Section 4. It refuses to start unless the supplied original-model baseline is complete and matches the manifest and model settings.
-
-Training saves its losses, checkpoints and `best_adapter/`. Set:
-
-~~~bash
-export ADAPTER='/paste/the/printed/training/run/folder/best_adapter'
-~~~
-
-To resume interrupted training, rerun with identical settings and `--resume /full/run/checkpoint-N`. Use a trusted checkpoint from this experiment, preferably the latest one. The saved checkpoint contains more than adapter weights: it also stores the optimizer, step number and random state.
-
-### 9.7 Evaluate LoRA on validation, then use the final test only once settings are fixed
-
-~~~bash
-python "$CODE/04-lora/evaluate_lora.py" \
-  --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/finetuned" \
-  --adapter "$ADAPTER" --partition validation
-~~~
-
-Once you are satisfied with the setup, evaluate the **same final-test examples** on both models:
-
-~~~bash
-python "$CODE/04-lora/evaluate_lora.py" --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/pretrained" --partition test
-
-python "$CODE/04-lora/evaluate_lora.py" --manifest "$MANIFEST" --data-dir "$DATA" \
-  --revision "$REV" --output-root "$RUNS/finetuned" \
-  --adapter "$ADAPTER" --partition test
-~~~
-
-### 9.8 Compare the two saved prediction runs (no GPU required)
-
-Use the **exact run folders** printed by the two test evaluations:
-
-~~~bash
-python "$CODE/04-lora/compare_predictions.py" \
-  --baseline /full/pretrained/test/run \
-  --finetuned /full/finetuned/test/run \
-  --output "$RUNS/prediction-comparison-test"
-~~~
-
-The script rejects incomplete runs or different inputs/settings. Its output folder must be **new**. For a preliminary comparison, use matching **validation** folders instead.
-
-After completing Experiment 04 and pushing its results, switch to the separate branch and follow [Experiment 05](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) to repeat activation patching with both models and compare the layer-wise changes.
-
-## 10. What should we expect, and what would the findings mean?
-
-We have **not** established that LoRA improves accuracy. Several outcomes are possible:
-
-- **Validation and test accuracy improve:** the adapter helps with rule identification on these examples. It may still use decisive-image shortcuts.
-- **Training loss decreases but held-out accuracy does not:** the model may be fitting training examples without generalizing.
-- **Accuracy improves but predictions still favour one letter/rule:** LoRA has not removed all answer bias.
-- **Accuracy hardly changes but answer probabilities do:** the model's confidence changed without changing the winning answer.
-- **Results differ across option rotations:** the model may be reacting to answer labels or presentation order.
-
-Even the best outcome would be an observation about **this three-rule, positive-only, image-reusing task**. It would not, on its own, establish general Boolean reasoning.
-
-For our research question, the next step is to ask whether **activation patching changes in a more rule-specific way after LoRA**. That is what [Experiment 05](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md) is designed to test.
-
-## 11. Quick checks and important limits
-
-From the repository checkout:
-
-~~~bash
-python -m unittest discover -s three-operand-experiments/tests -v
-~~~
-
-CPU tests cover data generation, label mapping, answer-token alignment and several model/adapter behaviours with small test models. They are **not** a substitute for running the actual 4B model and its ten images on a real GPU.
-
-- **No completed GPU training results are published yet.**
-- A Colab T4 has limited GPU memory; even four-bit QLoRA with ten images might not fit.
-- Training-set image reuse and repeated answer rotations reduce how independent the measured examples are.
-- Changing the image resolution, model revision, prompt or data split means the old comparison is no longer directly matched.
-- Do not put model checkpoints, image datasets or new GPU run folders into Git.
-- Do not overwrite or reinterpret the existing Experiment 03 baseline results as this experiment's matched pretrained results.
-- This implementation intentionally does **not** train only one selected decoder layer. That would be a **separate experiment requiring a justified layer-selection rule**.
-
-**Where to read next:** [Experiment 05 — What changes in activation patching after LoRA?](https://github.com/SathyaHamsiniP/looking-beyond-attention/blob/feature/05-post-lora-patching/three-operand-experiments/experiments/05-post-lora-comparison/README.md).
-
-## Check that AMP really updates the adapter
-
-FP16 training uses a gradient scaler. It multiplies the loss before backward, then divides the gradients before AdamW. A very large scale can overflow FP16 gradients. When that happens, the scaler skips the optimizer update and lowers its scale. Finishing two forward/backward passes therefore does not mean training worked.
-
-The starting scale is now **16**, rather than PyTorch's default 65,536. Set `--initial-gradient-scale` to change it. We inspect gradients after unscaling and before clipping. Infinite or NaN gradients are not clipped or applied to the weights.
-
-Each `losses.jsonl` record includes:
-
-- `step`: attempted update number.
-- `optimizer_step_occurred`: whether AdamW actually ran, checked with an optimizer hook.
-- `optimizer_step_number`: count of real updates so far.
-- `gradient_scale_before` and `gradient_scale_after`.
-- `nonfinite_gradient_values` and `nonfinite_gradient_parameters`.
-- `missing_gradient_parameters` and the gradient norm before clipping.
-- `lora_b_matrices_changed`: how many B matrices changed in that attempt.
-- `optimizer_state_entries`: how many parameters have optimizer state.
-
-A smoke test fails if no real updates occur or no B matrix changes. It does not write a successful completion marker in that case. The log remains available to explain the failure. A successful test need not change every B matrix in two steps. Check both the update flags and the weight-change counts. `complete.json` records total real updates and steps with B changes.
-
-### Retry without touching the failed run
-
-Use the failed run's `config.json` to keep its exact manifest, ten-image preprocessing, pinned model revision and training settings. Do not resume the old failed checkpoint for this check. The new scale is part of the saved settings and gives a separate run ID.
-
-In a GPU Colab runtime, after mounting Drive, run this setup cell. Replace the two paths with your actual saved folders:
-
-```python
-%cd /content/looking-beyond-attention
-!git switch feature/04-simple-lora-patching
-!git pull --ff-only origin feature/04-simple-lora-patching
-
-import json
-import subprocess
-import sys
-from datetime import datetime, timezone
-from pathlib import Path
-
-FAILED_RUN = Path('/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/training/PASTE_FAILED_RUN_ID')
-BASELINE_RUN = Path('/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/pretrained/PASTE_VALIDATION_RUN_ID')
-old = json.loads((FAILED_RUN / 'config.json').read_text())
-assert old['precision'] == '4bit', 'Use the same four-bit setup as the failed run.'
-FRESH_ROOT = FAILED_RUN.parent / ('amp-check-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'))
-FRESH_ROOT.mkdir(exist_ok=False)
-script = 'three-operand-experiments/code/04-lora/train_lora.py'
-keep = ['manifest', 'data_dir', 'revision', 'precision', 'max_pixels', 'rank', 'alpha',
-        'dropout', 'learning_rate', 'gradient_accumulation', 'validation_frequency',
-        'checkpoint_interval', 'max_tokens']
-command = [sys.executable, script]
-for key in keep:
-    command += ['--' + key.replace('_', '-'), str(old[key])]
-command += ['--initial-gradient-scale', '16', '--output-root', str(FRESH_ROOT / 'smoke')]
-subprocess.run(command + ['--smoke-test'], check=True)
-print('Fresh verification folder:', FRESH_ROOT)
-```
-
-This starts only the two-step smoke test. A failure stops the cell. If both attempts still overflow, inspect the parameter names in the log. Try `--initial-gradient-scale 1` in another fresh folder. A lower scale cannot fix gradients that are already non-finite before scaling; do not treat repeated skips as success.
-
-Inspect the check in a separate cell:
-
-```python
-smoke_file = next((FRESH_ROOT / 'smoke').glob('*/complete.json'))
-smoke_result = json.loads(smoke_file.read_text())
-print(smoke_result)
-assert smoke_result['optimizer_updates'] > 0
-assert smoke_result['steps_with_lora_b_changes'] > 0
-for line in (smoke_file.parent / 'losses.jsonl').read_text().splitlines():
-    print(json.loads(line))
-```
-
-Only after that passes, run this **separate cell** to start the full two-epoch training. It uses the same manifest, revision, resolution and rank, and requires the existing pretrained validation baseline:
-
-```python
-assert BASELINE_RUN.is_dir(), 'Set the complete pretrained validation folder first.'
-full_command = command[:]
-index = full_command.index('--output-root')
-full_command[index + 1] = str(FRESH_ROOT / 'full-two-epochs')
-subprocess.run(full_command + ['--epochs', '2', '--baseline-run', str(BASELINE_RUN)], check=True)
-```
-
-No full training is started by the smoke-test or inspection cells. The older results remain untouched. The lower starting scale and the skip checks have CPU tests, but the actual four-bit T4 smoke test must still be run before claiming the overflow is resolved on Qwen.
+| Pretrained validation | [Metrics](results/pretrained/metrics.json), [raw predictions](results/pretrained/predictions.jsonl) |
+| Selected QLoRA validation | [Metrics](results/finetuned/metrics.json), [raw predictions](results/finetuned/predictions.jsonl) |
+| Matched comparison | [Summary](results/comparison/comparison.json), [trial table](results/comparison/matched_predictions.csv) |
+| Training evidence | [Losses](results/training/losses.jsonl), [completion](results/training/complete.json), [selection](results/training/selection.json), [trainable parameters](results/training/trainable.json), [configuration](results/training/config.json) |
+| Fixed inputs | [Model revision](results/model_revision.txt), [single manifest](results/rule_identification_manifest.json) |
+| CPU analysis | [Statistics and full-precision example](results/derived/analysis.json), [analysis code](../../code/04-lora/analyze_results.py), [tests](../../tests/test_lora_results.py) |
+| Figures | [Loss](results/derived/loss_curve.png), [answer bias](results/comparison/answer_bias.png), [per-rule accuracy](results/comparison/per_rule_accuracy.png), [pretrained confusion](results/comparison/pretrained_confusion.png), [QLoRA confusion](results/comparison/LoRA_confusion.png) |
+
+Only the successful Experiment 04 artifacts are included. The results directory contains no adapter weights, checkpoints, optimizer binaries, source images, duplicate manifests or caches.
