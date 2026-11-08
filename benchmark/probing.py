@@ -304,7 +304,7 @@ def main():
     }
     if a.smoke_test:
         work = [next(item for item in items if item["split"] == a.train_split)]
-        saved, rows, row_map = False, [], {}
+        rows, row_map = [], {}
     else:
         a.out.mkdir(parents=True, exist_ok=True)
         cfg_path = a.out / "config.json"
@@ -318,7 +318,6 @@ def main():
         if len(row_map) != len(rows):
             raise ValueError("Duplicate model-prediction keys")
         work = items
-        saved = True
 
     expected = {(s["set_id"], n) for s in work for n in CONDITIONS}
     if not set(row_map) <= expected:
@@ -333,8 +332,7 @@ def main():
             sid = item["set_id"]
             filename_list = ([witnesses[sid]["filename"]] if n == 1
                              else item["image_files"])
-            prompt = original_prompt(rules, mapping(cfg["conditions"] and
-                                     [r["id"] for r in rules], 0), n)
+            prompt = original_prompt(rules, mapping([r["id"] for r in rules], 0), n)
             feat, probs, tokens = capture(model, processor, ids, filename_list,
                                           a.data_dir, prompt, a.max_pixels)
             label_map = mapping([r["id"] for r in rules], 0)
