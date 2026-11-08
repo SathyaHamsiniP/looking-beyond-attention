@@ -1,12 +1,13 @@
 # Common Boolean-rule benchmark — draft foundation
 
-**Status: foundation only. No new experimental results.** This folder is self-contained and imports no code from Experiments 01–04. Only Python's standard library is required.
+**Status: foundation only. No new experimental results.** This folder is self-contained and imports no code from Experiments 01–04. The dataset builder and CPU tests use only Python's standard library. GPU inference requires PyTorch, Transformers, bitsandbytes, accelerate and Pillow.
 
 ## Files
 
 - `rules.json` — our original three-rule pilot truth tables; **not** the final seven-rule benchmark.
 - `build_sets.py` — reads existing images and constructs a reproducible JSON list of image sets. It does **not** render images, fine-tune, run inference or alter earlier experiments.
 - `test_build_sets.py` — small CPU-only tests covering ambiguity, image splits and nested comparisons.
+- `pilot_10_vs_20.py` — standalone pretrained Qwen3.5-4B paired operator-controls pilot (no imports from older experiments).
 
 A **set** is one rule-identification question containing several images. The builder's `--counts` are sets **per rule**, not individual images.
 
@@ -50,3 +51,16 @@ python benchmark/build_sets.py \
 ```
 
 Output files are never silently overwritten if their content differs. Do not treat this preliminary three-rule generator as the finalized benchmark or use its drafts to claim matched results with Roshan. When the protocol is agreed, use the same manifest for operator controls, probing, activation patching, and LoRA rather than creating four separate datasets.
+
+## Running the 10 vs 20 pilot on Colab T4
+
+Use the generated `pilot-10.json` and `pilot-20.json` manifests and the same `data-1000` folder. From the repo root:
+
+```bash
+python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --validate-only
+pip install 'transformers>=5.0' accelerate bitsandbytes pillow
+python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --smoke-test
+python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results
+```
+
+The smoke test runs one 20-image forward pass without saving results. The full pilot runs 6 matched sets × 3 answer rotations × 2 sizes = 36 evaluations, saving `config.json`, incremental `predictions.jsonl`, and `summary.json` on Drive. It uses frozen pinned-revision Qwen3.5-4B with 4-bit NF4, not a fine-tuned adapter. This pilot uses the existing source `test` partition for diagnostics: **not an untouched final benchmark test**. Keep future final test examples locked. No LoRA or patching is run.
