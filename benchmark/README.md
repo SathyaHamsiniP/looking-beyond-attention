@@ -88,3 +88,39 @@ python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-c
 ```
 
 Expected **24 matched diagnostic scenes × 3 label rotations = 72 trials**. Results: `config.json`, `selected_images.json`, resumable `runs.jsonl`, `summary.json` (includes 1-vs-10 paired accuracy change, error flips, cluster-bootstrap interval). The diagnostic image is unique *among R1/R2/R3*. Note that the original 10-image coverage sets may contain **more than one** scene with the diagnostic Boolean configuration, and the selection rule intentionally chooses one; this comparison changes both image count and amount of redundant evidence. It does not repeat the original remove-diagnostic/remove-control ablation.
+
+## Experiment 02 — matched 1-vs-10 rule probes (provisional)
+
+`probing.py` is a self-contained frozen-Qwen3.5-4B probe pipeline, independent of historical Experiment 02. It consumes the ten-image manifest from `build_sets.py`, and selects the **first uniquely diagnostic** scene from each ten-image set for the paired one-image condition. **This does not use the old 24-set operator-controls evaluation as its probe training data.** The new manifest must provide separate `train` and `test` partitions with image-disjoint source images, at least three sets per rule in both. Candidate rules, splits and counts are explicitly recorded, so Roshan's eventual benchmark choices require new rules/split/manifest artifacts, not rewriting extraction/scoring. Currently the runner supports exactly **three** candidate rules, matching the 1-vs-10 pilot; seven-rule tests require revising the model-answer mapping and identifiability checks later.
+
+For a preliminary **illustrative** 30 train + 10 test sets per rule (not Roshan-approved sample sizes):
+
+```bash
+python benchmark/build_sets.py \
+  --data-dir /path/to/data-1000 \
+  --counts train=30 test=10 --images-per-set 10 \
+  --out /path/to/probe-manifest-10.json
+
+python benchmark/probing.py \
+  --manifest /path/to/probe-manifest-10.json \
+  --data-dir /path/to/data-1000 \
+  --out /path/to/probing-1-vs-10 --validate-only
+```
+
+Then in Colab T4 with `transformers>=5.0`, `torch`, `bitsandbytes`, `accelerate`, `numpy`, `pillow`, `scikit-learn` installed:
+
+```bash
+python benchmark/probing.py \
+  --manifest /path/to/probe-manifest-10.json \
+  --data-dir /path/to/data-1000 \
+  --out /path/to/probing-1-vs-10 --smoke-test
+
+python benchmark/probing.py \
+  --manifest /path/to/probe-manifest-10.json \
+  --data-dir /path/to/data-1000 \
+  --out /path/to/probing-1-vs-10
+```
+
+The smoke test extracts final-token activations at every decoder layer for one matched pair; it saves nothing. The full run saves per-set/per-condition compressed activation files, resumable `model_predictions.jsonl`, `layer_accuracy.csv`, `probe_predictions.csv`, and `summary.json`. It fits a standardized logistic-regression probe at **each layer** for each input size, with true and shuffled train labels, then reports accuracy on held-out image-disjoint sets. No model fine-tuning is performed. The runner uses answer rotation 0 for Qwen's final predictions; do not interpret those answer accuracies as label-rotation-averaged results. The last-token representation is an answer-adjacent probe target; decoding rule identity does not demonstrate that the model computes Boolean logic. The one-image case can be solved by recognizing one diagnostic ABC configuration.
+
+The inference code requires a GPU smoke test before a full run; this new probing runner has not yet been executed against a Qwen model. Results are exploratory until the final aligned rules, partitions and fixed evaluation protocol are chosen. **Never merge draft results into the previously completed experiments.**
