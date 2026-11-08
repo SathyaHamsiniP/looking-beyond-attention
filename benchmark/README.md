@@ -64,3 +64,15 @@ python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manife
 ```
 
 The smoke test runs one 20-image forward pass without saving results. The full pilot runs 6 matched sets × 3 answer rotations × 2 sizes = 36 evaluations, saving `config.json`, incremental `predictions.jsonl`, and `summary.json` on Drive. It uses frozen pinned-revision Qwen3.5-4B with 4-bit NF4, not a fine-tuned adapter. This pilot uses the existing source `test` partition for diagnostics: **not an untouched final benchmark test**. Keep future final test examples locked. No LoRA or patching is run.
+
+## Original-compatible operator controls (recommended; replaces the earlier exploratory pilot)
+
+Run `operator_controls.py` rather than `pilot_10_vs_20.py` for the research comparison. It reproduces the original `main_72` setup with **8 sets/rule, 3 rules, and 3 cyclic label rotations**; the *only intended intervention* is changing the number of images per set, from 10 to 20. It recreates the original 10-image selections from the same `data-1000` training image pool, seed 2026, and appends 10 additional satisfying images. The original 10-image order is preserved. It uses the original prompt wording, 4-bit NF4 Qwen3.5-4B, and restricted next-token X/Y/Z softmax. The original model loader did not pin a specific revision; the new runner pins the revision previously recorded for Experiment 04 to make future runs reproducible. Compare results with original runs only after confirming the exact model revision and software environment.
+
+```bash
+python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --validate-only
+python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --smoke-test
+python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20
+```
+
+The full run uses **24 paired image sets × 3 option rotations × 2 image counts = 144 inferences**. It saves `config.json`, `paired_sets.json`, resumable `runs.jsonl`, and `summary.json`. It has no training, no validation-based model selection, and no need for train/test splits for the operator-controls task; it uses the original historical `train` image pool solely to reproduce that experiment's sampling. The same rule-identifiable sets are reused across rotations, so 144 is not the number of statistically independent examples. The new runner has not yet been executed on a GPU and must pass its smoke test first.
