@@ -11,7 +11,7 @@ from pathlib import Path
 import random
 
 from build_sets import read_rules, compatible_rules
-from pilot_10_vs_20 import load_model, evaluate, prompt_for, mapping
+from pilot_10_vs_20 import load_model, evaluate, mapping
 
 RULES = ("R1", "R2", "R3")
 SEED = 2026
@@ -77,6 +77,31 @@ def paired_sets(pool, rules, count, seed):
                 "bits20": [r["bits"] for r in twenty],
             }
     return result
+
+
+
+def original_prompt(rules, mapping_now, n):
+    """Textually identical to earlier 01-operator-controls.build_input image prompt."""
+    by_id = {r["id"]: r["expression"] for r in rules}
+    choices = "\n".join(f"{label}: {by_id[mapping_now[label]]}" for label in "XYZ")
+    return f"""Images 1-{n} all satisfy ONE hidden Boolean rule.
+
+A is true when a green cube is present.
+B is true when a blue sphere is present.
+C is true when a red cylinder is present.
+Each concept requires the exact colour AND shape.
+Any other object is an irrelevant distractor.
+
+Candidate rules:
+{choices}
+
+AND requires both inputs to be true.
+OR requires at least one input to be true, including both.
+Follow the parentheses.
+
+Pick the rule consistent with every image.
+Reply with nothing but its label: X, Y, or Z.
+ANSWER:"""
 
 
 def entropy(values):
@@ -166,7 +191,7 @@ def main():
     p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
     p.add_argument("--sets-per-rule", type=int, default=8)
     p.add_argument("--seed", type=int, default=SEED)
-    p.add_argument("--max-pixels", type=int, default=128*28*28)
+    p.add_argument("--max-pixels", type=int, default=384*28*28)
     p.add_argument("--validate-only", action="store_true")
     p.add_argument("--smoke-test", action="store_true")
     args = p.parse_args()
@@ -227,7 +252,7 @@ def main():
         import torch
         for number, (key, item, rotation, size) in enumerate(incomplete, 1):
             labels = mapping(list(RULES), rotation)
-            prompt = prompt_for(rules, ["A", "B", "C"], labels, size)
+            prompt = original_prompt(rules, labels, size)
             torch.cuda.reset_peak_memory_stats()
             probs, tokens = evaluate(model, processor, token_ids, item[str(size)],
                                       args.data_dir, prompt, args.max_pixels)
