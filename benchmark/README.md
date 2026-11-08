@@ -76,3 +76,15 @@ python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/
 ```
 
 The full run uses **24 paired image sets × 3 option rotations × 2 image counts = 144 inferences**. It saves `config.json`, `paired_sets.json`, resumable `runs.jsonl`, and `summary.json`. It has no training, no validation-based model selection, and no need for train/test splits for the operator-controls task; it uses the original historical `train` image pool solely to reproduce that experiment's sampling. The same rule-identifiable sets are reused across rotations, so 144 is not the number of statistically independent examples. The new runner has not yet been executed on a GPU and must pass its smoke test first.
+
+## Experiment 01: diagnostic image only (new variation)
+
+This belongs to **01 — Operator Controls**, not a new numbered experiment. Run `benchmark/diagnostic_only.py` after completing the original-compatible 10-vs-20 comparison. It reads its `paired_sets.json`, `config.json`, and 10-image `runs.jsonl`; deterministically picks the *first logically unique diagnostic image* from each original 10-image set and gives Qwen only that image. Candidate rules, model revision, original prompt wording (apart from image count), X/Y/Z answer rotations and probability readout stay fixed. It writes to a **separate** output directory and never modifies reference results.
+
+```bash
+python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --validate-only
+python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --smoke-test
+python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only
+```
+
+Expected **24 matched diagnostic scenes × 3 label rotations = 72 trials**. Results: `config.json`, `selected_images.json`, resumable `runs.jsonl`, `summary.json` (includes 1-vs-10 paired accuracy change, error flips, cluster-bootstrap interval). The diagnostic image is unique *among R1/R2/R3*. Note that the original 10-image coverage sets may contain **more than one** scene with the diagnostic Boolean configuration, and the selection rule intentionally chooses one; this comparison changes both image count and amount of redundant evidence. It does not repeat the original remove-diagnostic/remove-control ablation.
