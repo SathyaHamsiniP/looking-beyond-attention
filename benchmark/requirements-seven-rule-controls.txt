@@ -1,0 +1,11 @@
+# Inference pins from the recovered A3 configuration. Keep Colab's CUDA PyTorch
+# only if its reported version is exactly 2.14.1+cu130; patching checks this.
+transformers==5.22.1
+peft==0.21.2
+bitsandbytes==0.50.2
+accelerate==1.15.0
+pillow==13.0.0
+numpy==2.5.4
+matplotlib==3.11.2
+google-api-python-client==2.187.0
+google-auth==2.43.0

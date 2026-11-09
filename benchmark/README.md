@@ -266,3 +266,10 @@ subprocess.run(smoke7, check=True)
 ```
 
 This reuses the exact saved image sets and partitions and leaves the original failure intact. It changes no rules, model settings, learning rate, rank, epochs, objective or target modules. For later training under the new root, run the matching new-version baseline first; use `--resume` only for checkpoints created with the same code/configuration. CPU tests simulate native GradScaler overflow/backoff and verify recovery against a clean reduced-scale update, persistent-failure bounds, gradient cleanup and RNG replay. They do not establish real Qwen/T4 recovery; run the GPU smoke test above before full training.
+
+## 07/08 — Seven-rule controls and activation patching
+
+- [07 — A3 operator controls](experiments/07-seven-rule-operator-controls/README.md): zero-GPU reuse of verified 343 saved validation predictions; A1/A2 are not rerun.
+- [08 — Activation patching](experiments/08-seven-rule-activation-patching/README.md): bounded same/different-rule controls using the existing historical hooks and a seven-label scorer.
+
+Work locally in Colab `/content`. All new uploads use verified IITM account `24f2005474@ds.iitm.study.in` and folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR` through `iitm_drive.py`; never the full original Drive. Key findings and progress print in the console before upload, and local ZIP fallback remains available if Drive is full. See the two guides for exact fresh-runtime commands, recovered-source IDs, pinned dependencies and workload estimates. No expensive GPU runs or new Drive uploads were performed during implementation.
