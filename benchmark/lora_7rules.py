@@ -25,6 +25,7 @@ import compare_3_vs_7 as comparison
 SEED = 2026
 COUNTS = {'train': 21, 'validation': 7, 'test': 14}
 LABELS = list('1234567')
+MAX_GRADIENT_RETRIES = 4  # Initial attempt plus at most four scale-reduced replays.
 HISTORICAL_HASH = '701936daac921fd19da203fccda2524d43c7277999ebdee0412041d987f1fcd4'
 MODEL = dict(model=comparison.shared.MODEL, revision=comparison.shared.REVISION,
     quantization='4-bit NF4', double_quantization=True, compute_dtype='float16',
@@ -346,7 +347,9 @@ def optimizer_update(model,optimizer,scaler):
     scale=scaler.get_scale();scaler.unscale_(optimizer)
     active=[p for _,p in parameters if p.grad is not None]
     if not active:raise ValueError('No trainable gradients')
-    finite=all(bool(torch.isfinite(p.grad).all()) for p in active)
+    bad={name:int((~torch.isfinite(p.grad)).sum().item()) for name,p in parameters if p.grad is not None}
+    bad={name:count for name,count in bad.items() if count}
+    finite=not bad
     norm=float(torch.nn.utils.clip_grad_norm_(active,1.,error_if_nonfinite=True)) if finite else None
     called=[];hook=optimizer.register_step_post_hook(lambda *_:called.append(True))
     try:
@@ -357,7 +360,77 @@ def optimizer_update(model,optimizer,scaler):
     if not all(bool(torch.isfinite(p).all()) for _,p in parameters):raise ValueError('Non-finite adapter weights')
     return dict(optimizer_step_occurred=bool(called),finite_gradients=finite,gradient_norm_before_clipping=norm,
         lora_b_matrices=len(before),lora_b_matrices_changed=changed,gradient_scale_before=scale,
-        gradient_scale_after=scaler.get_scale())
+        gradient_scale_after=scaler.get_scale(),nonfinite_gradient_values=sum(bad.values()),
+        nonfinite_gradient_parameter_names=list(bad),nonfinite_gradient_counts_by_parameter=bad)
+
+
+def capture_rng():
+    import numpy as np
+    import torch
+    return dict(python=random.getstate(),numpy=np.random.get_state(),torch=torch.get_rng_state().clone(),
+        cuda=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [])
+
+
+def restore_rng(state):
+    import numpy as np
+    import torch
+    random.setstate(state['python']);np.random.set_state(state['numpy']);torch.set_rng_state(state['torch'])
+    if state['cuda']:torch.cuda.set_rng_state_all(state['cuda'])
+
+
+def batch_update(model,optimizer,scaler,batch,loss_fn,path,planned_update,
+                 max_retries=MAX_GRADIENT_RETRIES):
+    """Replay only an untouched, AMP-skipped nonfinite batch at a reduced scale.
+
+    Every replay starts from the same Python/NumPy/CPU/CUDA RNG snapshot. Keep
+    GradScaler's state after its backoff, not the original scale. Only a successful
+    return may advance the training cursor or produce an optimizer checkpoint.
+    """
+    import torch
+    if not batch or max_retries<0:raise ValueError('Need a nonempty batch and nonnegative retry limit')
+    path=Path(path);initial_rng=capture_rng();attempts=[];succeeded=False
+    def failure(reason):
+        diagnostic=dict(planned_update=planned_update,set_ids=[s['set_id'] for s in batch],
+            reason=reason,max_retries=max_retries,retry_count=max(0,len(attempts)-1),
+            attempted_scales=[a['gradient_scale_before'] for a in attempts],attempts=attempts)
+        atomic_json(path/'update_failure.json',diagnostic)
+        raise RuntimeError('No successful-update credit: '+json.dumps(diagnostic,allow_nan=False))
+    try:
+        for retry in range(max_retries+1):
+            # In particular, discard all invalid gradients before another backward.
+            optimizer.zero_grad(set_to_none=True)
+            restore_rng(initial_rng)
+            model.train();value=0.
+            for item in batch:
+                with torch.autocast('cuda',dtype=torch.float16,enabled=torch.cuda.is_available()):
+                    one=loss_fn(item)
+                if not torch.isfinite(one):failure('Non-finite forward loss; not an AMP-gradient retry')
+                value+=float(one.detach())/len(batch)
+                scaler.scale(one/len(batch)).backward()
+            evidence=optimizer_update(model,optimizer,scaler)
+            attempt=dict(attempt=retry,**evidence);attempts.append(attempt)
+            append(path/'update_attempts.jsonl',dict(planned_update=planned_update,
+                set_ids=[s['set_id'] for s in batch],**attempt))
+            valid=evidence['optimizer_step_occurred'] and evidence['finite_gradients'] and evidence['lora_b_matrices_changed']>0
+            if valid:
+                succeeded=True
+                return value,dict(evidence,retry_count=retry,
+                    attempted_scales=[a['gradient_scale_before'] for a in attempts],attempts=attempts,
+                    attempted_presentations=len(batch)*len(attempts))
+            # Retrying after any actual optimizer mutation would be unsafe.
+            eligible=(not evidence['finite_gradients'] and not evidence['optimizer_step_occurred']
+                and evidence['lora_b_matrices_changed']==0 and scaler.is_enabled()
+                and math.isfinite(evidence['gradient_scale_after'])
+                and 0<evidence['gradient_scale_after']<evidence['gradient_scale_before'])
+            if not eligible:failure('Unsafe/non-recoverable update: retry requires unchanged weights, a skipped step and reduced AMP scale')
+            if retry==max_retries:failure('Non-finite gradients persist after bounded AMP retries')
+            print(f"update {planned_update}: retry {retry+1}/{max_retries}, AMP scale "
+                  f"{evidence['gradient_scale_before']} -> {evidence['gradient_scale_after']}; "
+                  f"nonfinite gradients={evidence['nonfinite_gradient_values']}",flush=True)
+    finally:
+        if not succeeded:
+            optimizer.zero_grad(set_to_none=True)
+            restore_rng(initial_rng)
 
 
 def metrics(rows):
@@ -525,7 +598,8 @@ def train(root,data,manifest,resume=False,smoke=False):
     with output(path,config,resume):
         import torch
         from peft import LoraConfig,PeftModel,get_peft_model,prepare_model_for_kbit_training,get_peft_model_state_dict,set_peft_model_state_dict
-        random.seed(SEED);torch.manual_seed(SEED)
+        import numpy as np
+        random.seed(SEED);np.random.seed(SEED);torch.manual_seed(SEED)
         model,processor,_=comparison.shared.load_model()
         token_ids=comparison.label_tokens(processor.tokenizer)
         record_tokens(path,token_ids)
@@ -546,7 +620,9 @@ def train(root,data,manifest,resume=False,smoke=False):
         losses=[];validations=[];best_weights=None;selection=None;start=0
         if state:
             optimizer.load_state_dict(state['optimizer']);scaler.load_state_dict(state['scaler'])
-            torch.set_rng_state(state['rng']);torch.cuda.set_rng_state_all(state['cuda_rng'])
+            if 'rng_state' in state:restore_rng(state['rng_state'])
+            else:
+                torch.set_rng_state(state['rng']);torch.cuda.set_rng_state_all(state['cuda_rng'])
             losses=state['losses'];validations=state['validations'];best_weights=state['best_weights'];selection=state['selection'];start=state['next_update']
         jobs=training_schedule(manifest,smoke);by_id={s['set_id']:s for s in manifest['sets']}
         if state and (start>len(jobs) or any(r['epoch']!=jobs[i]['epoch'] or r['set_ids']!=jobs[i]['set_ids'] or r['examples']!=len(jobs[i]['set_ids']) for i,r in enumerate(losses))):
@@ -558,16 +634,9 @@ def train(root,data,manifest,resume=False,smoke=False):
             prepared=prepare(model,processor,item,data,prompt,token_ids)
             return answer_loss(model,prepared,token_ids[LABELS.index(item['target_label'])])
         for index in range(start,len(jobs)):
-            job=jobs[index];model.train();optimizer.zero_grad(set_to_none=True);value=0.
+            job=jobs[index]
             batch=[by_id[sid] for sid in job['set_ids']]
-            for item in batch:
-                with torch.autocast('cuda',dtype=torch.float16):one=loss(item)
-                if not torch.isfinite(one):raise ValueError('Non-finite training loss')
-                value+=float(one.detach())/len(batch);scaler.scale(one/len(batch)).backward()
-            evidence=optimizer_update(model,optimizer,scaler)
-            if not evidence['optimizer_step_occurred'] or not evidence['finite_gradients'] or not evidence['lora_b_matrices_changed']:
-                atomic_json(path/'update_failure.json',dict(planned_update=index+1,**evidence))
-                raise RuntimeError('No successful-update credit: inspect update_failure.json; resume the last successful checkpoint')
+            value,evidence=batch_update(model,optimizer,scaler,batch,loss,path,index+1)
             record=dict(update=index+1,epoch=job['epoch'],set_ids=job['set_ids'],examples=len(batch),training_loss=value,**evidence)
             losses.append(record)
             if job['epoch_end'] or smoke:
@@ -581,7 +650,7 @@ def train(root,data,manifest,resume=False,smoke=False):
                     best_weights={k:v.detach().cpu().clone() for k,v in get_peft_model_state_dict(model).items()}
             state=dict(config_hash=digest(config),next_update=index+1,losses=losses,validations=validations,
                 best_weights=best_weights,selection=selection,optimizer=optimizer.state_dict(),scaler=scaler.state_dict(),
-                rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state_all())
+                rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state_all(),rng_state=capture_rng())
             save_checkpoint(path,model,processor,state)
             atomic_json(path/'losses.json',losses);atomic_json(path/'validation_losses.json',validations)
             print(f"update {index+1}/{len(jobs)} epoch={job['epoch']} examples={len(batch)} changed_B={evidence['lora_b_matrices_changed']}",flush=True)
@@ -592,6 +661,7 @@ def train(root,data,manifest,resume=False,smoke=False):
         atomic_json(path/'best_adapter/experiment.json',dict(config_hash=digest(config),selection=selection))
         atomic_json(path/'selection.json',selection)
         atomic_json(path/'complete.json',dict(successful_updates=len(losses),presentations=sum(r['examples'] for r in losses),
+            attempted_presentations=sum(r['attempted_presentations'] for r in losses),
             selected_epoch=selection['epoch'],smoke_test=smoke,test_used=False,adapter_identity=adapter_identity(path/'best_adapter')))
         print('Saved:',path)
 

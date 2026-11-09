@@ -155,7 +155,7 @@ Actual tokenizer representations are checked for distinct single-token numeric l
 
 Training starts from the pretrained base with seed 2026 and fresh rank-8 LoRA adapters, alpha 16, dropout 0.05, AdamW learning rate `5e-5`, weight decay 0.01, betas (0.9, 0.999), epsilon `1e-8`, microbatch 1, accumulation 4, gradient clip 1 and initial AMP scale 8. The vision tower and base weights are frozen. All supported decoder linear targets are discovered and saved; the target count is not assumed to be 248. Non-reentrant gradient checkpointing is used.
 
-Three epochs give **441 set presentations and 111 planned updates**: 36 batches of four plus one batch of three per epoch. The partial batch is normalized by three and is not padded. A skipped/nonfinite/no-weight-change update is recorded as a failure and gets no successful-update credit. Resume restores the preceding successful checkpoint and the exact data order/RNG state.
+Three epochs give **441 set presentations and 111 planned updates**: 36 batches of four plus one batch of three per epoch. The partial batch is normalized by three and is not padded. An AMP-skipped update caused by non-finite gradients is replayed on the same batch with the reduced scale, with at most **four retries after the initial attempt** (five attempts total). Invalid gradients are cleared and all forward/backward passes are recomputed. Python, NumPy, CPU Torch and CUDA RNG states are restored to the batch-start snapshot before each replay, so dropout and other random draws match; GradScaler retains its reduced scale. A successful update requires an actual optimizer call, finite gradients and changed LoRA B weights. Any unsafe mutation, missing scale backoff or persistent failure aborts without advancing the update cursor or saving an optimizer checkpoint. The 441 scheduled presentations are unchanged; additional retry presentations are recorded separately. Resume restores the preceding successful checkpoint, optimizer/scaler, complete RNG state and exact data order.
 
 At each epoch end, selection evaluates **49 fixed, position-balanced validation inputs**. The adapter with minimum full-vocabulary answer-token loss is selected. Thus checkpoint selection adds **147 validation-loss forwards** across training, rather than a seven-rotation sweep after every epoch. Final selected-adapter validation uses all 343 rotations, matched to the pretrained validation baseline. Test performance never selects an epoch or hyperparameter.
 
@@ -226,7 +226,7 @@ All artifacts are below `{PILOT}/lora-7rules/`, outside Git:
 - `dataset/`: `manifest.json`, `partitions.json`, `validation_report.json`; includes source/partition hashes, seed, filenames, configurations, mappings and reuse statistics.
 - `evaluations/pretrained/validation/` and `evaluations/finetuned/validation/`: config, actual answer token IDs, incremental `predictions.jsonl`, and `metrics.json`.
 - `smoke-training/`: isolated update evidence/checkpoint, never accepted as a completed scientific model.
-- `training/`: config, actual token IDs, resolved trainable-module inventory, `losses.json`, `validation_losses.json`, `latest/` adapter plus optimizer/scaler/RNG state, `best_adapter/`, `selection.json`, and `complete.json`. The selected epoch is explicit. Only latest and best adapters are retained; interrupted directory replacement can recover the preceding complete checkpoint.
+- `training/`: config, actual token IDs, resolved trainable-module inventory, `losses.json` (including retry counts/scales and per-attempt diagnostics), `update_attempts.jsonl` (append-only diagnostics, not a training cursor), `update_failure.json` on exhausted/unsafe updates, `validation_losses.json`, `latest/` adapter plus optimizer/scaler/RNG state, `best_adapter/`, `selection.json`, and `complete.json`. The selected epoch is explicit. Only latest and best adapters are retained; interrupted directory replacement can recover the preceding complete checkpoint.
 - `final-test/{pretrained,finetuned}/test/`: resumable paired test predictions and metrics.
 - `comparison/{validation,test}/`: `summary.json` and `loss_curves.png`; reports accuracy/chance adjustment, per-rule confusion, position counts, correct-rule probability, restricted-choice NLL, rotation consistency and paired accuracy change.
 
@@ -237,3 +237,32 @@ python -m unittest discover -s benchmark -p 'test_lora_7rules.py' -v
 ```
 
 Tests cover truth tables, partitions, set counts, coverage, identifiability, deterministic generation, label balance, exact preprocessing parity, answer-token gradients, partial accumulation, frozen weights, genuine tiny-model CPU optimizer updates, checkpoint state/RNG recovery, incompatible output refusal and paired evaluation mappings. CPU tests do not establish actual Qwen tokenizer compatibility, 4-bit T4 memory capacity or GPU training success; the real GPU smoke test is required. **No full seven-rule GPU training or inference was run during implementation.**
+
+### Retrying the initial FP16 gradient-scaling failure
+
+The retry limit is four replays, not four successful updates. For example, if all attempts overflow starting at scale 8, attempted scales are 8, 4, 2, 1 and 0.5. Each attempt records whether the optimizer ran, the scale before/after, non-finite gradient-value counts and affected parameter names/counts, plus changed LoRA B matrices. Successful update records embed their attempts; failed attempts never enter the checkpoint's successful-update journal. On exhaustion, gradients are cleared, batch-start RNG is restored and detailed diagnostics are preserved. Resuming replays from the last successful checkpoint; diagnostic journal entries may repeat after an interruption and must not be counted as optimizer updates.
+
+Updating this implementation changes the recorded source hash. **Do not use `--resume` against the old failed smoke directory or edit its config to bypass checks.** Preserve it and copy only its unchanged dataset artifacts into a fresh experiment root:
+
+```python
+!git fetch origin feature/benchmark-foundation
+!git switch feature/benchmark-foundation
+!git pull --ff-only origin feature/benchmark-foundation
+
+from pathlib import Path
+import shutil
+import subprocess
+
+OLD7 = Path(PILOT) / 'lora-7rules'
+RETRY7 = Path(PILOT) / 'lora-7rules-fp16-retry'
+# Refuses an existing destination; choose a fresh suffix if already used.
+shutil.copytree(OLD7 / 'dataset', RETRY7 / 'dataset')
+smoke7 = ['python', 'benchmark/lora_7rules.py', 'smoke',
+          '--data-dir', str(DATA), '--out', str(RETRY7)]
+subprocess.run(smoke7 + ['--validate-only'], check=True)
+subprocess.run(smoke7, check=True)
+# Only if this new-version smoke run is interrupted:
+# subprocess.run(smoke7 + ['--resume'], check=True)
+```
+
+This reuses the exact saved image sets and partitions and leaves the original failure intact. It changes no rules, model settings, learning rate, rank, epochs, objective or target modules. For later training under the new root, run the matching new-version baseline first; use `--resume` only for checkpoints created with the same code/configuration. CPU tests simulate native GradScaler overflow/backoff and verify recovery against a clean reduced-scale update, persistent-failure bounds, gradient cleanup and RNG replay. They do not establish real Qwen/T4 recovery; run the GPU smoke test above before full training.

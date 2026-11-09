@@ -276,6 +276,98 @@ class SevenRuleTests(unittest.TestCase):
                              experiment.read(reference/'smoke-training/losses.json'))
             with self.assertRaises((ValueError,OSError)):experiment.require_selection(root,self.manifest)
 
+    def assert_rng_equal(self,left,right):
+        import numpy as np
+        import torch
+        self.assertEqual(left['python'],right['python'])
+        self.assertEqual(left['numpy'][0],right['numpy'][0])
+        self.assertTrue(np.array_equal(left['numpy'][1],right['numpy'][1]))
+        self.assertEqual(left['numpy'][2:],right['numpy'][2:])
+        self.assertTrue(torch.equal(left['torch'],right['torch']))
+        self.assertEqual(len(left['cuda']),len(right['cuda']))
+        self.assertTrue(all(torch.equal(a,b) for a,b in zip(left['cuda'],right['cuda'])))
+
+    def retry_fixture(self,scale,always_overflow=False):
+        import random
+        import numpy as np
+        import torch
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.lora_B=torch.nn.Parameter(torch.tensor([.2,-.3]))
+        model=Model();optimizer=torch.optim.AdamW(model.parameters(),lr=.01)
+        scaler=torch.amp.GradScaler('cpu',init_scale=scale)
+        draws=[];clean=[]
+        def loss(item):
+            if item['set_id']=='a':clean.append(model.lora_B.grad is None)
+            draw=(random.random(),float(np.random.random()),torch.rand(2))
+            draws.append((draw[0],draw[1],draw[2].tolist()))
+            return ((model.lora_B*draw[2]).sum()+draw[0]+draw[1]-item['target'])**2
+        model.lora_B.register_hook(lambda g:torch.full_like(g,float('inf'))
+            if always_overflow or scaler.get_scale()>=8 else g)
+        return model,optimizer,scaler,loss,draws,clean
+
+    def test_recover_skipped_amp_update_replays_same_rng_and_matches_clean_update(self):
+        import torch
+        batch=[dict(set_id='a',target=1.),dict(set_id='b',target=.5)]
+        initial=experiment.capture_rng()
+        with tempfile.TemporaryDirectory() as tmp,redirect_stdout(io.StringIO()):
+            model,optimizer,scaler,loss,draws,clean=self.retry_fixture(8)
+            value,evidence=experiment.batch_update(model,optimizer,scaler,batch,loss,Path(tmp),1)
+            after=experiment.capture_rng()
+            self.assertEqual(evidence['retry_count'],1)
+            self.assertEqual(evidence['attempted_scales'],[8.,4.])
+            skipped=evidence['attempts'][0]
+            self.assertFalse(skipped['optimizer_step_occurred'])
+            self.assertEqual(skipped['nonfinite_gradient_values'],2)
+            self.assertEqual(skipped['nonfinite_gradient_parameter_names'],['lora_B'])
+            self.assertEqual(skipped['nonfinite_gradient_counts_by_parameter'],{'lora_B':2})
+            self.assertTrue(evidence['optimizer_step_occurred']);self.assertTrue(evidence['finite_gradients'])
+            self.assertGreater(evidence['lora_b_matrices_changed'],0)
+            self.assertEqual(draws[:2],draws[2:]);self.assertEqual(clean,[True,True])
+            self.assertEqual(int(optimizer.state[model.lora_B]['step']),1)
+            self.assertFalse((Path(tmp)/'latest').exists())
+            experiment.restore_rng(initial)
+            reference,ref_opt,ref_scaler,ref_loss,ref_draws,_=self.retry_fixture(4)
+            ref_value,_=experiment.batch_update(reference,ref_opt,ref_scaler,batch,ref_loss,Path(tmp),2)
+            self.assertEqual(ref_value,value)
+            self.assertTrue(torch.equal(model.lora_B,reference.lora_B))
+            self.assertEqual(ref_draws,draws[:2])
+            self.assert_rng_equal(after,experiment.capture_rng())
+
+    def test_persistent_amp_failure_is_bounded_leaves_no_checkpoint_or_invalid_gradients(self):
+        import torch
+        batch=[dict(set_id='a',target=1.),dict(set_id='b',target=.5)]
+        with tempfile.TemporaryDirectory() as tmp,redirect_stdout(io.StringIO()):
+            model,optimizer,scaler,loss,draws,clean=self.retry_fixture(8,True)
+            before=model.lora_B.detach().clone();rng=experiment.capture_rng()
+            with self.assertRaisesRegex(RuntimeError,'bounded AMP retries'):
+                experiment.batch_update(model,optimizer,scaler,batch,loss,Path(tmp),7)
+            report=experiment.read(Path(tmp)/'update_failure.json')
+            self.assertEqual(report['planned_update'],7);self.assertEqual(report['retry_count'],4)
+            self.assertEqual(report['attempted_scales'],[8.,4.,2.,1.,.5])
+            self.assertEqual(len(report['attempts']),5)
+            self.assertTrue(all(not r['optimizer_step_occurred'] for r in report['attempts']))
+            self.assertTrue(all(r['nonfinite_gradient_values']==2 for r in report['attempts']))
+            self.assertEqual(clean,[True]*5)
+            self.assertTrue(all(draws[i:i+2]==draws[:2] for i in range(0,10,2)))
+            self.assertIsNone(model.lora_B.grad);self.assertTrue(torch.equal(before,model.lora_B))
+            self.assertFalse(optimizer.state);self.assertFalse((Path(tmp)/'latest').exists())
+            self.assert_rng_equal(rng,experiment.capture_rng())
+            self.assertEqual(scaler.get_scale(),.25)
+
+    def test_finite_step_without_weight_change_is_not_retried(self):
+        import torch
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.lora_B=torch.nn.Parameter(torch.zeros(1))
+        model=Model();optimizer=torch.optim.AdamW(model.parameters(),lr=.01)
+        scaler=torch.amp.GradScaler('cpu',init_scale=8)
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(RuntimeError,'Unsafe/non-recoverable'):
+                experiment.batch_update(model,optimizer,scaler,[dict(set_id='zero')],
+                    lambda _:model.lora_B.sum()*0,Path(tmp),1)
+            report=experiment.read(Path(tmp)/'update_failure.json')
+            self.assertEqual(len(report['attempts']),1);self.assertTrue(report['attempts'][0]['optimizer_step_occurred'])
+            self.assertEqual(report['attempts'][0]['lora_b_matrices_changed'],0)
+
     def test_matching_configs_rotations_metrics_and_resumption(self):
         jobs=experiment.evaluation_jobs(self.manifest,'validation')
         self.assertEqual(len(jobs),343)
