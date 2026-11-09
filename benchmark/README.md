@@ -1,6 +1,6 @@
 # Common Boolean-rule benchmark — draft foundation
 
-**Status: foundation only. No new experimental results.** This folder is self-contained and imports no code from Experiments 01–04. The dataset builder and CPU tests use only Python's standard library. GPU inference requires PyTorch, Transformers, bitsandbytes, accelerate and Pillow.
+**Status: provisional benchmark protocols and CPU-tested implementations. No seven-rule QLoRA GPU results are claimed.** This folder is self-contained and imports no code from Experiments 01–04. The dataset builder and CPU tests use only Python's standard library. GPU inference requires PyTorch, Transformers, bitsandbytes, accelerate and Pillow.
 
 ## Files
 
@@ -124,3 +124,116 @@ python benchmark/probing.py \
 The smoke test extracts final-token activations at every decoder layer for one matched pair; it saves nothing. The full run saves per-set/per-condition compressed activation files, resumable `model_predictions.jsonl`, `layer_accuracy.csv`, `probe_predictions.csv`, and `summary.json`. It fits a standardized logistic-regression probe at **each layer** for each input size, with true and shuffled train labels, then reports accuracy on held-out image-disjoint sets. No model fine-tuning is performed. The runner uses answer rotation 0 for Qwen's final predictions; do not interpret those answer accuracies as label-rotation-averaged results. The last-token representation is an answer-adjacent probe target; decoding rule identity does not demonstrate that the model computes Boolean logic. The one-image case can be solved by recognizing one diagnostic ABC configuration.
 
 The inference code requires a GPU smoke test before a full run; this new probing runner has not yet been executed against a Qwen model. Results are exploratory until the final aligned rules, partitions and fixed evaluation protocol are chosen. **Never merge draft results into the previously completed experiments.**
+
+## Seven generating rules: pretrained versus QLoRA
+
+`lora_7rules.py` implements a separate, positive-only **three-operand, seven-generating-rule** experiment. It includes R4–R7 as generating rules, unlike the completed R1–R3-under-3-vs-7-candidates comparison. It reuses `rules_7.json`, the tested set builder, and the comparison runner's model loader, numeric labels, option rotations and prompt. All runtime code is on this branch; no historical checkout is required. Historical code and completed results are unchanged.
+
+This is a comparison with Roshan's reported seven-rule, two-operand LoRA work, **not an exact replication**. His generation code is unavailable and his exact learning rate is unconfirmed. Differences cannot isolate operand count. His confirmed settings are Qwen3.5-4B, rank 8 and three epochs; our alpha, dropout, optimizer, resolution, split and checkpoint protocol are specified below, not attributed to him.
+
+### Fixed data and protocol
+
+Use only the existing 1,000 images and their metadata. The builder first looks for the supplied historical `rule_identification_manifest.json` (or the conventional path beside `data-1000`). It verifies its known canonical manifest hash and full dataset fingerprint, including image bytes, before reusing its exact `image_partitions`. This produces **800 training, 100 validation and 100 test source images**. The original metadata's 800/200 split alone is insufficient. If the historical file is unavailable, the seed-2026 procedure is reconstructed by Boolean configuration; provenance explicitly says it was reconstructed, not verified identical. A supplied but incompatible historical file is rejected.
+
+| Partition | Sets per generating rule | Total ten-image sets | Full readout evaluations |
+|---|---:|---:|---:|
+| Training | 21 | 147 | Used for optimization only |
+| Validation | 7 | 49 | 343 per model |
+| Test | 14 | 98 | 686 per model |
+
+Every set has ten distinct images, all satisfying its rule, with coverage of every satisfying configuration. Compatibility against all seven rules must identify exactly the intended rule. Duplicate unordered image sets and cross-partition image leakage are rejected. Image ordering is saved. Reuse within a partition is permitted and reported, including actual distinct images used and per-rule configuration counts. The real-data CPU audit during implementation verified all these invariants and exact historical partition reuse: **621/88/87 distinct images are used by the generated training/validation/test sets**, respectively. No manifest or result artifact is committed to Git.
+
+Correct positions are fixed deterministically: each training rule has exactly three sets with each numeric answer position per epoch; validation checkpoint selection has exactly one of each position per rule. Seven cyclic rotations are used for all full validation/test readouts, preserving each set's image order. Sets, rotations and shared source images must not be treated as independent observations.
+
+**The test images were previously exposed through exploratory experiments.** This is not an untouched final benchmark. Positive-only diagnostic scenes may support shortcut learning, and evaluation does not establish unseen Boolean-configuration generalization or prove logical reasoning.
+
+### Model, loss and selection
+
+The model is `Qwen/Qwen3.5-4B` at revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`, using 4-bit NF4, double quantization, FP16 compute, SDPA, thinking disabled and `128*28*28` maximum pixels per image. Ordered RGB resizing and chat preprocessing match `compare_3_vs_7.py`. Every input has ten images and the same seven-choice prompt. No true-rule identifier, Boolean metadata or answer is included as extra input. Inputs are never silently truncated or reduced; a 16,000-token guard fails explicitly.
+
+Actual tokenizer representations are checked for distinct single-token numeric labels 1–7, including append-only behavior at the rendered assistant answer boundary. Training uses full-vocabulary cross entropy on the next answer token; prompt/image tokens are not loss targets. Inference uses the same token IDs and next-token logits, normalized over the seven numeric labels. Restricted-choice NLL and checkpoint-selection full-vocabulary loss are different quantities and are labeled separately.
+
+Training starts from the pretrained base with seed 2026 and fresh rank-8 LoRA adapters, alpha 16, dropout 0.05, AdamW learning rate `5e-5`, weight decay 0.01, betas (0.9, 0.999), epsilon `1e-8`, microbatch 1, accumulation 4, gradient clip 1 and initial AMP scale 8. The vision tower and base weights are frozen. All supported decoder linear targets are discovered and saved; the target count is not assumed to be 248. Non-reentrant gradient checkpointing is used.
+
+Three epochs give **441 set presentations and 111 planned updates**: 36 batches of four plus one batch of three per epoch. The partial batch is normalized by three and is not padded. A skipped/nonfinite/no-weight-change update is recorded as a failure and gets no successful-update credit. Resume restores the preceding successful checkpoint and the exact data order/RNG state.
+
+At each epoch end, selection evaluates **49 fixed, position-balanced validation inputs**. The adapter with minimum full-vocabulary answer-token loss is selected. Thus checkpoint selection adds **147 validation-loss forwards** across training, rather than a seven-rotation sweep after every epoch. Final selected-adapter validation uses all 343 rotations, matched to the pretrained validation baseline. Test performance never selects an epoch or hyperparameter.
+
+### Colab execution
+
+From the repository root, fetch the existing branch without overwriting local work:
+
+```python
+!git fetch origin feature/benchmark-foundation
+!git switch feature/benchmark-foundation
+!git pull --ff-only origin feature/benchmark-foundation
+!pip install 'transformers>=5.0' peft bitsandbytes accelerate pillow numpy matplotlib
+```
+
+Use your existing `DATA` and `PILOT` Python variables. `DATA` must point to `three-operand-experiments/data-1000`. The root below must be new; keep the Python/package environment unchanged between baseline, training and evaluation, because configuration identity is checked on resume and comparison.
+
+```python
+from pathlib import Path
+import subprocess
+
+OUT7 = Path(PILOT) / 'lora-7rules'
+HISTORICAL = Path(DATA).parent / 'results/04-simple-lora/rule_identification_manifest.json'
+cmd7 = ['python', 'benchmark/lora_7rules.py']
+args7 = ['--data-dir', str(DATA), '--out', str(OUT7)]
+
+def run7(action, *extra):
+    subprocess.run(cmd7 + [action] + args7 + list(extra), check=True)
+
+# CPU check, no saved manifest/results and no model loading.
+run7('build', '--historical-manifest', str(HISTORICAL), '--validate-only')
+
+# Save new Drive artifacts; refuses an existing experiment root.
+run7('build', '--historical-manifest', str(HISTORICAL))
+run7('baseline', '--validate-only')  # Revalidate saved manifest and source data.
+
+# Full seven-generating-rule pretrained validation: 49 sets x 7 = 343 forwards.
+run7('baseline')
+
+# Real GPU forward/backward/update check, in a separate smoke directory.
+# One update of four training examples plus seven smoke validation forwards.
+run7('smoke')
+
+# Train 3 epochs; checkpoint after each successful optimizer boundary.
+run7('train')
+# After interruption, rerun this instead of the preceding line:
+# run7('train', '--resume')
+
+# Evaluate the selected epoch on the identical full validation set.
+run7('evaluate')
+run7('compare')
+```
+
+Evaluation is also incremental: use `run7('baseline', '--resume')` or `run7('evaluate', '--resume')` after interruption. A completed compatible evaluation can be reopened with `--resume` without loading the model. No incomplete or incompatible output is silently reused. Optimizer checkpoint files are trusted local artifacts only; do not load untrusted `training_state.pt` files.
+
+Only after selection and validation comparison are complete, explicitly freeze the adapter and evaluate the previously exposed test partition:
+
+```python
+run7('final-test')  # 686 pretrained + 686 selected-adapter evaluations.
+# After interruption: run7('final-test', '--resume')
+```
+
+This writes `selection_freeze.json` before test inference. Any later training attempt under that experiment root is refused. The selected-adapter identity, model settings and manifest must continue matching the freeze record. A new root is required for a new experiment.
+
+### Outputs and validation status
+
+All artifacts are below `{PILOT}/lora-7rules/`, outside Git:
+
+- `dataset/`: `manifest.json`, `partitions.json`, `validation_report.json`; includes source/partition hashes, seed, filenames, configurations, mappings and reuse statistics.
+- `evaluations/pretrained/validation/` and `evaluations/finetuned/validation/`: config, actual answer token IDs, incremental `predictions.jsonl`, and `metrics.json`.
+- `smoke-training/`: isolated update evidence/checkpoint, never accepted as a completed scientific model.
+- `training/`: config, actual token IDs, resolved trainable-module inventory, `losses.json`, `validation_losses.json`, `latest/` adapter plus optimizer/scaler/RNG state, `best_adapter/`, `selection.json`, and `complete.json`. The selected epoch is explicit. Only latest and best adapters are retained; interrupted directory replacement can recover the preceding complete checkpoint.
+- `final-test/{pretrained,finetuned}/test/`: resumable paired test predictions and metrics.
+- `comparison/{validation,test}/`: `summary.json` and `loss_curves.png`; reports accuracy/chance adjustment, per-rule confusion, position counts, correct-rule probability, restricted-choice NLL, rotation consistency and paired accuracy change.
+
+Run CPU tests with:
+
+```bash
+python -m unittest discover -s benchmark -p 'test_lora_7rules.py' -v
+```
+
+Tests cover truth tables, partitions, set counts, coverage, identifiability, deterministic generation, label balance, exact preprocessing parity, answer-token gradients, partial accumulation, frozen weights, genuine tiny-model CPU optimizer updates, checkpoint state/RNG recovery, incompatible output refusal and paired evaluation mappings. CPU tests do not establish actual Qwen tokenizer compatibility, 4-bit T4 memory capacity or GPU training success; the real GPU smoke test is required. **No full seven-rule GPU training or inference was run during implementation.**
