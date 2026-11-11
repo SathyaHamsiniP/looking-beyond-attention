@@ -1,0 +1,303 @@
+{
+  "before": {
+    "trials": 90,
+    "sets": 30,
+    "accuracy": 0.32222222222222224,
+    "per_rule": {
+      "R1": 0.2,
+      "R2": 0.16666666666666666,
+      "R3": 0.6
+    },
+    "by_rotation": {
+      "0": 0.3,
+      "1": 0.3333333333333333,
+      "2": 0.3333333333333333
+    },
+    "predicted_rules": {
+      "R3": 56,
+      "R1": 19,
+      "R2": 15
+    },
+    "answer_labels": {
+      "Z": 19,
+      "Y": 62,
+      "X": 9
+    },
+    "confusion": {
+      "R1": {
+        "R3": 18,
+        "R1": 6,
+        "R2": 6
+      },
+      "R2": {
+        "R3": 20,
+        "R2": 5,
+        "R1": 5
+      },
+      "R3": {
+        "R3": 18,
+        "R1": 8,
+        "R2": 4
+      }
+    },
+    "consistent_sets": 6
+  },
+  "after": {
+    "trials": 90,
+    "sets": 30,
+    "accuracy": 0.3333333333333333,
+    "per_rule": {
+      "R1": 0.3333333333333333,
+      "R2": 0.3333333333333333,
+      "R3": 0.3333333333333333
+    },
+    "by_rotation": {
+      "0": 0.3333333333333333,
+      "1": 0.3333333333333333,
+      "2": 0.3333333333333333
+    },
+    "predicted_rules": {
+      "R2": 30,
+      "R3": 30,
+      "R1": 30
+    },
+    "answer_labels": {
+      "Y": 90
+    },
+    "confusion": {
+      "R1": {
+        "R2": 10,
+        "R3": 10,
+        "R1": 10
+      },
+      "R2": {
+        "R2": 10,
+        "R3": 10,
+        "R1": 10
+      },
+      "R3": {
+        "R2": 10,
+        "R3": 10,
+        "R1": 10
+      }
+    },
+    "consistent_sets": 0
+  },
+  "changes": {
+    "wrong_to_different_wrong": 7,
+    "wrong_to_correct": 11,
+    "correct_to_wrong": 10
+  },
+  "bootstrap": {
+    "seed": 2026,
+    "draws": 20000,
+    "method": "paired set-clustered percentile bootstrap, 95%",
+    "pretrained": [
+      0.2222222222222222,
+      0.4222222222222223
+    ],
+    "finetuned": [
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "difference": [
+      -0.08888888888888896,
+      0.1111111111111111
+    ],
+    "limitation": "Shared images across sets remain dependent; these intervals account only for rotations within a set. Selection uncertainty is not included."
+  },
+  "example": [
+    {
+      "before": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 0,
+        "mapping": {
+          "X": "R1",
+          "Y": "R2",
+          "Z": "R3"
+        },
+        "prediction": "R3",
+        "answer_label": "Z",
+        "probabilities": {
+          "R1": 0.20545195043087006,
+          "R2": 0.3387329876422882,
+          "R3": 0.45581507682800293
+        },
+        "correct": false,
+        "key": "validation_R1_00:0"
+      },
+      "after": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 0,
+        "mapping": {
+          "X": "R1",
+          "Y": "R2",
+          "Z": "R3"
+        },
+        "prediction": "R2",
+        "answer_label": "Y",
+        "probabilities": {
+          "R1": 0.2098318338394165,
+          "R2": 0.44421398639678955,
+          "R3": 0.34595420956611633
+        },
+        "correct": false,
+        "key": "validation_R1_00:0"
+      }
+    },
+    {
+      "before": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 1,
+        "mapping": {
+          "X": "R2",
+          "Y": "R3",
+          "Z": "R1"
+        },
+        "prediction": "R3",
+        "answer_label": "Y",
+        "probabilities": {
+          "R2": 0.17391517758369446,
+          "R3": 0.5111651420593262,
+          "R1": 0.31491968035697937
+        },
+        "correct": false,
+        "key": "validation_R1_00:1"
+      },
+      "after": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 1,
+        "mapping": {
+          "X": "R2",
+          "Y": "R3",
+          "Z": "R1"
+        },
+        "prediction": "R3",
+        "answer_label": "Y",
+        "probabilities": {
+          "R2": 0.20869486033916473,
+          "R3": 0.44180700182914734,
+          "R1": 0.34949812293052673
+        },
+        "correct": false,
+        "key": "validation_R1_00:1"
+      }
+    },
+    {
+      "before": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 2,
+        "mapping": {
+          "X": "R3",
+          "Y": "R1",
+          "Z": "R2"
+        },
+        "prediction": "R3",
+        "answer_label": "X",
+        "probabilities": {
+          "R3": 0.3562643527984619,
+          "R1": 0.31935328245162964,
+          "R2": 0.32438236474990845
+        },
+        "correct": false,
+        "key": "validation_R1_00:2"
+      },
+      "after": {
+        "set_id": "validation_R1_00",
+        "true_rule": "R1",
+        "image_files": [
+          "scene_110_121.png",
+          "scene_111_124.png",
+          "scene_110_116.png",
+          "scene_001_100.png",
+          "scene_011_120.png",
+          "scene_101_111.png",
+          "scene_101_123.png",
+          "scene_111_101.png",
+          "scene_001_109.png",
+          "scene_001_101.png"
+        ],
+        "rotation": 2,
+        "mapping": {
+          "X": "R3",
+          "Y": "R1",
+          "Z": "R2"
+        },
+        "prediction": "R1",
+        "answer_label": "Y",
+        "probabilities": {
+          "R3": 0.20869486033916473,
+          "R1": 0.44180700182914734,
+          "R2": 0.34949812293052673
+        },
+        "correct": true,
+        "key": "validation_R1_00:2"
+      }
+    }
+  ]
+}

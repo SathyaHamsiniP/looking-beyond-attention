@@ -11,7 +11,7 @@ import zipfile
 
 EMAIL='24f2005474@ds.study.iitm.ac.in'
 FOLDER='15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR'
-EXPERIMENTS={'operator-controls':'07-seven-rule-operator-controls','activation-patching':'08-seven-rule-activation-patching'}
+EXPERIMENTS={'operator-controls':'07-seven-rule-operator-controls','activation-patching':'08-seven-rule-activation-patching','probing':'09-seven-rule-probing','lora':'06-seven-rule-lora'}
 MARKER='seven-rule-controls-patching-v1'
 ALLOWED={'.json','.jsonl','.csv','.png','.md','.txt'}
 
@@ -33,12 +33,20 @@ def validate_destination(service):
     return folder
 
 
-def connect():
-    from google.colab import auth
+def connect(authenticate=None):
+    # Colab interactive auth must run in the notebook kernel, never in a child
+    # `!python` process (where auth otherwise fails with a NoneType.kernel error).
+    from IPython import get_ipython
+    notebook=bool(getattr(get_ipython(),'kernel',None))
+    if authenticate is None:authenticate=notebook
+    if authenticate and not notebook:
+        raise RuntimeError('Run iitm_drive.connect(authenticate=True) in a Colab notebook cell, not a subprocess')
+    if authenticate:
+        from google.colab import auth
+        auth.authenticate_user()
     import google.auth
     from googleapiclient.discovery import build
     print(f'Authenticate/select {EMAIL}; mounting a Drive does not select this API identity.',flush=True)
-    auth.authenticate_user()
     credentials,_=google.auth.default(scopes=['https://www.googleapis.com/auth/drive'])
     service=build('drive','v3',credentials=credentials,cache_discovery=False)
     validate_destination(service)
@@ -69,26 +77,32 @@ def folder_child(service,parent,name):
     return service.files().create(body=dict(name=name,mimeType='application/vnd.google-apps.folder',parents=[parent],appProperties={'experiment':MARKER}),fields='id',supportsAllDrives=True).execute()['id']
 
 
-def compact_files(source):
+def compact_files(source,include_features=False,include_model_state=False):
     source=Path(source).resolve()
     files=[]
     for p in sorted(source.rglob('*')):
         if not p.is_file() or p.is_symlink():continue
         relative=p.relative_to(source)
         if any(part.startswith('.') for part in relative.parts):continue
-        if p.suffix.lower() not in ALLOWED:continue
-        if p.stat().st_size>64*1024*1024:raise ValueError('Refusing unexpectedly large result: '+str(relative))
+        if any(part.endswith(('.tmp','.previous')) for part in relative.parts):continue
+        allowed=ALLOWED|({'.npz'} if include_features else set())|({'.pt','.safetensors','.jinja'} if include_model_state else set())
+        if p.suffix.lower() not in allowed:continue
+        if p.stat().st_size>(2*1024**3 if include_model_state else 64*1024*1024):raise ValueError('Refusing unexpectedly large result: '+str(relative))
         files.append((p,relative))
     if not files:raise ValueError('No compact result files')
     return files
 
 
-def upload(service,source,experiment):
+def upload(service,source,experiment,include_features=False,include_model_state=False):
     # Identity + destination are checked before any creation/update, even when
     # a caller supplies an already-created service object.
     validate_destination(service)
     if experiment not in EXPERIMENTS:raise ValueError('Unknown experiment destination')
-    files=compact_files(source)
+    if include_model_state:
+        if experiment!='lora':raise ValueError('Model-state upload belongs only to the LoRA experiment')
+        from lora_recovery import validate_backup
+        validate_backup(source)
+    files=compact_files(source,include_features,include_model_state)
     from googleapiclient.http import MediaFileUpload
     parent=folder_child(service,FOLDER,EXPERIMENTS[experiment]);folders={():parent};receipts=[]
     for path,relative in files:
@@ -120,11 +134,14 @@ def upload(service,source,experiment):
     return dict(account=EMAIL,destination=FOLDER,experiment_folder=parent,files=receipts)
 
 
-def manual_zip(source,path):
+def manual_zip(source,path,include_features=False,include_model_state=False):
+    if include_model_state:
+        from lora_recovery import validate_backup
+        validate_backup(source)
     path=Path(path)
     if path.exists():raise ValueError('ZIP exists; choose a new filename')
     with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED) as archive:
-        for p,relative in compact_files(source):archive.write(p,str(relative))
+        for p,relative in compact_files(source,include_features,include_model_state):archive.write(p,str(relative))
     print(f'LOCAL ZIP ONLY (not uploaded): {path}, {path.stat().st_size} bytes. Download it and upload manually while signed in as {EMAIL}.',flush=True)
     return path
 
@@ -133,18 +150,19 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',type=Path);p.add_argument('--experiment',choices=EXPERIMENTS)
     p.add_argument('--verify-only',action='store_true');p.add_argument('--manual-zip',type=Path)
+    p.add_argument('--include-features',action='store_true');p.add_argument('--include-model-state',action='store_true')
     a=p.parse_args()
     if a.manual_zip:
         if not a.source:p.error('--source required')
-        manual_zip(a.source,a.manual_zip);return
+        manual_zip(a.source,a.manual_zip,a.include_features,a.include_model_state);return
     try:
         service=connect()
         if a.verify_only:return
         if not a.source or not a.experiment:p.error('--source and --experiment required')
-        result=upload(service,a.source,a.experiment)
+        result=upload(service,a.source,a.experiment,a.include_features,a.include_model_state)
         print('ALL FILES API-VERIFIED:',json.dumps(result,indent=2),flush=True)
     except Exception as exc:
-        print(f'UPLOAD FAILED; local results are preserved. No fallback account used. {exc}\nUse --source PATH --manual-zip /content/experiment-results.zip and google.colab.files.download for manual School-account upload.',flush=True)
+        print(f'UPLOAD FAILED; use iitm_drive.connect(authenticate=True) and upload(service, ...) in a notebook cell if interactive authentication is required. Local results are preserved. No fallback account used. {exc}\nUse --source PATH --manual-zip /content/experiment-results.zip and google.colab.files.download for manual School-account upload.',flush=True)
         raise
 
 

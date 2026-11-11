@@ -1,0 +1,210 @@
+{
+  "view_hash": "0f9e969fe7d9cf827c830e78d41f2023f38bec660848bda7f817efa35c6060d8",
+  "pairs": [
+    {
+      "pair_id": "R1:0:offset-1:same",
+      "control_group": "R1:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R1_0000",
+      "receiver_rule": "R1",
+      "donor_set": "validation_R1_0001",
+      "donor_rule": "R1",
+      "shared_images": 0
+    },
+    {
+      "pair_id": "R1:0:offset-1:different",
+      "control_group": "R1:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R1_0000",
+      "receiver_rule": "R1",
+      "donor_set": "validation_R2_0001",
+      "donor_rule": "R2",
+      "shared_images": 1
+    },
+    {
+      "pair_id": "R2:0:offset-1:same",
+      "control_group": "R2:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R2_0000",
+      "receiver_rule": "R2",
+      "donor_set": "validation_R2_0001",
+      "donor_rule": "R2",
+      "shared_images": 3
+    },
+    {
+      "pair_id": "R2:0:offset-1:different",
+      "control_group": "R2:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R2_0000",
+      "receiver_rule": "R2",
+      "donor_set": "validation_R3_0001",
+      "donor_rule": "R3",
+      "shared_images": 2
+    },
+    {
+      "pair_id": "R3:0:offset-1:same",
+      "control_group": "R3:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R3_0000",
+      "receiver_rule": "R3",
+      "donor_set": "validation_R3_0001",
+      "donor_rule": "R3",
+      "shared_images": 1
+    },
+    {
+      "pair_id": "R3:0:offset-1:different",
+      "control_group": "R3:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R3_0000",
+      "receiver_rule": "R3",
+      "donor_set": "validation_R4_0001",
+      "donor_rule": "R4",
+      "shared_images": 0
+    },
+    {
+      "pair_id": "R4:0:offset-1:same",
+      "control_group": "R4:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R4_0000",
+      "receiver_rule": "R4",
+      "donor_set": "validation_R4_0001",
+      "donor_rule": "R4",
+      "shared_images": 0
+    },
+    {
+      "pair_id": "R4:0:offset-1:different",
+      "control_group": "R4:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R4_0000",
+      "receiver_rule": "R4",
+      "donor_set": "validation_R5_0001",
+      "donor_rule": "R5",
+      "shared_images": 1
+    },
+    {
+      "pair_id": "R5:0:offset-1:same",
+      "control_group": "R5:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R5_0000",
+      "receiver_rule": "R5",
+      "donor_set": "validation_R5_0001",
+      "donor_rule": "R5",
+      "shared_images": 1
+    },
+    {
+      "pair_id": "R5:0:offset-1:different",
+      "control_group": "R5:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R5_0000",
+      "receiver_rule": "R5",
+      "donor_set": "validation_R6_0001",
+      "donor_rule": "R6",
+      "shared_images": 0
+    },
+    {
+      "pair_id": "R6:0:offset-1:same",
+      "control_group": "R6:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R6_0000",
+      "receiver_rule": "R6",
+      "donor_set": "validation_R6_0001",
+      "donor_rule": "R6",
+      "shared_images": 2
+    },
+    {
+      "pair_id": "R6:0:offset-1:different",
+      "control_group": "R6:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R6_0000",
+      "receiver_rule": "R6",
+      "donor_set": "validation_R7_0001",
+      "donor_rule": "R7",
+      "shared_images": 1
+    },
+    {
+      "pair_id": "R7:0:offset-1:same",
+      "control_group": "R7:0:offset-1",
+      "condition": "same",
+      "receiver_set": "validation_R7_0000",
+      "receiver_rule": "R7",
+      "donor_set": "validation_R7_0001",
+      "donor_rule": "R7",
+      "shared_images": 2
+    },
+    {
+      "pair_id": "R7:0:offset-1:different",
+      "control_group": "R7:0:offset-1",
+      "condition": "different",
+      "receiver_set": "validation_R7_0000",
+      "receiver_rule": "R7",
+      "donor_set": "validation_R1_0001",
+      "donor_rule": "R1",
+      "shared_images": 2
+    }
+  ],
+  "rotations": [
+    0
+  ],
+  "layers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+  ],
+  "positions": [
+    "final",
+    "previous"
+  ],
+  "intervention": "historical decoder-block output replacement at final/previous token",
+  "model": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "quantization": "4-bit NF4",
+    "double_quantization": true,
+    "compute_dtype": "float16",
+    "attention": "sdpa",
+    "thinking": false,
+    "max_pixels": 100352,
+    "images_per_input": 10,
+    "scoring": "next-token likelihood restricted/normalized over numeric 1-7",
+    "training_objective": "full-vocabulary cross entropy on the single answer token only"
+  },
+  "selected_adapter_identity": null,
+  "model_variant": "pretrained",
+  "source_hashes": {
+    "activation_patching_7rules.py": "6d6c5e877fcd96fbeefc1c25c1ec4bbd0039ca5dba92aaa0fdf3abc3d78807df",
+    "seven_rule_validation.py": "bbcfa18207cfb0ac84d37417213c21b72a47bbcc36edd7adb6a2be5e1bb3974b",
+    "lora_7rules.py": "b7d06b07bec4f17e61de70a77d64e03f020904d86c58b35149807de4ee3e3686",
+    "compare_3_vs_7.py": "528970d2f6f0639cd2775ade1eed9434579aeb2f9bfa4493a95661d447163e01"
+  },
+  "historical_hook_hash": "6acf1bb7282fc82059ad07029112f856b0a36cee50e60adedd1a45fe4e7dcd47",
+  "baseline_hash": "7d1996cbd637894c9584c2f3d5c5ecf2deead621e8af485cb4a759b01cca642d"
+}

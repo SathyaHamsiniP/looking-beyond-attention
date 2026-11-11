@@ -1,0 +1,42 @@
+{
+  "trials": 90,
+  "sets": 30,
+  "accuracy": 0.3333333333333333,
+  "per_rule": {
+    "R1": 0.3333333333333333,
+    "R2": 0.3333333333333333,
+    "R3": 0.3333333333333333
+  },
+  "by_rotation": {
+    "0": 0.3333333333333333,
+    "1": 0.3333333333333333,
+    "2": 0.3333333333333333
+  },
+  "predicted_rules": {
+    "R2": 30,
+    "R3": 30,
+    "R1": 30
+  },
+  "answer_labels": {
+    "Y": 90
+  },
+  "confusion": {
+    "R1": {
+      "R2": 10,
+      "R3": 10,
+      "R1": 10
+    },
+    "R2": {
+      "R2": 10,
+      "R3": 10,
+      "R1": 10
+    },
+    "R3": {
+      "R2": 10,
+      "R3": 10,
+      "R1": 10
+    }
+  },
+  "chance": 0.3333333333333333,
+  "caution": "Sets reuse images within each partition; rotations are repeated measurements, not independent examples."
+}

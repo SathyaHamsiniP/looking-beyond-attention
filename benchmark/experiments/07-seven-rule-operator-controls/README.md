@@ -20,22 +20,22 @@ The saved A1/A2 summary reports 36.67% (three choices) and 14.76% (seven choices
 ## Colab: fresh runtime and exact paths
 
 ```python
-!git clone --branch feature/seven-rule-controls-patching https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+!git clone --branch feature/seven-rule-benchmark-suite https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
 %cd /content/looking-beyond-attention
 !pip install -r benchmark/requirements-seven-rule-controls.txt
 ```
 
 For CPU A3 analysis, CUDA/PyTorch is not needed. For later patching, the recovered baseline used **PyTorch 2.14.1+cu130**; check `import torch; print(torch.__version__)` before using GPU quota. The patch runner refuses mismatched inference packages. If needed, install the matching official PyTorch build and restart the runtime; do not silently compare different inference environments.
 
-Mount the original account only to **read** its existing files. Explicitly choose `sathyahamsinip@gmail.com` in the mount dialog. This is separate from the IITM Drive API authentication used for all new uploads.
+Mount the School account to read the shared original research folder. Keep source data read-only.
 
 ```python
 from google.colab import drive
 from pathlib import Path
 import subprocess
 
-drive.mount('/content/source-drive')
-SOURCE = Path('/content/source-drive/MyDrive/LogicCBM++/looking-beyond-attention')
+drive.mount('/content/iitm-drive')
+SOURCE = Path('/content/iitm-drive/MyDrive/LogicCBM++/source-research')
 DATA = SOURCE / 'three-operand-experiments/data-1000'
 OLD7 = SOURCE / 'benchmark-pilot/lora-7rules-fp16-retry'
 MANIFEST7 = OLD7 / 'dataset/manifest.json'
@@ -63,10 +63,11 @@ Console output includes recovery status, workload, metrics, confidence intervals
 Authenticate the **IITM account `24f2005474@ds.study.iitm.ac.in`** for the API, even though GitHub and the read-only source mount use another account:
 
 ```python
-from google.colab import auth
-auth.authenticate_user()  # Select the IITM account in this separate API dialog.
-!python benchmark/iitm_drive.py --verify-only
-!python benchmark/iitm_drive.py --source "{A3OUT}" --experiment operator-controls
+import sys
+sys.path.insert(0, '/content/looking-beyond-attention/benchmark')
+import iitm_drive
+service = iitm_drive.connect(authenticate=True)  # Notebook cell; select School account.
+iitm_drive.upload(service, A3OUT, 'operator-controls')
 ```
 
 Destination is exactly folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, with subfolder `07-seven-rule-operator-controls`. The uploader checks actual Drive API email and `canAddChildren` before writes, verifies uploaded IDs/sizes/MD5 hashes, resumes file updates with stable IDs and skips identical bytes. Wrong identity, domain restrictions, quota or write failures stop clearly; there is no old-Drive fallback. If cached API authentication selects the wrong account, use a fresh Colab authentication session and choose IITM; do not bypass the email check.
@@ -79,8 +80,14 @@ from google.colab import files
 files.download('/content/07-seven-rule-operator-controls.zip')
 ```
 
-This is a local ZIP, not a claimed upload. Manually upload it while signed into IITM at https://drive.google.com/drive/folders/15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR. No new upload was performed during implementation because the IITM OAuth account is not connected in the Codex tools.
+This is a local ZIP, not a claimed upload. Manually upload it while signed into IITM at https://drive.google.com/drive/folders/15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR. This implementation imports existing saved results; the School connector was available for the artifact audit.
 
 ## Limitations
 
 Positive-only decisive-scene shortcuts, strong position bias, shared images and previously exposed test images limit reasoning claims. Bootstrap resamples sets to keep rotations together but does not account for shared images across sets. No causal inference about adding generating rules follows from comparing A3 to the old A1/A2 dataset.
+
+## Committed evidence
+
+[Summary](../../results/seven-rules/qwen3.5-4b/operator-controls/summary.json), [all predictions](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.csv) and [provenance](../../results/seven-rules/qwen3.5-4b/operator-controls/provenance.json).
+
+![Answer positions and rule confusion](../../results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)

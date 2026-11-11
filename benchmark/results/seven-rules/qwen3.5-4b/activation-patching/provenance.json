@@ -1,0 +1,60 @@
+{
+  "source_url": "https://drive.google.com/drive/folders/18W6uz5GLDPPqK-rpIaVYRFF5aviDk_60",
+  "source_folder": "/tmp/suite-staging/seven/activation-patching/pretrained",
+  "rule_count": 7,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "activation-patching",
+  "verification": [
+    "896 unique rows exactly match saved pairs/rotations/32 layers/two positions",
+    "Every signed/absolute/answer/perturbation effect recomputed from all seven probabilities",
+    "Per-layer means recomputed within 1e-12; no GPU run"
+  ],
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 5724,
+      "sha256": "74016976ad0d0f4414c0c31c5eb133ecd20911e4c6b9196bd288c4a80401fcd3"
+    },
+    {
+      "path": "layer_effects.csv",
+      "bytes": 14882,
+      "sha256": "5abd374eafc8baa039e9cdd22b2167636744356ef3d8425808f406a82c5cb284"
+    },
+    {
+      "path": "layer_effects.png",
+      "bytes": 128873,
+      "sha256": "f2367e448e9a38019dfa476a3f690dcf73070cd193be140ef971b66e3753463c"
+    },
+    {
+      "path": "pair_effects.csv",
+      "bytes": 116173,
+      "sha256": "6e72f055094b02a70f4772c09ec4920b684a0aa6dc68b0d9f9e0f44168e6b6c2"
+    },
+    {
+      "path": "patches.csv",
+      "bytes": 211088,
+      "sha256": "24cd3b22dbce0fc85e0847eb0eb134d68999a3635443598b1b1f85e05c49c01d"
+    },
+    {
+      "path": "patches.jsonl",
+      "bytes": 1193685,
+      "sha256": "f6c620f8981d60a942f2cc4a2ddbb166b6335a95a0b27d4217a58da6e62d5e38"
+    },
+    {
+      "path": "per_rule_effects.csv",
+      "bytes": 102307,
+      "sha256": "e7fdce089cf1c7c74b59c0bcb587d15de169533a5356710152b381a7e97b88c4"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 125024,
+      "sha256": "739fce8aaf9b0a22b5f0c27d7ac4e0c40d5ad0ecd42259ddda8c4acb1a61aed6"
+    },
+    {
+      "path": "workload.json",
+      "bytes": 137,
+      "sha256": "6f54638d2a6b35ddbcf4a8ad674faa2884436e5b02c1452f10264c994cf0bebd"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

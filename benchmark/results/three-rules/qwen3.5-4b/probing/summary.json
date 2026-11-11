@@ -1,0 +1,60 @@
+{
+  "conditions": [
+    1,
+    10
+  ],
+  "rule_ids": [
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "train_sets": 90,
+  "test_sets": 30,
+  "chance": 0.3333333333333333,
+  "layers": 32,
+  "evaluation": {
+    "1": {
+      "qwen_fixed_rotation_accuracy": 0.16666666666666666,
+      "qwen_predictions": {
+        "R3": 25,
+        "R2": 5
+      },
+      "probe_final_layer_accuracy": 1.0,
+      "probe_final_layer_shuffled_control_accuracy": 0.2
+    },
+    "10": {
+      "qwen_fixed_rotation_accuracy": 0.4,
+      "qwen_predictions": {
+        "R3": 21,
+        "R2": 9
+      },
+      "probe_final_layer_accuracy": 0.5,
+      "probe_final_layer_shuffled_control_accuracy": 0.36666666666666664
+    }
+  },
+  "reading": "Inspect all layers in layer_accuracy.csv. Do not select the best layer on test and report it as tuned held-out accuracy.",
+  "limitation": "The 1-image diagnostic rule can be identified from one visible Boolean scene configuration; strong decoding could reflect concept recognition, not rule reasoning. Only a fixed answer-option rotation is evaluated. Images can repeat within each partition, but never across train/test partitions.",
+  "data_integrity": {
+    "sets_by_split_and_rule": {
+      "train": {
+        "R1": 30,
+        "R2": 30,
+        "R3": 30
+      },
+      "test": {
+        "R1": 10,
+        "R2": 10,
+        "R3": 10
+      }
+    },
+    "diagnostic_unique_files": {
+      "train": 78,
+      "test": 24
+    },
+    "diagnostic_total_sets": {
+      "train": 90,
+      "test": 30
+    },
+    "train_test_image_disjoint": true
+  }
+}

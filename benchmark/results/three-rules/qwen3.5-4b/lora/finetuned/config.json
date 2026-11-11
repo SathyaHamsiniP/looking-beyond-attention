@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "precision": "4bit",
+    "max_pixels": 100352,
+    "prompt_hash": "04776205b5230f45ca50aadaf9c347d30558063d92c6b8084a69976c2b32a7cb",
+    "scoring": "conditional answer-sequence log likelihood, normalized over XYZ"
+  },
+  "kind": "evaluation",
+  "partition": "validation",
+  "smoke_test": false,
+  "adapter": {
+    "README.md": "7716b0151793769140a76026939437398273346aefc3e5f75bb8ab2833b42885",
+    "adapter_config.json": "cc2d1f228417aed50d26921765a0670585160cc9892919ca8b6faa8f4d55181d",
+    "adapter_model.safetensors": "bf3ca49b94564f136e5bd1a7ef949078a6457f6a29a36cdc15eb599985ece8ce",
+    "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "experiment.json": "11a563cc55407bc5d1c62b4cba01ae5aa9a9530dee68e4b88e45ff9c2c1e245a",
+    "processor_config.json": "bfbc24af59a3e73a9cd0653b8d4ae758dfaec4e3e6c15dfb1c6c8ee8d5683c85",
+    "tokenizer.json": "a5cd9732badce41de57e6efce8302930ded1c1188c5f81feb2bd6c24c4a1941f",
+    "tokenizer_config.json": "7ff0211d20c398343cab1300beeb9e038ece910498ff279ecda9e3e5fd41026b"
+  },
+  "manifest_hash": "701936daac921fd19da203fccda2524d43c7277999ebdee0412041d987f1fcd4",
+  "software": {
+    "git_commit": "680e8a7d51ac36b08c60e11cc0ee7280404ee65d",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.22.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  }
+}

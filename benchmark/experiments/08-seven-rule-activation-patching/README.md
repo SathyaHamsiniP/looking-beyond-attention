@@ -61,8 +61,8 @@ Pairs can reuse sets/images, and same-rule pairs can share more images. Shared-i
 Authenticate and verify IITM as described in experiment 07, then upload only compact results:
 
 ```python
-!python benchmark/iitm_drive.py --verify-only
-!python benchmark/iitm_drive.py --source "{PATCHOUT}" --experiment activation-patching
+service = iitm_drive.connect(authenticate=True)  # Notebook cell.
+iitm_drive.upload(service, PATCHOUT, 'activation-patching')
 ```
 
 All uploads target `24f2005474@ds.study.iitm.ac.in`, exact parent folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, subfolder `08-seven-rule-activation-patching`. File IDs, parents, sizes and MD5s are API-verified. Repeating the command skips unchanged files and updates stable IDs for changed/interrupted transfers; no checkpoint or activation binaries are included.
@@ -75,3 +75,13 @@ files.download('/content/08-seven-rule-activation-patching.zip')
 ```
 
 No GPU patching and no IITM upload were run during implementation. CPU tests exercise the original hooks on fake tensors, true-rule versus answer effects, sign conventions, pairing, validation-only recovery, cluster aggregation, completed-run resume, duplicate rejection and upload-account/destination guards. Source datasets, old results and GitHub authentication remain unchanged.
+
+## Recovered measurements
+
+All **896 unique rows** were checked against their saved seven-label probabilities and the 14-pair/layer/position design. [Raw measurements](../../results/seven-rules/qwen3.5-4b/activation-patching/patches.jsonl), [layer effects](../../results/seven-rules/qwen3.5-4b/activation-patching/layer_effects.csv) and [provenance](../../results/seven-rules/qwen3.5-4b/activation-patching/provenance.json) are copied without changing originals.
+
+Different-rule, final-token donor-true-rule mean effects span −0.004397 to +0.008391 probability across layers. They are **not all negative**. At layer 32 the different-rule effect is +0.008391 (+0.8391 percentage points), versus +0.030485 for same-rule controls. The different-rule donor-answer effect is +0.003440; total variation is 0.129835. At that layer previous-token effects are zero. These small, heterogeneous effects do not establish causal Boolean reasoning; same-rule controls also move probabilities. Fixed rotation and only seven pairs per condition limit generalization.
+
+![Saved layer effects](../../results/seven-rules/qwen3.5-4b/activation-patching/layer_effects.png)
+
+For School upload use the notebook-cell `iitm_drive.connect(authenticate=True)` pattern in [07](../07-seven-rule-operator-controls/README.md), then `iitm_drive.upload(service, PATCHOUT, 'activation-patching')`. Do not initiate Colab authentication in a subprocess.

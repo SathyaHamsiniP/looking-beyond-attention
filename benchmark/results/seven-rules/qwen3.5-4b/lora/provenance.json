@@ -1,0 +1,42 @@
+{
+  "source_url": "https://drive.google.com/drive/folders/1H5Tr6hAQCSODPsRAa8VsyPITUELgSlsO",
+  "model": "Qwen/Qwen3.5-4B",
+  "rule_count": 7,
+  "experiment": "lora",
+  "verification": [
+    "Partial full-training diagnostics only; no final fine-tuned score claimed",
+    "Pretrained metrics verified against separately imported 343 predictions"
+  ],
+  "files": [
+    {
+      "path": "partial-diagnostics/config.json",
+      "bytes": 9682,
+      "sha256": "6731fc6a9aa97e7e1a066a541f6dde38a580653c8be9e2882d4f64827c25f6fb"
+    },
+    {
+      "path": "partial-diagnostics/losses.json",
+      "bytes": 2963,
+      "sha256": "fe9322d724220fb525cedb5cb72841db0671e1018f93d342cac05f900bbb6e90"
+    },
+    {
+      "path": "partial-diagnostics/update_attempts.jsonl",
+      "bytes": 11819,
+      "sha256": "cf69a7796baca082e4ce6cdb74fe8f09d49bcc353ad970f7f6f92f6f36fab35c"
+    },
+    {
+      "path": "partial-diagnostics/validation_losses.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "pretrained-validation/config.json",
+      "bytes": 9684,
+      "sha256": "e334885166390589de9aa65ae2508798ff6dc9d70333c3de4556e550edf86b5e"
+    },
+    {
+      "path": "pretrained-validation/metrics.json",
+      "bytes": 2141,
+      "sha256": "e3581a13f31e14b55d253e07ee53a1252cca02f46819d64e1b9cfad1f1071796"
+    }
+  ]
+}
