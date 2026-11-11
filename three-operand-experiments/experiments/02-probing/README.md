@@ -52,7 +52,7 @@ The models contain useful information about the objects. This does **not** mean 
 
 The concept test has only 16 test images. One wrong prediction changes the score by 6.25 percentage points. Picking the best layer on this small test can also make the result look better than it is.
 
-**Rule probing:** The code is ready, but no GPU results have been reported yet. The test has only three sets, so its accuracy cannot support a strong conclusion. A probe may also identify a rule just by spotting one special type of image, without doing the full reasoning task.
+**Original 48-image rule probing:** No GPU results have been confirmed for this particular 24-training-set/3-test-set protocol. This is different from the completed [later three-rule Qwen3.5 run](../../results/02-probing/qwen3.5-4b/README.md), which used 90 training sets and 30 test sets. The tiny original test cannot support a strong conclusion. Even a successful probe might identify a rule from a distinctive image rather than reasoning across the set.
 
 A separate later [Qwen3.5 three-rule probing run](../../results/02-probing/qwen3.5-4b/README.md) used 90 training sets and 30 test sets. Its saved probe results are available, but it is a different protocol from the original 48-image probe above.
 
