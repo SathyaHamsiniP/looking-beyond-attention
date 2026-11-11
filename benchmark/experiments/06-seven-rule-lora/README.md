@@ -8,6 +8,14 @@ The [saved file inventory](../../results/seven-rules/qwen3.5-4b/lora/artifact_au
 
 The notebook claim **116/343 after LoRA is unverified** without the underlying evaluation. The available files do not support that score. Search any remaining local backups before rerunning. If no additional finalized checkpoint is recovered, a fresh full run is required; no new training was run here. Never resume `latest.tmp` or silently promote smoke weights.
 
+## Keeping the completed results
+
+Once a completed run is verified, keep **only compact evidence** in [the LoRA results folder](../../results/seven-rules/qwen3.5-4b/lora/README.md): the actual full-run training configuration and losses, epoch-level validation losses, completion and checkpoint-selection records, fine-tuned validation predictions and metrics, and a matched pretrained-versus-fine-tuned comparison. Include existing plots only if they help interpret the result. Preserve the original filenames and recorded model/checkpoint identities.
+
+The full training archive, adapter weights (`.safetensors`), optimizer/scaler/RNG states, intermediate checkpoints, smoke runs and duplicate datasets stay in a separate Drive backup, **not GitHub**. The pretrained baseline and 343 detailed predictions already exist under [operator controls](../../results/seven-rules/qwen3.5-4b/operator-controls/README.md); link to them rather than uploading a second copy.
+
+After the completed run has been checked, replace the obsolete `partial-diagnostics/` and `artifact_audit.json` in the **active results folder**, retaining historical provenance in Git history. Do not describe the run as complete or report a fine-tuned accuracy until its selected adapter, completion record and saved prediction counts have been independently reconciled. Do not rerun experiments merely for documentation.
+
 ## Method
 
 Qwen3.5-4B uses NF4 four-bit base weights with double quantization and FP16 computation. LoRA rank 8, alpha 16, dropout 0.05 and the existing linear target-module resolver remain unchanged. AdamW uses learning rate 5e-5, betas (0.9,0.999), epsilon 1e-8 and weight decay 0.01. Initial gradient scale is 8. Three epochs, accumulation four sets, 441 presentations and **111 successful optimizer updates** are planned. Checkpoint selection minimizes full-vocabulary answer-token validation loss at epoch ends, not accuracy. The existing bounded overflow retry, RNG restoration and successful-update checks are retained in [the runner](../../code/06-lora/lora_7rules.py).
