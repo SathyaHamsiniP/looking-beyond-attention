@@ -1,0 +1,93 @@
+{
+  "source_url": "https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view",
+  "source_folder": "/tmp/probing-compact-import/seven-rule-probing",
+  "rule_count": 7,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "probing",
+  "verification": [
+    "Compact ZIP SHA-256 matches the user-supplied checksum; all ZIP members passed CRC checks.",
+    "Exactly 14 requested original result files copied byte-for-byte, with per-file SHA-256 receipts.",
+    "No experiments, metric analysis or plot generation performed.",
+    "Full archive and its 588 feature arrays remain at the original IITM Drive URL; the full archive was not downloaded or reverified in this compact import."
+  ],
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 2978,
+      "sha256": "b7b3f54dff21396e89e6b2ea50be5600f7e2371068c15e1b8d2b2017da6c0944"
+    },
+    {
+      "path": "extraction_complete.json",
+      "bytes": 134,
+      "sha256": "bf57a77e3a39132b0c44d93be18dd9da6afec34db089cfb126d0811f162394b2"
+    },
+    {
+      "path": "extraction_runtime.json",
+      "bytes": 134,
+      "sha256": "6937e5b60e74dc9ca7de47a98edce23d6f42b04fbc87ffcdcaaa29b599e9ef76"
+    },
+    {
+      "path": "input_report.json",
+      "bytes": 432285,
+      "sha256": "6fab62ee669e286b427f854bee99a06129064be6f490395bba8a0e2608aaf034"
+    },
+    {
+      "path": "model_predictions.jsonl",
+      "bytes": 414610,
+      "sha256": "bcf05517628e658f0436ef6144dc7a3a8953e1e72ef53d14bcf05ad6513b1b2b"
+    },
+    {
+      "path": "probes/config.json",
+      "bytes": 2312,
+      "sha256": "7e350ce4e6042211868a9725dd3aa1adeae1f02723d6db922115454d5de6828a"
+    },
+    {
+      "path": "probes/confusion_matrices.csv",
+      "bytes": 348639,
+      "sha256": "987c512daaca4bbc82a773304369729bc0d07d919bd59edff0e484a7e325071b"
+    },
+    {
+      "path": "probes/final_layer_confusions.png",
+      "bytes": 71682,
+      "sha256": "561679a5973e2b25571b2b998df75ad8850e362ebe4b2667c67828f170a5c348"
+    },
+    {
+      "path": "probes/layer_accuracy.csv",
+      "bytes": 11553,
+      "sha256": "8915d03707a837f74ea54cd1a7d35755308bb340fb6c8a1fb226c16bb149509e"
+    },
+    {
+      "path": "probes/layer_accuracy.png",
+      "bytes": 88401,
+      "sha256": "6cebafc9bc0e5da3fa21780b56395a88ff4e83bef4d532275c048dc221f81995"
+    },
+    {
+      "path": "probes/per_rule_accuracy.csv",
+      "bytes": 63918,
+      "sha256": "e2001d4a3d7cf5ce98b4cc5fbea015ce7cb351324e8259e623117c04843ac19d"
+    },
+    {
+      "path": "probes/probe_predictions.csv",
+      "bytes": 719780,
+      "sha256": "1132330381487989912c2ac6dd71d006f255482583b75f885bec050151d9f37d"
+    },
+    {
+      "path": "probes/summary.json",
+      "bytes": 56863,
+      "sha256": "2afa568d7ca2e6a6e4c59aa9332f9bd8b7310b075e8e3033ac74bfa54b82f3d6"
+    },
+    {
+      "path": "probes/summary.md",
+      "bytes": 56863,
+      "sha256": "2afa568d7ca2e6a6e4c59aa9332f9bd8b7310b075e8e3033ac74bfa54b82f3d6"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported.",
+  "compact_archive": {
+    "filename": "09-seven-rule-probing-compact-results.zip",
+    "sha256": "f5bb552c886fd9a69d4b1edf9e737a0ba3dae75bc5b774de0bb61482625827d7",
+    "sha256_verified": true,
+    "zip_integrity": "Passed CRC checks for every archive member",
+    "original_result_files": 14
+  }
+}
