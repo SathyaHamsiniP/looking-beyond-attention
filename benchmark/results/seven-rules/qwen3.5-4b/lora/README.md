@@ -1,21 +1,23 @@
 # Seven-rule LoRA results
 
-The aim of experiment [06 — LoRA](../../../../experiments/06-seven-rule-lora/README.md) is to see whether fine-tuning helps Qwen3.5-4B identify the generating Boolean rule of ten images, rather than simply preferring an answer position.
+We fine-tuned Qwen3.5-4B to see whether it could identify the rule shared by ten images more often. Validation accuracy increased from **48/343 (13.99%)** to **112/343 (32.65%)**, a gain of **18.66 percentage points**.
 
-## Pretrained model
+The run completed **111 successful optimizer updates** over three epochs. **Epoch 3** was selected by the lowest validation answer-token loss, **1.5795268915137466**. The completion and evaluation records contain the same adapter identity. Its weights were not supplied, so their hashes could not be independently checked.
 
-Before fine-tuning, Qwen got **48/343 validation answers correct (13.99%)** over 49 saved image sets and seven answer-option rotations. With seven choices, chance accuracy is 14.29%. This is the same pretrained evaluation used by [experiment 07 — operator controls](../operator-controls/README.md), where the saved individual predictions and answer-position analysis can be inspected.
+## Original files
 
-The `pretrained-validation/metrics.json` file in this folder records the baseline metrics; the full individual baseline predictions are not duplicated here.
+- Training: [settings](training/config.json), [losses and successful-update checks](training/losses.json), [validation losses](training/validation_losses.json), [completion](training/complete.json), [checkpoint selection](training/selection.json), [trainable parameters](training/trainable.json) and [answer tokens](training/answer_tokens.json).
+- Fine-tuned validation: [settings](finetuned-validation/config.json), [metrics](finetuned-validation/metrics.json) and [all 343 predictions](finetuned-validation/predictions.jsonl).
+- Comparison: [original summary](comparison/summary.json) and [original loss plot](comparison/loss_curves.png). No original matched-prediction CSV was supplied; none was invented.
+- Pretrained validation: [predictions](../operator-controls/predictions.jsonl) and [settings](../operator-controls/recovered_config.json), kept once in operator controls. These are byte-for-byte identical to the baseline in the uploaded archive.
+- [File sources and checks](provenance.json): archive checksums, original file hashes, matching validation inputs and the limits of what was checked.
 
-## Fine-tuned model
+![Original loss plot](comparison/loss_curves.png)
 
-**A verified full-run evaluation has not yet been imported into this GitHub branch.** The current `partial-diagnostics/` folder records an earlier interrupted training attempt, not the result of a completed three-epoch LoRA run. The historical notebook claim of **116/343** is not a confirmed result without the corresponding final-model prediction records.
+## What changed and what remains unclear
 
-Once the completed experiment is imported and checked, this section should report the actual number of successful training updates, the chosen checkpoint and validation loss, accuracy on the same 343 validation presentations, a matched comparison with the pretrained predictions, per-rule performance and any remaining answer-position bias. Report only measurements present in the original results; do not derive new scores or plots for documentation.
+The fine-tuned model used all seven answer positions instead of only positions 6 and 7. R4 and R5 improved most; R1 and R7 became worse. Most validation answers were still wrong. The [experiment README](../../../../experiments/06-seven-rule-lora/README.md) gives the answer counts and per-rule results.
 
-## How to interpret the comparison
+The **112/343** count replaces the earlier unverified claim of 116/343. The 343 presentations reuse 49 image sets across seven answer orders, and images also repeat within partitions. Validation selected the checkpoint; the reserved test partition was not evaluated. Better validation accuracy alone does not show Boolean reasoning.
 
-The 343 validation answers are **49 image sets presented in seven answer orders**, not 343 independent image sets. Improvement in validation accuracy would show better performance on this task, but by itself would not establish Boolean reasoning: the model could still rely on shortcuts or option preferences. The final test partition remains reserved.
-
-[Experiment method and limitations](../../../../experiments/06-seven-rule-lora/README.md) · [Seven-rule benchmark overview](../../../../README.md)
+The original files were copied without changing their bytes. Earlier partial-training records were replaced; they remain in Git history. Model weights, optimizer state, smoke tests, datasets and ZIPs are excluded. The complete source archives remain outside GitHub.

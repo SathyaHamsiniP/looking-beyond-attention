@@ -1,0 +1,20 @@
+[
+  {
+    "epoch": 1,
+    "loss": 1.9485954849087461,
+    "sets": 49,
+    "mode": "fixed position-balanced options"
+  },
+  {
+    "epoch": 2,
+    "loss": 1.9839068894483605,
+    "sets": 49,
+    "mode": "fixed position-balanced options"
+  },
+  {
+    "epoch": 3,
+    "loss": 1.5795268915137466,
+    "sets": 49,
+    "mode": "fixed position-balanced options"
+  }
+]

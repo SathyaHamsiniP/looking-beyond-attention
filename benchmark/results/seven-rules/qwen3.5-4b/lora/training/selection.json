@@ -1,0 +1,5 @@
+{
+  "epoch": 3,
+  "loss": 1.5795268915137466,
+  "criterion": "lowest validation full-vocabulary answer-token loss"
+}

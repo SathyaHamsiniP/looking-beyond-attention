@@ -1,6 +1,6 @@
 # Old experiment notes
 
-These notes preserve earlier commands and decisions, including old run paths. They are not instructions for the current seven-rule experiments. Use the current [benchmark index](../README.md) for current results and how to run.
+These notes preserve earlier commands and decisions, including old run paths. They are not instructions for the current seven-rule experiments. Use the current [benchmark index](../README.md) for current results and how to run. The [completed seven-rule LoRA results](../experiments/06-seven-rule-lora/README.md) replace the earlier training status below.
 
 ## Earlier benchmark plan
 

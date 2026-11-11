@@ -1,6 +1,6 @@
 """CPU checks of saved result files and measurements."""
 import setup_paths
-from benchmark_paths import BENCHMARK, source_path
+from benchmark_paths import BENCHMARK, REPO, source_path
 import csv
 import json
 from pathlib import Path
@@ -10,11 +10,15 @@ import activation_patching_7rules as patching
 import lora_7rules as seven
 
 ROOT=BENCHMARK/'results'
+THREE=REPO/'three-operand-experiments/results'
 
 
 class SavedResultTests(unittest.TestCase):
     def test_import_receipts_match_all_original_files(self):
         receipts=list(ROOT.rglob('provenance.json'))
+        for folder in ('01-operator-controls','02-probing','04-lora'):
+            receipts.extend((THREE/folder/'qwen3.5-4b').rglob('provenance.json'))
+        receipts.append(REPO/'three-operand-experiments/experiments/03-activation-patching/baseline-analysis/benchmark-import-provenance.json')
         self.assertGreaterEqual(len(receipts),6)
         for provenance in receipts:
             for entry in seven.read(provenance)['files']:
@@ -45,18 +49,19 @@ class SavedResultTests(unittest.TestCase):
                 self.assertAlmostEqual(sum(r[key] for r in group)/len(group),float(aggregate[key]),places=12)
 
     def test_three_rule_probe_and_lora_predictions(self):
-        base=ROOT/'three-rules/qwen3.5-4b'
-        with (base/'probing/probe_predictions.csv').open() as stream:predictions=list(csv.DictReader(stream))
-        with (base/'probing/layer_accuracy.csv').open() as stream:accuracies=list(csv.DictReader(stream))
+        probe=THREE/'02-probing/qwen3.5-4b'
+        lora=THREE/'04-lora/qwen3.5-4b'
+        with (probe/'probe_predictions.csv').open() as stream:predictions=list(csv.DictReader(stream))
+        with (probe/'layer_accuracy.csv').open() as stream:accuracies=list(csv.DictReader(stream))
         self.assertEqual(len(predictions),3840);self.assertEqual(len(accuracies),128)
         for row in accuracies:
             subset=[p for p in predictions if all(p[k]==row[k] for k in ('images','layer','control'))]
             self.assertEqual(len(subset),30)
             self.assertAlmostEqual(sum(int(p['correct']) for p in subset)/30,float(row['accuracy']))
         for role,correct in [('pretrained',29),('finetuned',30)]:
-            rows=[json.loads(line) for line in (base/f'lora/{role}/predictions.jsonl').read_text().splitlines()]
+            rows=[json.loads(line) for line in (lora/f'{role}/predictions.jsonl').read_text().splitlines()]
             self.assertEqual(len(rows),90);self.assertEqual(sum(r['correct'] for r in rows),correct)
-        self.assertEqual(seven.read(base/'lora/training/complete.json')['optimizer_updates'],46)
+        self.assertEqual(seven.read(lora/'training/complete.json')['optimizer_updates'],46)
 
 
 if __name__=='__main__':unittest.main()

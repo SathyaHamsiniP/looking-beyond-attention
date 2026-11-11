@@ -11,7 +11,9 @@ These benchmark experiments explore those questions with **Qwen3.5-4B**. In each
 | [07 — Operator controls](experiments/07-seven-rule-operator-controls/README.md) | Does Qwen actually identify the rule, or favor certain answer positions? | **48/343 correct (14.0%)**, about chance. It picked only the last two options. |
 | [08 — Activation patching](experiments/08-seven-rule-activation-patching/README.md) | Can changing what happens inside Qwen change the rule it chooses? | The swaps changed answer probabilities, but not in a way that proves the rules were being used. |
 | [09 — Probing](experiments/09-seven-rule-probing/README.md) | Is rule-related information present inside Qwen even when its answer is wrong? | Final-layer probes scored **30.6%, 38.8%, and 20.4%** with one, five, and ten images; Qwen itself scored about 14.3%. |
-| [06 — LoRA](experiments/06-seven-rule-lora/README.md) | Would additional training help? | No verified full-run seven-rule evaluation is available yet. |
+| [06 — LoRA](experiments/06-seven-rule-lora/README.md) | Would additional training help? | **48/343 → 112/343 correct (13.99% → 32.65%)**, a gain of 18.66 percentage points after 111 updates; epoch 3 was selected. |
+
+LoRA improved the validation score and reduced the extreme preference for the last two answer positions. The gains were uneven: R4 and R5 improved most, while R1 and R7 became worse.
 
 The experiments are connected, but answer accuracy, probe accuracy, and activation patching test different things. A probe doing well does not mean Qwen reasons correctly; a change after patching does not prove rule information was transferred.
 

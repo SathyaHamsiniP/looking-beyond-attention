@@ -13,7 +13,7 @@ We started with three rules, then extended the task to seven. Earlier experiment
 - [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): How do answers change when we replace an internal representation with one from another example? Saved results are available.
 - [04 — LoRA](three-operand-experiments/results/04-lora/qwen3.5-4b/README.md): Three-rule validation accuracy changed from 29/90 to 30/90; the selected adapter always answered Y.
 
-The [newer seven-rule experiments](benchmark/README.md) include completed operator controls, activation patching and probing. Seven-rule LoRA still has partial training records, with no verified full-run adapter or completed fine-tuned evaluation. These studies differ in data and method, so they are not perfectly matched comparisons.
+The [newer seven-rule experiments](benchmark/README.md) include completed operator controls, activation patching and probing. The completed seven-rule LoRA records show validation accuracy rising from 48/343 (13.99%) to 112/343 (32.65%) after 111 updates. The selected adapter weights were not supplied for independent hash checks. These studies differ in data and method, so they are not perfectly matched comparisons.
 
 ## Data
 

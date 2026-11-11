@@ -1,37 +1,90 @@
-# 06 — Does fine-tuning help Qwen identify seven Boolean rules?
+# 06 — Does LoRA help Qwen identify seven rules?
 
-The pretrained model struggled to identify the rule connecting ten pictures. In [experiment 07](../07-seven-rule-operator-controls/README.md), it got only **48 of 343** validation questions right and strongly favored the last two answer positions. We wanted to see whether a small amount of additional training could change this.
+The pretrained model got only 48 of 343 validation answers right. It also chose only the last two answer positions. We fine-tuned Qwen to see whether it could identify the correct rule more often.
 
-We used **LoRA** (low-rank adaptation): instead of changing the entire Qwen3.5-4B model, it trains a small set of extra weights. The question is not just whether its validation accuracy increases, but **whether it starts to distinguish rules rather than repeat the same answer bias**.
+We used **LoRA**, which trains small extra weight matrices while keeping the base model fixed. Accuracy increased from **13.99% to 32.65%**. This is a real improvement on these validation examples, but it does not show that the model learned to reason using Boolean logic.
 
-## What we tried
+## What we did
 
-We retained the saved seven-rule dataset and its train/validation/test split. The model learns from **147 training sets**; **49 validation sets** are used for checkpoint selection and evaluation. We keep the test partition untouched.
+We used pretrained **Qwen3.5-4B** and the same saved seven-rule dataset. A, B and C mean a green cube, blue sphere and red cylinder. Each question shows ten images that follow one rule. Qwen chooses from seven rules; the other objects in each image are distractors.
 
-The planned full run uses three epochs, gradient accumulation over four training sets and **111 successful optimizer updates**. It uses Qwen3.5-4B with NF4 four-bit base weights, FP16 computation, and LoRA rank 8, alpha 16, dropout 0.05. AdamW has learning rate 5×10⁻⁵, betas (0.9, 0.999), epsilon 10⁻⁸ and weight decay 0.01.
+Training used **147 sets**, with 21 sets per rule. Validation used **49 sets**, with seven sets per rule. The test partition was not evaluated. For the final comparison, each validation set was shown with seven answer orders: **49 × 7 = 343 presentations**. The pretrained and fine-tuned models saw the same images, prompts and answer orders.
 
-The selected checkpoint is the one with the lowest validation **answer-token loss** at epoch boundaries—not necessarily the one with the highest validation accuracy. This matters: it prevents us from choosing a model just because it happens to look best on the reported accuracy metric.
+The base weights used NF4 four-bit quantization, which stores them with fewer bits, and FP16 (16-bit floating-point) computation. LoRA used rank 8, alpha 16 and dropout 0.05. We trained for three epochs, meaning three passes over the training sets. Gradients were accumulated over four sets before each optimizer update. AdamW used learning rate `5e-5`, betas `(0.9, 0.999)`, epsilon `1e-8`, weight decay `0.01` and gradient clipping at 1. The initial gradient scale was 8. The model revision was `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`, with scaled dot-product attention (SDPA), thinking disabled and max pixels 100352. The saved [configuration](../../results/seven-rules/qwen3.5-4b/lora/training/config.json) gives the exact settings and package versions.
 
-After training, the evaluation should compare the selected LoRA model and pretrained Qwen on the **same validation examples and answer rotations**.
+## Training and checkpoint choice
+
+The completed run records **111 successful optimizer updates** and **441 training-set presentations**. Every successful update reports finite gradients and changes to all 248 LoRA B matrices. The [training records](../../results/seven-rules/qwen3.5-4b/lora/training/losses.json) preserve those checks.
+
+We chose the checkpoint with the lowest validation answer-token loss at the end of an epoch. This loss measures how much probability the model assigns to the correct answer token across its full vocabulary. We did not choose the checkpoint by validation accuracy.
+
+| Epoch | Validation loss |
+|---|---:|
+| 1 | 1.948595 |
+| 2 | 1.983907 |
+| **3 — selected** | **1.579527** |
+
+The loss rose in epoch 2 before falling in epoch 3. The exact selected loss is **1.5795268915137466**. The [selection](../../results/seven-rules/qwen3.5-4b/lora/training/selection.json), [completion record](../../results/seven-rules/qwen3.5-4b/lora/training/complete.json) and fine-tuned evaluation record agree on the selected adapter identity. Adapter weights were not included in the supplied archive, so we could not independently check their recorded hashes.
+
+![Original training and validation loss plot](../../results/seven-rules/qwen3.5-4b/lora/comparison/loss_curves.png)
 
 ## Results
 
-The verified pretrained result is **48/343 (13.99%)**, close to the seven-choice chance level of **14.29%**.
+| Model | Correct validation answers | Accuracy |
+|---|---:|---:|
+| Pretrained | 48/343 | 13.99% |
+| Selected LoRA, epoch 3 | 112/343 | 32.65% |
+| Change | +64 | **+18.66 percentage points** |
 
-The older files currently visible on GitHub contain an interrupted training attempt with **one verified successful optimizer update**, not a completed full run. A separate historical notebook mention of **116/343** is not sufficient evidence for a final LoRA score.
+Chance accuracy with seven choices is 14.29%. The saved predictions support **112/343**, not the earlier unverified notebook claim of 116/343. The original [comparison summary](../../results/seven-rules/qwen3.5-4b/lora/comparison/summary.json) reports 311 changed predictions.
 
-**The latest completed-run archive has not yet been verified and imported here.** We therefore do not report a fine-tuned accuracy, best checkpoint or training curve until the original completion record, selection, losses, final metrics and per-example predictions agree.
+### Answer-position bias
 
-The [LoRA results folder](../../results/seven-rules/qwen3.5-4b/lora/README.md) will show the measured before/after results and original plots when they are verified. The pretrained individual predictions and answer-position analysis are already in [operator controls](../../results/seven-rules/qwen3.5-4b/operator-controls/README.md).
+Before training, Qwen answered only positions 6 and 7. After training, it used all seven positions, though the counts were still uneven:
 
-## What would count as improvement?
+| Answer position | Before | After |
+|---|---:|---:|
+| 1 | 0 | 27 |
+| 2 | 0 | 37 |
+| 3 | 0 | 64 |
+| 4 | 0 | 76 |
+| 5 | 0 | 64 |
+| 6 | 82 | 57 |
+| 7 | 261 | 18 |
 
-We would look for a higher fine-tuned validation accuracy **and** less reliance on fixed answer positions. The per-rule comparison matters as well: a score can improve while the model continues to predict only one or two rules.
+The model chose the same rule across all seven answer orders for **8 of 49 sets**, compared with **0 of 49** before training. Consistency means repeating the same rule, which can still be wrong.
 
-Even a genuine gain in accuracy would not by itself prove that Qwen learned to apply Boolean logic. The validation examples reuse images across sets, and rotations of the same set are correlated. The held-out test partition has not been evaluated.
+### Some rules improved more than others
 
-## Code
+Each rule has 49 validation presentations: seven sets shown in seven answer orders. The rule definitions are in [rules_7.json](../../code/00-common/rules_7.json).
 
-The implementation is [`benchmark/code/06-lora/lora_7rules.py`](../../code/06-lora/lora_7rules.py), with a short [code guide](../../code/06-lora/README.md). The original data manifest, model revision, package versions and source-code hashes must match for saved checkpoints to be reproduced or resumed; see [compatibility notes](../../code/README.md#earlier-saved-runs).
+| Rule | Before | After |
+|---|---:|---:|
+| R1 | 6/49 | 2/49 |
+| R2 | 8/49 | 19/49 |
+| R3 | 7/49 | 9/49 |
+| R4 | 12/49 | 38/49 |
+| R5 | 1/49 | 31/49 |
+| R6 | 7/49 | 8/49 |
+| R7 | 7/49 | 5/49 |
 
-The experimental findings are recorded in the results folder rather than in checkpoint or backup instructions.
+The largest gains were on R4 and R5. R1 and R7 became worse. Most answers were still wrong, so the overall gain should not hide these failures.
+
+## What the results mean
+
+LoRA improved validation accuracy and reduced the extreme preference for the last two answer positions. The results do not prove Boolean reasoning. The model may still use visual shortcuts, rule-specific patterns or answer-position cues.
+
+The 343 presentations reuse 49 image sets; they are not 343 independent samples. Images also repeat within each partition. Validation was used to select the checkpoint, so this is not an untouched final-test score. Earlier three-rule LoRA used two epochs and 46 updates, so it is not a matched comparison with this three-epoch run.
+
+## Files and how to run
+
+The [results README](../../results/seven-rules/qwen3.5-4b/lora/README.md) links the original losses, predictions, metrics and comparison plot. Pretrained predictions are kept once in [operator controls](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.jsonl). No new measurements or plots were made for this import.
+
+The runner is [lora_7rules.py](../../code/06-lora/lora_7rules.py); its [short code guide](../../code/06-lora/README.md) explains the required inputs. From the repository root, check a saved dataset without loading the model:
+
+```bash
+python benchmark/code/06-lora/lora_7rules.py train \
+  --data-dir /path/to/data-1000 --out /path/to/saved-run --validate-only
+```
+
+The supplied records came from the earlier code layout. Use the [matching original checkout](../../code/README.md#earlier-saved-runs) and package versions to reproduce that run. Keep its saved model, dataset and code hashes unchanged.

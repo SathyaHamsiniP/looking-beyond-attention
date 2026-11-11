@@ -38,9 +38,13 @@
     "selection": "lowest validation full-vocabulary answer-token loss",
     "initialization": "fresh pretrained base and default PEFT LoRA initialization, never the old adapter"
   },
-  "kind": "pretrained",
+  "kind": "finetuned",
   "partition": "validation",
-  "adapter": null,
+  "adapter": {
+    "adapter_config.json": "91eda05255904cb76ebf1f959ed821e799024f24137dfe3baf743391dc9bd783",
+    "adapter_model.safetensors": "b61915a1fec4287c48b1d108b08871eae1c201e8bae3f82016b071650f9a7cdc",
+    "experiment.json": "ed33600c51e42bb4baa1b23047931f8d6a5b576863237e64868bd119a918949a"
+  },
   "smoke_test": false,
   "rules": {
     "operand_names": [
