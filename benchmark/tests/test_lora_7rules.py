@@ -2,6 +2,8 @@
 
 No pretrained Qwen weights, 4-bit GPU execution or real GPU training in tests.
 """
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 from collections import Counter
 import copy
 from contextlib import redirect_stdout

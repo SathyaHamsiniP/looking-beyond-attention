@@ -5,6 +5,11 @@ import hashlib
 import json
 import math
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import time
 
 from build_sets import read_json, read_rules
@@ -149,7 +154,7 @@ def main():
     p.add_argument("--manifest-10", type=Path, required=True)
     p.add_argument("--manifest-20", type=Path, required=True)
     p.add_argument("--data-dir", type=Path, required=True)
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--out", type=Path, required=True,
                    help="Output directory, ideally on Google Drive")
     p.add_argument("--max-pixels", type=int, default=128 * 28 * 28)

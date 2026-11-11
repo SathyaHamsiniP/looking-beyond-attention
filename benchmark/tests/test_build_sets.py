@@ -1,4 +1,6 @@
 """Small CPU-only tests; no GPU or previous experiment modules."""
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 from itertools import product
 import json
 from pathlib import Path
@@ -25,7 +27,7 @@ class ManifestTests(unittest.TestCase):
         (self.data / "metadata.json").write_text(json.dumps({"records": records}))
         self.partitions = self.root / "partitions.json"
         self.partitions.write_text(json.dumps(splits))
-        self.rules = Path(__file__).with_name("rules.json")
+        self.rules = source_path("rules.json")
 
     def make(self, n, count):
         return make_manifest(self.data, self.rules, self.partitions,

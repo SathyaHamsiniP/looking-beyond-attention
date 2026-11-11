@@ -28,11 +28,12 @@ Different-rule, final-token donor-true-rule mean effects span −0.004397 to +0.
 
 ## How to run
 
-First follow experiment 07's fresh-runtime installation, read-only source mount, input checks and CPU analysis of A3. Its variables `DATA`, `MANIFEST7`, `LOCAL`, `A3OUT` are used here.
+First follow experiment 07's fresh-runtime installation, read-only source mount, input checks and CPU analysis of A3. Its variables `DATA`, `MANIFEST7`, `LOCAL`, `A3OUT` and `ORIGINAL` are used here. The saved controls cache requires that matching original checkout. For a new matching cache, the moved runner is `benchmark/code/08-activation-patching/activation_patching_7rules.py`. CPU planning with the moved runner works without `--run`; resuming a saved patching run requires its original code hashes.
 
 ```python
 PATCHOUT = LOCAL / '08-seven-rule-activation-patching'
-base = ['python','benchmark/activation_patching_7rules.py',
+PATCH_RUNNER = ORIGINAL / 'benchmark/activation_patching_7rules.py'
+base = ['python',str(PATCH_RUNNER),
         '--manifest',str(MANIFEST7),'--data-dir',str(DATA),'--cache',str(A3OUT)]
 
 # Plans and validation only; neither command loads Qwen.
@@ -78,7 +79,7 @@ All uploads target `24f2005474@ds.study.iitm.ac.in`, exact parent folder `15tnhf
 Console findings and local `/content` files survive upload failure. If quota or organization restrictions block access:
 
 ```python
-!python benchmark/iitm_drive.py --source "{PATCHOUT}" --manual-zip /content/08-seven-rule-activation-patching.zip
+!python benchmark/code/tools/iitm_drive.py --source "{PATCHOUT}" --manual-zip /content/08-seven-rule-activation-patching.zip
 files.download('/content/08-seven-rule-activation-patching.zip')
 ```
 

@@ -10,14 +10,14 @@ The notebook claim **116/343 after LoRA is unverified** without the underlying e
 
 ## Method
 
-Qwen3.5-4B uses NF4 four-bit base weights with double quantization and FP16 computation. LoRA rank 8, alpha 16, dropout 0.05 and the existing linear target-module resolver remain unchanged. AdamW uses learning rate 5e-5, betas (0.9,0.999), epsilon 1e-8 and weight decay 0.01. Initial gradient scale is 8. Three epochs, accumulation four sets, 441 presentations and **111 successful optimizer updates** are planned. Checkpoint selection minimizes full-vocabulary answer-token validation loss at epoch ends, not accuracy. The existing bounded overflow retry, RNG restoration and successful-update checks are retained in [the runner](../../lora_7rules.py).
+Qwen3.5-4B uses NF4 four-bit base weights with double quantization and FP16 computation. LoRA rank 8, alpha 16, dropout 0.05 and the existing linear target-module resolver remain unchanged. AdamW uses learning rate 5e-5, betas (0.9,0.999), epsilon 1e-8 and weight decay 0.01. Initial gradient scale is 8. Three epochs, accumulation four sets, 441 presentations and **111 successful optimizer updates** are planned. Checkpoint selection minimizes full-vocabulary answer-token validation loss at epoch ends, not accuracy. The existing bounded overflow retry, RNG restoration and successful-update checks are retained in [the runner](../../code/06-lora/lora_7rules.py).
 
 ## How to run
 
 ```python
-!git clone --branch feature/7-rule-experiments https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+!git clone --branch feature/organize-benchmark https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
 %cd /content/looking-beyond-attention
-!pip install -r benchmark/requirements-seven-rule-controls.txt
+!pip install -r benchmark/code/00-common/requirements-seven-rule-controls.txt
 from google.colab import drive
 from pathlib import Path
 import subprocess, sys
@@ -33,7 +33,7 @@ The source is a read-only shared input. If the saved manifest or images are abse
 ### Continue a saved run or start a new one
 
 ```python
-subprocess.run(['python','benchmark/lora_recovery.py','--root',str(OLD)],check=True)
+subprocess.run(['python','benchmark/code/tools/lora_recovery.py','--root',str(OLD)],check=True)
 ```
 
 Only copy a trusted finalized backup locally after checking its entire source directory. `training/config.json`, `latest` model/optimizer/scaler/RNG state and matching journals must belong to the same full run. Then:
@@ -41,15 +41,20 @@ Only copy a trusted finalized backup locally after checking its entire source di
 ```python
 # LOCAL is a copied backup root, never the original shared folder.
 LOCAL = Path('/content/seven-rule-lora-recovered')
-subprocess.run(['python','benchmark/lora_recovery.py','--root',str(LOCAL),
+subprocess.run(['python','benchmark/code/tools/lora_recovery.py','--root',str(LOCAL),
                 '--verify-checkpoint'],check=True)
-subprocess.run(['python','benchmark/lora_7rules.py','train','--data-dir',str(DATA),
+# Use the checkpoint's original commit; shown here for pre-move backups.
+ORIGINAL = Path('/content/7-rule-original')
+if not ORIGINAL.exists():
+    subprocess.run(['git','worktree','add','--detach',str(ORIGINAL),
+                    '6d13d992432a9864b2879074f0b2e9d750bbdfa9'],check=True)
+subprocess.run(['python',str(ORIGINAL/'benchmark/lora_7rules.py'),'train','--data-dir',str(DATA),
                 '--out',str(LOCAL),'--resume'],check=True)
 ```
 
 The original runner enforces configuration, source files, data order and package versions on resume. If verification fails, stop and investigate; do not restart into that folder. A partial journal without finalized weights is not resumable.
 
-If no complete checkpoint is found in any backup, prepare a **fresh**, separate output root. Copy the saved dataset directory and verified baseline byte-for-byte; do not call `build` or modify the original manifest:
+If no complete checkpoint is found in any backup, prepare a **fresh**, separate output root. Copy the saved dataset directory byte-for-byte; do not call `build` or modify the original manifest. A fresh run with the moved code requires a baseline from that same code and packages. Do not copy the old baseline config and replace its hashes. To reuse the existing baseline without new inference, run both baseline checks and training from its matching original checkout instead. See [earlier-run notes](../../code/README.md#earlier-saved-runs).
 
 ```python
 import shutil
@@ -57,10 +62,11 @@ LOCAL = Path('/content/seven-rule-lora-new')
 assert not LOCAL.exists()
 LOCAL.mkdir()
 shutil.copytree(OLD/'dataset', LOCAL/'dataset')
-shutil.copytree(OLD/'evaluations/pretrained', LOCAL/'evaluations/pretrained')
-base = ['python','benchmark/lora_7rules.py','--data-dir',str(DATA),'--out',str(LOCAL)]
+base = ['python','benchmark/code/06-lora/lora_7rules.py','--data-dir',str(DATA),'--out',str(LOCAL)]
 subprocess.run(base + ['train','--validate-only'],check=True) # CPU checks and planned update count only
 # GPU commands, run manually only after checking all backups:
+# The moved code requires a baseline with its own exact source/package hashes.
+# subprocess.run(base + ['baseline'],check=True) # 343 validation forwards
 # subprocess.run(base + ['train'],check=True)
 # subprocess.run(base + ['evaluate'],check=True) # Selected adapter, validation only
 # subprocess.run(base + ['compare'],check=True)
@@ -73,7 +79,7 @@ No final-test command is part of this procedure. Successful updates checkpoint l
 Create snapshots between updates, preferably while training is paused. The helper hashes before and after copying and rejects any concurrent checkpoint swap; the saved optimizer step determines which loss records belong in the backup. Use a fresh snapshot path each time; remote uploads reuse stable filenames in experiment 06.
 
 ```python
-sys.path.insert(0,'/content/looking-beyond-attention/benchmark')
+sys.path.insert(0,'/content/looking-beyond-attention/benchmark/code/tools')
 import lora_recovery, iitm_drive
 SNAPSHOT = Path('/content/lora-backup-update-001') # Fresh path for each snapshot.
 lora_recovery.snapshot_backup(LOCAL/'training', SNAPSHOT)

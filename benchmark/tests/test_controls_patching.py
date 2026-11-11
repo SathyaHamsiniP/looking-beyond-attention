@@ -1,4 +1,6 @@
 """CPU-only tests for validation recovery, historical hooks and IITM upload guards."""
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 from collections import Counter
 import copy
 import io
@@ -152,51 +154,7 @@ class ExtensionTests(unittest.TestCase):
                 with seven.output(p,{'dataset':'different'},True):pass
             with seven.output(p,cfg,True):pass
 
-    def test_upload_destination_identity_and_permission_fail_closed(self):
-        class Service:
-            def __init__(self,email,writable=True):self.email=email;self.writable=writable
-            def about(self):return self
-            def files(self):return self
-            def get(self,**kw):
-                row={'user':{'emailAddress':self.email}} if 'fileId' not in kw else dict(id=drive.FOLDER,name='School',mimeType='application/vnd.google-apps.folder',capabilities={'canAddChildren':self.writable})
-                return SimpleNamespace(execute=lambda:row)
-        self.assertEqual(drive.EMAIL,'24f2005474@ds.study.iitm.ac.in')
-        # Regression: the former, incorrect domain must fail before any upload work.
-        with patch.object(drive,'folder_child',side_effect=AssertionError('Wrong account reached a write')):
-            with self.assertRaisesRegex(ValueError,'No upload attempted'):
-                drive.upload(Service('24f2005474@ds.iitm.study.in'),Path('/nonexistent-results'),'operator-controls')
-        with self.assertRaisesRegex(ValueError,'No upload attempted'):drive.validate_destination(Service('sathyahamsinip@gmail.com'))
-        with self.assertRaisesRegex(ValueError,'writable'):drive.validate_destination(Service(drive.EMAIL,False))
-        self.assertEqual(drive.validate_destination(Service(drive.EMAIL))['id'],drive.FOLDER)
-        self.assertEqual(drive.FOLDER,'15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR')
 
-    def test_resumable_upload_reuses_file_id_and_skips_identical_bytes(self):
-        import hashlib,sys,types
-        class Service:
-            def __init__(self):
-                self.nodes={drive.FOLDER:dict(id=drive.FOLDER,name='School',mimeType='application/vnd.google-apps.folder',capabilities={'canAddChildren':True})};self.updates=0
-            def files(self):return self
-            def about(self):return self
-            def get(self,**kw):return SimpleNamespace(execute=lambda:self.nodes[kw['fileId']] if 'fileId' in kw else {'user':{'emailAddress':drive.EMAIL}})
-            def create(self,body,**kw):
-                identity=str(len(self.nodes));self.nodes[identity]=dict(body,id=identity)
-                return SimpleNamespace(execute=lambda:self.nodes[identity])
-            def update(self,fileId,media_body,**kw):
-                self.updates+=1
-                def chunk(**kwargs):
-                    data=Path(media_body.path).read_bytes();self.nodes[fileId].update(size=str(len(data)),md5Checksum=hashlib.md5(data).hexdigest())
-                    return None,self.nodes[fileId]
-                return SimpleNamespace(next_chunk=chunk)
-        service=Service()
-        def matches(s,parent,name):return [v for v in s.nodes.values() if v.get('name')==name and parent in v.get('parents',[])]
-        package=types.ModuleType('googleapiclient');http=types.ModuleType('googleapiclient.http')
-        http.MediaFileUpload=lambda path,**kw:SimpleNamespace(path=path);package.http=http
-        with tempfile.TemporaryDirectory() as tmp,patch.dict(sys.modules,{'googleapiclient':package,'googleapiclient.http':http}),patch.object(drive,'matches',side_effect=matches):
-            source=Path(tmp);(source/'summary.json').write_text('{"accuracy":0.14}')
-            first=drive.upload(service,source,'operator-controls');second=drive.upload(service,source,'operator-controls')
-            self.assertEqual(service.updates,1)
-            self.assertEqual(first['files'][0]['file_id'],second['files'][0]['file_id'])
-            self.assertEqual(len(service.nodes),3)
 
     def test_completed_patching_resume_has_zero_model_load_and_rejects_duplicates(self):
         import shutil
@@ -217,14 +175,6 @@ class ExtensionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Duplicate'):
                 patching.run(self.view,self.data,cache,out,pairs,[0],[1],['final'],True)
 
-    def test_manual_zip_is_compact_and_refuses_overwrite(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            source=Path(tmp)/'results';source.mkdir();(source/'summary.json').write_text('{}')
-            (source/'adapter.safetensors').write_bytes(b'not included');(source/'.credentials.json').write_text('never included')
-            target=Path(tmp)/'fallback.zip';drive.manual_zip(source,target)
-            import zipfile
-            with zipfile.ZipFile(target) as archive:self.assertEqual(archive.namelist(),['summary.json'])
-            with self.assertRaises(ValueError):drive.manual_zip(source,target)
 
 
 if __name__=='__main__':unittest.main()

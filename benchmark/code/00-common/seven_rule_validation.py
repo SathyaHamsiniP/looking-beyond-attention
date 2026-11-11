@@ -6,6 +6,9 @@ hashes identify the supplied source manifest; only validation examples are read.
 from collections import Counter
 import json
 from pathlib import Path
+
+from benchmark_paths import REPO, source_path
+
 import tempfile
 
 import build_sets as builder
@@ -15,14 +18,16 @@ import lora_7rules as seven
 NAMES=('07-seven-rule-operator-controls','08-seven-rule-activation-patching')
 TRUSTED_INPUT_HELPERS={
     '84a76e09994aacefd68c5dca5b55c850ea078b709bbfaa1dc1a285075ec55c7b',
-    'b7d06b07bec4f17e61de70a77d64e03f020904d86c58b35149807de4ee3e3686'}
+    'b7d06b07bec4f17e61de70a77d64e03f020904d86c58b35149807de4ee3e3686',
+    # Same reviewed input/scoring logic after the directory reorganization.
+    'd264ad46a14c5b436796e560dded6c8294dd9cda1dd0b0dbd76098aea2ed2185'}
 
 
 def local_path(path):
     path=Path(path).resolve()
     if any(part in ('MyDrive','Shareddrives','source-drive','drive') for part in path.parts):
         raise ValueError('New outputs must be local working files, not a mounted Drive')
-    repo=Path(__file__).resolve().parents[1]
+    repo=REPO
     if path==repo or repo in path.parents:raise ValueError('Keep experimental artifacts outside Git')
     return path
 
@@ -104,8 +109,8 @@ def verify_baseline(folder,view,config_name='config.json'):
         raise ValueError('Model/rules/source manifest identity mismatch')
     prompts=[choices.prompt_for(view['rules'],choices.mapping(7,r)) for r in range(7)]
     if config['prompts']!=prompts:raise ValueError('Prompt identity mismatch')
-    for name in ('compare_3_vs_7.py','pilot_10_vs_20.py','rules_7.json'):
-        if config['source_hashes'][name]!=seven.file_hash(Path(__file__).with_name(name)):raise ValueError('Inference source changed: '+name)
+    for name in ('compare_3_vs_7.py','pilot_10_vs_20.py','rules_7.json') + (('benchmark_paths.py',) if 'benchmark_paths.py' in config['source_hashes'] else ()):
+        if config['source_hashes'][name]!=seven.file_hash(source_path(name)):raise ValueError('Inference source changed: '+name)
     if config['source_hashes']['lora_7rules.py'] not in TRUSTED_INPUT_HELPERS:
         raise ValueError('Unrecognized historical input/scoring helper; audit it before reuse')
     expected=jobs(view);rows=seven.load_rows(folder/'predictions.jsonl',expected)

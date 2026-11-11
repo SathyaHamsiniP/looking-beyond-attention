@@ -12,6 +12,11 @@ import importlib.metadata
 from itertools import combinations
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import shutil
 
 import numpy as np
@@ -21,13 +26,14 @@ import seven_rule_validation as validation
 
 CONDITIONS=(1,5,10)
 SEED=2026
+FEATURE_SOURCES=('benchmark_paths.py','probing_7rules.py','probing.py','compare_3_vs_7.py','rules_7.json')
 INFERENCE_PACKAGES={'torch':'2.14.1+cu130','transformers':'5.22.1','bitsandbytes':'0.50.2','accelerate':'1.15.0','pillow':'13.0.0'}
 
 
 def capture_helpers():
     # Isolated historical benchmark capture and atomic feature IO. Only readout
     # changes to the existing seven-label scorer; the three-rule runner is untouched.
-    spec=importlib.util.spec_from_file_location('seven_probe_feature_helpers',Path(__file__).with_name('probing.py'))
+    spec=importlib.util.spec_from_file_location('seven_probe_feature_helpers',source_path('probing.py'))
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     module.evaluate=choices.evaluate_numeric
     return module
@@ -141,7 +147,7 @@ def extract(out,data,items,report,rotation,resume=False,smoke=False):
     cfg=dict(protocol='seven-rule-probes-1-5-10-v1',source_manifest=report['source_manifest_canonical_hash'],
         source_sets_hash=report['source_sets_hash'],selection_hash=seven.digest(report['selection']),image_hash=seven.digest(report['image_sha256']),
         model=seven.MODEL,rules=report['rules'],conditions=list(CONDITIONS),rotation=rotation,feature='final answer-prefix token, all 32 decoder-block outputs',
-        seed=SEED,smoke=smoke,source_hashes={name:seven.file_hash(Path(__file__).with_name(name)) for name in ('probing_7rules.py','probing.py','compare_3_vs_7.py','rules_7.json')})
+        seed=SEED,smoke=smoke,source_hashes={name:seven.file_hash(source_path(name)) for name in FEATURE_SOURCES})
     with seven.output(out,cfg,resume):
         seven.atomic_json(out/'input_report.json',report)
         jobs=[];records=[];dimension=None
@@ -210,6 +216,9 @@ def fit_layer(x_train,y_train,x_val,seed=SEED,shuffled=False):
 
 def fit(out,items,report,rotation):
     out=Path(out);helpers=capture_helpers();cfg=seven.read(out/'config.json')
+    current={name:seven.file_hash(source_path(name)) for name in FEATURE_SOURCES}
+    if cfg.get('source_hashes')!=current:
+        raise ValueError('Extraction source changed; fit or resume with its original commit')
     if cfg['smoke'] or cfg['source_sets_hash']!=report['source_sets_hash'] or cfg['selection_hash']!=seven.digest(report['selection']) or cfg['rotation']!=rotation or cfg['source_manifest']!=report['source_manifest_canonical_hash'] or cfg['image_hash']!=seven.digest(report['image_sha256']):
         raise ValueError('Need complete matching non-smoke extraction')
     train=[s for s in items if s['split']=='train'];val=[s for s in items if s['split']=='validation']

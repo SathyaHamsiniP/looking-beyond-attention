@@ -2,7 +2,7 @@
 
 Does pretrained Qwen3.5-4B identify seven generating Boolean rules from ten positive images? This extends the existing A1/A2 comparison descriptively; it does not repeat A1 (three rules/three choices) or A2 (the same three rules/seven choices). A3 uses different validation sets, so differences do not isolate the effect of generating-rule count.
 
-Rules are loaded unchanged from [`rules_7.json`](../../rules_7.json): R1 `(A AND B) OR C`, R2 `(A AND C) OR B`, R3 `(B AND C) OR A`, R4 `(A XOR B) OR C`, R5 `(A XOR C) OR B`, R6 `(B XOR C) OR A`, R7 `(A OR B OR C) AND NOT(A AND B AND C)`. A/B/C are green cube/blue sphere/red cylinder, requiring exact colour and shape; other objects are distractors.
+Rules are loaded unchanged from [`rules_7.json`](../../code/00-common/rules_7.json): R1 `(A AND B) OR C`, R2 `(A AND C) OR B`, R3 `(B AND C) OR A`, R4 `(A XOR B) OR C`, R5 `(A XOR C) OR B`, R6 `(B XOR C) OR A`, R7 `(A OR B OR C) AND NOT(A AND B AND C)`. A/B/C are green cube/blue sphere/red cylinder, requiring exact colour and shape; other objects are distractors.
 
 ## Results
 
@@ -25,10 +25,12 @@ The earlier A1/A2 summary reports 36.67% with three choices and 14.76% with seve
 
 ## How to run
 
+The moved runner is `benchmark/code/07-operator-controls/operator_controls_7rules.py`. For the existing published predictions, the commands below use their original code commit so source hashes still match. [Code notes](../../code/README.md#earlier-saved-runs) explain this distinction. A new matching baseline can use the moved runner directly.
+
 ```python
-!git clone --branch feature/7-rule-experiments https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+!git clone --branch feature/organize-benchmark https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
 %cd /content/looking-beyond-attention
-!pip install -r benchmark/requirements-seven-rule-controls.txt
+!pip install -r benchmark/code/00-common/requirements-seven-rule-controls.txt
 ```
 
 For CPU A3 analysis, CUDA/PyTorch is not needed. For later patching, the recovered baseline used **PyTorch 2.14.1+cu130**; check `import torch; print(torch.__version__)` before using GPU quota. The patch runner refuses mismatched inference packages. If needed, install the matching official PyTorch build and restart the runtime; do not silently compare different inference environments.
@@ -50,7 +52,13 @@ A12 = SOURCE / 'benchmark-pilot/compare-3-vs-7/summary.json'
 LOCAL = Path('/content/seven-rule-controls')
 A3OUT = LOCAL / '07-seven-rule-operator-controls'
 
-cmd = ['python','benchmark/operator_controls_7rules.py',
+# The saved baseline records pre-move source hashes. Use its matching checkout.
+ORIGINAL = Path('/content/7-rule-original')
+if not ORIGINAL.exists():
+    subprocess.run(['git','worktree','add','--detach',str(ORIGINAL),
+                    '6d13d992432a9864b2879074f0b2e9d750bbdfa9'],check=True)
+CONTROL_RUNNER = ORIGINAL / 'benchmark/operator_controls_7rules.py'
+cmd = ['python',str(CONTROL_RUNNER),
        '--manifest',str(MANIFEST7),'--data-dir',str(DATA),
        '--baseline',str(BASELINE7),'--historical-a12',str(A12),
        '--out',str(A3OUT)]
@@ -70,7 +78,7 @@ Authenticate the **School account `24f2005474@ds.study.iitm.ac.in`** for the Dri
 
 ```python
 import sys
-sys.path.insert(0, '/content/looking-beyond-attention/benchmark')
+sys.path.insert(0, '/content/looking-beyond-attention/benchmark/code/tools')
 import iitm_drive
 service = iitm_drive.connect(authenticate=True)  # Notebook cell; select School account.
 iitm_drive.upload(service, A3OUT, 'operator-controls')
@@ -81,7 +89,7 @@ Destination is exactly folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, with subfolde
 All important findings remain printed in the console and saved under `/content` **before upload**. If Drive is full or restricted:
 
 ```python
-!python benchmark/iitm_drive.py --source "{A3OUT}" --manual-zip /content/07-seven-rule-operator-controls.zip
+!python benchmark/code/tools/iitm_drive.py --source "{A3OUT}" --manual-zip /content/07-seven-rule-operator-controls.zip
 from google.colab import files
 files.download('/content/07-seven-rule-operator-controls.zip')
 ```

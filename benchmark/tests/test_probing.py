@@ -1,4 +1,6 @@
 """CPU tests for seven-rule probing, result imports and backups. No pretrained model initialization, inference or training."""
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 import copy
 from contextlib import redirect_stdout
 import io
@@ -17,7 +19,7 @@ import import_results as imports
 import lora_recovery
 import iitm_drive
 from probing_7rules import seven
-import test_seven_rule_extensions as fixtures
+import test_controls_patching as fixtures
 
 
 class ExperimentTests(unittest.TestCase):
@@ -105,61 +107,9 @@ class ExperimentTests(unittest.TestCase):
             (folder/'features.npz').unlink()
             with self.assertRaises(OSError):probes.feature_record(folder,expected,helpers)
 
-    def test_safe_results_import_model_separation_and_source_preservation(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            source=Path(tmp)/'source';source.mkdir();seven.atomic_json(source/'config.json',dict(model='Qwen/Qwen3.5-4B'))
-            (source/'summary.json').write_text('{"measured":true}')
-            (source/'activation.npz').write_bytes(b'not imported');original=(source/'summary.json').read_bytes()
-            dest=Path(tmp)/'seven-rules/qwen3.5-4b/probing'
-            imports.import_folder(source,dest,7,'probing')
-            self.assertEqual(original,(source/'summary.json').read_bytes());self.assertFalse((dest/'activation.npz').exists())
-            self.assertEqual(seven.file_hash(dest/'summary.json'),seven.file_hash(source/'summary.json'))
-            seven.atomic_json(source/'config.json',dict(model='Qwen/Qwen3-VL-4B'))
-            with self.assertRaises(ValueError):imports.import_folder(source,dest,7,'probing')
-            with self.assertRaises(ValueError):imports.import_folder(source,source/'seven-rules/qwen3.5-4b/probing',7,'probing')
 
-    def test_partial_checkpoint_and_smoke_are_never_final_recovery(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);training=root/'training';training.mkdir()
-            seven.atomic_json(training/'config.json',dict(kind='training',smoke_test=False,model=seven.MODEL,training=seven.TRAIN))
-            (training/'latest.tmp').mkdir();(training/'latest.tmp/adapter_model.safetensors').write_bytes(b'partial')
-            report=lora_recovery.audit(root)
-            self.assertFalse(report['resume_candidate_present']);self.assertTrue(report['unfinished_staging']);self.assertFalse(report['verified_full_run'])
-            with self.assertRaises(ValueError):lora_recovery.verify_checkpoint(training)
-            with self.assertRaises(ValueError):lora_recovery.verify_checkpoint(root/'smoke-training')
 
-    def test_notebook_authentication_never_calls_colab_kernel_in_subprocess(self):
-        with patch('IPython.get_ipython',return_value=None):
-            with self.assertRaisesRegex(RuntimeError,'not a subprocess'):iitm_drive.connect(authenticate=True)
-        google=ModuleType('google');auth=ModuleType('google.auth');colab=ModuleType('google.colab');colab_auth=ModuleType('google.colab.auth')
-        from unittest.mock import Mock
-        colab_auth.authenticate_user=Mock();colab.auth=colab_auth;auth.default=Mock(return_value=(object(),None));google.auth=auth
-        api=ModuleType('googleapiclient');discovery=ModuleType('googleapiclient.discovery');discovery.build=Mock(return_value=object());api.discovery=discovery
-        modules={'google':google,'google.auth':auth,'google.colab':colab,'google.colab.auth':colab_auth,'googleapiclient':api,'googleapiclient.discovery':discovery}
-        with patch.dict(sys.modules,modules),patch('IPython.get_ipython',return_value=SimpleNamespace(kernel=object())),patch.object(iitm_drive,'validate_destination') as verify:
-            service=iitm_drive.connect(authenticate=True);colab_auth.authenticate_user.assert_called_once();verify.assert_called_once_with(service)
-        colab_auth.authenticate_user.reset_mock()
-        with patch.dict(sys.modules,modules),patch('IPython.get_ipython',return_value=None),patch.object(iitm_drive,'validate_destination'):
-            iitm_drive.connect();colab_auth.authenticate_user.assert_not_called()
 
-    def test_stable_checkpoint_snapshot_and_corrupt_cursor_rejection(self):
-        import torch
-        with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);training=root/'training';latest=training/'latest';latest.mkdir(parents=True)
-            config=dict(kind='training',smoke_test=False,model=seven.MODEL,training=seven.TRAIN)
-            seven.atomic_json(training/'config.json',config)
-            seven.atomic_json(latest/'adapter_config.json',{'r':8})
-            (latest/'adapter_model.safetensors').write_bytes(b'CPU fixture, not an actual adapter')
-            loss=dict(update=1,optimizer_step_occurred=True,finite_gradients=True,lora_b_matrices_changed=248)
-            state=dict(config_hash=seven.digest(config),next_update=1,losses=[loss],validations=[],optimizer={},scaler={},rng=torch.get_rng_state(),cuda_rng=[])
-            torch.save(state,latest/'training_state.pt')
-            snapshot=root/'backup';lora_recovery.snapshot_backup(training,snapshot)
-            self.assertEqual(lora_recovery.verify_checkpoint(snapshot)['next_update'],1)
-            self.assertEqual(seven.read(snapshot/'losses.json'),[loss])
-            with self.assertRaises(ValueError):lora_recovery.snapshot_backup(training,snapshot)
-            state['next_update']=2;torch.save(state,latest/'training_state.pt')
-            with self.assertRaises(ValueError):lora_recovery.snapshot_backup(training,root/'corrupt')
-            self.assertFalse((root/'corrupt').exists())
 
     def test_pinned_inference_packages_reject_mismatch_before_model_load(self):
         with tempfile.TemporaryDirectory() as tmp,patch.object(probes.importlib.metadata,'version',return_value='wrong'),patch.object(probes.choices.shared,'load_model') as load,redirect_stdout(io.StringIO()):

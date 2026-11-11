@@ -6,13 +6,18 @@ import importlib.util
 import json
 import math
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 from types import SimpleNamespace
 
 import seven_rule_validation as validation
 from seven_rule_validation import seven,choices
 
 
-HISTORICAL=Path(__file__).resolve().parents[1]/'three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py'
+HISTORICAL=REPO/'three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py'
 
 
 def intervention_engine(tokens):
@@ -160,7 +165,7 @@ def run(view,data,cache,out,pairs,rotations,layers,positions,resume=False,traini
     config=dict(view_hash=seven.digest(view),pairs=pairs,rotations=rotations,layers=layers,positions=positions,
         intervention='historical decoder-block output replacement at final/previous token',model=seven.MODEL,
         selected_adapter_identity=selected_identity,model_variant='selected seven-rule adapter' if adapter else 'pretrained',
-        source_hashes={name:seven.file_hash(Path(__file__).with_name(name)) for name in ('activation_patching_7rules.py','seven_rule_validation.py','lora_7rules.py','compare_3_vs_7.py')},
+        source_hashes={name:seven.file_hash(source_path(name)) for name in ('benchmark_paths.py','activation_patching_7rules.py','seven_rule_validation.py','lora_7rules.py','compare_3_vs_7.py')},
         historical_hook_hash=seven.file_hash(HISTORICAL),baseline_hash=seven.file_hash(Path(cache)/'predictions.jsonl'))
     with seven.output(out,config,resume):
         saved={};path=out/'patches.jsonl'

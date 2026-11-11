@@ -15,6 +15,11 @@ import json
 import math
 import os
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import random
 import shutil
 import tempfile
@@ -45,7 +50,7 @@ CAUTION = ('Three operands and seven generating rules. Not an exact replication 
     'partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. '
     'Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning '
     'or generalization to unseen logical configurations.')
-RULES_PATH = Path(__file__).with_name('rules_7.json')
+RULES_PATH = source_path('rules_7.json')
 
 
 def digest(value):
@@ -249,8 +254,8 @@ def training_schedule(manifest,smoke=False):
 
 
 def code_identity():
-    return {name:file_hash(Path(__file__).with_name(name)) for name in
-            ('lora_7rules.py','compare_3_vs_7.py','pilot_10_vs_20.py','build_sets.py','rules_7.json')}
+    return {name:file_hash(source_path(name)) for name in
+            ('benchmark_paths.py','lora_7rules.py','compare_3_vs_7.py','pilot_10_vs_20.py','build_sets.py','rules_7.json')}
 
 
 def configuration(manifest,kind,partition='validation',adapter=None,smoke=False):
@@ -707,7 +712,7 @@ def main():
     p.add_argument('--validate-only',action='store_true')
     p.add_argument('--resume',action='store_true')
     a=p.parse_args()
-    repository=Path(__file__).resolve().parents[1]
+    repository=REPO
     if a.out.resolve()==repository or repository in a.out.resolve().parents:
         p.error('Generated manifests/results belong outside Git, normally on Google Drive')
     if a.out.resolve()==a.data_dir.resolve() or a.data_dir.resolve() in a.out.resolve().parents:

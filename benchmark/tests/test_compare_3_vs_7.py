@@ -1,4 +1,6 @@
 """CPU-only protocol tests; no pretrained model weights or GPU inference."""
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 from collections import Counter
 import copy
 import contextlib
@@ -29,7 +31,7 @@ class ComparisonTests(unittest.TestCase):
                 (self.data / 'images' / name).write_bytes(b'fixture')
                 records.append(dict(filename=name, bits=list(bits), split='train' if i < 100 else 'test'))
         (self.data / 'metadata.json').write_text(json.dumps(dict(records=records)))
-        self.rules = Path(__file__).with_name('rules_7.json')
+        self.rules = source_path('rules_7.json')
         self.spec = compare.validate_rules(self.rules)
         manifest = make_manifest(self.data, self.rules.with_name('rules.json'), None,
                                  {'train': 30, 'test': 10}, 10, 2026)

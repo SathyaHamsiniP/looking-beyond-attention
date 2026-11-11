@@ -8,6 +8,11 @@ import json
 from itertools import product
 import math
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import random
 
 from build_sets import read_rules, compatible_rules
@@ -188,7 +193,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--data-dir", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--sets-per-rule", type=int, default=8)
     p.add_argument("--seed", type=int, default=SEED)
     p.add_argument("--max-pixels", type=int, default=384*28*28)

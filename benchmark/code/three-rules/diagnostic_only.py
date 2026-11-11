@@ -9,6 +9,11 @@ from collections import Counter
 import hashlib
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import random
 
 from build_sets import read_rules
@@ -162,7 +167,7 @@ def main():
     p.add_argument("--data-dir", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True,
                    help="New results folder (never the reference folder itself)")
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--validate-only", action="store_true")
     p.add_argument("--smoke-test", action="store_true")
     a = p.parse_args()

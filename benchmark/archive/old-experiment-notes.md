@@ -27,11 +27,11 @@ A **set** is one rule-identification question containing several images. The bui
 
 ## Quick checks
 
-From the `benchmark/` directory:
+From the repository root:
 
 ```bash
-python -m unittest discover -p 'test_*.py'
-python build_sets.py --help
+python -m unittest discover -s benchmark/tests -p 'test_*.py'
+python benchmark/code/00-common/build_sets.py --help
 ```
 
 To create **only a draft manifest**, supply a folder with `metadata.json` (records with `filename` and Boolean `bits`) and `images/`. The `--partitions` option accepts either a filename-to-partition JSON mapping or an object containing `image_partitions`. If omitted, the builder uses each record's existing `split`; it never invents splits.
@@ -39,7 +39,7 @@ To create **only a draft manifest**, supply a folder with `metadata.json` (recor
 Example with **illustrative, not agreed** counts (from the repository root):
 
 ```bash
-python benchmark/build_sets.py \
+python benchmark/code/00-common/build_sets.py \
   --data-dir /path/to/data-1000 \
   --partitions /path/to/agreed_partitions.json \
   --counts train=2 validation=1 test=1 \
@@ -54,10 +54,10 @@ Output files are never silently overwritten if their content differs. Do not tre
 Use the generated `pilot-10.json` and `pilot-20.json` manifests and the same `data-1000` folder. From the repo root:
 
 ```bash
-python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --validate-only
+python benchmark/code/three-rules/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --validate-only
 pip install 'transformers>=5.0' accelerate bitsandbytes pillow
-python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --smoke-test
-python benchmark/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results
+python benchmark/code/three-rules/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results --smoke-test
+python benchmark/code/three-rules/pilot_10_vs_20.py --manifest-10 /path/to/pilot-10.json --manifest-20 /path/to/pilot-20.json --data-dir /path/to/data-1000 --out /path/to/results
 ```
 
 The smoke test runs one 20-image forward pass without saving results. The full pilot runs 6 matched sets × 3 answer rotations × 2 sizes = 36 evaluations, saving `config.json`, incremental `predictions.jsonl`, and `summary.json` on Drive. It uses frozen pinned-revision Qwen3.5-4B with 4-bit NF4, not a fine-tuned adapter. This pilot uses the existing source `test` partition for diagnostics: **not an untouched final benchmark test**. Keep future final test examples locked. No LoRA or patching is run.
@@ -67,21 +67,21 @@ The smoke test runs one 20-image forward pass without saving results. The full p
 Run `operator_controls.py` rather than `pilot_10_vs_20.py` for the research comparison. It reproduces the original `main_72` setup with **8 sets/rule, 3 rules, and 3 cyclic label rotations**; the *only intended intervention* is changing the number of images per set, from 10 to 20. It recreates the original 10-image selections from the same `data-1000` training image pool, seed 2026, and appends 10 additional satisfying images. The original 10-image order is preserved. It uses the original prompt wording, 4-bit NF4 Qwen3.5-4B, and restricted next-token X/Y/Z softmax. The original model loader did not pin a specific revision; the new runner pins the revision previously recorded for Experiment 04 to make future runs reproducible. Compare results with original runs only after confirming the exact model revision and software environment.
 
 ```bash
-python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --validate-only
-python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --smoke-test
-python benchmark/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20
+python benchmark/code/three-rules/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --validate-only
+python benchmark/code/three-rules/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20 --smoke-test
+python benchmark/code/three-rules/operator_controls.py --data-dir /path/to/data-1000 --out /path/to/operator-controls-10-vs-20
 ```
 
 The full run uses **24 paired image sets × 3 option rotations × 2 image counts = 144 inferences**. It saves `config.json`, `paired_sets.json`, resumable `runs.jsonl`, and `summary.json`. It has no training, no validation-based model selection, and no need for train/test splits for the operator-controls task; it uses the original historical `train` image pool solely to reproduce that experiment's sampling. The same rule-identifiable sets are reused across rotations, so 144 is not the number of statistically independent examples. The new runner has not yet been executed on a GPU and must pass its smoke test first.
 
 ## Experiment 01: diagnostic image only (new variation)
 
-This belongs to **01 — Operator Controls**, not a new numbered experiment. Run `benchmark/diagnostic_only.py` after completing the original-compatible 10-vs-20 comparison. It reads its `paired_sets.json`, `config.json`, and 10-image `runs.jsonl`; deterministically picks the *first logically unique diagnostic image* from each original 10-image set and gives Qwen only that image. Candidate rules, model revision, original prompt wording (apart from image count), X/Y/Z answer rotations and probability readout stay fixed. It writes to a **separate** output directory and never modifies reference results.
+This belongs to **01 — Operator Controls**, not a new numbered experiment. Run `benchmark/code/three-rules/diagnostic_only.py` after completing the original-compatible 10-vs-20 comparison. It reads its `paired_sets.json`, `config.json`, and 10-image `runs.jsonl`; deterministically picks the *first logically unique diagnostic image* from each original 10-image set and gives Qwen only that image. Candidate rules, model revision, original prompt wording (apart from image count), X/Y/Z answer rotations and probability readout stay fixed. It writes to a **separate** output directory and never modifies reference results.
 
 ```bash
-python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --validate-only
-python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --smoke-test
-python benchmark/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only
+python benchmark/code/three-rules/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --validate-only
+python benchmark/code/three-rules/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only --smoke-test
+python benchmark/code/three-rules/diagnostic_only.py --reference-dir /path/to/original-operator-controls --data-dir /path/to/data-1000 --out /path/to/diagnostic-only
 ```
 
 Expected **24 matched diagnostic scenes × 3 label rotations = 72 trials**. Results: `config.json`, `selected_images.json`, resumable `runs.jsonl`, `summary.json` (includes 1-vs-10 paired accuracy change, error flips, cluster-bootstrap interval). The diagnostic image is unique *among R1/R2/R3*. Note that the original 10-image coverage sets may contain **more than one** scene with the diagnostic Boolean configuration, and the selection rule intentionally chooses one; this comparison changes both image count and amount of redundant evidence. It does not repeat the original remove-diagnostic/remove-control ablation.
@@ -93,12 +93,12 @@ Expected **24 matched diagnostic scenes × 3 label rotations = 72 trials**. Resu
 For a preliminary **illustrative** 30 train + 10 test sets per rule (not the original protocol-approved sample sizes):
 
 ```bash
-python benchmark/build_sets.py \
+python benchmark/code/00-common/build_sets.py \
   --data-dir /path/to/data-1000 \
   --counts train=30 test=10 --images-per-set 10 \
   --out /path/to/probe-manifest-10.json
 
-python benchmark/probing.py \
+python benchmark/code/three-rules/probing.py \
   --manifest /path/to/probe-manifest-10.json \
   --data-dir /path/to/data-1000 \
   --out /path/to/probing-1-vs-10 --validate-only
@@ -107,12 +107,12 @@ python benchmark/probing.py \
 Then in Colab T4 with `transformers>=5.0`, `torch`, `bitsandbytes`, `accelerate`, `numpy`, `pillow`, `scikit-learn` installed:
 
 ```bash
-python benchmark/probing.py \
+python benchmark/code/three-rules/probing.py \
   --manifest /path/to/probe-manifest-10.json \
   --data-dir /path/to/data-1000 \
   --out /path/to/probing-1-vs-10 --smoke-test
 
-python benchmark/probing.py \
+python benchmark/code/three-rules/probing.py \
   --manifest /path/to/probe-manifest-10.json \
   --data-dir /path/to/data-1000 \
   --out /path/to/probing-1-vs-10
@@ -161,9 +161,9 @@ At each epoch end, selection evaluates **49 fixed, position-balanced validation 
 From the repository root, fetch the existing branch without overwriting local work:
 
 ```python
-!git fetch origin feature/7-rule-experiments
-!git switch feature/7-rule-experiments
-!git pull --ff-only origin feature/7-rule-experiments
+!git fetch origin feature/organize-benchmark
+!git switch feature/organize-benchmark
+!git pull --ff-only origin feature/organize-benchmark
 !pip install 'transformers>=5.0' peft bitsandbytes accelerate pillow numpy matplotlib
 ```
 
@@ -175,7 +175,7 @@ import subprocess
 
 OUT7 = Path(PILOT) / 'lora-7rules'
 HISTORICAL = Path(DATA).parent / 'results/04-simple-lora/rule_identification_manifest.json'
-cmd7 = ['python', 'benchmark/lora_7rules.py']
+cmd7 = ['python', 'benchmark/code/06-lora/lora_7rules.py']
 args7 = ['--data-dir', str(DATA), '--out', str(OUT7)]
 
 def run7(action, *extra):
@@ -230,7 +230,7 @@ All artifacts are below `{PILOT}/lora-7rules/`, outside Git:
 Run CPU tests with:
 
 ```bash
-python -m unittest discover -s benchmark -p 'test_lora_7rules.py' -v
+python -m unittest discover -s benchmark/tests -p 'test_lora_7rules.py' -v
 ```
 
 Tests cover truth tables, partitions, set counts, coverage, identifiability, deterministic generation, label balance, exact preprocessing parity, answer-token gradients, partial accumulation, frozen weights, genuine tiny-model CPU optimizer updates, checkpoint state/RNG recovery, incompatible output refusal and paired evaluation mappings. CPU tests do not establish actual Qwen tokenizer compatibility, 4-bit T4 memory capacity or GPU training success; the real GPU smoke test is required. **No full seven-rule GPU training or inference was run during implementation.**
@@ -242,9 +242,9 @@ The retry limit is four replays, not four successful updates. For example, if al
 Updating this implementation changes the recorded source hash. **Do not use `--resume` against the old failed smoke directory or edit its config to bypass checks.** Preserve it and copy only its unchanged dataset artifacts into a fresh experiment root:
 
 ```python
-!git fetch origin feature/7-rule-experiments
-!git switch feature/7-rule-experiments
-!git pull --ff-only origin feature/7-rule-experiments
+!git fetch origin feature/organize-benchmark
+!git switch feature/organize-benchmark
+!git pull --ff-only origin feature/organize-benchmark
 
 from pathlib import Path
 import shutil
@@ -254,7 +254,7 @@ OLD7 = Path(PILOT) / 'lora-7rules'
 RETRY7 = Path(PILOT) / 'lora-7rules-fp16-retry'
 # Refuses an existing destination; choose a fresh suffix if already used.
 shutil.copytree(OLD7 / 'dataset', RETRY7 / 'dataset')
-smoke7 = ['python', 'benchmark/lora_7rules.py', 'smoke',
+smoke7 = ['python', 'benchmark/code/06-lora/lora_7rules.py', 'smoke',
           '--data-dir', str(DATA), '--out', str(RETRY7)]
 subprocess.run(smoke7 + ['--validate-only'], check=True)
 subprocess.run(smoke7, check=True)

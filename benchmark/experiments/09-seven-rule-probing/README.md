@@ -4,7 +4,7 @@ Can linear probes recover the generating rule from frozen Qwen representations, 
 
 ## Method
 
-A/B/C mean green cube, blue sphere and red cylinder; other objects are distractors. The unchanged [seven truth tables](../../rules_7.json) define three AND/OR rules, three XOR/OR rules and the nonempty, not-all-three rule. Each example contains positive images for one generating rule and seven numeric answer options.
+A/B/C mean green cube, blue sphere and red cylinder; other objects are distractors. The unchanged [seven truth tables](../../code/00-common/rules_7.json) define three AND/OR rules, three XOR/OR rules and the nonempty, not-all-three rule. Each example contains positive images for one generating rule and seven numeric answer options.
 
 Exhaustive truth-table enumeration establishes a minimum of **five distinct positive configurations** for every rule. Every selected subset is checked against all seven candidates:
 
@@ -23,9 +23,9 @@ CPU fitting uses StandardScaler fitted only on the 147 training vectors, then Lo
 ## How to run
 
 ```python
-!git clone --branch feature/7-rule-experiments https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+!git clone --branch feature/organize-benchmark https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
 %cd /content/looking-beyond-attention
-!pip install -r benchmark/requirements-seven-rule-controls.txt
+!pip install -r benchmark/code/00-common/requirements-seven-rule-controls.txt
 from google.colab import drive
 from pathlib import Path
 import subprocess, sys
@@ -40,9 +40,11 @@ The source is a read-only shared input. If the saved manifest or images are abse
 
 ### Run the checks, extraction and probes
 
+Use a fresh output folder with the moved code. If feature extraction started before this reorganization, resume or fit it with the [original commit](../../code/README.md#earlier-saved-runs); its saved source hashes must not be changed.
+
 ```python
 OUT = Path('/content/seven-rule-probing')
-base = ['python', 'benchmark/probing_7rules.py', '--manifest', str(MANIFEST),
+base = ['python', 'benchmark/code/09-probing/probing_7rules.py', '--manifest', str(MANIFEST),
         '--data-dir', str(DATA)]
 subprocess.run(base + ['--out', str(OUT), '--validate-only'], check=True) # CPU only
 subprocess.run(base + ['--out', str(OUT)+'-smoke', '--smoke-test'], check=True) # GPU, separate output
@@ -53,14 +55,14 @@ subprocess.run(base + ['--out', str(OUT)], check=True) # GPU extraction, then CP
 # subprocess.run(base + ['--out', str(OUT), '--fit-only'], check=True)
 ```
 
-`config.json` records the extraction settings; `model_predictions.jsonl` records the frozen model readout. `features/` contains per-job arrays and metadata, outside Git. `probes/` contains layer accuracy/prediction/confusion/per-rule CSVs, `layer_accuracy.png`, `final_layer_confusions.png`, config and summary. Per-layer scores and the final summary print to the console before upload. Import only compact results with [the importer](../../import_results.py); feature arrays stay outside Git.
+`config.json` records the extraction settings; `model_predictions.jsonl` records the frozen model readout. `features/` contains per-job arrays and metadata, outside Git. `probes/` contains layer accuracy/prediction/confusion/per-rule CSVs, `layer_accuracy.png`, `final_layer_confusions.png`, config and summary. Per-layer scores and the final summary print to the console before upload. Import only compact results with [the importer](../../code/tools/import_results.py); feature arrays stay outside Git.
 
 ### Save and upload results
 
 Authenticate **inside a notebook Python cell**, not through `!python`:
 
 ```python
-sys.path.insert(0, '/content/looking-beyond-attention/benchmark')
+sys.path.insert(0, '/content/looking-beyond-attention/benchmark/code/tools')
 import iitm_drive
 service = iitm_drive.connect(authenticate=True)
 iitm_drive.upload(service, OUT, 'probing')  # Compact outputs first.

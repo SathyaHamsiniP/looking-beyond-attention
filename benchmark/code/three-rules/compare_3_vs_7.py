@@ -14,6 +14,11 @@ import math
 import os
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
+
 from build_sets import compatible_rules, read_json, read_rules, sha256_file
 import pilot_10_vs_20 as shared
 
@@ -47,7 +52,7 @@ def validate_rules(path):
     spec = read_rules(path)  # rejects duplicate IDs/tables and invalid bits
     if spec != truth_tables():
         raise ValueError("Seven-rule definitions/truth tables differ from the specified Boolean formulas")
-    original = read_rules(Path(__file__).with_name("rules.json"))
+    original = read_rules(source_path("rules.json"))
     if original != dict(operand_names=spec["operand_names"], rules=spec["rules"][:3]):
         raise ValueError("R1-R3 must match existing rules.json exactly")
     return spec
@@ -56,7 +61,7 @@ def validate_rules(path):
 def validate(data_dir, manifest_path, rules_path, partitions_path=None):
     spec = validate_rules(rules_path)
     m = read_json(manifest_path)
-    original_rules = Path(__file__).with_name("rules.json")
+    original_rules = source_path("rules.json")
     if m["images_per_set"] != 10 or m["rule_ids"] != IDS[:3] or m["operand_names"] != ["A", "B", "C"]:
         raise ValueError("Expected the existing three-rule ten-image probe manifest")
     metadata = Path(data_dir) / "metadata.json"
@@ -301,7 +306,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--data-dir", type=Path, required=True)
     p.add_argument("--manifest", type=Path, required=True)
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules_7.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules_7.json"))
     p.add_argument("--partitions", type=Path)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--max-pixels", type=int, default=128*28*28)
@@ -329,7 +334,7 @@ def main():
             mode="pilot" if args.pilot else "balanced", scoring="restricted next-token numeric-label softmax",
             rotations={"3": 1 if args.pilot else 3, "7": 1 if args.pilot else 7},
             prompts={str(n): [prompt_for(spec, mapping(n, i)) for i in range(n)] for n in (3,7)},
-            source_sha256={name: sha256_file(Path(__file__).with_name(name)) for name in ("compare_3_vs_7.py", "pilot_10_vs_20.py", "build_sets.py")},
+            source_sha256={name: sha256_file(source_path(name)) for name in ("benchmark_paths.py", "compare_3_vs_7.py", "pilot_10_vs_20.py", "build_sets.py")},
             image_sha256={name: sha256_file(args.data_dir/"images"/name) for name in sorted({f for s in sets for f in s["image_files"]})},
             caution=CAUTION)
         if args.out.resolve() == args.data_dir.resolve() or args.data_dir.resolve() in args.out.resolve().parents or args.out.resolve() == args.manifest.parent.resolve():

@@ -4,6 +4,9 @@ from collections import Counter
 import hashlib
 import json
 from pathlib import Path
+
+from benchmark_paths import REPO, source_path
+
 import random
 
 
@@ -161,7 +164,7 @@ def parse_counts(items):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--data-dir", type=Path, required=True)
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--partitions", type=Path,
                    help="Filename-to-partition mapping, or image_partitions object")
     p.add_argument("--counts", nargs="+", required=True, metavar="PARTITION=N",

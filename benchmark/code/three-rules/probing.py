@@ -9,6 +9,11 @@ import csv
 import hashlib
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import re
 
 import numpy as np
@@ -272,7 +277,7 @@ def main():
     p.add_argument("--manifest", type=Path, required=True,
                    help="10-image sets from benchmark/build_sets.py")
     p.add_argument("--data-dir", type=Path, required=True)
-    p.add_argument("--rules", type=Path, default=Path(__file__).with_name("rules.json"))
+    p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--train-split", default="train")
     p.add_argument("--test-split", default="test")

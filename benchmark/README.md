@@ -37,18 +37,22 @@ The experiments differ in datasets, input sizes, answer choices, image preproces
 
 ## Results
 
-The [result index](results/README.md) keeps the two rule families and four methods separate. Original results remain in place. Imported files preserve their original bytes; `provenance.json` records source locations, sizes, SHA-256 hashes and numerical checks. Model adapters, optimizer state, images and feature arrays stay outside GitHub. The [import script](import_results.py) rejects mismatched models and conflicting files:
+The [result index](results/README.md) keeps the two rule families and four methods separate. Original results remain in place. Imported files preserve their original bytes; `provenance.json` records source locations, sizes, SHA-256 hashes and numerical checks. Model adapters, optimizer state, images and feature arrays stay outside GitHub. The [import script](code/tools/import_results.py) rejects mismatched models and conflicting files:
 
 ```bash
-python benchmark/import_results.py --help
+python benchmark/code/tools/import_results.py --help
 ```
+
+## Code and tests
+
+Scripts are grouped under [code](code/README.md), CPU tests under [tests](tests/README.md), research descriptions under `experiments/`, and saved measurements under `results/`. [Earlier-run notes](code/README.md#earlier-saved-runs) explain how source hashes affect old checkpoints and baselines.
 
 ## How to run
 
-Start with [09's Colab instructions](experiments/09-seven-rule-probing/README.md) for shared inputs, pinned packages, CPU checks, extraction and probe fitting. Outputs are saved under `/content` and important summaries print before upload. The [uploader](iitm_drive.py) checks `24f2005474@ds.study.iitm.ac.in` and folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR` before writing; it never falls back to personal Drive.
+Start with [09's Colab instructions](experiments/09-seven-rule-probing/README.md) for shared inputs, pinned packages, CPU checks, extraction and probe fitting. Outputs are saved under `/content` and important summaries print before upload. The [uploader](code/tools/iitm_drive.py) checks `24f2005474@ds.study.iitm.ac.in` and folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR` before writing; it never falls back to personal Drive.
 
 ```bash
-PYTHONPATH=benchmark python -m unittest discover -s benchmark -p 'test_*.py'
+python -m unittest discover -s benchmark/tests -p 'test_*.py'
 ```
 
-Earlier scripts remain available: [three-rule probing](probing.py), [10/20 controls](pilot_10_vs_20.py), [three/seven choices](compare_3_vs_7.py). [Old experiment notes](archive/old-experiment-notes.md) preserve their instructions. Reuse the saved ten-image sets and splits for all new seven-rule work.
+Earlier scripts remain available: [three-rule probing](code/three-rules/probing.py), [10/20 controls](code/three-rules/pilot_10_vs_20.py), [three/seven choices](code/three-rules/compare_3_vs_7.py). [Old experiment notes](archive/old-experiment-notes.md) preserve their instructions. Reuse the saved ten-image sets and splits for all new seven-rule work.

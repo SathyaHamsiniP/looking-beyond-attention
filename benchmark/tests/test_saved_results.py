@@ -1,4 +1,6 @@
 """CPU checks of saved result files and measurements."""
+import setup_paths
+from benchmark_paths import BENCHMARK, source_path
 import csv
 import json
 from pathlib import Path
@@ -7,7 +9,7 @@ import unittest
 import activation_patching_7rules as patching
 import lora_7rules as seven
 
-ROOT=Path(__file__).parent/'results'
+ROOT=BENCHMARK/'results'
 
 
 class SavedResultTests(unittest.TestCase):

@@ -8,6 +8,11 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '00-common'))
+from benchmark_paths import REPO, source_path
+
 import shutil
 
 import lora_7rules as seven
