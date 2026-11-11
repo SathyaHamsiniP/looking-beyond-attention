@@ -33,6 +33,11 @@ class ToolTests(unittest.TestCase):
             imports.import_folder(source,dest,7,'probing')
             self.assertEqual(original,(source/'summary.json').read_bytes());self.assertFalse((dest/'activation.npz').exists())
             self.assertEqual(seven.file_hash(dest/'summary.json'),seven.file_hash(source/'summary.json'))
+            three_dest=Path(tmp)/'three-operand-experiments/results/02-probing/qwen3.5-4b'
+            imports.import_folder(source,three_dest,3,'probing')
+            self.assertEqual(seven.file_hash(three_dest/'summary.json'),seven.file_hash(source/'summary.json'))
+            with self.assertRaises(ValueError):
+                imports.import_folder(source,Path(tmp)/'benchmark/results/three-rules/qwen3.5-4b/probing',3,'probing')
             seven.atomic_json(source/'config.json',dict(model='Qwen/Qwen3-VL-4B'))
             with self.assertRaises(ValueError):imports.import_folder(source,dest,7,'probing')
             with self.assertRaises(ValueError):imports.import_folder(source,source/'seven-rules/qwen3.5-4b/probing',7,'probing')

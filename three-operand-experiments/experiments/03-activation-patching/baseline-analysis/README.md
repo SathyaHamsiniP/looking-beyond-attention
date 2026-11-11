@@ -9,6 +9,7 @@ The [analysis script](../../../code/03-activation-patching/analyze_baseline.py) 
 - [raw/](raw/): byte-for-byte copies of the five original files. Google Drive was not modified.
 - [derived/analysis.md](derived/analysis.md): findings and limitations checked against the raw CSV.
 - [derived/](derived/): input manifest, metrics, plots, examples, provenance.
+- [Benchmark import audit](benchmark-import-provenance.json): checksums for identical measurements formerly duplicated in the three-rule benchmark folder.
 - [explore_baseline.ipynb](explore_baseline.ipynb): open this CPU notebook in Jupyter or Colab. Edit four variables to inspect a saved trial. No model or Drive login is needed.
 
 The checks confirm 3,456 trials, all 18 pairs, three rotations, 32 layers and two positions. Ordered inputs match the saved dataset fingerprint. The original layer averages and the layer-6 peak/control result agree with recalculation.

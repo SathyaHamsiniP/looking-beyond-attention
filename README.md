@@ -11,9 +11,9 @@ We started with three rules, then extended the task to seven. Earlier experiment
 - [01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md): How do prompts, answer choices and image counts affect rule identification?
 - [02 — Probing](three-operand-experiments/experiments/02-probing/README.md): Which object and rule information can be decoded from model layers?
 - [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): How do answers change when we replace an internal representation with one from another example? Saved results are available.
-- [04 — LoRA](benchmark/results/three-rules/qwen3.5-4b/lora/README.md): Three-rule validation accuracy changed from 29/90 to 30/90; the selected adapter always answered Y.
+- [04 — LoRA](three-operand-experiments/results/04-lora/qwen3.5-4b/README.md): Three-rule validation accuracy changed from 29/90 to 30/90; the selected adapter always answered Y.
 
-The [newer experiments](benchmark/README.md) include completed seven-rule operator controls and activation patching. Seven-rule probing is implemented but has not run on GPU. Seven-rule LoRA has partial training records, with no verified full-run adapter or completed fine-tuned evaluation. These studies differ in data and method, so they are not perfectly matched comparisons.
+The [newer seven-rule experiments](benchmark/README.md) include completed operator controls, activation patching and probing. Seven-rule LoRA still has partial training records, with no verified full-run adapter or completed fine-tuned evaluation. These studies differ in data and method, so they are not perfectly matched comparisons.
 
 ## Data
 
@@ -29,7 +29,7 @@ This creates `three-operand-experiments/data-1000/` with `images/` and `metadata
 
 ## Results and how to run
 
-The [result index](benchmark/results/README.md) links saved measurements, plots and settings. Original experiment files and result locations remain unchanged. Dataset images, large activation arrays and adapters are stored outside GitHub.
+The [three-operand results](three-operand-experiments/results/README.md) and [seven-rule benchmark results](benchmark/results/README.md) link saved measurements, plots and settings. Repeated three-rule activation-patching files were consolidated without changing their original measurements. Dataset images, large activation arrays and adapters are stored outside GitHub.
 
 The experiment READMEs explain how to run each method. New outputs are saved locally in Colab, printed in the console and then backed up to the School Drive account. See [seven-rule probing](benchmark/experiments/09-seven-rule-probing/README.md) for setup and [LoRA](benchmark/experiments/06-seven-rule-lora/README.md) for checkpoint recovery. Older runners still accept their original configurable data and result paths.
 

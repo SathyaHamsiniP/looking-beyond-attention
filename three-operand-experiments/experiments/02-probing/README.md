@@ -54,6 +54,8 @@ The concept test has only 16 test images. One wrong prediction changes the score
 
 **Rule probing:** The code is ready, but no GPU results have been reported yet. The test has only three sets, so its accuracy cannot support a strong conclusion. A probe may also identify a rule just by spotting one special type of image, without doing the full reasoning task.
 
+A separate later [Qwen3.5 three-rule probing run](../../results/02-probing/qwen3.5-4b/README.md) used 90 training sets and 30 test sets. Its saved probe results are available, but it is a different protocol from the original 48-image probe above.
+
 ## Using the 1,000-image dataset
 
 The scores above are from the original 48 images. New results have not been measured yet.

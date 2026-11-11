@@ -2,6 +2,7 @@
 
 Exact local source folders only. Configurations must identify Qwen3.5-4B;
 images, features, adapters, optimizer states and dataset manifests are excluded.
+Three-rule results live in three-operand-experiments/results; seven-rule results in benchmark/results.
 Experiment-specific numerical verification is recorded in provenance by callers.
 """
 import argparse
@@ -42,9 +43,14 @@ def import_folder(source,destination,rule_count,experiment,source_url=None,verif
         rules=seven.read(p).get('rules')
         generating=3 if seven.read(p).get('protocol')=='original-3-under-3-vs-7-v1' else len(rules['rules']) if isinstance(rules,dict) and 'rules' in rules else None
         if generating is not None and generating!=rule_count:raise ValueError('Generating-rule count differs from destination')
-    expected_segment='three-rules' if rule_count==3 else 'seven-rules'
-    if expected_segment not in destination.parts or 'qwen3.5-4b' not in destination.parts or experiment not in destination.parts:
-        raise ValueError('Destination must identify rule family, Qwen3.5-4B and experiment')
+    if rule_count==3:
+        folder={'operator-controls':'01-operator-controls','probing':'02-probing',
+                'activation-patching':'03-activation-patching','lora':'04-lora'}[experiment]
+        expected={'three-operand-experiments','results','qwen3.5-4b',folder}
+    else:
+        expected={'seven-rules','qwen3.5-4b',experiment}
+    if not expected.issubset(destination.parts):
+        raise ValueError('Destination must identify the canonical results folder, Qwen3.5-4B and experiment')
     receipts=[]
     for path in sorted(source.rglob('*')):
         relative=path.relative_to(source)
