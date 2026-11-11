@@ -1,10 +1,10 @@
 # Inspect the completed baseline
 
-Read the [Experiment 03 guide](../README.md) first. It explains the inputs, patching, measurements and limits.
+Read the [Experiment 03 guide](../../experiments/03-activation-patching/README.md) first. It explains the inputs, patching, measurements and limits.
 
 ## What is available here?
 
-The [analysis script](../../../code/03-activation-patching/analyze_baseline.py) reads the original results without loading Qwen. The uploaded ZIP contained the completed run and a separate smoke test. Only the completed `pairs2_rot3_prev1` run is analysed here.
+The [analysis script](../../code/03-activation-patching/analyze_baseline.py) reads the original results without loading Qwen. The uploaded ZIP contained the completed run and a separate smoke test. Only the completed `pairs2_rot3_prev1` run is analysed here.
 
 - [raw/](raw/): byte-for-byte copies of the five original files. Google Drive was not modified.
 - [derived/analysis.md](derived/analysis.md): findings and limitations checked against the raw CSV.

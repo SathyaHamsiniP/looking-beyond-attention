@@ -106,7 +106,7 @@ The model produces a score, called a **logit**, for each possible next token. Th
 
 These are probabilities **among X/Y/Z**, not among every possible output string. The largest gives the saved predicted rule after translating the label through the current mapping. No free-text explanation is generated for these trials.
 
-The analysis rebuilt the exact ordered files from the saved configuration and matching dataset. Their combined fingerprint matches the original run. The [input manifest](baseline-analysis/derived/input_manifest.json) contains all nine evaluated sets and three rotations. Here is the real receiver `test_R1_00`; its rotation-0 prompt is the one above. The bit strings below are inspection labels, not model inputs.
+The analysis rebuilt the exact ordered files from the saved configuration and matching dataset. Their combined fingerprint matches the original run. The [input manifest](../../results/03-activation_patching/derived/input_manifest.json) contains all nine evaluated sets and three rotations. Here is the real receiver `test_R1_00`; its rotation-0 prompt is the one above. The bit strings below are inspection labels, not model inputs.
 
 | Order | Image file | A/B/C |
 |---|---|---|
@@ -247,15 +247,15 @@ Here is one real trial: `test_R1_00__different__test_R2_00`, rotation 0, layer 3
 
 R1 and R2 are saved values. R3 is reconstructed as one minus their sum. The patch copies the donor's answer while **reducing** the probability of its true rule by 6.46 percentage points. This illustrates why answer changes and correct rule transfer must be measured separately.
 
-![Answer changes by layer](baseline-analysis/derived/answer_change_rate.png)
+![Answer changes by layer](../../results/03-activation_patching/derived/answer_change_rate.png)
 
 Each curve shows the fraction of final-token trials where the answer changes. These trials reuse the same image sets. At layer 32, six of 18 same-rule patches and 16 of 36 different-rule patches change the answer.
 
-![Absolute probability changes](baseline-analysis/derived/absolute_change.png)
+![Absolute probability changes](../../results/03-activation_patching/derived/absolute_change.png)
 
 This graph ignores the sign of each donor-rule change before averaging. Similar-sized effects occur in both conditions; size alone does not establish a rule-specific effect.
 
-See the [analysis folder](baseline-analysis/README.md) for original files, the remaining graphs, exact values and a CPU notebook.
+See the [analysis folder](../../results/03-activation_patching/README.md) for original files, the remaining graphs, exact values and a CPU notebook.
 
 ## 12. What can and cannot be concluded?
 
@@ -267,7 +267,7 @@ The baseline does not identify a clear rule-specific reasoning layer. Answer bia
 
 The original code is [patch_activations_qwen35.py](../../code/03-activation-patching/patch_activations_qwen35.py). Its sampling comes from `make_sets` in [probe_rules.py](../../code/02-probing/probe_rules.py), and its image prompt and processor adapter come from [operator_controls_qwen35.py](../../code/01-operator-controls/operator_controls_qwen35.py). This explanation was checked against those baseline functions, not the newer shared patching runner.
 
-Do not rerun Qwen just to inspect the saved results. Copy the original four CSV/JSON files into a local source directory, obtain the matching dataset, and use the separate CPU analysis command in [baseline-analysis/README.md](baseline-analysis/README.md). It checks all 3,456 rows, rebuilds ordered inputs, compares the saved fingerprint, and writes new outputs elsewhere. The original files stay unchanged.
+Do not rerun Qwen just to inspect the saved results. Copy the original four CSV/JSON files into a local source directory, obtain the matching dataset, and use the separate CPU analysis command in [saved-results README](../../results/03-activation_patching/README.md). It checks all 3,456 rows, rebuilds ordered inputs, compares the saved fingerprint, and writes new outputs elsewhere. The original files stay unchanged.
 
 For a data-only check from the repository root:
 
@@ -289,6 +289,6 @@ It requires a compatible GPU environment and the dependencies in `code/requireme
 
 ### Open the results notebook
 
-Open [explore_baseline.ipynb](baseline-analysis/explore_baseline.ipynb) in Jupyter or Colab. Run its cells in order. Edit four values to choose a pair, answer rotation, layer and token position. It shows the saved answers and labels each probability as saved, reconstructed or unavailable. It uses pandas, matplotlib and Pillow. It does not need Qwen, PyTorch, Transformers, a GPU or a Drive login.
+Open [explore_baseline.ipynb](../../results/03-activation_patching/explore_baseline.ipynb) in Jupyter or Colab. Run its cells in order. Edit four values to choose a pair, answer rotation, layer and token position. It shows the saved answers and labels each probability as saved, reconstructed or unavailable. It uses pandas, matplotlib and Pillow. It does not need Qwen, PyTorch, Transformers, a GPU or a Drive login.
 
 After cloning, start Jupyter in the repository and open the notebook. In Colab, clone this feature branch into the runtime and open the notebook from that checkout. Run from the checkout root or the notebook folder; paths are found automatically. The notebook never downloads data or asks for authentication. To see images, download dataset-v1 from the GitHub Release and put it in `three-operand-experiments/data-1000/`. Numbers and plots still work without images.

@@ -47,7 +47,7 @@ class SavedRunTests(unittest.TestCase):
     def test_actual_full_run_and_corrupt_record(self):
         import csv
         import json
-        root = Path(__file__).resolve().parents[1] / 'experiments/03-activation-patching/baseline-analysis'
+        root = Path(__file__).resolve().parents[1] / 'results/03-activation_patching'
         with (root/'raw/patches.csv').open() as f:
             rows = list(csv.DictReader(f))
         config = json.loads((root/'raw/config.json').read_text())
@@ -69,7 +69,7 @@ class SavedRunTests(unittest.TestCase):
     def test_raw_checksums_and_script_identity(self):
         import json
         from analyze_baseline import checksum
-        root = Path(__file__).resolve().parents[1] / 'experiments/03-activation-patching/baseline-analysis'
+        root = Path(__file__).resolve().parents[1] / 'results/03-activation_patching'
         provenance=json.loads((root/'derived/provenance.json').read_text())
         for name,value in provenance['source_checksums'].items():
             self.assertEqual(checksum(root/'raw'/name),value)
