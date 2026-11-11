@@ -60,7 +60,7 @@ Inference is opt-in with `--allow-inference`, at most 343 forwards through the e
 
 Console output includes recovery status, workload, metrics, confidence intervals and interpretation. Files in `A3OUT` include `summary.json`, readable `summary.md`, plots, CSV and a compact verified validation/baseline cache used by experiment 08. No source images or model weights are copied.
 
-Authenticate the **IITM account `24f2005474@ds.iitm.study.in`** for the API, even though GitHub and the read-only source mount use another account:
+Authenticate the **IITM account `24f2005474@ds.study.iitm.ac.in`** for the API, even though GitHub and the read-only source mount use another account:
 
 ```python
 from google.colab import auth

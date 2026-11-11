@@ -65,7 +65,7 @@ Authenticate and verify IITM as described in experiment 07, then upload only com
 !python benchmark/iitm_drive.py --source "{PATCHOUT}" --experiment activation-patching
 ```
 
-All uploads target `24f2005474@ds.iitm.study.in`, exact parent folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, subfolder `08-seven-rule-activation-patching`. File IDs, parents, sizes and MD5s are API-verified. Repeating the command skips unchanged files and updates stable IDs for changed/interrupted transfers; no checkpoint or activation binaries are included.
+All uploads target `24f2005474@ds.study.iitm.ac.in`, exact parent folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, subfolder `08-seven-rule-activation-patching`. File IDs, parents, sizes and MD5s are API-verified. Repeating the command skips unchanged files and updates stable IDs for changed/interrupted transfers; no checkpoint or activation binaries are included.
 
 Console findings and local `/content` files survive upload failure. If quota or organization restrictions block access:
 

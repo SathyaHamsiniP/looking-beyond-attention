@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 import zipfile
 
-EMAIL='24f2005474@ds.iitm.study.in'
+EMAIL='24f2005474@ds.study.iitm.ac.in'
 FOLDER='15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR'
 EXPERIMENTS={'operator-controls':'07-seven-rule-operator-controls','activation-patching':'08-seven-rule-activation-patching'}
 MARKER='seven-rule-controls-patching-v1'
