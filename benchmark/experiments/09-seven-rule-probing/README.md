@@ -42,7 +42,7 @@ For comparison, guessing among seven rules would give about **14.3%** on average
 
 The five-image probes were the strongest at the final layer, and some middle layers performed better than the final layer. But that is not automatically evidence of reasoning. The five images were selected with the answer already known, and the one-image probes did better than chance even though a single image cannot uniquely identify the rule. That tells us there may be shortcuts or other patterns in the data.
 
-The [saved summary](../../results/seven-rules/qwen3.5-4b/probing/probes/summary.json), [layer scores](../../results/seven-rules/qwen3.5-4b/probing/probes/layer_accuracy.csv), and [individual probe predictions](../../results/seven-rules/qwen3.5-4b/probing/probes/probe_predictions.csv) show the results in more detail. The full set of extracted features and associated metadata belongs in the same [results folder](../../results/seven-rules/qwen3.5-4b/probing/README.md).
+The [saved summary](../../results/seven-rules/qwen3.5-4b/probing/probes/summary.json), [layer scores](../../results/seven-rules/qwen3.5-4b/probing/probes/layer_accuracy.csv), and [individual probe predictions](../../results/seven-rules/qwen3.5-4b/probing/probes/probe_predictions.csv) show the results in more detail. The full extracted features and matching metadata are preserved in the [original Drive ZIP](https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view). The [GitHub results folder](../../results/seven-rules/qwen3.5-4b/probing/README.md) contains only the compact outputs.
 
 ## How to run
 
