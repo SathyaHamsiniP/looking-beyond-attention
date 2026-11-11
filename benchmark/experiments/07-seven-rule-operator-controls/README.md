@@ -4,23 +4,29 @@ Does pretrained Qwen3.5-4B identify seven generating Boolean rules from ten posi
 
 Rules are loaded unchanged from [`rules_7.json`](../../rules_7.json): R1 `(A AND B) OR C`, R2 `(A AND C) OR B`, R3 `(B AND C) OR A`, R4 `(A XOR B) OR C`, R5 `(A XOR C) OR B`, R6 `(B XOR C) OR A`, R7 `(A OR B OR C) AND NOT(A AND B AND C)`. A/B/C are green cube/blue sphere/red cylinder, requiring exact colour and shape; other objects are distractors.
 
-## Recovered results and scope
+## Results
 
-The saved `benchmark-pilot/lora-7rules-fp16-retry` manifest and pretrained baseline were recovered from the original Drive. All **343 per-example predictions** matched the 49 validation sets, seven rules, seven rotations, pinned model/settings, canonical prompts and audited inference-source hashes. Recomputed metrics match the saved metrics:
+We used the saved `benchmark-pilot/lora-7rules-fp16-retry` manifest and pretrained predictions. All **343 per-example predictions** matched the 49 validation sets, seven rules, seven rotations, pinned model/settings, prompts and inference-code hashes. Recomputed metrics match the saved metrics:
 
 - **48/343 = 13.9942%**, versus chance 14.2857%; chance-adjusted accuracy −0.00340.
 - Positions 1–5: zero; position 6: 82; position 7: 261.
 - Rule consistency: zero of 49 sets.
 - Set-clustered 95% bootstrap interval: approximately 11.9534–16.0350% (5,000 draws, seed 2026).
 
-These numbers were recovered and analyzed on CPU, with **zero new model forwards**. Current validation-image hashes are recorded to bind later cache use; the original baseline stored a full-dataset fingerprint rather than individual image hashes. Reuse assumes the original read-only source images have not been altered; the tool checks metadata, full manifest identity, filenames/configurations, validation-file availability and then records current validation-image hashes. No held-out test examples are selected, prepared or scored. Partition tags and opaque whole-manifest hashes identify the supplied file.
+We calculated these numbers from saved predictions without repeating model inference. The runner checks the saved manifest, model settings, prompts and code hashes, then records current validation-image hashes. The original run stored a whole-dataset fingerprint, so reusing its predictions also assumes the read-only source images have not changed. Test examples are not selected or scored.
 
-The saved A1/A2 summary reports 36.67% (three choices) and 14.76% (seven choices), both on the original three generating rules. Only their recorded aggregates are used; no new old-task inference, reconstructed predictions, cross-dataset matched comparisons or old-task confidence intervals are fabricated.
+The earlier A1/A2 summary reports 36.67% with three choices and 14.76% with seven, both for three generating rules. Those are saved aggregate scores from a different dataset; they do not provide a matched comparison with A3.
 
-## Colab: fresh runtime and exact paths
+### Plots and tables
+
+[Summary](../../results/seven-rules/qwen3.5-4b/operator-controls/summary.json), [all predictions](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.csv) and [File sources and checks](../../results/seven-rules/qwen3.5-4b/operator-controls/provenance.json).
+
+![Answer positions and rule confusion](../../results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)
+
+## How to run
 
 ```python
-!git clone --branch feature/seven-rule-benchmark-suite https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+!git clone --branch feature/7-rule-experiments https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
 %cd /content/looking-beyond-attention
 !pip install -r benchmark/requirements-seven-rule-controls.txt
 ```
@@ -49,18 +55,18 @@ cmd = ['python','benchmark/operator_controls_7rules.py',
        '--baseline',str(BASELINE7),'--historical-a12',str(A12),
        '--out',str(A3OUT)]
 subprocess.run(cmd + ['--validate-only'], check=True)
-subprocess.run(cmd, check=True)  # Zero GPU: verified saved predictions.
+subprocess.run(cmd, check=True)  # CPU analysis of saved predictions.
 ```
 
-If the mount path is absent, recover those exact saved files from Drive before proceeding. Known source IDs: source manifest `1vByMvpzLM61LKKjDCnd_AhFpcQCuCIma`, predictions `1rw6axm_J7B88xIJorIKGNwfL7LHRgb7R`, config `1-pgct8EdA68Kb7yNJaXfJoGiAqAI84kN`, metrics `1YOOXQp4EN7crgtIQaRmnUSVgpbGjmob5`, answer tokens `1V1JZSfapUcWKzMKz9X3zBATUmNiSVloJ`. The shared `reconstruct_validation` helper can use existing partition assignments and the existing deterministic builder to reconstruct **only** validation sets; it labels this as reconstruction and refuses to certify an old baseline without full source-manifest identity. It never generates replacement test sets. No dataset replacement is automatic.
+If the mount path is absent, recover those exact saved files from Drive before proceeding. Known source IDs: source manifest `1vByMvpzLM61LKKjDCnd_AhFpcQCuCIma`, predictions `1rw6axm_J7B88xIJorIKGNwfL7LHRgb7R`, config `1-pgct8EdA68Kb7yNJaXfJoGiAqAI84kN`, metrics `1YOOXQp4EN7crgtIQaRmnUSVgpbGjmob5`, answer tokens `1V1JZSfapUcWKzMKz9X3zBATUmNiSVloJ`. The older `reconstruct_validation` helper can reconstruct validation sets from existing partitions, but it labels that reconstruction and cannot confirm an old baseline without the original manifest hash. For these experiments, use the saved sets rather than reconstructing them.
 
-Inference is opt-in with `--allow-inference`, at most 343 forwards through the established evaluator. Do not use it when verified predictions are available. Aggregate-only recovery produces a clearly labeled historical summary without per-example CIs or matches. Identity mismatches are errors, not reasons to silently rerun.
+The optional `--allow-inference` runs at most 343 forwards. It is unnecessary when the saved predictions are available. If only aggregate scores exist, the runner reports those without deriving per-example comparisons or confidence intervals. Mismatched inputs stop the run.
 
-## Console, outputs and IITM upload
+### Save and upload results
 
-Console output includes recovery status, workload, metrics, confidence intervals and interpretation. Files in `A3OUT` include `summary.json`, readable `summary.md`, plots, CSV and a compact verified validation/baseline cache used by experiment 08. No source images or model weights are copied.
+The console prints the input checks, planned work, scores and confidence intervals. Files in `A3OUT` include `summary.json`, readable `summary.md`, plots, CSV and saved validation inputs and baseline probabilities used by experiment 08. No source images or model weights are copied.
 
-Authenticate the **IITM account `24f2005474@ds.study.iitm.ac.in`** for the API, even though GitHub and the read-only source mount use another account:
+Authenticate the **School account `24f2005474@ds.study.iitm.ac.in`** for the Drive API in a notebook cell:
 
 ```python
 import sys
@@ -80,14 +86,8 @@ from google.colab import files
 files.download('/content/07-seven-rule-operator-controls.zip')
 ```
 
-This is a local ZIP, not a claimed upload. Manually upload it while signed into IITM at https://drive.google.com/drive/folders/15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR. This implementation imports existing saved results; the School connector was available for the artifact audit.
+This is a local ZIP, not a claimed upload. Manually upload it while signed into IITM at https://drive.google.com/drive/folders/15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR. The saved results were imported from Drive.
 
 ## Limitations
 
 Positive-only decisive-scene shortcuts, strong position bias, shared images and previously exposed test images limit reasoning claims. Bootstrap resamples sets to keep rotations together but does not account for shared images across sets. No causal inference about adding generating rules follows from comparing A3 to the old A1/A2 dataset.
-
-## Committed evidence
-
-[Summary](../../results/seven-rules/qwen3.5-4b/operator-controls/summary.json), [all predictions](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.csv) and [provenance](../../results/seven-rules/qwen3.5-4b/operator-controls/provenance.json).
-
-![Answer positions and rule confusion](../../results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)

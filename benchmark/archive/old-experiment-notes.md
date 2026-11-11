@@ -1,8 +1,8 @@
-# Historical protocol documentation
+# Old experiment notes
 
-Archived instructions: statuses and paths below describe earlier work. Use the current [benchmark index](../README.md) for experiment status and execution.
+These notes preserve earlier commands and decisions, including old run paths. They are not instructions for the current seven-rule experiments. Use the current [benchmark index](../README.md) for current results and how to run.
 
-# Common Boolean-rule benchmark — draft foundation
+## Earlier benchmark plan
 
 **Status: provisional benchmark protocols and CPU-tested implementations. No seven-rule LoRA GPU results are claimed.** This folder is self-contained and imports no code from Experiments 01–04. The dataset builder and CPU tests use only Python's standard library. GPU inference requires PyTorch, Transformers, bitsandbytes, accelerate and Pillow.
 
@@ -88,7 +88,7 @@ Expected **24 matched diagnostic scenes × 3 label rotations = 72 trials**. Resu
 
 ## Experiment 02 — matched 1-vs-10 rule probes (provisional)
 
-`probing.py` is a self-contained frozen-Qwen3.5-4B probe pipeline, independent of historical Experiment 02. It consumes the ten-image manifest from `build_sets.py`, and selects the **first uniquely diagnostic** scene from each ten-image set for the paired one-image condition. **This does not use the old 24-set operator-controls evaluation as its probe training data.** The new manifest must provide separate `train` and `test` partitions with image-disjoint source images, at least three sets per rule in both. Candidate rules, splits and counts are explicitly recorded, so the original protocol's eventual benchmark choices require new rules/split/manifest artifacts, not rewriting extraction/scoring. Currently the runner supports exactly **three** candidate rules, matching the 1-vs-10 pilot; seven-rule tests require revising the model-answer mapping and identifiability checks later.
+`probing.py` is a self-contained frozen-Qwen3.5-4B probe experiment, independent of historical Experiment 02. It consumes the ten-image manifest from `build_sets.py`, and selects the **first uniquely diagnostic** scene from each ten-image set for the paired one-image condition. **This does not use the old 24-set operator-controls evaluation as its probe training data.** The new manifest must provide separate `train` and `test` partitions with image-disjoint source images, at least three sets per rule in both. Candidate rules, splits and counts are explicitly recorded, so the original protocol's eventual benchmark choices require new rules/split/manifest artifacts, not rewriting extraction/scoring. Currently the runner supports exactly **three** candidate rules, matching the 1-vs-10 pilot; seven-rule tests require revising the model-answer mapping and identifiability checks later.
 
 For a preliminary **illustrative** 30 train + 10 test sets per rule (not the original protocol-approved sample sizes):
 
@@ -126,11 +126,11 @@ The inference code requires a GPU smoke test before a full run; this new probing
 
 `lora_7rules.py` implements a separate, positive-only **three-operand, seven-generating-rule** experiment. It includes R4–R7 as generating rules, unlike the completed R1–R3-under-3-vs-7-candidates comparison. It reuses `rules_7.json`, the tested set builder, and the comparison runner's model loader, numeric labels, option rotations and prompt. All runtime code is on this branch; no historical checkout is required. Historical code and completed results are unchanged.
 
-This is a comparison with a different protocol's reported seven-rule, two-operand LoRA work, **not an exact replication**. His generation code is unavailable and his exact learning rate is unconfirmed. Differences cannot isolate operand count. His confirmed settings are Qwen3.5-4B, rank 8 and three epochs; our alpha, dropout, optimizer, resolution, split and checkpoint protocol are specified below, not attributed to him.
+Earlier comparisons considered a separate seven-rule, two-operand LoRA experiment, not an exact replication. Its generation code and exact learning rate were unavailable. Reported settings included Qwen3.5-4B, rank 8 and three epochs; the alpha, dropout, optimizer, resolution, splits and checkpoint selection below describe this repository. These differences prevent isolating the effect of operand count.
 
-### Fixed data and protocol
+### Data and method
 
-Use only the existing 1,000 images and their metadata. The builder first looks for the supplied historical `rule_identification_manifest.json` (or the conventional path beside `data-1000`). It verifies its known canonical manifest hash and full dataset fingerprint, including image bytes, before reusing its exact `image_partitions`. This produces **800 training, 100 validation and 100 test source images**. The original metadata's 800/200 split alone is insufficient. If the historical file is unavailable, the seed-2026 procedure is reconstructed by Boolean configuration; provenance explicitly says it was reconstructed, not verified identical. A supplied but incompatible historical file is rejected.
+Use only the existing 1,000 images and their metadata. The builder first looks for the supplied historical `rule_identification_manifest.json` (or the conventional path beside `data-1000`). It verifies its known manifest hash and full dataset fingerprint, including image bytes, before reusing its exact `image_partitions`. This produces **800 training, 100 validation and 100 test source images**. The original metadata's 800/200 split alone is insufficient. If the historical file is unavailable, the seed-2026 procedure is reconstructed by Boolean configuration; provenance explicitly says it was reconstructed, not verified identical. A supplied but incompatible historical file is rejected.
 
 | Partition | Sets per generating rule | Total ten-image sets | Full readout evaluations |
 |---|---:|---:|---:|
@@ -138,7 +138,7 @@ Use only the existing 1,000 images and their metadata. The builder first looks f
 | Validation | 7 | 49 | 343 per model |
 | Test | 14 | 98 | 686 per model |
 
-Every set has ten distinct images, all satisfying its rule, with coverage of every satisfying configuration. Compatibility against all seven rules must identify exactly the intended rule. Duplicate unordered image sets and cross-partition image leakage are rejected. Image ordering is saved. Reuse within a partition is permitted and reported, including actual distinct images used and per-rule configuration counts. The real-data CPU audit during implementation verified all these invariants and exact historical partition reuse: **621/88/87 distinct images are used by the generated training/validation/test sets**, respectively. No manifest or result artifact is committed to Git.
+Every set has ten distinct images, all satisfying its rule, with coverage of every satisfying configuration. Compatibility against all seven rules must identify exactly the intended rule. Duplicate unordered image sets and cross-partition image leakage are rejected. Image ordering is saved. Reuse within a partition is permitted and reported, including actual distinct images used and per-rule configuration counts. The CPU checks on the actual data during implementation verified all these invariants and exact historical partition reuse: **621/88/87 distinct images are used by the generated training/validation/test sets**, respectively. No manifest or result artifact is committed to Git.
 
 Correct positions are fixed deterministically: each training rule has exactly three sets with each numeric answer position per epoch; validation checkpoint selection has exactly one of each position per rule. Seven cyclic rotations are used for all full validation/test readouts, preserving each set's image order. Sets, rotations and shared source images must not be treated as independent observations.
 
@@ -161,9 +161,9 @@ At each epoch end, selection evaluates **49 fixed, position-balanced validation 
 From the repository root, fetch the existing branch without overwriting local work:
 
 ```python
-!git fetch origin feature/benchmark-foundation
-!git switch feature/benchmark-foundation
-!git pull --ff-only origin feature/benchmark-foundation
+!git fetch origin feature/7-rule-experiments
+!git switch feature/7-rule-experiments
+!git pull --ff-only origin feature/7-rule-experiments
 !pip install 'transformers>=5.0' peft bitsandbytes accelerate pillow numpy matplotlib
 ```
 
@@ -216,7 +216,7 @@ run7('final-test')  # 686 pretrained + 686 selected-adapter evaluations.
 
 This writes `selection_freeze.json` before test inference. Any later training attempt under that experiment root is refused. The selected-adapter identity, model settings and manifest must continue matching the freeze record. A new root is required for a new experiment.
 
-### Outputs and validation status
+### Outputs
 
 All artifacts are below `{PILOT}/lora-7rules/`, outside Git:
 
@@ -235,16 +235,16 @@ python -m unittest discover -s benchmark -p 'test_lora_7rules.py' -v
 
 Tests cover truth tables, partitions, set counts, coverage, identifiability, deterministic generation, label balance, exact preprocessing parity, answer-token gradients, partial accumulation, frozen weights, genuine tiny-model CPU optimizer updates, checkpoint state/RNG recovery, incompatible output refusal and paired evaluation mappings. CPU tests do not establish actual Qwen tokenizer compatibility, 4-bit T4 memory capacity or GPU training success; the real GPU smoke test is required. **No full seven-rule GPU training or inference was run during implementation.**
 
-### Retrying the initial FP16 gradient-scaling failure
+### Earlier FP16 retry instructions
 
 The retry limit is four replays, not four successful updates. For example, if all attempts overflow starting at scale 8, attempted scales are 8, 4, 2, 1 and 0.5. Each attempt records whether the optimizer ran, the scale before/after, non-finite gradient-value counts and affected parameter names/counts, plus changed LoRA B matrices. Successful update records embed their attempts; failed attempts never enter the checkpoint's successful-update journal. On exhaustion, gradients are cleared, batch-start RNG is restored and detailed diagnostics are preserved. Resuming replays from the last successful checkpoint; diagnostic journal entries may repeat after an interruption and must not be counted as optimizer updates.
 
 Updating this implementation changes the recorded source hash. **Do not use `--resume` against the old failed smoke directory or edit its config to bypass checks.** Preserve it and copy only its unchanged dataset artifacts into a fresh experiment root:
 
 ```python
-!git fetch origin feature/benchmark-foundation
-!git switch feature/benchmark-foundation
-!git pull --ff-only origin feature/benchmark-foundation
+!git fetch origin feature/7-rule-experiments
+!git switch feature/7-rule-experiments
+!git pull --ff-only origin feature/7-rule-experiments
 
 from pathlib import Path
 import shutil
@@ -266,7 +266,7 @@ This reuses the exact saved image sets and partitions and leaves the original fa
 
 ## 07/08 — Seven-rule controls and activation patching
 
-- [07 — A3 operator controls](experiments/07-seven-rule-operator-controls/README.md): zero-GPU reuse of verified 343 saved validation predictions; A1/A2 are not rerun.
-- [08 — Activation patching](experiments/08-seven-rule-activation-patching/README.md): bounded same/different-rule controls using the existing historical hooks and a seven-label scorer.
+- [07 — A3 operator controls](../experiments/07-seven-rule-operator-controls/README.md): zero-GPU reuse of verified 343 saved validation predictions; A1/A2 are not rerun.
+- [08 — Activation patching](../experiments/08-seven-rule-activation-patching/README.md): bounded same/different-rule controls using the existing historical hooks and a seven-label scorer.
 
 Work locally in Colab `/content`. All new uploads use verified IITM account `24f2005474@ds.study.iitm.ac.in` and folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR` through `iitm_drive.py`; never the full original Drive. Key findings and progress print in the console before upload, and local ZIP fallback remains available if Drive is full. See the two guides for exact fresh-runtime commands, recovered-source IDs, pinned dependencies and workload estimates. No expensive GPU runs or new Drive uploads were performed during implementation.

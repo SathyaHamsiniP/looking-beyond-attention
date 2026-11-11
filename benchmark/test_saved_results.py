@@ -1,4 +1,4 @@
-"""CPU regression checks over imported original bytes and measured result tables."""
+"""CPU checks of saved result files and measurements."""
 import csv
 import json
 from pathlib import Path

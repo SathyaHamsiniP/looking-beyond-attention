@@ -1,4 +1,4 @@
-"""CPU-only suite checks. No pretrained model initialization, inference or training."""
+"""CPU tests for seven-rule probing, result imports and backups. No pretrained model initialization, inference or training."""
 import copy
 from contextlib import redirect_stdout
 import io
@@ -20,7 +20,7 @@ from probing_7rules import seven
 import test_seven_rule_extensions as fixtures
 
 
-class SuiteTests(unittest.TestCase):
+class ExperimentTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         fixtures.ExtensionTests.setUpClass();cls.fixture=fixtures.ExtensionTests
