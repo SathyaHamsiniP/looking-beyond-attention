@@ -1,0 +1,21 @@
+{
+  "task": "02-probing-1-vs-10-v1",
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "quantization": "4bit-NF4",
+  "manifest_sha256": "2d848467ecc0f8b02b5838d58e1b836185878abc6bbe4374f9d7e72c67450f0e",
+  "rules_sha256": "3062fc19853835cb9df2c70ca7a4dfc7dc9b9996f7de5168f71a00f52967bbfd",
+  "data_sha256": "fb5fe2dea95fd2a88c9fb150bd9e1211dea3861b05af47b549b42353655805e9",
+  "max_pixels": 301056,
+  "train_split": "train",
+  "test_split": "test",
+  "conditions": [
+    1,
+    10
+  ],
+  "feature": "decoder final-token activation after every layer",
+  "readout": "next token restricted X/Y/Z softmax; thinking=False",
+  "rotation": 0,
+  "probe": "standardize + multinomial logistic regression C=1",
+  "seed": 2026
+}

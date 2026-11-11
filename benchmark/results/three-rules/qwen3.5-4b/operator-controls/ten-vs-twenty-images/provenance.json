@@ -1,0 +1,29 @@
+{
+  "source_url": "https://drive.google.com/drive/folders/1zbfdt7c47mY3bpPzqN4DKd8I2nYDgBu3",
+  "source_folder": "/tmp/suite-staging/three/operator-controls",
+  "rule_count": 3,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "operator-controls",
+  "verification": [
+    "144 saved pretrained predictions; 72 per image-count condition",
+    "Accuracy recomputed against recorded summary; source uses historical train image pool, 24 sets and three rotations"
+  ],
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 694,
+      "sha256": "b553ff3ec6490758a4748c586a2174cd7fd58c173bbaf308b011fcbd130f8f51"
+    },
+    {
+      "path": "runs.jsonl",
+      "bytes": 253299,
+      "sha256": "41b3ffe09ff2c2e4f74136cd836aef761a024f1f03c68378e9c75ef5bda34764"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 2340,
+      "sha256": "39095e0d1a6e3798ad7d546d47be9c042ddaa7899d8164c00c7ca0d019207379"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

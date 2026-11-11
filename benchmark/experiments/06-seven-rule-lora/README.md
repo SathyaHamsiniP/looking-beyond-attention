@@ -1,0 +1,90 @@
+# 06 — Seven-rule LoRA
+
+Does low-rank adaptation improve rule identification beyond the pretrained model? The intended design uses the same saved seven-rule dataset, 147 training sets and 49 validation sets; test is reserved. The verified pretrained validation is **48/343** across seven rotations. A selected full-run fine-tuned evaluation is **unavailable**.
+
+## Artifact audit, before considering a rerun
+
+The [saved audit](../../results/seven-rules/qwen3.5-4b/lora/artifact_audit.json) covers both initial and retry result roots and their descendant metadata, plus the available notebook. The retry has the original dataset, 343 pretrained predictions, full-training config and **one successful optimizer-update record**, empty validation losses and an empty `latest.tmp`. It has no finalized full-run `latest`, completion/selection record, selected adapter or fine-tuned predictions. The completed one-update smoke adapter and optimizer binaries exist, but are not a final trained model. No adapter/optimizer binaries were imported into Git.
+
+The notebook claim **116/343 after LoRA is unverified** without the underlying evaluation. The available artifacts cannot establish it. Search any remaining local backups before rerunning. If no additional finalized checkpoint is recovered, a fresh full run is required; no new training was run here. Never resume `latest.tmp` or silently promote smoke weights.
+
+## Preserved method
+
+Qwen3.5-4B uses NF4 four-bit base weights with double quantization and FP16 computation. LoRA rank 8, alpha 16, dropout 0.05 and the existing linear target-module resolver remain unchanged. AdamW uses learning rate 5e-5, betas (0.9,0.999), epsilon 1e-8 and weight decay 0.01. Initial gradient scale is 8. Three epochs, accumulation four sets, 441 presentations and **111 successful optimizer updates** are planned. Checkpoint selection minimizes full-vocabulary answer-token validation loss at epoch ends, not accuracy. The existing bounded overflow retry, RNG restoration and successful-update checks are retained in [the runner](../../lora_7rules.py).
+
+## Colab environment and shared inputs
+
+```python
+!git clone --branch feature/seven-rule-benchmark-suite https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
+%cd /content/looking-beyond-attention
+!pip install -r benchmark/requirements-seven-rule-controls.txt
+from google.colab import drive
+from pathlib import Path
+import subprocess, sys
+drive.mount('/content/iitm-drive')  # Choose the School account.
+SOURCE = Path('/content/iitm-drive/MyDrive/LogicCBM++/source-research')
+DATA = SOURCE / 'three-operand-experiments/data-1000'
+OLD = SOURCE / 'benchmark-pilot/lora-7rules-fp16-retry'
+MANIFEST = OLD / 'dataset/manifest.json'
+```
+
+The source is a read-only shared input. If the saved manifest or images are absent, recover the exact files rather than building replacement sets. The pinned model is `Qwen/Qwen3.5-4B`, revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`, NF4 4-bit with double quantization, FP16 computation, SDPA and max pixels 100352. Match the recorded inference environment, including PyTorch `2.14.1+cu130`, before GPU execution; install its matching CUDA build and restart if necessary. Package checks reject mismatches.
+
+## Audit, recovery or explicit fresh run
+
+```python
+subprocess.run(['python','benchmark/lora_recovery.py','--root',str(OLD)],check=True)
+```
+
+Only copy a trusted finalized backup locally after checking its entire source directory. `training/config.json`, `latest` model/optimizer/scaler/RNG state and matching journals must belong to the same full run. Then:
+
+```python
+# LOCAL is a copied backup root, never the original shared folder.
+LOCAL = Path('/content/seven-rule-lora-recovered')
+subprocess.run(['python','benchmark/lora_recovery.py','--root',str(LOCAL),
+                '--verify-checkpoint'],check=True)
+subprocess.run(['python','benchmark/lora_7rules.py','train','--data-dir',str(DATA),
+                '--out',str(LOCAL),'--resume'],check=True)
+```
+
+The original runner enforces configuration, source, data-order and runtime identity on resume. If verification fails, stop and investigate; do not restart into that folder. A partial journal without finalized weights is not resumable.
+
+If all backups have been audited and none is recoverable, prepare a **fresh**, separate output root. Copy the saved dataset directory and verified baseline byte-for-byte; do not call `build` or modify the original manifest:
+
+```python
+import shutil
+LOCAL = Path('/content/seven-rule-lora-new')
+assert not LOCAL.exists()
+LOCAL.mkdir()
+shutil.copytree(OLD/'dataset', LOCAL/'dataset')
+shutil.copytree(OLD/'evaluations/pretrained', LOCAL/'evaluations/pretrained')
+base = ['python','benchmark/lora_7rules.py','--data-dir',str(DATA),'--out',str(LOCAL)]
+subprocess.run(base + ['train','--validate-only'],check=True) # CPU identity/plan only
+# GPU commands, run manually only after completing the audit:
+# subprocess.run(base + ['train'],check=True)
+# subprocess.run(base + ['evaluate'],check=True) # Selected adapter, validation only
+# subprocess.run(base + ['compare'],check=True)
+```
+
+No final-test command is part of this procedure. Successful updates checkpoint locally before mirrored diagnostics are written. Selection/completion/adapter identities gate evaluation. Console output reports updates and validation findings; preserve all diagnostics even if upload fails.
+
+## Stable backup to School Drive
+
+Create snapshots between updates, preferably while training is paused. The helper hashes before and after copying and rejects any concurrent checkpoint swap; the optimizer cursor is authoritative for regenerated journals. Use a fresh snapshot path each time; remote uploads reuse stable filenames in experiment 06.
+
+```python
+sys.path.insert(0,'/content/looking-beyond-attention/benchmark')
+import lora_recovery, iitm_drive
+SNAPSHOT = Path('/content/lora-backup-update-001') # Fresh path for each snapshot.
+lora_recovery.snapshot_backup(LOCAL/'training', SNAPSHOT)
+service = iitm_drive.connect(authenticate=True) # Notebook cell; select School account.
+iitm_drive.upload(service, SNAPSHOT, 'lora', include_model_state=True)
+# Also back up dataset manifest, evaluation predictions and comparison outputs:
+iitm_drive.upload(service, LOCAL, 'lora') # Compact files; weights excluded by default.
+```
+
+The uploader checks `24f2005474@ds.study.iitm.ac.in`, folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, file hashes and sizes. A remote folder is not an atomic checkpoint: keep the local snapshot until every receipt succeeds, and verify a downloaded backup before resume. If quota fails, retain `/content` and download a ZIP made with `iitm_drive.manual_zip(SNAPSHOT, Path('/content/lora-backup.zip'), include_model_state=True)`. Never fall back to personal Drive. Backups must include weights, optimizer/scaler/RNG state, config, validation losses, selection and selected adapter when complete; these stay outside Git.
+
+## Limits
+
+Three-rule LoRA used two epochs and 46 updates, so it is not matched to this 111-update design. Seven rotations reuse the same image set and are not independent trials; images also recur within partitions. A recovered validation improvement alone would not show Boolean rule learning. [Current compact evidence](../../results/seven-rules/qwen3.5-4b/lora/README.md).

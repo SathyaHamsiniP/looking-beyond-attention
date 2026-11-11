@@ -1,0 +1,64 @@
+{
+  "source_url": "repository:three-operand-experiments/experiments/03-activation-patching/baseline-analysis",
+  "source_folder": "/tmp/suite-three-patch",
+  "rule_count": 3,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "activation-patching",
+  "verification": [
+    "Previously verified tracked baseline raw/derived artifacts copied byte-for-byte",
+    "3456 measurements from original three-rule patching design; original sample/partition semantics preserved"
+  ],
+  "files": [
+    {
+      "path": "derived/absolute_change.png",
+      "bytes": 35431,
+      "sha256": "77d58f12ef86de9f520e3a24cf581ddff8e1f70f51649ff9caa4e85ad252c849"
+    },
+    {
+      "path": "derived/confusion.png",
+      "bytes": 15591,
+      "sha256": "40e8a43dea27ef354b6d76f14bcd0d577e4024a7d50042640f2296b3bb6f07d7"
+    },
+    {
+      "path": "derived/metrics.json",
+      "bytes": 41705,
+      "sha256": "acd15d69727a3aa4a4a356de91a2b8f033021fe3e6acc3d1876ff776e3fc86cb"
+    },
+    {
+      "path": "derived/signed_change.png",
+      "bytes": 31858,
+      "sha256": "3f073ae30e5559a1bfbc0fc5bdc19ab9861615ff07b261014468cf4b6965de22"
+    },
+    {
+      "path": "derived/verified_findings.json",
+      "bytes": 1361,
+      "sha256": "7a0592bfd05edbb1f9de96803effe5ed4011be469791e0ac57c9e6c89f28a3c0"
+    },
+    {
+      "path": "raw/config.json",
+      "bytes": 4786,
+      "sha256": "a99d2d56f41646b59d7d7c2850de6a630737aa12ef7322e3f8013f7c05804931"
+    },
+    {
+      "path": "raw/layer_effects.csv",
+      "bytes": 8255,
+      "sha256": "637e511e996a892fae450afa53d7d09076a1bcb963ae8d723fa4761c877dc933"
+    },
+    {
+      "path": "raw/layer_effects.png",
+      "bytes": 102613,
+      "sha256": "70804a1d6c1942ae2a7556f60491f387ebb35677ad8c7c69482b9112c782f09b"
+    },
+    {
+      "path": "raw/patches.csv",
+      "bytes": 821627,
+      "sha256": "8f39afdde06b53d997fda8e62fd31183463faebaee13cd7e87d9ebb822ed2154"
+    },
+    {
+      "path": "raw/summary.json",
+      "bytes": 1044,
+      "sha256": "0aaa12b0b165d58faaa61d85ff5df46724f706c50ab4cbf25c73f63954692635"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

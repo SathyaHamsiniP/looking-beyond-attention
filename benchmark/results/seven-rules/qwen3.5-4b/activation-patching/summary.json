@@ -1,0 +1,4571 @@
+{
+  "layer_effects": [
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 1,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.001566445454955101,
+      "delta_true_rule_95ci_pair": [
+        0.00016929209232330322,
+        0.0036823398699717836
+      ],
+      "absolute_delta_true_rule": 0.0017273189233882086,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0004910390291895185,
+        0.0037350188940763474
+      ],
+      "delta_donor_answer": -0.0020950521741594586,
+      "delta_donor_answer_95ci_pair": [
+        -0.00514553285070828,
+        0.0016218353595051957
+      ],
+      "total_variation": 0.007409207655915192,
+      "total_variation_95ci_pair": [
+        0.006188625336757728,
+        0.008832403658224004
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 2,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0009038240781852178,
+      "delta_true_rule_95ci_pair": [
+        -0.0021997945649283273,
+        0.004880286220993314
+      ],
+      "absolute_delta_true_rule": 0.003255165581192289,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0009241343608924321,
+        0.0061422426785741535
+      ],
+      "delta_donor_answer": -0.00019071996212005615,
+      "delta_donor_answer_95ci_pair": [
+        -0.004906564950942993,
+        0.004569809351648603
+      ],
+      "total_variation": 0.01121378769831998,
+      "total_variation_95ci_pair": [
+        0.0073192289631281585,
+        0.0155276677438191
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 3,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0013816750475338527,
+      "delta_true_rule_95ci_pair": [
+        -0.002018292567559651,
+        0.006144721060991287
+      ],
+      "absolute_delta_true_rule": 0.003474075879369463,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0008534858269350869,
+        0.007211109889405114
+      ],
+      "delta_donor_answer": 0.0010670317070824759,
+      "delta_donor_answer_95ci_pair": [
+        -0.004134389172707285,
+        0.006682738502110748
+      ],
+      "total_variation": 0.012473611693297113,
+      "total_variation_95ci_pair": [
+        0.008326621327017034,
+        0.01655119547088231
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 4,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.000819707555430276,
+      "delta_true_rule_95ci_pair": [
+        -0.002932893378393991,
+        0.004815247442041125
+      ],
+      "absolute_delta_true_rule": 0.0039712307708604,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0015628834121993612,
+        0.00663197146994727
+      ],
+      "delta_donor_answer": -0.0022966968161719187,
+      "delta_donor_answer_95ci_pair": [
+        -0.009364781635148185,
+        0.005879390186497141
+      ],
+      "total_variation": 0.014937341213226318,
+      "total_variation_95ci_pair": [
+        0.011951816135219165,
+        0.01826578782472227
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 5,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002381544028009687,
+      "delta_true_rule_95ci_pair": [
+        -0.0010850269879613603,
+        0.0069028277482305255
+      ],
+      "absolute_delta_true_rule": 0.0036732820527894156,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0007896357082894871,
+        0.007534862908401655
+      ],
+      "delta_donor_answer": -0.0016211973769324167,
+      "delta_donor_answer_95ci_pair": [
+        -0.009820669889450073,
+        0.007513882326228244
+      ],
+      "total_variation": 0.015640031413308213,
+      "total_variation_95ci_pair": [
+        0.012477761533643519,
+        0.01821094937622547
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 6,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002528419185961996,
+      "delta_true_rule_95ci_pair": [
+        -0.00026310208652700694,
+        0.006245835817285946
+      ],
+      "absolute_delta_true_rule": 0.0029908048787287305,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00047031124787671227,
+        0.006464024473513875
+      ],
+      "delta_donor_answer": -0.0010342065777097429,
+      "delta_donor_answer_95ci_pair": [
+        -0.00770831320966993,
+        0.006134387212140212
+      ],
+      "total_variation": 0.013719313911029271,
+      "total_variation_95ci_pair": [
+        0.010736147473965372,
+        0.016175616133425916
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 7,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0022878191832985196,
+      "delta_true_rule_95ci_pair": [
+        -0.0012747254222631454,
+        0.0062160542500870565
+      ],
+      "absolute_delta_true_rule": 0.004042260614889008,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0015084171268556798,
+        0.007092295214533806
+      ],
+      "delta_donor_answer": -0.006257702197347369,
+      "delta_donor_answer_95ci_pair": [
+        -0.014211192727088928,
+        0.002168947032519749
+      ],
+      "total_variation": 0.01863584787185703,
+      "total_variation_95ci_pair": [
+        0.01583011039266629,
+        0.021776056199866743
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 8,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0017972043050186975,
+      "delta_true_rule_95ci_pair": [
+        -0.001900493832571166,
+        0.005605192588908332
+      ],
+      "absolute_delta_true_rule": 0.004048467480710575,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0017631144262850288,
+        0.00670126503599541
+      ],
+      "delta_donor_answer": -0.006595847862107413,
+      "delta_donor_answer_95ci_pair": [
+        -0.013486878148147037,
+        0.0012469909020832606
+      ],
+      "total_variation": 0.01952347664960793,
+      "total_variation_95ci_pair": [
+        0.015201159310527146,
+        0.024408590128379207
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 9,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0017005564378840582,
+      "delta_true_rule_95ci_pair": [
+        -0.001740474021062255,
+        0.005085465631314686
+      ],
+      "absolute_delta_true_rule": 0.003794670371072633,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0016341330683124918,
+        0.006104195483827165
+      ],
+      "delta_donor_answer": -0.005630478262901306,
+      "delta_donor_answer_95ci_pair": [
+        -0.012617477721401624,
+        0.0009946474007197638
+      ],
+      "total_variation": 0.017084451791431223,
+      "total_variation_95ci_pair": [
+        0.012885902542620897,
+        0.021117009089461396
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 10,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0027219331158058985,
+      "delta_true_rule_95ci_pair": [
+        -0.0006821994004505018,
+        0.006198096488203321
+      ],
+      "absolute_delta_true_rule": 0.004176437056490353,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0017900992051831314,
+        0.0066869375961167475
+      ],
+      "delta_donor_answer": -0.006435762558664594,
+      "delta_donor_answer_95ci_pair": [
+        -0.013612100056239538,
+        0.0006332567759922572
+      ],
+      "total_variation": 0.01757863736046212,
+      "total_variation_95ci_pair": [
+        0.014294466379630779,
+        0.021256615008626665
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 11,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0012193010853869574,
+      "delta_true_rule_95ci_pair": [
+        -0.0015175455050276856,
+        0.004473083087110089
+      ],
+      "absolute_delta_true_rule": 0.0027013689811740604,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0007035247981548309,
+        0.005242049960153443
+      ],
+      "delta_donor_answer": -0.00800950186593192,
+      "delta_donor_answer_95ci_pair": [
+        -0.016509013516562327,
+        -0.0005792975425720215
+      ],
+      "total_variation": 0.017414325582129613,
+      "total_variation_95ci_pair": [
+        0.01225261030652161,
+        0.02272186412010341
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 12,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.001389386664543833,
+      "delta_true_rule_95ci_pair": [
+        -0.0009110780366297278,
+        0.003988264926842276
+      ],
+      "absolute_delta_true_rule": 0.002515646762081555,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0007360263661082302,
+        0.004543854821739451
+      ],
+      "delta_donor_answer": -0.005726805755070278,
+      "delta_donor_answer_95ci_pair": [
+        -0.014854184218815394,
+        0.0023185237177780604
+      ],
+      "total_variation": 0.01672647228198392,
+      "total_variation_95ci_pair": [
+        0.012257029977627098,
+        0.020870157996458666
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 13,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0003571510314941406,
+      "delta_true_rule_95ci_pair": [
+        -0.0030671421571501663,
+        0.004400649241038731
+      ],
+      "absolute_delta_true_rule": 0.003531527306352343,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.001207043549844197,
+        0.006464497133025085
+      ],
+      "delta_donor_answer": -0.006558990904263088,
+      "delta_donor_answer_95ci_pair": [
+        -0.01272051249231611,
+        0.001282004160540437
+      ],
+      "total_variation": 0.018587447835930755,
+      "total_variation_95ci_pair": [
+        0.011697843664192728,
+        0.026553919006671225
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 14,
+      "pair_clusters": 7,
+      "delta_true_rule": 5.40084604706083e-05,
+      "delta_true_rule_95ci_pair": [
+        -0.0028870841288673025,
+        0.002952491066285542
+      ],
+      "absolute_delta_true_rule": 0.0027535725384950638,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0008938594588211604,
+        0.004851989448070526
+      ],
+      "delta_donor_answer": -0.005424435649599347,
+      "delta_donor_answer_95ci_pair": [
+        -0.010514306170599801,
+        0.0026387308325086247
+      ],
+      "total_variation": 0.018841204499559745,
+      "total_variation_95ci_pair": [
+        0.012683933334691184,
+        0.025879269249604195
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 15,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0006079460893358503,
+      "delta_true_rule_95ci_pair": [
+        -0.0015618832116680486,
+        0.0025606606820864327
+      ],
+      "absolute_delta_true_rule": 0.0021370298096111844,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0009166252400193896,
+        0.0035817665713174
+      ],
+      "delta_donor_answer": -0.008790475981576102,
+      "delta_donor_answer_95ci_pair": [
+        -0.016165392313684735,
+        -0.0006744819028036935
+      ],
+      "total_variation": 0.022102078023765768,
+      "total_variation_95ci_pair": [
+        0.016293047927320004,
+        0.028164553322962353
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 16,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0002226057861532484,
+      "delta_true_rule_95ci_pair": [
+        -0.0034159652356590543,
+        0.0023433921326483954
+      ],
+      "absolute_delta_true_rule": 0.002535374569041388,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0006613252418381828,
+        0.004852822316544396
+      ],
+      "delta_donor_answer": -0.006414113300187247,
+      "delta_donor_answer_95ci_pair": [
+        -0.014204697949545724,
+        0.0022865874426705496
+      ],
+      "total_variation": 0.021769439934619834,
+      "total_variation_95ci_pair": [
+        0.016599859952527496,
+        0.02686414894581373
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 17,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0018210554761546,
+      "delta_true_rule_95ci_pair": [
+        -0.010572845196085316,
+        0.004285150340625218
+      ],
+      "absolute_delta_true_rule": 0.0069885291159152985,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0026033345077719006,
+        0.013974657548325402
+      ],
+      "delta_donor_answer": -0.01022492562021528,
+      "delta_donor_answer_95ci_pair": [
+        -0.024679064750671387,
+        0.007779308727809361
+      ],
+      "total_variation": 0.03297754856092589,
+      "total_variation_95ci_pair": [
+        0.028876529740435735,
+        0.03819403460116258
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 18,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.003611191841108458,
+      "delta_true_rule_95ci_pair": [
+        -0.016314914982233728,
+        0.004999850211398942
+      ],
+      "absolute_delta_true_rule": 0.00958254055253097,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0030538192284958704,
+        0.020219709451443364
+      ],
+      "delta_donor_answer": -0.01077645378453391,
+      "delta_donor_answer_95ci_pair": [
+        -0.03499056292431695,
+        0.016369584255984764
+      ],
+      "total_variation": 0.04221633675375155,
+      "total_variation_95ci_pair": [
+        0.03423280042729208,
+        0.05047525040406197
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 19,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.004396523748125348,
+      "delta_true_rule_95ci_pair": [
+        -0.01862675483737673,
+        0.005992215565804914
+      ],
+      "absolute_delta_true_rule": 0.011699434901986803,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004181068670004606,
+        0.023206432083887694
+      ],
+      "delta_donor_answer": -0.01107751258781978,
+      "delta_donor_answer_95ci_pair": [
+        -0.03727796897292137,
+        0.018215417861938477
+      ],
+      "total_variation": 0.04731552143182073,
+      "total_variation_95ci_pair": [
+        0.03883194834260004,
+        0.0560749103980405
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 20,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.003999160070504461,
+      "delta_true_rule_95ci_pair": [
+        -0.018103447077529772,
+        0.007178586508546557
+      ],
+      "absolute_delta_true_rule": 0.012801414355635643,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005432916006871632,
+        0.023259948140808513
+      ],
+      "delta_donor_answer": -0.009695221270833696,
+      "delta_donor_answer_95ci_pair": [
+        -0.03645900743348258,
+        0.022818702459335295
+      ],
+      "total_variation": 0.049780060936297686,
+      "total_variation_95ci_pair": [
+        0.040225811302661896,
+        0.060264793257894245
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 21,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0019697791763714383,
+      "delta_true_rule_95ci_pair": [
+        -0.012632951353277478,
+        0.00701910736305373
+      ],
+      "absolute_delta_true_rule": 0.01040764365877424,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004879213869571686,
+        0.01775553183896201
+      ],
+      "delta_donor_answer": -0.008600654346602303,
+      "delta_donor_answer_95ci_pair": [
+        -0.03426127348627363,
+        0.021770026002611433
+      ],
+      "total_variation": 0.04711687830942018,
+      "total_variation_95ci_pair": [
+        0.03433789259621075,
+        0.05994573448385511
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 22,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.001321608998945781,
+      "delta_true_rule_95ci_pair": [
+        -0.004829234842743192,
+        0.006747470130877796
+      ],
+      "absolute_delta_true_rule": 0.00602294344987188,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00234472518786788,
+        0.010337659916175261
+      ],
+      "delta_donor_answer": -0.0069128892251423425,
+      "delta_donor_answer_95ci_pair": [
+        -0.030422279291919298,
+        0.0210509380591767
+      ],
+      "total_variation": 0.04442117802266564,
+      "total_variation_95ci_pair": [
+        0.029630227413560663,
+        0.0603818753734231
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 23,
+      "pair_clusters": 7,
+      "delta_true_rule": -3.367050417831966e-05,
+      "delta_true_rule_95ci_pair": [
+        -0.007116079623145716,
+        0.006377289996349374
+      ],
+      "absolute_delta_true_rule": 0.007077336577432496,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002986105425017221,
+        0.011897088567327144
+      ],
+      "delta_donor_answer": -0.005946063569613865,
+      "delta_donor_answer_95ci_pair": [
+        -0.02991040934409414,
+        0.022429840905325755
+      ],
+      "total_variation": 0.04572185341800962,
+      "total_variation_95ci_pair": [
+        0.029417590371200016,
+        0.0636637027242354
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 24,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0022296588867902756,
+      "delta_true_rule_95ci_pair": [
+        -0.003829196627650942,
+        0.00845695739345891
+      ],
+      "absolute_delta_true_rule": 0.006554786381976945,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0027684194168874194,
+        0.010838413344962257
+      ],
+      "delta_donor_answer": -0.004287775073732648,
+      "delta_donor_answer_95ci_pair": [
+        -0.02895075934273856,
+        0.022973746061325073
+      ],
+      "total_variation": 0.04491503483482769,
+      "total_variation_95ci_pair": [
+        0.0284088457269328,
+        0.06182688368218286
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 25,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002528402954339981,
+      "delta_true_rule_95ci_pair": [
+        -0.0032822781508522374,
+        0.00840180686541966
+      ],
+      "absolute_delta_true_rule": 0.005959779556308474,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0023509845004550047,
+        0.010197361851377144
+      ],
+      "delta_donor_answer": -0.0034569501876831055,
+      "delta_donor_answer_95ci_pair": [
+        -0.03032682623182024,
+        0.02769240311213902
+      ],
+      "total_variation": 0.04776219025786434,
+      "total_variation_95ci_pair": [
+        0.03006122979734625,
+        0.06585341904844556
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 26,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004423016682267189,
+      "delta_true_rule_95ci_pair": [
+        -3.45273209469659e-05,
+        0.009557614482140962
+      ],
+      "absolute_delta_true_rule": 0.005787535703607968,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0024053481008325306,
+        0.009915005927905424
+      ],
+      "delta_donor_answer": -0.0044583699532917565,
+      "delta_donor_answer_95ci_pair": [
+        -0.032005369663238525,
+        0.025911837709801478
+      ],
+      "total_variation": 0.046327276288398674,
+      "total_variation_95ci_pair": [
+        0.028961490307535444,
+        0.06454883276351861
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 27,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0037778105054582867,
+      "delta_true_rule_95ci_pair": [
+        -0.0008779763111046382,
+        0.009519252420536094
+      ],
+      "absolute_delta_true_rule": 0.005595576550279345,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.001967613718339375,
+        0.010261300419058119
+      ],
+      "delta_donor_answer": -0.005050054618290493,
+      "delta_donor_answer_95ci_pair": [
+        -0.03412674580301557,
+        0.02689441612788609
+      ],
+      "total_variation": 0.04636254720389843,
+      "total_variation_95ci_pair": [
+        0.02836264869464295,
+        0.06561279988714627
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 28,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0034531360226018088,
+      "delta_true_rule_95ci_pair": [
+        -0.004149316677025386,
+        0.01179810453738485
+      ],
+      "absolute_delta_true_rule": 0.008670080453157425,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.003808388366763081,
+        0.014619998633861542
+      ],
+      "delta_donor_answer": -0.006830421941620963,
+      "delta_donor_answer_95ci_pair": [
+        -0.033867001427071435,
+        0.02308672182261919
+      ],
+      "total_variation": 0.04694195517471859,
+      "total_variation_95ci_pair": [
+        0.028612833333733892,
+        0.06604125550282854
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 29,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.008384845884782928,
+      "delta_true_rule_95ci_pair": [
+        -0.009517994576266833,
+        0.028265401694391342
+      ],
+      "absolute_delta_true_rule": 0.020068449899554253,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.007410198503306934,
+        0.034929927704589706
+      ],
+      "delta_donor_answer": 0.0004134220736367362,
+      "delta_donor_answer_95ci_pair": [
+        -0.05593596611704145,
+        0.057991317340305874
+      ],
+      "total_variation": 0.08705578717802252,
+      "total_variation_95ci_pair": [
+        0.05232075708253043,
+        0.12605296741239722
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 30,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004310690398727145,
+      "delta_true_rule_95ci_pair": [
+        -0.015020729175635747,
+        0.02623802050948143
+      ],
+      "absolute_delta_true_rule": 0.02226380631327629,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.010096675343811512,
+        0.03599976162825312
+      ],
+      "delta_donor_answer": 0.0015223388160978044,
+      "delta_donor_answer_95ci_pair": [
+        -0.0611797109246254,
+        0.06501874125429553
+      ],
+      "total_variation": 0.09330215890492712,
+      "total_variation_95ci_pair": [
+        0.05445608424488455,
+        0.13497835198151212
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 31,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.006476082972117833,
+      "delta_true_rule_95ci_pair": [
+        -0.014179368104253496,
+        0.03034108008391089
+      ],
+      "absolute_delta_true_rule": 0.023531615734100342,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.009606772235461645,
+        0.03929343766399792
+      ],
+      "delta_donor_answer": 0.003997351442064557,
+      "delta_donor_answer_95ci_pair": [
+        -0.0643745686326708,
+        0.07281668622578889
+      ],
+      "total_variation": 0.10110883028911692,
+      "total_variation_95ci_pair": [
+        0.05203124874138407,
+        0.15390620038046357
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "final",
+      "layer": 32,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0083908632929836,
+      "delta_true_rule_95ci_pair": [
+        -0.016184427376304353,
+        0.03763218938506075
+      ],
+      "absolute_delta_true_rule": 0.02708512730896473,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.01029399542936257,
+        0.047445226194603105
+      ],
+      "delta_donor_answer": 0.0034398138523101807,
+      "delta_donor_answer_95ci_pair": [
+        -0.07555942450250898,
+        0.08124704786709361
+      ],
+      "total_variation": 0.12983452222709144,
+      "total_variation_95ci_pair": [
+        0.07016564719378948,
+        0.1929141848481127
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 1,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0032000520399638583,
+      "delta_true_rule_95ci_pair": [
+        -0.004410259678427662,
+        0.01005910215899348
+      ],
+      "absolute_delta_true_rule": 0.00840556515114648,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0041258079665047786,
+        0.012624414903776986
+      ],
+      "delta_donor_answer": -0.0011263063975742885,
+      "delta_donor_answer_95ci_pair": [
+        -0.02028614708355495,
+        0.017388999462127686
+      ],
+      "total_variation": 0.03348691202700138,
+      "total_variation_95ci_pair": [
+        0.02171736183975424,
+        0.048642790813132046
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 2,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004215641745499202,
+      "delta_true_rule_95ci_pair": [
+        -0.0024603404769940034,
+        0.012167948298156248
+      ],
+      "absolute_delta_true_rule": 0.007974064775875636,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.003403084086520331,
+        0.014140544685402056
+      ],
+      "delta_donor_answer": -0.0033137244837624685,
+      "delta_donor_answer_95ci_pair": [
+        -0.025078166808400835,
+        0.02019793220928737
+      ],
+      "total_variation": 0.03655839525163174,
+      "total_variation_95ci_pair": [
+        0.02197305445692369,
+        0.05305861149515424
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 3,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004580370283552578,
+      "delta_true_rule_95ci_pair": [
+        -0.002231924967574222,
+        0.011780600981520737
+      ],
+      "absolute_delta_true_rule": 0.00843946821987629,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004094906417386872,
+        0.013416716562850135
+      ],
+      "delta_donor_answer": -0.0010884276458195277,
+      "delta_donor_answer_95ci_pair": [
+        -0.021966742617743357,
+        0.020150210176195418
+      ],
+      "total_variation": 0.03156992819692407,
+      "total_variation_95ci_pair": [
+        0.01982776860573462,
+        0.04417236667525555
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 4,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0005814316017287118,
+      "delta_true_rule_95ci_pair": [
+        -0.014403110103947776,
+        0.012270801274904167
+      ],
+      "absolute_delta_true_rule": 0.013093327837330955,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004948058830840247,
+        0.022988535423896134
+      ],
+      "delta_donor_answer": -0.00794286813054766,
+      "delta_donor_answer_95ci_pair": [
+        -0.029541296618325368,
+        0.017009573110512297
+      ],
+      "total_variation": 0.03917245886155537,
+      "total_variation_95ci_pair": [
+        0.02825719357601234,
+        0.05415396685046809
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 5,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0009204319545200893,
+      "delta_true_rule_95ci_pair": [
+        -0.016908595072371618,
+        0.013449898841125619
+      ],
+      "absolute_delta_true_rule": 0.016449860696281706,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.008061878383159637,
+        0.02791649874831949
+      ],
+      "delta_donor_answer": -0.009757382529122489,
+      "delta_donor_answer_95ci_pair": [
+        -0.04834336042404175,
+        0.03058445474931167
+      ],
+      "total_variation": 0.05881642164396388,
+      "total_variation_95ci_pair": [
+        0.039360400821481435,
+        0.08308220455156905
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 6,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.005619855863707406,
+      "delta_true_rule_95ci_pair": [
+        -0.0055537862437111995,
+        0.015253324593816484
+      ],
+      "absolute_delta_true_rule": 0.013875325875622886,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.008398140115397317,
+        0.018613986537924832
+      ],
+      "delta_donor_answer": -0.014775565692356654,
+      "delta_donor_answer_95ci_pair": [
+        -0.04732879570552281,
+        0.021308600263936172
+      ],
+      "total_variation": 0.056331791781953404,
+      "total_variation_95ci_pair": [
+        0.03412762741624777,
+        0.08311907562892883
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 7,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0033901227372033255,
+      "delta_true_rule_95ci_pair": [
+        -0.011983668990433214,
+        0.015919964760541916
+      ],
+      "absolute_delta_true_rule": 0.015050097235611506,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0065129878265517095,
+        0.024376249206917628
+      ],
+      "delta_donor_answer": -0.016649548496518816,
+      "delta_donor_answer_95ci_pair": [
+        -0.053423830441066196,
+        0.02123164949672561
+      ],
+      "total_variation": 0.06181048708302634,
+      "total_variation_95ci_pair": [
+        0.03876832752887692,
+        0.09035739276025977
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 8,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0025390320058379856,
+      "delta_true_rule_95ci_pair": [
+        -0.02882904380426875,
+        0.01560894268165729
+      ],
+      "absolute_delta_true_rule": 0.02046149144215243,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006407284843070167,
+        0.04104783199727535
+      ],
+      "delta_donor_answer": -0.028620962585721697,
+      "delta_donor_answer_95ci_pair": [
+        -0.07719936541148595,
+        0.017655215093067715
+      ],
+      "total_variation": 0.07721327138798577,
+      "total_variation_95ci_pair": [
+        0.044453970821840424,
+        0.11151469585685315
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 9,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.004233751179916518,
+      "delta_true_rule_95ci_pair": [
+        -0.030314712119953974,
+        0.014482890654887472
+      ],
+      "absolute_delta_true_rule": 0.020082623564771244,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0056381797684090474,
+        0.040514680689999034
+      ],
+      "delta_donor_answer": -0.023194219384874617,
+      "delta_donor_answer_95ci_pair": [
+        -0.0693962574005127,
+        0.022304092134748186
+      ],
+      "total_variation": 0.07576935897980418,
+      "total_variation_95ci_pair": [
+        0.04344980616920761,
+        0.11265630148617282
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 10,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.015313795900770597,
+      "delta_true_rule_95ci_pair": [
+        -0.06056664804262774,
+        0.016047447301181263
+      ],
+      "absolute_delta_true_rule": 0.03330102749168873,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.008701576718262263,
+        0.0719978426183973
+      ],
+      "delta_donor_answer": -0.022428819111415317,
+      "delta_donor_answer_95ci_pair": [
+        -0.07897868752479553,
+        0.0322465854031699
+      ],
+      "total_variation": 0.0999432744990502,
+      "total_variation_95ci_pair": [
+        0.06263017574591297,
+        0.14251487223165377
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 11,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.010922342804925782,
+      "delta_true_rule_95ci_pair": [
+        -0.05039088758639991,
+        0.016745480895042398
+      ],
+      "absolute_delta_true_rule": 0.02935958094894886,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.007613718509674072,
+        0.06247370849762644
+      ],
+      "delta_donor_answer": -0.01997283101081848,
+      "delta_donor_answer_95ci_pair": [
+        -0.07124149373599462,
+        0.03129947483539576
+      ],
+      "total_variation": 0.0940259201452136,
+      "total_variation_95ci_pair": [
+        0.05493943539581129,
+        0.1409265211317688
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 12,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.009855913530503,
+      "delta_true_rule_95ci_pair": [
+        -0.0478594819349902,
+        0.015732186447296823
+      ],
+      "absolute_delta_true_rule": 0.026725819866572107,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0059581079320716,
+        0.059232545484389575
+      ],
+      "delta_donor_answer": -0.02186828851699829,
+      "delta_donor_answer_95ci_pair": [
+        -0.07289910742214747,
+        0.02965369394847325
+      ],
+      "total_variation": 0.08628668077290058,
+      "total_variation_95ci_pair": [
+        0.057304069978584136,
+        0.11860195981737756
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 13,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.00996136452470507,
+      "delta_true_rule_95ci_pair": [
+        -0.047581284173897335,
+        0.014310155063867569
+      ],
+      "absolute_delta_true_rule": 0.02590934612921306,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0058877892126994475,
+        0.05789847459111895
+      ],
+      "delta_donor_answer": -0.02330586314201355,
+      "delta_donor_answer_95ci_pair": [
+        -0.07295579569680351,
+        0.0263440694127764
+      ],
+      "total_variation": 0.07696597637342555,
+      "total_variation_95ci_pair": [
+        0.04083944243778075,
+        0.11615594835685832
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 14,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.00967510576759066,
+      "delta_true_rule_95ci_pair": [
+        -0.04331387151032686,
+        0.013319407736084286
+      ],
+      "absolute_delta_true_rule": 0.023814977279731205,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004648374021053314,
+        0.053123101592063904
+      ],
+      "delta_donor_answer": -0.02005464264324733,
+      "delta_donor_answer_95ci_pair": [
+        -0.06663693274770464,
+        0.02555597254208156
+      ],
+      "total_variation": 0.07665924022772483,
+      "total_variation_95ci_pair": [
+        0.04277874207057591,
+        0.11628432478755713
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 15,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.005680278741887638,
+      "delta_true_rule_95ci_pair": [
+        -0.029790195503405163,
+        0.01234304833092856
+      ],
+      "absolute_delta_true_rule": 0.01913756052298205,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0055859267179455075,
+        0.03836364724806377
+      ],
+      "delta_donor_answer": -0.01768153054373605,
+      "delta_donor_answer_95ci_pair": [
+        -0.05828953821744238,
+        0.020914029436451924
+      ],
+      "total_variation": 0.06363661028444767,
+      "total_variation_95ci_pair": [
+        0.03708201790827193,
+        0.09393936885587335
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 16,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0006260206656796592,
+      "delta_true_rule_95ci_pair": [
+        -0.01588663352387292,
+        0.014252099075487681
+      ],
+      "absolute_delta_true_rule": 0.014523397066763468,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004744222055056265,
+        0.026006941869854923
+      ],
+      "delta_donor_answer": -0.01296251586505345,
+      "delta_donor_answer_95ci_pair": [
+        -0.05607997519629342,
+        0.02756884012903479
+      ],
+      "total_variation": 0.06172387621232441,
+      "total_variation_95ci_pair": [
+        0.035701419353219015,
+        0.08952349714402637
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 17,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0018255928797381265,
+      "delta_true_rule_95ci_pair": [
+        -0.015153865196875163,
+        0.010803362088544028
+      ],
+      "absolute_delta_true_rule": 0.01282971618430955,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0044612070279462,
+        0.022565714389617953
+      ],
+      "delta_donor_answer": -0.011514774390629359,
+      "delta_donor_answer_95ci_pair": [
+        -0.052261186497552056,
+        0.030208322086504404
+      ],
+      "total_variation": 0.059809696062334945,
+      "total_variation_95ci_pair": [
+        0.0309953129085313,
+        0.09240506122753557
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 18,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.002979840018919536,
+      "delta_true_rule_95ci_pair": [
+        -0.014065561017819814,
+        0.008581816298621025
+      ],
+      "absolute_delta_true_rule": 0.013014928570815496,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006838362597461258,
+        0.019813102064654226
+      ],
+      "delta_donor_answer": -0.005872151681355068,
+      "delta_donor_answer_95ci_pair": [
+        -0.033357713903699605,
+        0.024344278233391897
+      ],
+      "total_variation": 0.047651703735547404,
+      "total_variation_95ci_pair": [
+        0.026551435568502972,
+        0.07317777776292392
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 19,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.001691012510231563,
+      "delta_true_rule_95ci_pair": [
+        -0.011227706181151527,
+        0.007116047665476799
+      ],
+      "absolute_delta_true_rule": 0.010176851813282286,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004948371755225318,
+        0.016308660605656236
+      ],
+      "delta_donor_answer": -0.008195289543696813,
+      "delta_donor_answer_95ci_pair": [
+        -0.03504956194332668,
+        0.026015813861574446
+      ],
+      "total_variation": 0.048931662392403395,
+      "total_variation_95ci_pair": [
+        0.02902066388300487,
+        0.07487415136503321
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 20,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0008288840098040444,
+      "delta_true_rule_95ci_pair": [
+        -0.0126478767820767,
+        0.00898620326604162
+      ],
+      "absolute_delta_true_rule": 0.011214159961257662,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004314486762242658,
+        0.019643872444118773
+      ],
+      "delta_donor_answer": -0.00980764627456665,
+      "delta_donor_answer_95ci_pair": [
+        -0.04318818024226597,
+        0.027427605220249722
+      ],
+      "total_variation": 0.05275503359735012,
+      "total_variation_95ci_pair": [
+        0.03218921912567956,
+        0.07458354806460962
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 21,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.002133225223847798,
+      "delta_true_rule_95ci_pair": [
+        -0.015607175550290517,
+        0.009039901196956635
+      ],
+      "absolute_delta_true_rule": 0.01303521916270256,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006017226725816727,
+        0.022417625678437098
+      ],
+      "delta_donor_answer": -0.008630841970443726,
+      "delta_donor_answer_95ci_pair": [
+        -0.045684324843542914,
+        0.031188899917261637
+      ],
+      "total_variation": 0.060631872820002694,
+      "total_variation_95ci_pair": [
+        0.039448157351996214,
+        0.08538878509508711
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 22,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.00320074414568288,
+      "delta_true_rule_95ci_pair": [
+        -0.01816281782729285,
+        0.008448128189359392
+      ],
+      "absolute_delta_true_rule": 0.013427300910864557,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00549609267285892,
+        0.02455812320113182
+      ],
+      "delta_donor_answer": -0.009618375982557024,
+      "delta_donor_answer_95ci_pair": [
+        -0.04901855758258274,
+        0.032308727502822876
+      ],
+      "total_variation": 0.06276422645896673,
+      "total_variation_95ci_pair": [
+        0.0427821742902909,
+        0.08546340997729983
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 23,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.00310110513653074,
+      "delta_true_rule_95ci_pair": [
+        -0.01704534356083189,
+        0.007587229833006859
+      ],
+      "absolute_delta_true_rule": 0.011869934520551137,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004113638241376195,
+        0.02245639610503401
+      ],
+      "delta_donor_answer": -0.009047614676611764,
+      "delta_donor_answer_95ci_pair": [
+        -0.04721386517797198,
+        0.031465138069220744
+      ],
+      "total_variation": 0.06050063483417034,
+      "total_variation_95ci_pair": [
+        0.04327735797102962,
+        0.08047311531180248
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 24,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0025524592825344633,
+      "delta_true_rule_95ci_pair": [
+        -0.01360917328191655,
+        0.007866983434983663
+      ],
+      "absolute_delta_true_rule": 0.01070411822625569,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.003440525382757187,
+        0.019273970276117325
+      ],
+      "delta_donor_answer": -0.006702329431261335,
+      "delta_donor_answer_95ci_pair": [
+        -0.0440985738166741,
+        0.03214260999645504
+      ],
+      "total_variation": 0.05901342098202024,
+      "total_variation_95ci_pair": [
+        0.040038366921778236,
+        0.08234553817393521
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 25,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0026111403214079992,
+      "delta_true_rule_95ci_pair": [
+        -0.01479064669193966,
+        0.008676536913428987
+      ],
+      "absolute_delta_true_rule": 0.011998912319540977,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004261872332010951,
+        0.021110778940575465
+      ],
+      "delta_donor_answer": -0.009480233703340803,
+      "delta_donor_answer_95ci_pair": [
+        -0.044916822974170954,
+        0.028442834104810442
+      ],
+      "total_variation": 0.059264287751700194,
+      "total_variation_95ci_pair": [
+        0.04024964134940612,
+        0.0817355767025479
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 26,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.004650155614529338,
+      "delta_true_rule_95ci_pair": [
+        -0.017961071458246023,
+        0.007273992257458823
+      ],
+      "absolute_delta_true_rule": 0.013010625594428607,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0047841934221131465,
+        0.022963897943762752
+      ],
+      "delta_donor_answer": -0.009385845490864344,
+      "delta_donor_answer_95ci_pair": [
+        -0.039343442235674174,
+        0.02274092606135777
+      ],
+      "total_variation": 0.05606261148516621,
+      "total_variation_95ci_pair": [
+        0.040008317679166794,
+        0.07387466675468854
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 27,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.006488815216081483,
+      "delta_true_rule_95ci_pair": [
+        -0.021258408203721046,
+        0.006413911602326802
+      ],
+      "absolute_delta_true_rule": 0.014599076073084558,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006038745066949299,
+        0.02588723094335624
+      ],
+      "delta_donor_answer": -0.007799714803695679,
+      "delta_donor_answer_95ci_pair": [
+        -0.03847725476537432,
+        0.025055166121039887
+      ],
+      "total_variation": 0.05635051429271698,
+      "total_variation_95ci_pair": [
+        0.03925884900880711,
+        0.07596538974238294
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 28,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.004514720556991441,
+      "delta_true_rule_95ci_pair": [
+        -0.01724588285599436,
+        0.0074048225900956565
+      ],
+      "absolute_delta_true_rule": 0.013876237773469515,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.007002823054790497,
+        0.022471006427492415
+      ],
+      "delta_donor_answer": -0.01138438071523394,
+      "delta_donor_answer_95ci_pair": [
+        -0.04181690726961408,
+        0.022252133914402554
+      ],
+      "total_variation": 0.05684824673725026,
+      "total_variation_95ci_pair": [
+        0.03978135795997722,
+        0.07645416877764676
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 29,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0013743843883275986,
+      "delta_true_rule_95ci_pair": [
+        -0.008304598342095102,
+        0.004464671288483904
+      ],
+      "absolute_delta_true_rule": 0.006467340514063835,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002735893508153302,
+        0.01127534918487072
+      ],
+      "delta_donor_answer": 2.0061220441545758e-05,
+      "delta_donor_answer_95ci_pair": [
+        -0.01943484800202506,
+        0.018364189884492326
+      ],
+      "total_variation": 0.03507710860243866,
+      "total_variation_95ci_pair": [
+        0.0225490796313222,
+        0.0501553655735084
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 30,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0007520938026053565,
+      "delta_true_rule_95ci_pair": [
+        -0.007976157058562552,
+        0.004498459930930819
+      ],
+      "absolute_delta_true_rule": 0.0062750122909035,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002849792589300445,
+        0.01126644148358277
+      ],
+      "delta_donor_answer": 0.0012635035174233572,
+      "delta_donor_answer_95ci_pair": [
+        -0.02166405745915004,
+        0.020745132650647844
+      ],
+      "total_variation": 0.033184640907815526,
+      "total_variation_95ci_pair": [
+        0.018349650282678858,
+        0.05145413774464812
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 31,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.000637189085994448,
+      "delta_true_rule_95ci_pair": [
+        -0.0028257443835692747,
+        0.004049003656421389
+      ],
+      "absolute_delta_true_rule": 0.00383511877485684,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.001839344948530197,
+        0.006029929433550153
+      ],
+      "delta_donor_answer": -0.0008826553821563721,
+      "delta_donor_answer_95ci_pair": [
+        -0.01858003650392805,
+        0.012133540851729257
+      ],
+      "total_variation": 0.019245502405932972,
+      "total_variation_95ci_pair": [
+        0.00968461310757058,
+        0.031455897859164646
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "different",
+      "position": "previous",
+      "layer": 32,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0,
+      "delta_true_rule_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "absolute_delta_true_rule": 0.0,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "delta_donor_answer": 0.0,
+      "delta_donor_answer_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "total_variation": 0.0,
+      "total_variation_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 1,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0009116123297384807,
+      "delta_true_rule_95ci_pair": [
+        -0.0006594732403755188,
+        0.00277117452850299
+      ],
+      "absolute_delta_true_rule": 0.0018786253141505377,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.000880076949085508,
+        0.0032142922282218933
+      ],
+      "delta_donor_answer": -0.002529323101043701,
+      "delta_donor_answer_95ci_pair": [
+        -0.005893382004329136,
+        0.0011394277215003785
+      ],
+      "total_variation": 0.0069923410192132,
+      "total_variation_95ci_pair": [
+        0.005419696415109294,
+        0.009136640094220628
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 2,
+      "pair_clusters": 7,
+      "delta_true_rule": -1.517151083265032e-05,
+      "delta_true_rule_95ci_pair": [
+        -0.0018353121355175971,
+        0.0015881136059761047
+      ],
+      "absolute_delta_true_rule": 0.0020239289317812237,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0011711173823901585,
+        0.0029007292219570707
+      ],
+      "delta_donor_answer": -0.004087460892541068,
+      "delta_donor_answer_95ci_pair": [
+        -0.008340712104524885,
+        0.0013107614857809885
+      ],
+      "total_variation": 0.01138740312308073,
+      "total_variation_95ci_pair": [
+        0.007628466218842992,
+        0.015579313971102238
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 3,
+      "pair_clusters": 7,
+      "delta_true_rule": -9.654914694172996e-05,
+      "delta_true_rule_95ci_pair": [
+        -0.0012990518340042659,
+        0.0010474208343241886
+      ],
+      "absolute_delta_true_rule": 0.0012683280344520295,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0005683710000344685,
+        0.001977748636688505
+      ],
+      "delta_donor_answer": -0.0010282226971217564,
+      "delta_donor_answer_95ci_pair": [
+        -0.006026600088391986,
+        0.004193280424390521
+      ],
+      "total_variation": 0.011819141517792429,
+      "total_variation_95ci_pair": [
+        0.007573733904532024,
+        0.016672585415653866
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 4,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.004106276269469943,
+      "delta_true_rule_95ci_pair": [
+        -0.010562749845641,
+        0.0003782877964632826
+      ],
+      "absolute_delta_true_rule": 0.004987570324114391,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0010972012632659504,
+        0.011118409330291408
+      ],
+      "delta_donor_answer": -0.004820112671170916,
+      "delta_donor_answer_95ci_pair": [
+        -0.018679014274052212,
+        0.010227612086704798
+      ],
+      "total_variation": 0.018127126087035452,
+      "total_variation_95ci_pair": [
+        0.009886653960815497,
+        0.027311604040940952
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 5,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.003050349120582853,
+      "delta_true_rule_95ci_pair": [
+        -0.008011260415826525,
+        0.0001957022718020848
+      ],
+      "absolute_delta_true_rule": 0.003828482436282294,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.001213523426226207,
+        0.00829175001542483
+      ],
+      "delta_donor_answer": -0.005205358777727399,
+      "delta_donor_answer_95ci_pair": [
+        -0.018191001564264297,
+        0.01007612432752335
+      ],
+      "total_variation": 0.018543714258287634,
+      "total_variation_95ci_pair": [
+        0.011110333519588626,
+        0.027110799348780086
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 6,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0022564655435936792,
+      "delta_true_rule_95ci_pair": [
+        -0.006161427391426904,
+        0.0005212706513702852
+      ],
+      "absolute_delta_true_rule": 0.00320982640343053,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0009739087561943701,
+        0.006636781318645385
+      ],
+      "delta_donor_answer": -0.003641234976904733,
+      "delta_donor_answer_95ci_pair": [
+        -0.015053267989839827,
+        0.00969090419156204
+      ],
+      "total_variation": 0.017432783198143755,
+      "total_variation_95ci_pair": [
+        0.010780347112034048,
+        0.024772025917523664
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 7,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.005425960091607911,
+      "delta_true_rule_95ci_pair": [
+        -0.013268173539212771,
+        -7.849346314157759e-05
+      ],
+      "absolute_delta_true_rule": 0.00643527800483363,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0018171495092766626,
+        0.013754657868828093
+      ],
+      "delta_donor_answer": -0.0053825463567461285,
+      "delta_donor_answer_95ci_pair": [
+        -0.02512180187872478,
+        0.016667370285306658
+      ],
+      "total_variation": 0.02820970756667001,
+      "total_variation_95ci_pair": [
+        0.017530771903693676,
+        0.03906396111207349
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 8,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.00544202806694167,
+      "delta_true_rule_95ci_pair": [
+        -0.013068586508078234,
+        -0.0002594773790666035
+      ],
+      "absolute_delta_true_rule": 0.006247857319457191,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0016590705407517298,
+        0.013384382107428141
+      ],
+      "delta_donor_answer": -0.004286927836281913,
+      "delta_donor_answer_95ci_pair": [
+        -0.02448971356664385,
+        0.017402453081948415
+      ],
+      "total_variation": 0.02871340499924762,
+      "total_variation_95ci_pair": [
+        0.016835152304598262,
+        0.04077774489830645
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 9,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0038353593221732546,
+      "delta_true_rule_95ci_pair": [
+        -0.010898755597216743,
+        0.0012062255825315202
+      ],
+      "absolute_delta_true_rule": 0.006169983851058143,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0023490387414182934,
+        0.011952327830450875
+      ],
+      "delta_donor_answer": -0.004802073751177106,
+      "delta_donor_answer_95ci_pair": [
+        -0.02097644124712263,
+        0.01249077490397862
+      ],
+      "total_variation": 0.02728635724633932,
+      "total_variation_95ci_pair": [
+        0.017437426107270376,
+        0.036969029181636866
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 10,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.003183268808892795,
+      "delta_true_rule_95ci_pair": [
+        -0.010373857404504503,
+        0.0018845988171441214
+      ],
+      "absolute_delta_true_rule": 0.005864011655960765,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0020815360226801465,
+        0.01172731603894915
+      ],
+      "delta_donor_answer": -0.005670475108282906,
+      "delta_donor_answer_95ci_pair": [
+        -0.020211270238671985,
+        0.009837784937449865
+      ],
+      "total_variation": 0.02396720222064427,
+      "total_variation_95ci_pair": [
+        0.014448871190792748,
+        0.03392479671497959
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 11,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0038246922194957733,
+      "delta_true_rule_95ci_pair": [
+        -0.010587814676442316,
+        0.0010932907462120056
+      ],
+      "absolute_delta_true_rule": 0.005561179880584989,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0015150858089327812,
+        0.0113090846155371
+      ],
+      "delta_donor_answer": -0.004935336964471,
+      "delta_donor_answer_95ci_pair": [
+        -0.019035999264035906,
+        0.010161935750927241
+      ],
+      "total_variation": 0.023417943556393896,
+      "total_variation_95ci_pair": [
+        0.014762631827034056,
+        0.03206355231148856
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 12,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0035157978002514157,
+      "delta_true_rule_95ci_pair": [
+        -0.00951317005923816,
+        0.0011908308203731263
+      ],
+      "absolute_delta_true_rule": 0.0052636779312576565,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.001337056447352682,
+        0.010246068771396364
+      ],
+      "delta_donor_answer": -0.006346174648829869,
+      "delta_donor_answer_95ci_pair": [
+        -0.01891969953264509,
+        0.007263104404721928
+      ],
+      "total_variation": 0.023007584868797233,
+      "total_variation_95ci_pair": [
+        0.015448114781507425,
+        0.029604161590603834
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 13,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.0017301815428904124,
+      "delta_true_rule_95ci_pair": [
+        -0.0073072998119252065,
+        0.0038252370565065278
+      ],
+      "absolute_delta_true_rule": 0.005737536985959325,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002209563074367387,
+        0.009736469707318665
+      ],
+      "delta_donor_answer": -0.005607719932283674,
+      "delta_donor_answer_95ci_pair": [
+        -0.017725378274917603,
+        0.0062842353114059835
+      ],
+      "total_variation": 0.026237986715776578,
+      "total_variation_95ci_pair": [
+        0.01898385677486658,
+        0.03268300010157483
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 14,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.002923956939152309,
+      "delta_true_rule_95ci_pair": [
+        -0.009465498370783669,
+        0.0031163588698421207
+      ],
+      "absolute_delta_true_rule": 0.0064551761107785365,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0022508158747638974,
+        0.011420290251927711
+      ],
+      "delta_donor_answer": -0.008399152329989843,
+      "delta_donor_answer_95ci_pair": [
+        -0.020820234503064836,
+        0.00525316596031189
+      ],
+      "total_variation": 0.027286045785461153,
+      "total_variation_95ci_pair": [
+        0.019438898456948146,
+        0.03451576815651996
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 15,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.002154489979147911,
+      "delta_true_rule_95ci_pair": [
+        -0.009451007736580712,
+        0.004775128992540496
+      ],
+      "absolute_delta_true_rule": 0.007030255826456206,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002370046983872141,
+        0.012454231934888023
+      ],
+      "delta_donor_answer": -0.010609030723571777,
+      "delta_donor_answer_95ci_pair": [
+        -0.02151638620666095,
+        0.0019487781184060232
+      ],
+      "total_variation": 0.028008952603808472,
+      "total_variation_95ci_pair": [
+        0.019028756767511368,
+        0.037101544838930876
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 16,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.001239337825349399,
+      "delta_true_rule_95ci_pair": [
+        -0.008965910013232912,
+        0.007059221288987568
+      ],
+      "absolute_delta_true_rule": 0.0078021833407027385,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00260371422129018,
+        0.013601196929812431
+      ],
+      "delta_donor_answer": -0.009866516504968916,
+      "delta_donor_answer_95ci_pair": [
+        -0.022063197834151133,
+        0.003678328171372398
+      ],
+      "total_variation": 0.029714265439127172,
+      "total_variation_95ci_pair": [
+        0.019873902068606446,
+        0.03924777435604482
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 17,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0034202715115887778,
+      "delta_true_rule_95ci_pair": [
+        -0.002190790538276945,
+        0.010296763732497176
+      ],
+      "absolute_delta_true_rule": 0.006341218416179929,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0025912454085690634,
+        0.01189320050179955
+      ],
+      "delta_donor_answer": -0.014095617192132133,
+      "delta_donor_answer_95ci_pair": [
+        -0.02464282512664795,
+        -0.005144370453698295
+      ],
+      "total_variation": 0.03142927986170564,
+      "total_variation_95ci_pair": [
+        0.022274704626761375,
+        0.0405284667221297
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 18,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0059290485722678045,
+      "delta_true_rule_95ci_pair": [
+        0.00012588660631861006,
+        0.013328463371310915
+      ],
+      "absolute_delta_true_rule": 0.0076768770813941956,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0032574732920953205,
+        0.014178409108093806
+      ],
+      "delta_donor_answer": -0.01669211047036307,
+      "delta_donor_answer_95ci_pair": [
+        -0.0301834873855114,
+        -0.003599147817918238
+      ],
+      "total_variation": 0.034179331468684335,
+      "total_variation_95ci_pair": [
+        0.02614956721663475,
+        0.041140373041188075
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 19,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.00833452120423317,
+      "delta_true_rule_95ci_pair": [
+        0.0007301161863974162,
+        0.017796281459076062
+      ],
+      "absolute_delta_true_rule": 0.010109792330435343,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00411313825419971,
+        0.018565529425229346
+      ],
+      "delta_donor_answer": -0.01257468547139849,
+      "delta_donor_answer_95ci_pair": [
+        -0.029398658765213827,
+        0.006869954722268241
+      ],
+      "total_variation": 0.03725844541830676,
+      "total_variation_95ci_pair": [
+        0.027073536467339312,
+        0.04539541415537573
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 20,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.010439200060708182,
+      "delta_true_rule_95ci_pair": [
+        0.0007427596886243144,
+        0.022942706483549277
+      ],
+      "absolute_delta_true_rule": 0.012437290378979273,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004692452028393745,
+        0.023887502029538155
+      ],
+      "delta_donor_answer": -0.01230372701372419,
+      "delta_donor_answer_95ci_pair": [
+        -0.030092878001076833,
+        0.010040681383439446
+      ],
+      "total_variation": 0.03780641845826592,
+      "total_variation_95ci_pair": [
+        0.030473035760223866,
+        0.044436796701380184
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 21,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.010692159246121134,
+      "delta_true_rule_95ci_pair": [
+        0.0003676737592156445,
+        0.025479335071785108
+      ],
+      "absolute_delta_true_rule": 0.01295791273670537,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004177462575691087,
+        0.026239219520773207
+      ],
+      "delta_donor_answer": -0.009051718882152013,
+      "delta_donor_answer_95ci_pair": [
+        -0.024543804036719456,
+        0.012654738766806466
+      ],
+      "total_variation": 0.036024289072624276,
+      "total_variation_95ci_pair": [
+        0.027447837138814584,
+        0.045058325332190306
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 22,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.012751220326338495,
+      "delta_true_rule_95ci_pair": [
+        0.000827183048906071,
+        0.02995266259780952
+      ],
+      "absolute_delta_true_rule": 0.01439168703343187,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00378122872539929,
+        0.030526861548423767
+      ],
+      "delta_donor_answer": -0.008778718965394157,
+      "delta_donor_answer_95ci_pair": [
+        -0.0257885002131973,
+        0.01609523594379425
+      ],
+      "total_variation": 0.03783076402864286,
+      "total_variation_95ci_pair": [
+        0.028470631236476557,
+        0.048310673981904986
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 23,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.011396892368793488,
+      "delta_true_rule_95ci_pair": [
+        -0.000893758875983102,
+        0.028680121260029928
+      ],
+      "absolute_delta_true_rule": 0.014172936124461038,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.003992797008582524,
+        0.03009174019098282
+      ],
+      "delta_donor_answer": -0.007733362061636788,
+      "delta_donor_answer_95ci_pair": [
+        -0.02516410851052829,
+        0.016630794320787703
+      ],
+      "total_variation": 0.03928330221346447,
+      "total_variation_95ci_pair": [
+        0.028737772967932482,
+        0.05162029926265989
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 24,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.010413763246365957,
+      "delta_true_rule_95ci_pair": [
+        -0.002667508487190519,
+        0.028537992920194353
+      ],
+      "absolute_delta_true_rule": 0.014593892331634249,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0041046708822250364,
+        0.0306903923396021
+      ],
+      "delta_donor_answer": -0.009677016309329442,
+      "delta_donor_answer_95ci_pair": [
+        -0.027697808455143656,
+        0.015613336648259844
+      ],
+      "total_variation": 0.043324788633201806,
+      "total_variation_95ci_pair": [
+        0.03144131800425904,
+        0.05609476380050182
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 25,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.010115754125373704,
+      "delta_true_rule_95ci_pair": [
+        -0.0028969746615205494,
+        0.0274738786475999
+      ],
+      "absolute_delta_true_rule": 0.014943602627941541,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004901341295668057,
+        0.029580276838636763
+      ],
+      "delta_donor_answer": -0.011157638260296412,
+      "delta_donor_answer_95ci_pair": [
+        -0.029586670121976306,
+        0.013712948773588425
+      ],
+      "total_variation": 0.04472641713385071,
+      "total_variation_95ci_pair": [
+        0.03340885242713349,
+        0.0573117721825838
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 26,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.010265484186155456,
+      "delta_true_rule_95ci_pair": [
+        -0.002250686813411968,
+        0.027733843613948126
+      ],
+      "absolute_delta_true_rule": 0.014413411862083845,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004494002354996545,
+        0.029539400971095475
+      ],
+      "delta_donor_answer": -0.01335132122039795,
+      "delta_donor_answer_95ci_pair": [
+        -0.03238116162163871,
+        0.012605122051068708
+      ],
+      "total_variation": 0.044235599626387866,
+      "total_variation_95ci_pair": [
+        0.032646640070847104,
+        0.05553457673106875
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 27,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.012482821941375732,
+      "delta_true_rule_95ci_pair": [
+        -0.0006323329039982387,
+        0.032267015161258836
+      ],
+      "absolute_delta_true_rule": 0.015266077859061105,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004109540608312403,
+        0.033659175916441846
+      ],
+      "delta_donor_answer": -0.013077716742243086,
+      "delta_donor_answer_95ci_pair": [
+        -0.033166231853621345,
+        0.016466685703822544
+      ],
+      "total_variation": 0.045887383233223646,
+      "total_variation_95ci_pair": [
+        0.03495718096382916,
+        0.05760900117456913
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 28,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.011840768956712313,
+      "delta_true_rule_95ci_pair": [
+        -0.0011769413415874755,
+        0.030662779031055316
+      ],
+      "absolute_delta_true_rule": 0.015218930318951607,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004676473193934986,
+        0.03221369242029531
+      ],
+      "delta_donor_answer": -0.014769696763583593,
+      "delta_donor_answer_95ci_pair": [
+        -0.0357488500220435,
+        0.013944248056837484
+      ],
+      "total_variation": 0.04846397162015949,
+      "total_variation_95ci_pair": [
+        0.03563142913792815,
+        0.06080768297293356
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 29,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.031703111582568715,
+      "delta_true_rule_95ci_pair": [
+        0.009593450863446509,
+        0.06354162442897048
+      ],
+      "absolute_delta_true_rule": 0.032201240371380536,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.010572014110428947,
+        0.06354162442897048
+      ],
+      "delta_donor_answer": -0.01202308280127389,
+      "delta_donor_answer_95ci_pair": [
+        -0.06949231454304286,
+        0.04831485854727865
+      ],
+      "total_variation": 0.0891769038779395,
+      "total_variation_95ci_pair": [
+        0.06564135889389686,
+        0.11730241402983665
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 30,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.03216350344674928,
+      "delta_true_rule_95ci_pair": [
+        0.008150968168463026,
+        0.06820264644920826
+      ],
+      "absolute_delta_true_rule": 0.032810618834836144,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.009662563879308956,
+        0.06844347369457994
+      ],
+      "delta_donor_answer": -0.010779751198632377,
+      "delta_donor_answer_95ci_pair": [
+        -0.07274880579539708,
+        0.05399744212627392
+      ],
+      "total_variation": 0.09301702571766716,
+      "total_variation_95ci_pair": [
+        0.06574893913763974,
+        0.12426384684762784
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 31,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.03250800019928387,
+      "delta_true_rule_95ci_pair": [
+        0.005540026085717338,
+        0.07056191590215478
+      ],
+      "absolute_delta_true_rule": 0.035536283893244605,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.010919799762112754,
+        0.0720224239464317
+      ],
+      "delta_donor_answer": -0.016283686671938215,
+      "delta_donor_answer_95ci_pair": [
+        -0.08613819724747113,
+        0.05499158586774554
+      ],
+      "total_variation": 0.1007688267688666,
+      "total_variation_95ci_pair": [
+        0.07212439405598811,
+        0.1342239456084956
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "final",
+      "layer": 32,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.030484985826270922,
+      "delta_true_rule_95ci_pair": [
+        0.006484014314732382,
+        0.05806947605950492
+      ],
+      "absolute_delta_true_rule": 0.03503173030912876,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.014571356720158033,
+        0.06006238503115518
+      ],
+      "delta_donor_answer": -0.026234924793243408,
+      "delta_donor_answer_95ci_pair": [
+        -0.10256274257387434,
+        0.04135294045720782
+      ],
+      "total_variation": 0.11864423259560551,
+      "total_variation_95ci_pair": [
+        0.08739605572606836,
+        0.15515364027981246
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 1,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004329978621431759,
+      "delta_true_rule_95ci_pair": [
+        0.00015204777675015602,
+        0.009255456072943551
+      ],
+      "absolute_delta_true_rule": 0.0050421008574111125,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0012890523565667017,
+        0.009400041241730963
+      ],
+      "delta_donor_answer": -0.007267240967069354,
+      "delta_donor_answer_95ci_pair": [
+        -0.020517655781337192,
+        0.004961775988340367
+      ],
+      "total_variation": 0.025465802422591617,
+      "total_variation_95ci_pair": [
+        0.013732406443783216,
+        0.04003744668194225
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 2,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0069456760372434345,
+      "delta_true_rule_95ci_pair": [
+        0.0007016020161764962,
+        0.013507836631366186
+      ],
+      "absolute_delta_true_rule": 0.008109375834465027,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002737317021403994,
+        0.013945960013994145
+      ],
+      "delta_donor_answer": -0.009079413754599435,
+      "delta_donor_answer_95ci_pair": [
+        -0.02525124794670514,
+        0.008130930151258048
+      ],
+      "total_variation": 0.03094072294022356,
+      "total_variation_95ci_pair": [
+        0.02244006477828537,
+        0.04010013806899743
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 3,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0042658836713859016,
+      "delta_true_rule_95ci_pair": [
+        -0.000944999033319098,
+        0.009453847472156798
+      ],
+      "absolute_delta_true_rule": 0.006427288587604251,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0027835283960614887,
+        0.010503731401903289
+      ],
+      "delta_donor_answer": -0.002937964030674526,
+      "delta_donor_answer_95ci_pair": [
+        -0.017367808095046452,
+        0.011580241577965873
+      ],
+      "total_variation": 0.026400166962827955,
+      "total_variation_95ci_pair": [
+        0.016636997112073004,
+        0.037428108014033276
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 4,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0020113856132541385,
+      "delta_true_rule_95ci_pair": [
+        -0.00470172251308603,
+        0.0076400757368121726
+      ],
+      "absolute_delta_true_rule": 0.006375007597463471,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.002396137486877186,
+        0.010876795543091637
+      ],
+      "delta_donor_answer": -0.012754934174673898,
+      "delta_donor_answer_95ci_pair": [
+        -0.029799252322741915,
+        0.0029469430446624756
+      ],
+      "total_variation": 0.030348251972879683,
+      "total_variation_95ci_pair": [
+        0.021536173298954964,
+        0.04070981605244534
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 5,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.009072618026818548,
+      "delta_true_rule_95ci_pair": [
+        0.003179889438407762,
+        0.01597785417522703
+      ],
+      "absolute_delta_true_rule": 0.009186216496995516,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0033747668245009015,
+        0.016066415501492366
+      ],
+      "delta_donor_answer": -0.02049576384680612,
+      "delta_donor_answer_95ci_pair": [
+        -0.05135762042232922,
+        0.007028189940111908
+      ],
+      "total_variation": 0.044407140862728865,
+      "total_variation_95ci_pair": [
+        0.027258587202855518,
+        0.06501563771494798
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 6,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.005904677723135267,
+      "delta_true_rule_95ci_pair": [
+        -0.0030461016909352364,
+        0.01345481670328549
+      ],
+      "absolute_delta_true_rule": 0.010746558862073081,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005938678647258453,
+        0.01563740840979985
+      ],
+      "delta_donor_answer": -0.027849350656781877,
+      "delta_donor_answer_95ci_pair": [
+        -0.055317427111523494,
+        -0.0026458033493586947
+      ],
+      "total_variation": 0.04632189829966852,
+      "total_variation_95ci_pair": [
+        0.03164156205686076,
+        0.06500739752248452
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 7,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.007846584809677941,
+      "delta_true_rule_95ci_pair": [
+        0.0006586303734885796,
+        0.016552746043141397
+      ],
+      "absolute_delta_true_rule": 0.009765956550836563,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004961304100496429,
+        0.017106817503060614
+      ],
+      "delta_donor_answer": -0.03395633612360273,
+      "delta_donor_answer_95ci_pair": [
+        -0.05898288254226957,
+        -0.006871031863348824
+      ],
+      "total_variation": 0.051464108883270195,
+      "total_variation_95ci_pair": [
+        0.03859612565554146,
+        0.06600557562362924
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 8,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.009269486048391886,
+      "delta_true_rule_95ci_pair": [
+        0.005264802170651299,
+        0.013840037797178541
+      ],
+      "absolute_delta_true_rule": 0.009269486048391886,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005264802170651299,
+        0.013840037797178541
+      ],
+      "delta_donor_answer": -0.04244328396660941,
+      "delta_donor_answer_95ci_pair": [
+        -0.07174919758524213,
+        -0.011212167888879928
+      ],
+      "total_variation": 0.06327699324382204,
+      "total_variation_95ci_pair": [
+        0.04740430747291872,
+        0.08197350480726787
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 9,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.012513862124511175,
+      "delta_true_rule_95ci_pair": [
+        0.006504361650773457,
+        0.01880995130964688
+      ],
+      "absolute_delta_true_rule": 0.012513862124511175,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006504361650773457,
+        0.01880995130964688
+      ],
+      "delta_donor_answer": -0.0374241258416857,
+      "delta_donor_answer_95ci_pair": [
+        -0.07708577173096794,
+        0.0007851163191454514
+      ],
+      "total_variation": 0.06626747349011046,
+      "total_variation_95ci_pair": [
+        0.041382581627528586,
+        0.09218662112419095
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 10,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.009758687977279936,
+      "delta_true_rule_95ci_pair": [
+        0.003674549303416695,
+        0.01799289871539387
+      ],
+      "absolute_delta_true_rule": 0.009758687977279936,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.003674549303416695,
+        0.01799289871539387
+      ],
+      "delta_donor_answer": -0.037768236228397915,
+      "delta_donor_answer_95ci_pair": [
+        -0.07627892164247377,
+        9.865068963595469e-05
+      ],
+      "total_variation": 0.07172253741217512,
+      "total_variation_95ci_pair": [
+        0.048578038163084,
+        0.0958393860076155
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 11,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.011427223682403564,
+      "delta_true_rule_95ci_pair": [
+        0.005159463733434677,
+        0.020287702432168372
+      ],
+      "absolute_delta_true_rule": 0.011427223682403564,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005159463733434677,
+        0.020287702432168372
+      ],
+      "delta_donor_answer": -0.03523716330528259,
+      "delta_donor_answer_95ci_pair": [
+        -0.07647430896759033,
+        0.0025597668119839256
+      ],
+      "total_variation": 0.07182043671075787,
+      "total_variation_95ci_pair": [
+        0.04526939455951963,
+        0.09800762164273433
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 12,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.006942073149340493,
+      "delta_true_rule_95ci_pair": [
+        -0.0016409033643347876,
+        0.01597071590700319
+      ],
+      "absolute_delta_true_rule": 0.010339887014457158,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004774592816829681,
+        0.01789448516709464
+      ],
+      "delta_donor_answer": -0.0358970718724387,
+      "delta_donor_answer_95ci_pair": [
+        -0.0690936403615134,
+        -0.0010154534663474463
+      ],
+      "total_variation": 0.06553306191095284,
+      "total_variation_95ci_pair": [
+        0.045889302712332984,
+        0.08614690320433249
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 13,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002348533964582852,
+      "delta_true_rule_95ci_pair": [
+        -0.011236180125602653,
+        0.013998428891812052
+      ],
+      "absolute_delta_true_rule": 0.013479603454470634,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006168487674689718,
+        0.021693189388939303
+      ],
+      "delta_donor_answer": -0.03688402261052813,
+      "delta_donor_answer_95ci_pair": [
+        -0.07002266709293638,
+        -0.00036354150090898784
+      ],
+      "total_variation": 0.06635321809777192,
+      "total_variation_95ci_pair": [
+        0.04452067906303065,
+        0.08699345615293298
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 14,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.007039143038647515,
+      "delta_true_rule_95ci_pair": [
+        -0.0011897493286856583,
+        0.01685517315885848
+      ],
+      "absolute_delta_true_rule": 0.009887514902012689,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0035232114073421275,
+        0.018547247563089644
+      ],
+      "delta_donor_answer": -0.035157233476638794,
+      "delta_donor_answer_95ci_pair": [
+        -0.06940738910010882,
+        -0.002653396874666214
+      ],
+      "total_variation": 0.06633657895560775,
+      "total_variation_95ci_pair": [
+        0.044636616217238564,
+        0.08697035918344875
+      ],
+      "top_rule_changed": 0.2857142857142857,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.5714285714285714
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 15,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0037065462342330386,
+      "delta_true_rule_95ci_pair": [
+        -0.006068493904811996,
+        0.01443213171192578
+      ],
+      "absolute_delta_true_rule": 0.011430535465478897,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005669136132512774,
+        0.01833821865064757
+      ],
+      "delta_donor_answer": -0.030124340738568987,
+      "delta_donor_answer_95ci_pair": [
+        -0.058311594064746584,
+        -0.00021504930087498257
+      ],
+      "total_variation": 0.06232726613857916,
+      "total_variation_95ci_pair": [
+        0.048527784895018806,
+        0.07667763438075781
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 16,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0011217173721109117,
+      "delta_true_rule_95ci_pair": [
+        -0.00971316173672676,
+        0.012501017656177234
+      ],
+      "absolute_delta_true_rule": 0.012128972049270357,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005704535291131054,
+        0.019427215374473988
+      ],
+      "delta_donor_answer": -0.028063339846474782,
+      "delta_donor_answer_95ci_pair": [
+        -0.0556092986038753,
+        0.0036369257739611097
+      ],
+      "total_variation": 0.05969517385321004,
+      "total_variation_95ci_pair": [
+        0.04436150898358652,
+        0.07574179092022987
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 17,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0013133303395339421,
+      "delta_true_rule_95ci_pair": [
+        -0.007457689348874346,
+        0.01122265635058281
+      ],
+      "absolute_delta_true_rule": 0.010463671492678779,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005544259345957211,
+        0.01672120818070003
+      ],
+      "delta_donor_answer": -0.029053087745394026,
+      "delta_donor_answer_95ci_pair": [
+        -0.05787169081824166,
+        0.002576627901622227
+      ],
+      "total_variation": 0.057924779797238965,
+      "total_variation_95ci_pair": [
+        0.04174180342150586,
+        0.0752087737034474
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 18,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.00039792273725782124,
+      "delta_true_rule_95ci_pair": [
+        -0.007725894983325686,
+        0.009040139615535736
+      ],
+      "absolute_delta_true_rule": 0.009843942310128893,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005724112902368818,
+        0.01426923753959792
+      ],
+      "delta_donor_answer": -0.023669085332325528,
+      "delta_donor_answer_95ci_pair": [
+        -0.046698038067136495,
+        0.004151655094964164
+      ],
+      "total_variation": 0.049026590905019214,
+      "total_variation_95ci_pair": [
+        0.03356851584145001,
+        0.0634864027212773
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 19,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0023810647960220066,
+      "delta_true_rule_95ci_pair": [
+        -0.005283325557996119,
+        0.009301041705267764
+      ],
+      "absolute_delta_true_rule": 0.00910944411797183,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0053677066628422055,
+        0.012112968734332494
+      ],
+      "delta_donor_answer": -0.02367116297994341,
+      "delta_donor_answer_95ci_pair": [
+        -0.04713038216744151,
+        0.002639314958027431
+      ],
+      "total_variation": 0.048896330541798046,
+      "total_variation_95ci_pair": [
+        0.03289224357410733,
+        0.06551700072096926
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 20,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.002734942893896784,
+      "delta_true_rule_95ci_pair": [
+        -0.016270024888217452,
+        0.0076277597674301485
+      ],
+      "absolute_delta_true_rule": 0.011803987036858286,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004407390419925962,
+        0.022021752449550795
+      ],
+      "delta_donor_answer": -0.025239471878324236,
+      "delta_donor_answer_95ci_pair": [
+        -0.044865978615624566,
+        -0.001447648980787838
+      ],
+      "total_variation": 0.04608276566224439,
+      "total_variation_95ci_pair": [
+        0.03161848589245762,
+        0.05982718618054475
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 21,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002337103709578514,
+      "delta_true_rule_95ci_pair": [
+        -0.006994292938283512,
+        0.01064665606910628
+      ],
+      "absolute_delta_true_rule": 0.010794273178492273,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006189352081024222,
+        0.014935614807265145
+      ],
+      "delta_donor_answer": -0.025684948478426253,
+      "delta_donor_answer_95ci_pair": [
+        -0.05406792674745832,
+        0.001984031604868966
+      ],
+      "total_variation": 0.052574885609958856,
+      "total_variation_95ci_pair": [
+        0.03521844491894756,
+        0.071022853388318
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 22,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004085047170519829,
+      "delta_true_rule_95ci_pair": [
+        -0.004308866124067987,
+        0.012289137459759198
+      ],
+      "absolute_delta_true_rule": 0.010346102129135813,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005561163116778646,
+        0.015000916551798579
+      ],
+      "delta_donor_answer": -0.026445882661002024,
+      "delta_donor_answer_95ci_pair": [
+        -0.05466159614069121,
+        0.0022445363657815115
+      ],
+      "total_variation": 0.053276680942092626,
+      "total_variation_95ci_pair": [
+        0.0367995286360383,
+        0.07068018778559881
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 23,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.006617481687239238,
+      "delta_true_rule_95ci_pair": [
+        -0.0018586378012384688,
+        0.015382249440465654
+      ],
+      "absolute_delta_true_rule": 0.010449014071907316,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.004680623433419636,
+        0.016968050439442904
+      ],
+      "delta_donor_answer": -0.026418477296829224,
+      "delta_donor_answer_95ci_pair": [
+        -0.05446596582021032,
+        0.0010366524968828475
+      ],
+      "total_variation": 0.0501244171921696,
+      "total_variation_95ci_pair": [
+        0.03257329549108233,
+        0.0685992579674348
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 24,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.006027728319168091,
+      "delta_true_rule_95ci_pair": [
+        -0.0029208085366657804,
+        0.014517384800793863
+      ],
+      "absolute_delta_true_rule": 0.011033931480986732,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005589131292487894,
+        0.016429822858689085
+      ],
+      "delta_donor_answer": -0.022382246596472605,
+      "delta_donor_answer_95ci_pair": [
+        -0.051415281636374335,
+        0.006651744991540895
+      ],
+      "total_variation": 0.055484883088086336,
+      "total_variation_95ci_pair": [
+        0.04162292169140918,
+        0.07106040458061866
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 25,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.004428619518876076,
+      "delta_true_rule_95ci_pair": [
+        -0.005235929042100906,
+        0.01360576440181051
+      ],
+      "absolute_delta_true_rule": 0.012111713577594076,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006860632356256246,
+        0.016761360423905507
+      ],
+      "delta_donor_answer": -0.02280619740486145,
+      "delta_donor_answer_95ci_pair": [
+        -0.046781460834401,
+        0.0019103927271706717
+      ],
+      "total_variation": 0.05077407429260867,
+      "total_variation_95ci_pair": [
+        0.03748392646334001,
+        0.06471180995660168
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 26,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.002437670316014971,
+      "delta_true_rule_95ci_pair": [
+        -0.007597571771059718,
+        0.011650898347475696
+      ],
+      "absolute_delta_true_rule": 0.011542938649654388,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.006468257733753749,
+        0.016058102250099182
+      ],
+      "delta_donor_answer": -0.020344155175345286,
+      "delta_donor_answer_95ci_pair": [
+        -0.043723425694874356,
+        0.004466666494096989
+      ],
+      "total_variation": 0.05090863164514303,
+      "total_variation_95ci_pair": [
+        0.03929603126432214,
+        0.06295915493475539
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 27,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0009479134210518428,
+      "delta_true_rule_95ci_pair": [
+        -0.009868325931685311,
+        0.010416150798222832
+      ],
+      "absolute_delta_true_rule": 0.011416878551244736,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.005911029343094144,
+        0.01728373659508569
+      ],
+      "delta_donor_answer": -0.015122694628579276,
+      "delta_donor_answer_95ci_pair": [
+        -0.040160966770989556,
+        0.012670931113617756
+      ],
+      "total_variation": 0.05188298438276563,
+      "total_variation_95ci_pair": [
+        0.041056530949260504,
+        0.06257556428401065
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 28,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.000986443300332342,
+      "delta_true_rule_95ci_pair": [
+        -0.011236611221517836,
+        0.011270142293402128
+      ],
+      "absolute_delta_true_rule": 0.012505836518747466,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.00632918971989836,
+        0.019506125870559877
+      ],
+      "delta_donor_answer": -0.01890072226524353,
+      "delta_donor_answer_95ci_pair": [
+        -0.04227456184370177,
+        0.007466366035597557
+      ],
+      "total_variation": 0.05188173281827143,
+      "total_variation_95ci_pair": [
+        0.0391676301269659,
+        0.06474059421036925
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 29,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.005564044894916671,
+      "delta_true_rule_95ci_pair": [
+        -0.015860599598714283,
+        0.0029488096811941694
+      ],
+      "absolute_delta_true_rule": 0.009273875770824296,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0023300583806953267,
+        0.01767380623412982
+      ],
+      "delta_donor_answer": -0.006152021033423287,
+      "delta_donor_answer_95ci_pair": [
+        -0.025147523198808943,
+        0.016230217048100064
+      ],
+      "total_variation": 0.03383334220520088,
+      "total_variation_95ci_pair": [
+        0.02405680968825306,
+        0.04310146386602095
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 30,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.006047300196119717,
+      "delta_true_rule_95ci_pair": [
+        -0.018601136548178538,
+        0.0037830892418112072
+      ],
+      "absolute_delta_true_rule": 0.010653882952673095,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0026084083531584057,
+        0.02104808283703668
+      ],
+      "delta_donor_answer": -0.00703777585710798,
+      "delta_donor_answer_95ci_pair": [
+        -0.02485145926475525,
+        0.012530931404658727
+      ],
+      "total_variation": 0.030483266338706017,
+      "total_variation_95ci_pair": [
+        0.021720350586942265,
+        0.03841925271720225
+      ],
+      "top_rule_changed": 0.14285714285714285,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.42857142857142855
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 31,
+      "pair_clusters": 7,
+      "delta_true_rule": -0.007136772253683635,
+      "delta_true_rule_95ci_pair": [
+        -0.02038913241454533,
+        0.0020004299336246036
+      ],
+      "absolute_delta_true_rule": 0.009466584771871567,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0013040415942668915,
+        0.021704726985522678
+      ],
+      "delta_donor_answer": -0.0009312757423945836,
+      "delta_donor_answer_95ci_pair": [
+        -0.017906410353524343,
+        0.013125704867499215
+      ],
+      "total_variation": 0.020550201780029705,
+      "total_variation_95ci_pair": [
+        0.01199855594563165,
+        0.030630579155071502
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "condition": "same",
+      "position": "previous",
+      "layer": 32,
+      "pair_clusters": 7,
+      "delta_true_rule": 0.0,
+      "delta_true_rule_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "absolute_delta_true_rule": 0.0,
+      "absolute_delta_true_rule_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "delta_donor_answer": 0.0,
+      "delta_donor_answer_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "total_variation": 0.0,
+      "total_variation_95ci_pair": [
+        0.0,
+        0.0
+      ],
+      "top_rule_changed": 0.0,
+      "top_rule_changed_95ci_pair": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "matched_controls": [
+    {
+      "position": "final",
+      "layer": 1,
+      "different_minus_same": 0.0006548331252166203,
+      "ci95_matched_pair_groups": [
+        -0.0019181165844202042,
+        0.003806732475225413
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 2,
+      "different_minus_same": 0.000918995589017868,
+      "ci95_matched_pair_groups": [
+        -0.002420263098818915,
+        0.004466541111469269
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 3,
+      "different_minus_same": 0.0014782241944755828,
+      "ci95_matched_pair_groups": [
+        -0.0026214239852769034,
+        0.006907910640750613
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 4,
+      "different_minus_same": 0.0049259838249002185,
+      "ci95_matched_pair_groups": [
+        -0.003132949982370649,
+        0.014766131128583635
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 5,
+      "different_minus_same": 0.00543189314859254,
+      "ci95_matched_pair_groups": [
+        -0.0010957377297537668,
+        0.012907760816493192
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 6,
+      "different_minus_same": 0.004784884729555675,
+      "ci95_matched_pair_groups": [
+        1.5422701835632324e-06,
+        0.010376950459820884
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 7,
+      "different_minus_same": 0.0077137792749064306,
+      "ci95_matched_pair_groups": [
+        0.0006766188889741898,
+        0.016805857060743216
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 8,
+      "different_minus_same": 0.007239232371960368,
+      "ci95_matched_pair_groups": [
+        0.00036182254552841187,
+        0.016364838927984238
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 9,
+      "different_minus_same": 0.005535915760057313,
+      "ci95_matched_pair_groups": [
+        0.0003513491579464504,
+        0.013246913573571615
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 10,
+      "different_minus_same": 0.005905201924698693,
+      "ci95_matched_pair_groups": [
+        0.0007625091820955276,
+        0.013596321442829705
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 11,
+      "different_minus_same": 0.005043993304882731,
+      "ci95_matched_pair_groups": [
+        0.0006215959920414857,
+        0.01139976323715278
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 12,
+      "different_minus_same": 0.004905184464795249,
+      "ci95_matched_pair_groups": [
+        0.0013760184603078024,
+        0.010008141930614198
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 13,
+      "different_minus_same": 0.0020873325743845533,
+      "ci95_matched_pair_groups": [
+        -0.006864788542900767,
+        0.01146728013242994
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 14,
+      "different_minus_same": 0.002977965399622917,
+      "ci95_matched_pair_groups": [
+        -0.0058099254965782166,
+        0.012240636827690261
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 15,
+      "different_minus_same": 0.0027624360684837613,
+      "ci95_matched_pair_groups": [
+        -0.006214434074770126,
+        0.01181786906506334
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 16,
+      "different_minus_same": 0.0010167320391961507,
+      "ci95_matched_pair_groups": [
+        -0.010271126138312476,
+        0.010071649615253721
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 17,
+      "different_minus_same": -0.005241326987743378,
+      "ci95_matched_pair_groups": [
+        -0.020638023636170795,
+        0.005626112275889941
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 18,
+      "different_minus_same": -0.009540240413376264,
+      "ci95_matched_pair_groups": [
+        -0.028809116088918278,
+        0.0026193870497601373
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 19,
+      "different_minus_same": -0.012731044952358519,
+      "ci95_matched_pair_groups": [
+        -0.02879548629612795,
+        0.0005897469818592072
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 20,
+      "different_minus_same": -0.014438360131212644,
+      "ci95_matched_pair_groups": [
+        -0.031042069728885378,
+        7.085768239838737e-06
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 21,
+      "different_minus_same": -0.012661938422492571,
+      "ci95_matched_pair_groups": [
+        -0.026532044900315147,
+        0.00011738123638289315
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 22,
+      "different_minus_same": -0.011429611327392715,
+      "ci95_matched_pair_groups": [
+        -0.028344281549964632,
+        0.0018328698418502275
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 23,
+      "different_minus_same": -0.011430562872971808,
+      "ci95_matched_pair_groups": [
+        -0.029989931732416153,
+        0.0020508026438099997
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 24,
+      "different_minus_same": -0.008184104359575681,
+      "ci95_matched_pair_groups": [
+        -0.028462303962026324,
+        0.00707300602059278
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 25,
+      "different_minus_same": -0.007587351171033723,
+      "ci95_matched_pair_groups": [
+        -0.02592497691512108,
+        0.0066117481993777415
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 26,
+      "different_minus_same": -0.005842467503888267,
+      "ci95_matched_pair_groups": [
+        -0.024196613047804152,
+        0.007869471130626542
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 27,
+      "different_minus_same": -0.008705011435917445,
+      "ci95_matched_pair_groups": [
+        -0.030328584302748953,
+        0.005874146634180623
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 28,
+      "different_minus_same": -0.008387632934110505,
+      "ci95_matched_pair_groups": [
+        -0.028565823373251725,
+        0.0068638842220285
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 29,
+      "different_minus_same": -0.023318265697785785,
+      "ci95_matched_pair_groups": [
+        -0.05893965783928122,
+        0.007246186843674068
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 30,
+      "different_minus_same": -0.027852813048022135,
+      "ci95_matched_pair_groups": [
+        -0.07240831905177661,
+        0.0076645899297935515
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 31,
+      "different_minus_same": -0.02603191722716604,
+      "ci95_matched_pair_groups": [
+        -0.0725051389807569,
+        0.010837102042777198
+      ]
+    },
+    {
+      "position": "final",
+      "layer": 32,
+      "different_minus_same": -0.02209412253328732,
+      "ci95_matched_pair_groups": [
+        -0.058992866958890645,
+        0.014141270937398023
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 1,
+      "different_minus_same": -0.001129926581467901,
+      "ci95_matched_pair_groups": [
+        -0.013033634849957057,
+        0.009252364780487759
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 2,
+      "different_minus_same": -0.002730034291744232,
+      "ci95_matched_pair_groups": [
+        -0.013475866190024785,
+        0.008950960955449514
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 3,
+      "different_minus_same": 0.0003144866121666772,
+      "ci95_matched_pair_groups": [
+        -0.010079131594726018,
+        0.00938256989632334
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 4,
+      "different_minus_same": -0.0014299540115254267,
+      "ci95_matched_pair_groups": [
+        -0.020828019767733557,
+        0.01387277405176844
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 5,
+      "different_minus_same": -0.00815218607229846,
+      "ci95_matched_pair_groups": [
+        -0.03161890671721527,
+        0.009854640811681747
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 6,
+      "different_minus_same": -0.0002848218594278608,
+      "ci95_matched_pair_groups": [
+        -0.018661448998110636,
+        0.0163872768836362
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 7,
+      "different_minus_same": -0.004456462072474616,
+      "ci95_matched_pair_groups": [
+        -0.027834253651755198,
+        0.012524415073650224
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 8,
+      "different_minus_same": -0.011808518054229873,
+      "ci95_matched_pair_groups": [
+        -0.03634082240584705,
+        0.007009332999587059
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 9,
+      "different_minus_same": -0.016747613304427693,
+      "ci95_matched_pair_groups": [
+        -0.04145727530121803,
+        0.00393048780305045
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 10,
+      "different_minus_same": -0.02507248387805053,
+      "ci95_matched_pair_groups": [
+        -0.06785014968232385,
+        0.004683375890765872
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 11,
+      "different_minus_same": -0.02234956648732935,
+      "ci95_matched_pair_groups": [
+        -0.05908403244933911,
+        0.00426038381244455
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 12,
+      "different_minus_same": -0.016797986679843495,
+      "ci95_matched_pair_groups": [
+        -0.05539122194583927,
+        0.007591809545244489
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 13,
+      "different_minus_same": -0.01230989848928792,
+      "ci95_matched_pair_groups": [
+        -0.05075118158544813,
+        0.012884516268968582
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 14,
+      "different_minus_same": -0.016714248806238174,
+      "ci95_matched_pair_groups": [
+        -0.04807868865983827,
+        0.003971867263317108
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 15,
+      "different_minus_same": -0.009386824976120676,
+      "ci95_matched_pair_groups": [
+        -0.02654849205698286,
+        0.004392992971198899
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 16,
+      "different_minus_same": -0.001747738037790571,
+      "ci95_matched_pair_groups": [
+        -0.010272183588572912,
+        0.007930175534316472
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 17,
+      "different_minus_same": -0.0031389232192720684,
+      "ci95_matched_pair_groups": [
+        -0.013661417265289596,
+        0.006720247046489794
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 18,
+      "different_minus_same": -0.003377762756177357,
+      "ci95_matched_pair_groups": [
+        -0.011151616867365582,
+        0.005290658565770283
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 19,
+      "different_minus_same": -0.00407207730625357,
+      "ci95_matched_pair_groups": [
+        -0.01576387562922069,
+        0.005405847249286515
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 20,
+      "different_minus_same": 0.0019060588840927397,
+      "ci95_matched_pair_groups": [
+        -0.013188634254038333,
+        0.017009496156658446
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 21,
+      "different_minus_same": -0.004470328933426312,
+      "ci95_matched_pair_groups": [
+        -0.021646741930661455,
+        0.008696113134335185
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 22,
+      "different_minus_same": -0.007285791316202709,
+      "ci95_matched_pair_groups": [
+        -0.02815738320350647,
+        0.007183696542467389
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 23,
+      "different_minus_same": -0.009718586823769979,
+      "ci95_matched_pair_groups": [
+        -0.030387636839545196,
+        0.005291146625365529
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 24,
+      "different_minus_same": -0.008580187601702554,
+      "ci95_matched_pair_groups": [
+        -0.02449467804815088,
+        0.0047869569954595344
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 25,
+      "different_minus_same": -0.007039759840284075,
+      "ci95_matched_pair_groups": [
+        -0.023494612957750047,
+        0.0063542816787958145
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 26,
+      "different_minus_same": -0.007087825930544308,
+      "ci95_matched_pair_groups": [
+        -0.023274814217750517,
+        0.005737537518143654
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 27,
+      "different_minus_same": -0.007436728637133326,
+      "ci95_matched_pair_groups": [
+        -0.02337167070779417,
+        0.0058642730050321055
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 28,
+      "different_minus_same": -0.005501163857323783,
+      "ci95_matched_pair_groups": [
+        -0.020002560996051345,
+        0.008042121572153909
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 29,
+      "different_minus_same": 0.004189660506589072,
+      "ci95_matched_pair_groups": [
+        -0.007820055953093938,
+        0.01700353409562792
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 30,
+      "different_minus_same": 0.005295206393514361,
+      "ci95_matched_pair_groups": [
+        -0.008508029260805674,
+        0.021897762215563228
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 31,
+      "different_minus_same": 0.007773961339678083,
+      "ci95_matched_pair_groups": [
+        -0.004031560317214046,
+        0.023594234883785235
+      ]
+    },
+    {
+      "position": "previous",
+      "layer": 32,
+      "different_minus_same": 0.0,
+      "ci95_matched_pair_groups": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "late_layer_comparison": [
+    {
+      "position": "final",
+      "late_25_32_minus_early_1_8_control_adjusted": -0.020370925976229564,
+      "ci95": [
+        -0.05455248397109764,
+        0.005996691384851621
+      ]
+    },
+    {
+      "position": "previous",
+      "late_25_32_minus_early_1_8_control_adjusted": 0.0024838457881872144,
+      "ci95": [
+        -0.009587830697585429,
+        0.014465131164927567
+      ]
+    }
+  ],
+  "sign": "patched minus original receiver probability",
+  "uncertainty": "5000 percentile bootstrap draws of donor-receiver pairs/matched control groups, seed 2026; shared sets/images across pairs remain dependent",
+  "caution": "True-rule transfer, donor-predicted numeric-answer transfer, and distribution perturbation are distinct. Negative shifts do not disprove rule representations. Answer copying does not prove reasoning. Position bias, donor errors, shared images and intervention artifacts confound interpretation."
+}
