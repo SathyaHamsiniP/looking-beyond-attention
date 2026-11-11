@@ -1,93 +1,44 @@
-# 07 — Seven-rule operator controls (A3)
+# 07 — Can Qwen find the rule behind the pictures?
 
-Does pretrained Qwen3.5-4B identify seven generating Boolean rules from ten positive images? This extends the existing A1/A2 comparison descriptively; it does not repeat A1 (three rules/three choices) or A2 (the same three rules/seven choices). A3 uses different validation sets, so differences do not isolate the effect of generating-rule count.
+In our earlier experiments, Qwen had to choose between three possible rules. But a correct answer did not necessarily mean it had worked out the pattern in the pictures. It might simply have preferred certain answers.
 
-Rules are loaded unchanged from [`rules_7.json`](../../rules_7.json): R1 `(A AND B) OR C`, R2 `(A AND C) OR B`, R3 `(B AND C) OR A`, R4 `(A XOR B) OR C`, R5 `(A XOR C) OR B`, R6 `(B XOR C) OR A`, R7 `(A OR B OR C) AND NOT(A AND B AND C)`. A/B/C are green cube/blue sphere/red cylinder, requiring exact colour and shape; other objects are distractors.
+So we tried the task with seven rules.
 
-## Results
+Each question shows ten pictures. A green cube (A), blue sphere (B), and red cylinder (C) may or may not appear in each one. All ten pictures follow the same hidden rule, and Qwen has to pick that rule from seven options.
 
-We used the saved `benchmark-pilot/lora-7rules-fp16-retry` manifest and pretrained predictions. All **343 per-example predictions** matched the 49 validation sets, seven rules, seven rotations, pinned model/settings, prompts and inference-code hashes. Recomputed metrics match the saved metrics:
+For example, `(A AND B) OR C` means that a picture qualifies if it has the red cylinder, or if it has both the green cube and blue sphere. Other rules combine the objects differently, including rules using XOR (one of two objects, but not both). The complete list is in [`rules_7.json`](../../rules_7.json).
 
-- **48/343 = 13.9942%**, versus chance 14.2857%; chance-adjusted accuracy −0.00340.
-- Positions 1–5: zero; position 6: 82; position 7: 261.
-- Rule consistency: zero of 49 sets.
-- Set-clustered 95% bootstrap interval: approximately 11.9534–16.0350% (5,000 draws, seed 2026).
+## What we tried
 
-We calculated these numbers from saved predictions without repeating model inference. The runner checks the saved manifest, model settings, prompts and code hashes, then records current validation-image hashes. The original run stored a whole-dataset fingerprint, so reusing its predictions also assumes the read-only source images have not changed. Test examples are not selected or scored.
+We gave the pretrained Qwen3.5-4B model 49 sets of ten pictures. For each set, we changed the order of the seven answer options and asked again. This matters because a model that understands the rule should not depend on where the correct option appears.
 
-The earlier A1/A2 summary reports 36.67% with three choices and 14.76% with seven, both for three generating rules. Those are saved aggregate scores from a different dataset; they do not provide a matched comparison with A3.
+We used the saved validation examples and did not train the model further.
 
-### Plots and tables
+## What happened
 
-[Summary](../../results/seven-rules/qwen3.5-4b/operator-controls/summary.json), [all predictions](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.csv) and [File sources and checks](../../results/seven-rules/qwen3.5-4b/operator-controls/provenance.json).
+Qwen got **48 out of 343 answers right (about 14%)**. With seven choices, random guessing would also give about 14%.
 
-![Answer positions and rule confusion](../../results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)
+The more interesting result was *which options it picked*. It chose option 7 on 261 questions and option 6 on the other 82. It **never chose options 1–5**. Its answer also changed when we reordered the choices for the same pictures.
 
-## How to run
+![Which options Qwen chose, and which rules it confused](../../results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)
 
-```python
-!git clone --branch feature/7-rule-experiments https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
-%cd /content/looking-beyond-attention
-!pip install -r benchmark/requirements-seven-rule-controls.txt
+This gives us little evidence that Qwen was identifying the rule from the pictures. Its preference for the last options seems to have played a much bigger part in its answers.
+
+The earlier three-rule experiments also showed answer-position bias. But their image sets were different, so we cannot use these scores alone to say exactly how much harder seven rules are than three.
+
+The [full results](../../results/seven-rules/qwen3.5-4b/operator-controls/summary.json) and [individual predictions](../../results/seven-rules/qwen3.5-4b/operator-controls/predictions.csv) are available in the results folder.
+
+## Running the analysis
+
+The results are already saved. To regenerate the summary and graph, you need the original image dataset, saved dataset manifest, and pretrained validation predictions. These large inputs are not included in Git.
+
+From the repository root:
+
+```bash
+pip install -r benchmark/requirements-seven-rule-controls.txt
+python benchmark/operator_controls_7rules.py --manifest PATH_TO_MANIFEST --data-dir PATH_TO_DATA --baseline PATH_TO_PRETRAINED_VALIDATION --out PATH_TO_OUTPUT
 ```
 
-For CPU A3 analysis, CUDA/PyTorch is not needed. For later patching, the recovered baseline used **PyTorch 2.14.1+cu130**; check `import torch; print(torch.__version__)` before using GPU quota. The patch runner refuses mismatched inference packages. If needed, install the matching official PyTorch build and restart the runtime; do not silently compare different inference environments.
+Replace the paths with your local copies. Keep the output folder outside the repository. This command checks the saved predictions and creates the summary and graph; it does not run the model again.
 
-Mount the School account to read the shared original research folder. Keep source data read-only.
-
-```python
-from google.colab import drive
-from pathlib import Path
-import subprocess
-
-drive.mount('/content/iitm-drive')
-SOURCE = Path('/content/iitm-drive/MyDrive/LogicCBM++/source-research')
-DATA = SOURCE / 'three-operand-experiments/data-1000'
-OLD7 = SOURCE / 'benchmark-pilot/lora-7rules-fp16-retry'
-MANIFEST7 = OLD7 / 'dataset/manifest.json'
-BASELINE7 = OLD7 / 'evaluations/pretrained/validation'
-A12 = SOURCE / 'benchmark-pilot/compare-3-vs-7/summary.json'
-LOCAL = Path('/content/seven-rule-controls')
-A3OUT = LOCAL / '07-seven-rule-operator-controls'
-
-cmd = ['python','benchmark/operator_controls_7rules.py',
-       '--manifest',str(MANIFEST7),'--data-dir',str(DATA),
-       '--baseline',str(BASELINE7),'--historical-a12',str(A12),
-       '--out',str(A3OUT)]
-subprocess.run(cmd + ['--validate-only'], check=True)
-subprocess.run(cmd, check=True)  # CPU analysis of saved predictions.
-```
-
-If the mount path is absent, recover those exact saved files from Drive before proceeding. Known source IDs: source manifest `1vByMvpzLM61LKKjDCnd_AhFpcQCuCIma`, predictions `1rw6axm_J7B88xIJorIKGNwfL7LHRgb7R`, config `1-pgct8EdA68Kb7yNJaXfJoGiAqAI84kN`, metrics `1YOOXQp4EN7crgtIQaRmnUSVgpbGjmob5`, answer tokens `1V1JZSfapUcWKzMKz9X3zBATUmNiSVloJ`. The older `reconstruct_validation` helper can reconstruct validation sets from existing partitions, but it labels that reconstruction and cannot confirm an old baseline without the original manifest hash. For these experiments, use the saved sets rather than reconstructing them.
-
-The optional `--allow-inference` runs at most 343 forwards. It is unnecessary when the saved predictions are available. If only aggregate scores exist, the runner reports those without deriving per-example comparisons or confidence intervals. Mismatched inputs stop the run.
-
-### Save and upload results
-
-The console prints the input checks, planned work, scores and confidence intervals. Files in `A3OUT` include `summary.json`, readable `summary.md`, plots, CSV and saved validation inputs and baseline probabilities used by experiment 08. No source images or model weights are copied.
-
-Authenticate the **School account `24f2005474@ds.study.iitm.ac.in`** for the Drive API in a notebook cell:
-
-```python
-import sys
-sys.path.insert(0, '/content/looking-beyond-attention/benchmark')
-import iitm_drive
-service = iitm_drive.connect(authenticate=True)  # Notebook cell; select School account.
-iitm_drive.upload(service, A3OUT, 'operator-controls')
-```
-
-Destination is exactly folder `15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR`, with subfolder `07-seven-rule-operator-controls`. The uploader checks actual Drive API email and `canAddChildren` before writes, verifies uploaded IDs/sizes/MD5 hashes, resumes file updates with stable IDs and skips identical bytes. Wrong identity, domain restrictions, quota or write failures stop clearly; there is no old-Drive fallback. If cached API authentication selects the wrong account, use a fresh Colab authentication session and choose IITM; do not bypass the email check.
-
-All important findings remain printed in the console and saved under `/content` **before upload**. If Drive is full or restricted:
-
-```python
-!python benchmark/iitm_drive.py --source "{A3OUT}" --manual-zip /content/07-seven-rule-operator-controls.zip
-from google.colab import files
-files.download('/content/07-seven-rule-operator-controls.zip')
-```
-
-This is a local ZIP, not a claimed upload. Manually upload it while signed into IITM at https://drive.google.com/drive/folders/15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR. The saved results were imported from Drive.
-
-## Limitations
-
-Positive-only decisive-scene shortcuts, strong position bias, shared images and previously exposed test images limit reasoning claims. Bootstrap resamples sets to keep rotations together but does not account for shared images across sets. No causal inference about adding generating rules follows from comparing A3 to the old A1/A2 dataset.
+**What this tells us:** Getting a rule-selection question right is not enough to show logical reasoning. We also need to know whether the model is actually using the examples, rather than relying on the way the question is presented.
