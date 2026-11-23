@@ -29,7 +29,7 @@ We trained a small set of extra weights with LoRA. Qwen then used all seven answ
 
 ![Accuracy and answer positions before and after LoRA](docs/lora-validation.png)
 
-Swapping activity between examples gave us a way to test what affects an answer. The completed baseline showed weak evidence for transfer of the donor’s rule. The follow-up after LoRA is in progress. [Baseline patching](benchmark/experiments/08-seven-rule-activation-patching/README.md)
+Swapping activity between examples gave us a way to test what affects an answer. The swaps changed model predictions. The controls gave no convincing evidence that the donor’s Boolean rule transferred. The follow-up after LoRA is in progress. [Baseline patching](benchmark/experiments/08-seven-rule-activation-patching/README.md)
 
 Read the [research summary](RESEARCH_SUMMARY.md), [seven-rule experiments](benchmark/README.md) or [contribution notes](CONTRIBUTIONS.md).
 

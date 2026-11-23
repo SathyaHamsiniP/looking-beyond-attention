@@ -26,13 +26,13 @@ The model's internal information appears more useful for identifying rules than 
 
 ## Files
 
-The complete [IITM Drive ZIP](https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view) preserves all 588 `features.npz` arrays with their matching `metadata.json` files. These large intermediate arrays are **not part of the compact GitHub results**. The files listed below are the original compact results selected for GitHub:
+The complete IITM Drive ZIP preserves all 588 `features.npz` arrays with their matching `metadata.json` files. These large intermediate arrays are **not part of the compact GitHub results**. The files listed below are the original compact results selected for GitHub:
 
 - [Layer accuracy](probes/layer_accuracy.csv) — accuracy at each of the 32 layers
 - [Individual probe predictions](probes/probe_predictions.csv) — predictions for each validation set
 - [Rule-by-rule accuracy](probes/per_rule_accuracy.csv) and [confusion tables](probes/confusion_matrices.csv)
 - [Probe summary](probes/summary.json) and [probe settings](probes/config.json)
 - [Original Qwen predictions](model_predictions.jsonl) and [input report](input_report.json)
-- [Original source ZIP](https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view) — all 588 frozen feature arrays with their metadata, kept outside GitHub
+- Original source ZIP — all 588 frozen feature arrays with their metadata, kept outside GitHub
 
 See the [experiment README](../../../../experiments/09-seven-rule-probing/README.md) for a plain-English explanation of how we ran the experiment. These files are saved measurements, not new model training.

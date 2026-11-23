@@ -89,6 +89,8 @@ class ToolTests(unittest.TestCase):
             self.assertFalse((root/'corrupt').exists())
 
 
+    @patch.object(drive, 'EMAIL', 'researcher@example.org')
+    @patch.object(drive, 'FOLDER', 'test-folder')
     def test_upload_destination_identity_and_permission_fail_closed(self):
         class Service:
             def __init__(self,email,writable=True):self.email=email;self.writable=writable
@@ -97,17 +99,17 @@ class ToolTests(unittest.TestCase):
             def get(self,**kw):
                 row={'user':{'emailAddress':self.email}} if 'fileId' not in kw else dict(id=drive.FOLDER,name='School',mimeType='application/vnd.google-apps.folder',capabilities={'canAddChildren':self.writable})
                 return SimpleNamespace(execute=lambda:row)
-        self.assertEqual(drive.EMAIL,'24f2005474@ds.study.iitm.ac.in')
         # Regression: the former, incorrect domain must fail before any upload work.
         with patch.object(drive,'folder_child',side_effect=AssertionError('Wrong account reached a write')):
             with self.assertRaisesRegex(ValueError,'No upload attempted'):
-                drive.upload(Service('24f2005474@ds.iitm.study.in'),Path('/nonexistent-results'),'operator-controls')
-        with self.assertRaisesRegex(ValueError,'No upload attempted'):drive.validate_destination(Service('sathyahamsinip@gmail.com'))
+                drive.upload(Service('wrong@example.org'),Path('/nonexistent-results'),'operator-controls')
+        with self.assertRaisesRegex(ValueError,'No upload attempted'):drive.validate_destination(Service('personal@example.org'))
         with self.assertRaisesRegex(ValueError,'writable'):drive.validate_destination(Service(drive.EMAIL,False))
         self.assertEqual(drive.validate_destination(Service(drive.EMAIL))['id'],drive.FOLDER)
-        self.assertEqual(drive.FOLDER,'15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR')
 
 
+    @patch.object(drive, 'EMAIL', 'researcher@example.org')
+    @patch.object(drive, 'FOLDER', 'test-folder')
     def test_resumable_upload_reuses_file_id_and_skips_identical_bytes(self):
         import hashlib,sys,types
         class Service:

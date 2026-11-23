@@ -9,4 +9,4 @@ This folder contains the results for the seven-rule experiments with Qwen3.5-4B.
 | [09 — Probing](../experiments/09-seven-rule-probing/README.md) | [Original predictions, CSVs and plots](seven-rules/qwen3.5-4b/probing/README.md) |
 | [06 — LoRA](../experiments/06-seven-rule-lora/README.md) | [48/343 → 112/343 validation answers correct](seven-rules/qwen3.5-4b/lora/README.md), with original losses, selection and predictions |
 
-The full [seven-rule probing archive](https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view) keeps the large frozen features outside GitHub. See the [benchmark overview](../README.md) before comparing scores across experiments.
+The full seven-rule probing archive keeps the large frozen features outside GitHub. See the [benchmark overview](../README.md) before comparing scores across experiments.

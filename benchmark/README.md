@@ -26,7 +26,7 @@ The five-image probing condition is especially important to interpret carefully:
 
 Find the seven-rule CSVs, figures and run records in the [benchmark results folder](results/README.md). Earlier three-rule results are kept separately in [three-operand-experiments](../three-operand-experiments/results/README.md), without duplicate copies. The newer benchmark code is in this `benchmark/` directory. The CPU test command is below.
 
-Large image sets and model checkpoints are not included in the repository. The full [seven-rule probing ZIP](https://drive.google.com/file/d/1sPEeKrm3q2nUDKYvpipe6xViIZ_Y41LQ/view) retains the frozen feature arrays and their metadata; only compact results belong in Git.
+Large image sets and model checkpoints are not included in the repository. The full seven-rule probing ZIP retains the frozen feature arrays and their metadata; only compact results belong in Git.
 
 ## Code and checks
 
@@ -35,3 +35,7 @@ The scripts were reorganized under [code/](code/README.md), with common utilitie
 ```bash
 python -m unittest discover -s benchmark/tests -p 'test_*.py'
 ```
+
+## Drive backups
+
+Before importing the Drive helper, set `LBA_DRIVE_EMAIL` to the expected account and `LBA_DRIVE_FOLDER_ID` to the writable destination folder. Set both in your local environment or Colab session. The helper checks the signed-in account and folder before it uploads.

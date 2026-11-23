@@ -4,6 +4,7 @@ OAuth credentials stay in Colab's credential store. Uploads use resumable update
 of stable file IDs; interrupted transfers restart that file without duplicates.
 """
 import argparse
+import os
 import hashlib
 import json
 from pathlib import Path
@@ -14,8 +15,8 @@ from benchmark_paths import REPO, source_path
 
 import zipfile
 
-EMAIL='24f2005474@ds.study.iitm.ac.in'
-FOLDER='15tnhfEZf-ql6OdiST8ObJIhlSAaso_eR'
+EMAIL=os.environ.get('LBA_DRIVE_EMAIL', '').strip().lower()
+FOLDER=os.environ.get('LBA_DRIVE_FOLDER_ID', '').strip()
 EXPERIMENTS={'operator-controls':'07-seven-rule-operator-controls','activation-patching':'08-seven-rule-activation-patching','probing':'09-seven-rule-probing','lora':'06-seven-rule-lora'}
 MARKER='seven-rule-controls-patching-v1'
 ALLOWED={'.json','.jsonl','.csv','.png','.md','.txt'}
@@ -29,6 +30,8 @@ def digest_file(path):
 
 
 def validate_destination(service):
+    if not EMAIL or not FOLDER:
+        raise ValueError("Set LBA_DRIVE_EMAIL and LBA_DRIVE_FOLDER_ID before importing the Drive helper.")
     user=service.about().get(fields='user(emailAddress)').execute()['user'].get('emailAddress','').lower()
     if user!=EMAIL:raise ValueError(f'Authenticated Drive account is {user!r}; select {EMAIL}. No upload attempted.')
     folder=service.files().get(fileId=FOLDER,fields='id,name,mimeType,capabilities(canAddChildren),trashed',supportsAllDrives=True).execute()
