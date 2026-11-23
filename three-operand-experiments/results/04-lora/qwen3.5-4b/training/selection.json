@@ -1,0 +1,6 @@
+{
+  "step": 20,
+  "criterion": "lowest validation answer-token loss over three rotations",
+  "loss": 1.1470619327492184,
+  "adapter": "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/training-full-amp8/19624e351a86e4af/best_adapter"
+}

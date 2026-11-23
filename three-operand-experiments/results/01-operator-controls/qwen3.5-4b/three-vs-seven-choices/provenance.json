@@ -1,0 +1,24 @@
+{
+  "source_url": null,
+  "source_folder": "/tmp/suite-a12-aggregates",
+  "rule_count": 3,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "operator-controls",
+  "verification": [
+    "Historical aggregate only: no raw per-example verification claimed; distinct three-rule dataset from A3"
+  ],
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 22814,
+      "sha256": "cd8b4e964fde7832ff5458ef59d7d38b706cd9321e0c9275d1bd6714de55d90b"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 10837,
+      "sha256": "4f65e1e1edb0dabdec5ae862706e2520d8585f83a90eea5e357e88f369d71e9e"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported.",
+  "source_description": "Previously recovered Drive summary.json and config.json for benchmark-pilot/compare-3-vs-7; exact remote ID not recorded here. Original recovered bytes preserved."
+}

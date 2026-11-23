@@ -1,0 +1,8 @@
+{
+  "operand_names": ["A", "B", "C"],
+  "rules": [
+    {"id": "R1", "expression": "(A AND B) OR C", "true_bits": ["001", "011", "101", "110", "111"]},
+    {"id": "R2", "expression": "(A AND C) OR B", "true_bits": ["010", "011", "101", "110", "111"]},
+    {"id": "R3", "expression": "(B AND C) OR A", "true_bits": ["011", "100", "101", "110", "111"]}
+  ]
+}

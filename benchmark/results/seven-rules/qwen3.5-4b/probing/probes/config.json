@@ -1,0 +1,111 @@
+{
+  "protocol": "seven-rule-linear-probes-v1",
+  "model": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "quantization": "4-bit NF4",
+    "double_quantization": true,
+    "compute_dtype": "float16",
+    "attention": "sdpa",
+    "thinking": false,
+    "max_pixels": 100352,
+    "images_per_input": 10,
+    "scoring": "next-token likelihood restricted/normalized over numeric 1-7",
+    "training_objective": "full-vocabulary cross entropy on the single answer token only"
+  },
+  "rules": {
+    "operand_names": [
+      "A",
+      "B",
+      "C"
+    ],
+    "rules": [
+      {
+        "id": "R1",
+        "expression": "(A AND B) OR C",
+        "true_bits": [
+          "001",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R2",
+        "expression": "(A AND C) OR B",
+        "true_bits": [
+          "010",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R3",
+        "expression": "(B AND C) OR A",
+        "true_bits": [
+          "011",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R4",
+        "expression": "(A XOR B) OR C",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "111"
+        ]
+      },
+      {
+        "id": "R5",
+        "expression": "(A XOR C) OR B",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R6",
+        "expression": "(B XOR C) OR A",
+        "true_bits": [
+          "001",
+          "010",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R7",
+        "expression": "(A OR B OR C) AND NOT(A AND B AND C)",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "110"
+        ]
+      }
+    ]
+  },
+  "extraction_config_hash": "ee5cedf12b185ea5d33cbfea1dbaf403a2f72f8ba72d830cc015c8125975793a",
+  "train_sets": 147,
+  "validation_sets": 49,
+  "probe": "train-only StandardScaler + LogisticRegression C=1 max_iter=2000",
+  "seed": 2026
+}

@@ -1,0 +1,110 @@
+{
+  "source_url": "https://github.com/SathyaHamsiniP/looking-beyond-attention/tree/1e03512b696e6263122757ac6a44ae11a421e869/three-operand-experiments/experiments/04-lora/results/",
+  "source_folder": "/tmp/suite-three-lora",
+  "rule_count": 3,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "lora",
+  "verification": [
+    "Source commit pinned; original locations unchanged",
+    "46 real optimizer updates; saved baseline 29/90 and selected adapter 30/90 recomputed",
+    "Original three-rule two-epoch validation-only run; not matched to the seven-rule experiment"
+  ],
+  "files": [
+    {
+      "path": "comparison/LoRA_confusion.png",
+      "bytes": 16750,
+      "sha256": "21bfcf2fe0c0365f8f2a89131b7e253c1d55244cd99424b3af3cac7874f6ba1b"
+    },
+    {
+      "path": "comparison/answer_bias.png",
+      "bytes": 12706,
+      "sha256": "7ae323ec74184161c0dcbfcebb0f86c08e7163f26515284907f955a700ad87a2"
+    },
+    {
+      "path": "comparison/comparison.json",
+      "bytes": 2086,
+      "sha256": "ddaf66f2b5dff2aae03d9b32a9c8254c73f541d553a7743a777e61ea3ed145a1"
+    },
+    {
+      "path": "comparison/matched_predictions.csv",
+      "bytes": 11859,
+      "sha256": "96ef8289f63ac43c8212164ad88254debbc350e2ac5acf68d4286f4245f941b6"
+    },
+    {
+      "path": "comparison/per_rule_accuracy.png",
+      "bytes": 18196,
+      "sha256": "1306232035da3f8b5c2639d44138e4d87b6e548f8aea436639338eee5a155c9b"
+    },
+    {
+      "path": "comparison/pretrained_confusion.png",
+      "bytes": 13026,
+      "sha256": "99741402b22bb70dba3cbd5e10ca09539a4fedc5ce5f518d54642dad97452335"
+    },
+    {
+      "path": "derived/analysis.json",
+      "bytes": 7044,
+      "sha256": "6d727336cff7b323b936f77e696611598c78320910c8dae242846323800f768c"
+    },
+    {
+      "path": "derived/loss_curve.png",
+      "bytes": 54505,
+      "sha256": "9cda61d0e3cb1011ec92b7ce90a01cc733bae3308052b8cc8bf16bb537a5a20e"
+    },
+    {
+      "path": "finetuned/config.json",
+      "bytes": 1461,
+      "sha256": "984d1ed63e0dc6c8c9d2977569cb7cb2d661d5fe04809f6271cd9c3caaea8333"
+    },
+    {
+      "path": "finetuned/metrics.json",
+      "bytes": 765,
+      "sha256": "659c846f92b3d144dcdfae905f50d9d4da858a74f90a476483146453ec4f7d3a"
+    },
+    {
+      "path": "finetuned/predictions.jsonl",
+      "bytes": 47220,
+      "sha256": "d54fa813acc0ef838ed413d9d77c560b20f8252cb59b41ad3be344e9fc7488bb"
+    },
+    {
+      "path": "model_revision.txt",
+      "bytes": 41,
+      "sha256": "38ae7c82d0defdc431fce9fcf68befbecbff7c8e43750d55ab6cb77367121475"
+    },
+    {
+      "path": "pretrained/config.json",
+      "bytes": 710,
+      "sha256": "47a096535858a75d4a7ecd71f2c4bee883a57bd7206c930f85a7df14e59a546b"
+    },
+    {
+      "path": "pretrained/metrics.json",
+      "bytes": 741,
+      "sha256": "57a5a0a16ad4cc58c6f4e61ac9ab994cfa5b7f9b0bf71dc659c94c01e86c862a"
+    },
+    {
+      "path": "pretrained/predictions.jsonl",
+      "bytes": 47162,
+      "sha256": "d23124b92bf3f11cda9953eef889a9ef02dece514a35d71c65cbcd3242604f80"
+    },
+    {
+      "path": "training/complete.json",
+      "bytes": 148,
+      "sha256": "4ab411f0168eb1fa30fa170ef86f1c712712a15550a1aa1bc870e8edd6f48a80"
+    },
+    {
+      "path": "training/config.json",
+      "bytes": 15184,
+      "sha256": "84d1765cdb96d75a73c568012b9a3e3102e20cb574e3413325c3e785831e2fcb"
+    },
+    {
+      "path": "training/losses.jsonl",
+      "bytes": 22481,
+      "sha256": "79849e2eef8e82089fa72444d56df3825aded7f70fcc68d312e48d414548adaa"
+    },
+    {
+      "path": "training/selection.json",
+      "bytes": 295,
+      "sha256": "974637373216fdd53a30374902f945bf6a5aa2c016e0f4ad9c39ab5bf220b4f2"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

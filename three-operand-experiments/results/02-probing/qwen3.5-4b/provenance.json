@@ -1,0 +1,40 @@
+{
+  "source_url": "https://drive.google.com/drive/folders/1JNqtDtymV1QP03y9fLrY3zdPj-qGe7bY",
+  "source_folder": "/tmp/suite-staging/three/probing",
+  "rule_count": 3,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "probing",
+  "verification": [
+    "Model Qwen3.5-4B and three rule IDs verified",
+    "3840 saved probe predictions recompute 128 layer/condition/control accuracy records",
+    "Historical 90 train / 30 test sets, one uniquely diagnostic versus ten images, 301056 max pixels; not the new seven-rule validation protocol"
+  ],
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 757,
+      "sha256": "8639325adb5941cfe3bde0db59c0df462a4147bfbf61936aed8678bd3effd5be"
+    },
+    {
+      "path": "layer_accuracy.csv",
+      "bytes": 4932,
+      "sha256": "a9f651dc30562323b19b27c9f07a72df846939a51966314b3f62eb0b7fe9418e"
+    },
+    {
+      "path": "model_predictions.jsonl",
+      "bytes": 98866,
+      "sha256": "e64a2c21419a5a160dc8d8eb8f82732176cde184227278ce5ad76f6fe2e57b4e"
+    },
+    {
+      "path": "probe_predictions.csv",
+      "bytes": 231734,
+      "sha256": "f39edb73cbd6f27d1fc98c0226f255dd97a5d27ded4c3e1f37522457d0e28b94"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1552,
+      "sha256": "ef1a8a9ca2f17f69abd2da63eb4b27568a98771e9f4e906af4c59d17d4af21e2"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

@@ -1,0 +1,125 @@
+{
+  "protocol": "seven-rule-probes-1-5-10-v1",
+  "source_manifest": "890f5cd44027a0ee41cb941e4627222325c3336d38ea18d9792ecbdefe141509",
+  "source_sets_hash": "240d86e61e9f4357deb9ac33bca6c831ed474cca613fe9f4af150651683392d4",
+  "selection_hash": "9fcc724e85336107d07311758155ec3fe5fcd6dcab52289c35c7c7ccfff93928",
+  "image_hash": "64358c60443c9171d6da4d69ec8eee0638c5f0b40579bd2960cfbea8ea591572",
+  "model": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "quantization": "4-bit NF4",
+    "double_quantization": true,
+    "compute_dtype": "float16",
+    "attention": "sdpa",
+    "thinking": false,
+    "max_pixels": 100352,
+    "images_per_input": 10,
+    "scoring": "next-token likelihood restricted/normalized over numeric 1-7",
+    "training_objective": "full-vocabulary cross entropy on the single answer token only"
+  },
+  "rules": {
+    "operand_names": [
+      "A",
+      "B",
+      "C"
+    ],
+    "rules": [
+      {
+        "id": "R1",
+        "expression": "(A AND B) OR C",
+        "true_bits": [
+          "001",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R2",
+        "expression": "(A AND C) OR B",
+        "true_bits": [
+          "010",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R3",
+        "expression": "(B AND C) OR A",
+        "true_bits": [
+          "011",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R4",
+        "expression": "(A XOR B) OR C",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "111"
+        ]
+      },
+      {
+        "id": "R5",
+        "expression": "(A XOR C) OR B",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R6",
+        "expression": "(B XOR C) OR A",
+        "true_bits": [
+          "001",
+          "010",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R7",
+        "expression": "(A OR B OR C) AND NOT(A AND B AND C)",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "110"
+        ]
+      }
+    ]
+  },
+  "conditions": [
+    1,
+    5,
+    10
+  ],
+  "rotation": 0,
+  "feature": "final answer-prefix token, all 32 decoder-block outputs",
+  "seed": 2026,
+  "smoke": false,
+  "source_hashes": {
+    "probing_7rules.py": "30e8503d69b33fb67ad47c197d0cfdcbfcfd253ec4da21416650b097a6249f81",
+    "probing.py": "dcbb3f013303d9ac589b53bc9811ad2f68c67e89ab3dfb14cf8b14d2068ee239",
+    "compare_3_vs_7.py": "528970d2f6f0639cd2775ade1eed9434579aeb2f9bfa4493a95661d447163e01",
+    "rules_7.json": "003c05b4c09cdb48a962b9f2e6c31fcb4309b8aad293060aa33f0877a14b6d19"
+  }
+}

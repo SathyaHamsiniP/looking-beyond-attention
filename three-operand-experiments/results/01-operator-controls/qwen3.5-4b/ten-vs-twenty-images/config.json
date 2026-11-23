@@ -1,0 +1,19 @@
+{
+  "protocol": "original-main_72-coverage-cyclic-v1",
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "quantization": "4bit-NF4",
+  "data_sha256": "fb5fe2dea95fd2a88c9fb150bd9e1211dea3861b05af47b549b42353655805e9",
+  "rules_sha256": "3062fc19853835cb9df2c70ca7a4dfc7dc9b9996f7de5168f71a00f52967bbfd",
+  "seed": 2026,
+  "sets_per_rule": 8,
+  "image_counts": [
+    10,
+    20
+  ],
+  "rotations": 3,
+  "max_pixels": 301056,
+  "prompt": "identical to original main_72",
+  "readout": "next token restricted X/Y/Z softmax; thinking=False",
+  "sampling": "original coverage set for 10 images; same original 10-image prefix + 10 new positive images for 20"
+}

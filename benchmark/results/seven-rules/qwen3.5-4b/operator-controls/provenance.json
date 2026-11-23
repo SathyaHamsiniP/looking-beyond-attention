@@ -1,0 +1,49 @@
+{
+  "source_url": "https://drive.google.com/drive/folders/1Vg0WUQC9z2Ixpq7i3b-2i0dzrmbEfTud",
+  "source_folder": "/tmp/suite-staging/seven/operator-controls",
+  "rule_count": 7,
+  "model": "Qwen/Qwen3.5-4B",
+  "experiment": "operator-controls",
+  "verification": [
+    "343 exact validation/rotation predictions verified against saved source manifest, model, rules and inference source hashes",
+    "Aggregate metrics recomputed from raw probabilities/correctness; no GPU run"
+  ],
+  "files": [
+    {
+      "path": "answer_bias_and_confusion.png",
+      "bytes": 21719,
+      "sha256": "9c7f7cb0354737759d8174323fa421ecd2d675fc84e61052b42351d492b197aa"
+    },
+    {
+      "path": "answer_tokens.json",
+      "bytes": 80,
+      "sha256": "868520b286b956713840e788b9fb9535c209d9fd51187082b37ecad3303f15e0"
+    },
+    {
+      "path": "predictions.csv",
+      "bytes": 12366,
+      "sha256": "9885f9d4b64b46bc0c359dfc4e82a0540e2ed75943284db4d3215a515ad37ef9"
+    },
+    {
+      "path": "predictions.jsonl",
+      "bytes": 548818,
+      "sha256": "7d1996cbd637894c9584c2f3d5c5ecf2deead621e8af485cb4a759b01cca642d"
+    },
+    {
+      "path": "recovered_config.json",
+      "bytes": 9684,
+      "sha256": "e334885166390589de9aa65ae2508798ff6dc9d70333c3de4556e550edf86b5e"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 6864,
+      "sha256": "037c2b5e347232514e76464b155bcca62815ecae5342461d199718de25c7b2c2"
+    },
+    {
+      "path": "summary.md",
+      "bytes": 6927,
+      "sha256": "740e0ea93f68dc2c59e4a0cb6ef95a7f95a4af31105bf5f7c972baa48f983b1d"
+    }
+  ],
+  "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."
+}

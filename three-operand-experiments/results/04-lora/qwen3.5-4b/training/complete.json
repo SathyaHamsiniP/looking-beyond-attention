@@ -1,0 +1,7 @@
+{
+  "steps": 46,
+  "best_validation_loss": 1.1470619327492184,
+  "test_used": false,
+  "optimizer_updates": 46,
+  "steps_with_lora_b_changes": 46
+}

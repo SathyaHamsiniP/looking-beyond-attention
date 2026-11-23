@@ -1,0 +1,95 @@
+{
+  "sets": 49,
+  "evaluations": 343,
+  "accuracy": 0.32653061224489793,
+  "chance": 0.14285714285714285,
+  "improvement_over_chance": 0.18367346938775508,
+  "chance_adjusted_accuracy": 0.21428571428571425,
+  "per_rule": {
+    "R1": 0.04081632653061224,
+    "R2": 0.3877551020408163,
+    "R3": 0.1836734693877551,
+    "R4": 0.7755102040816326,
+    "R5": 0.6326530612244898,
+    "R6": 0.16326530612244897,
+    "R7": 0.10204081632653061
+  },
+  "confusion": {
+    "R1": {
+      "R1": 2,
+      "R2": 4,
+      "R3": 2,
+      "R4": 35,
+      "R5": 3,
+      "R6": 3,
+      "R7": 0
+    },
+    "R2": {
+      "R1": 0,
+      "R2": 19,
+      "R3": 0,
+      "R4": 0,
+      "R5": 30,
+      "R6": 0,
+      "R7": 0
+    },
+    "R3": {
+      "R1": 0,
+      "R2": 14,
+      "R3": 9,
+      "R4": 0,
+      "R5": 15,
+      "R6": 11,
+      "R7": 0
+    },
+    "R4": {
+      "R1": 2,
+      "R2": 2,
+      "R3": 0,
+      "R4": 38,
+      "R5": 5,
+      "R6": 0,
+      "R7": 2
+    },
+    "R5": {
+      "R1": 0,
+      "R2": 18,
+      "R3": 0,
+      "R4": 0,
+      "R5": 31,
+      "R6": 0,
+      "R7": 0
+    },
+    "R6": {
+      "R1": 0,
+      "R2": 3,
+      "R3": 2,
+      "R4": 22,
+      "R5": 4,
+      "R6": 8,
+      "R7": 10
+    },
+    "R7": {
+      "R1": 0,
+      "R2": 10,
+      "R3": 0,
+      "R4": 14,
+      "R5": 17,
+      "R6": 3,
+      "R7": 5
+    }
+  },
+  "answer_position_counts": {
+    "1": 27,
+    "2": 37,
+    "3": 64,
+    "4": 76,
+    "5": 64,
+    "6": 57,
+    "7": 18
+  },
+  "rotation_consistency": 0.16326530612244897,
+  "mean_correct_rule_probability": 0.2760699110434176,
+  "mean_restricted_answer_nll": 1.5993348961933798,
+  "caution": "Three operands and seven generating rules. Not an exact replication of Roshan: his generation code and exact learning rate are unavailable; differences do not isolate operand count. Test images were previously exposed through exploratory experiments. Sets reuse images within partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning or generalization to unseen logical configurations."
+}

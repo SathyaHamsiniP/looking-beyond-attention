@@ -1,0 +1,255 @@
+{
+  "sets": 49,
+  "evaluations": 343,
+  "accuracy": 0.13994169096209913,
+  "chance": 0.14285714285714285,
+  "improvement_over_chance": -0.002915451895043719,
+  "chance_adjusted_accuracy": -0.003401360544217672,
+  "per_rule": {
+    "R1": 0.12244897959183673,
+    "R2": 0.16326530612244897,
+    "R3": 0.14285714285714285,
+    "R4": 0.24489795918367346,
+    "R5": 0.02040816326530612,
+    "R6": 0.14285714285714285,
+    "R7": 0.14285714285714285
+  },
+  "confusion": {
+    "R1": {
+      "R1": 6,
+      "R2": 7,
+      "R3": 8,
+      "R4": 13,
+      "R5": 0,
+      "R6": 7,
+      "R7": 8
+    },
+    "R2": {
+      "R1": 2,
+      "R2": 8,
+      "R3": 11,
+      "R4": 9,
+      "R5": 2,
+      "R6": 6,
+      "R7": 11
+    },
+    "R3": {
+      "R1": 6,
+      "R2": 8,
+      "R3": 7,
+      "R4": 12,
+      "R5": 2,
+      "R6": 6,
+      "R7": 8
+    },
+    "R4": {
+      "R1": 6,
+      "R2": 6,
+      "R3": 9,
+      "R4": 12,
+      "R5": 2,
+      "R6": 6,
+      "R7": 8
+    },
+    "R5": {
+      "R1": 5,
+      "R2": 8,
+      "R3": 8,
+      "R4": 12,
+      "R5": 1,
+      "R6": 6,
+      "R7": 9
+    },
+    "R6": {
+      "R1": 7,
+      "R2": 7,
+      "R3": 9,
+      "R4": 9,
+      "R5": 3,
+      "R6": 7,
+      "R7": 7
+    },
+    "R7": {
+      "R1": 7,
+      "R2": 7,
+      "R3": 8,
+      "R4": 13,
+      "R5": 0,
+      "R6": 7,
+      "R7": 7
+    }
+  },
+  "answer_position_counts": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 82,
+    "7": 261
+  },
+  "rotation_consistency": 0.0,
+  "mean_correct_rule_probability": 0.1435169686479141,
+  "mean_restricted_answer_nll": 2.312350851504172,
+  "caution": "Three operands and seven generating rules. Not an exact replication of Roshan: his generation code and exact learning rate are unavailable; differences do not isolate operand count. Test images were previously exposed through exploratory experiments. Sets reuse images within partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning or generalization to unseen logical configurations.",
+  "accuracy_95ci_set_cluster": [
+    0.119533527696793,
+    0.16034985422740525
+  ],
+  "uncertainty": "5000 percentile resamples of image sets, seed 2026; accounts for rotations, not images reused across sets",
+  "recovery": "complete saved A3 predictions verified; zero model forwards",
+  "source_manifest_hash": "890f5cd44027a0ee41cb941e4627222325c3336d38ea18d9792ecbdefe141509",
+  "historical_A1_A2": {
+    "3": {
+      "sets": 30,
+      "evaluations": 90,
+      "accuracy": 0.36666666666666664,
+      "chance": 0.3333333333333333,
+      "chance_adjusted_accuracy": 0.04999999999999998,
+      "per_rule_accuracy": {
+        "R1": 0.3333333333333333,
+        "R2": 0.3,
+        "R3": 0.4666666666666666
+      },
+      "confusion_set_equivalents": {
+        "R1": {
+          "R1": 3.333333333333333,
+          "R2": 3.333333333333333,
+          "R3": 3.333333333333333
+        },
+        "R2": {
+          "R1": 3.0,
+          "R2": 3.0,
+          "R3": 4.0
+        },
+        "R3": {
+          "R1": 2.0,
+          "R2": 3.333333333333333,
+          "R3": 4.666666666666666
+        }
+      },
+      "confusion_row_fractions": {
+        "R1": {
+          "R1": 0.3333333333333333,
+          "R2": 0.3333333333333333,
+          "R3": 0.3333333333333333
+        },
+        "R2": {
+          "R1": 0.3,
+          "R2": 0.3,
+          "R3": 0.4
+        },
+        "R3": {
+          "R1": 0.2,
+          "R2": 0.3333333333333333,
+          "R3": 0.4666666666666666
+        }
+      },
+      "answer_position_counts": {
+        "1": 0,
+        "2": 7,
+        "3": 83
+      },
+      "answer_position_fractions": {
+        "1": 0.0,
+        "2": 0.07777777777777778,
+        "3": 0.9222222222222223
+      },
+      "rule_consistent_sets": 0,
+      "rotation_consistency": 0.0,
+      "rotation_consistency_note": "Same predicted rule across every rotation; correctness not required"
+    },
+    "7": {
+      "sets": 30,
+      "evaluations": 210,
+      "accuracy": 0.1476190476190476,
+      "chance": 0.14285714285714285,
+      "chance_adjusted_accuracy": 0.005555555555555536,
+      "per_rule_accuracy": {
+        "R1": 0.14285714285714285,
+        "R2": 0.14285714285714285,
+        "R3": 0.15714285714285714
+      },
+      "confusion_set_equivalents": {
+        "R1": {
+          "R1": 1.4285714285714284,
+          "R2": 1.4285714285714284,
+          "R3": 1.4285714285714284,
+          "R4": 2.571428571428571,
+          "R5": 0.2857142857142857,
+          "R6": 1.4285714285714284,
+          "R7": 1.4285714285714284
+        },
+        "R2": {
+          "R1": 1.0,
+          "R2": 1.4285714285714284,
+          "R3": 1.4285714285714284,
+          "R4": 2.2857142857142856,
+          "R5": 0.5714285714285714,
+          "R6": 1.4285714285714284,
+          "R7": 1.857142857142857
+        },
+        "R3": {
+          "R1": 1.1428571428571428,
+          "R2": 1.5714285714285714,
+          "R3": 1.5714285714285714,
+          "R4": 2.2857142857142856,
+          "R5": 0.42857142857142855,
+          "R6": 1.2857142857142856,
+          "R7": 1.7142857142857142
+        }
+      },
+      "confusion_row_fractions": {
+        "R1": {
+          "R1": 0.14285714285714285,
+          "R2": 0.14285714285714285,
+          "R3": 0.14285714285714285,
+          "R4": 0.2571428571428571,
+          "R5": 0.02857142857142857,
+          "R6": 0.14285714285714285,
+          "R7": 0.14285714285714285
+        },
+        "R2": {
+          "R1": 0.1,
+          "R2": 0.14285714285714285,
+          "R3": 0.14285714285714285,
+          "R4": 0.22857142857142856,
+          "R5": 0.05714285714285714,
+          "R6": 0.14285714285714285,
+          "R7": 0.1857142857142857
+        },
+        "R3": {
+          "R1": 0.11428571428571428,
+          "R2": 0.15714285714285714,
+          "R3": 0.15714285714285714,
+          "R4": 0.22857142857142856,
+          "R5": 0.04285714285714286,
+          "R6": 0.12857142857142856,
+          "R7": 0.17142857142857143
+        }
+      },
+      "answer_position_counts": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 31,
+        "7": 179
+      },
+      "answer_position_fractions": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.14761904761904762,
+        "7": 0.8523809523809524
+      },
+      "rule_consistent_sets": 0,
+      "rotation_consistency": 0.0,
+      "rotation_consistency_note": "Same predicted rule across every rotation; correctness not required"
+    }
+  },
+  "comparison_caution": "A1/A2 are the paired original three generating rules with 3/7 choices. A3 uses seven generating rules and different validation sets; this is not a controlled causal effect of adding generating rules."
+}

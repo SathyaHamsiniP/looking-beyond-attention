@@ -1,0 +1,160 @@
+{
+  "protocol": "seven-generating-rules-qlora-v1",
+  "manifest_hash": "890f5cd44027a0ee41cb941e4627222325c3336d38ea18d9792ecbdefe141509",
+  "model": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "quantization": "4-bit NF4",
+    "double_quantization": true,
+    "compute_dtype": "float16",
+    "attention": "sdpa",
+    "thinking": false,
+    "max_pixels": 100352,
+    "images_per_input": 10,
+    "scoring": "next-token likelihood restricted/normalized over numeric 1-7",
+    "training_objective": "full-vocabulary cross entropy on the single answer token only"
+  },
+  "training": {
+    "rank": 8,
+    "alpha": 16,
+    "dropout": 0.05,
+    "learning_rate": 5e-05,
+    "epochs": 3,
+    "optimizer": "AdamW",
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "microbatch": 1,
+    "gradient_accumulation": 4,
+    "seed": 2026,
+    "initial_gradient_scale": 8.0,
+    "gradient_clip": 1.0,
+    "max_tokens": 16000,
+    "validation": "end of epoch; fixed balanced rotation per set",
+    "checkpoint": "latest at every successful optimizer boundary",
+    "selection": "lowest validation full-vocabulary answer-token loss",
+    "initialization": "fresh pretrained base and default PEFT LoRA initialization, never the old adapter"
+  },
+  "kind": "training",
+  "partition": "validation",
+  "adapter": null,
+  "smoke_test": false,
+  "rules": {
+    "operand_names": [
+      "A",
+      "B",
+      "C"
+    ],
+    "rules": [
+      {
+        "id": "R1",
+        "expression": "(A AND B) OR C",
+        "true_bits": [
+          "001",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R2",
+        "expression": "(A AND C) OR B",
+        "true_bits": [
+          "010",
+          "011",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R3",
+        "expression": "(B AND C) OR A",
+        "true_bits": [
+          "011",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R4",
+        "expression": "(A XOR B) OR C",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "111"
+        ]
+      },
+      {
+        "id": "R5",
+        "expression": "(A XOR C) OR B",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R6",
+        "expression": "(B XOR C) OR A",
+        "true_bits": [
+          "001",
+          "010",
+          "100",
+          "101",
+          "110",
+          "111"
+        ]
+      },
+      {
+        "id": "R7",
+        "expression": "(A OR B OR C) AND NOT(A AND B AND C)",
+        "true_bits": [
+          "001",
+          "010",
+          "011",
+          "100",
+          "101",
+          "110"
+        ]
+      }
+    ]
+  },
+  "prompts": [
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (A AND B) OR C\n2: (A AND C) OR B\n3: (B AND C) OR A\n4: (A XOR B) OR C\n5: (A XOR C) OR B\n6: (B XOR C) OR A\n7: (A OR B OR C) AND NOT(A AND B AND C)\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (A AND C) OR B\n2: (B AND C) OR A\n3: (A XOR B) OR C\n4: (A XOR C) OR B\n5: (B XOR C) OR A\n6: (A OR B OR C) AND NOT(A AND B AND C)\n7: (A AND B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (B AND C) OR A\n2: (A XOR B) OR C\n3: (A XOR C) OR B\n4: (B XOR C) OR A\n5: (A OR B OR C) AND NOT(A AND B AND C)\n6: (A AND B) OR C\n7: (A AND C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (A XOR B) OR C\n2: (A XOR C) OR B\n3: (B XOR C) OR A\n4: (A OR B OR C) AND NOT(A AND B AND C)\n5: (A AND B) OR C\n6: (A AND C) OR B\n7: (B AND C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (A XOR C) OR B\n2: (B XOR C) OR A\n3: (A OR B OR C) AND NOT(A AND B AND C)\n4: (A AND B) OR C\n5: (A AND C) OR B\n6: (B AND C) OR A\n7: (A XOR B) OR C\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (B XOR C) OR A\n2: (A OR B OR C) AND NOT(A AND B AND C)\n3: (A AND B) OR C\n4: (A AND C) OR B\n5: (B AND C) OR A\n6: (A XOR B) OR C\n7: (A XOR C) OR B\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:",
+    "Images 1-10 all satisfy ONE hidden Boolean rule.\n\nA is true when a green cube is present.\nB is true when a blue sphere is present.\nC is true when a red cylinder is present.\nEach concept requires the exact colour and shape.\nOther objects are irrelevant distractors.\n\nCandidate rules:\n1: (A OR B OR C) AND NOT(A AND B AND C)\n2: (A AND B) OR C\n3: (A AND C) OR B\n4: (B AND C) OR A\n5: (A XOR B) OR C\n6: (A XOR C) OR B\n7: (B XOR C) OR A\n\nAND requires both inputs to be true.\nOR requires at least one input to be true, including both.\nXOR requires exactly one input to be true.\nNOT reverses the truth value of its input.\nFollow the parentheses.\n\nPick the rule consistent with every image.\nReply with nothing but its numeric label: 1, 2, 3, 4, 5, 6, 7.\nANSWER:"
+  ],
+  "source_hashes": {
+    "lora_7rules.py": "b7d06b07bec4f17e61de70a77d64e03f020904d86c58b35149807de4ee3e3686",
+    "compare_3_vs_7.py": "528970d2f6f0639cd2775ade1eed9434579aeb2f9bfa4493a95661d447163e01",
+    "pilot_10_vs_20.py": "cd131529ec4a136aa778a04d75acd15a50bf0cb141585c17070597bd23522062",
+    "build_sets.py": "26f0502046d7ee1c6b13f922f4541606fb72920591afddad551c313c71e7b082",
+    "rules_7.json": "003c05b4c09cdb48a962b9f2e6c31fcb4309b8aad293060aa33f0877a14b6d19"
+  },
+  "software": {
+    "torch": "2.14.1+cu130",
+    "transformers": "5.22.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "accelerate": "1.15.0",
+    "pillow": "13.0.0"
+  },
+  "caution": "Three operands and seven generating rules. Not an exact replication of Roshan: his generation code and exact learning rate are unavailable; differences do not isolate operand count. Test images were previously exposed through exploratory experiments. Sets reuse images within partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning or generalization to unseen logical configurations."
+}

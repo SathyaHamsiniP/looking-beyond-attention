@@ -74,6 +74,8 @@ the final answer was wrong. That led to [experiment 02](../02-probing/README.md)
 Good recognition and explicit gate evaluation do not by themselves establish
 successful rule induction.
 
+A later, separate Qwen3.5-4B three-rule benchmark includes a [10-versus-20-image pilot](../../results/01-operator-controls/qwen3.5-4b/ten-vs-twenty-images/summary.json) and a [three-versus-seven-choice comparison](../../results/01-operator-controls/qwen3.5-4b/three-vs-seven-choices/summary.json). These do not replace the 48-image experiment above.
+
 ## Using the 1,000-image dataset
 
 The results above are from the old 48-image dataset. They have not been rerun on the new images.
