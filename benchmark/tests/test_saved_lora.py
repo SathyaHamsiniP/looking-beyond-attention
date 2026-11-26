@@ -25,12 +25,18 @@ class SavedLoRATests(unittest.TestCase):
         self.assertEqual({str(p.relative_to(LORA)) for p in LORA.rglob('*') if p.is_file()},expected)
         for entry in provenance['files']:
             path=LORA/entry['path']
-            self.assertEqual(path.stat().st_size,entry['bytes'])
-            self.assertEqual(seven.file_hash(path),entry['sha256'])
+            published = entry.get('published_copy', entry)
+            self.assertEqual(path.stat().st_size, published['bytes'])
+            self.assertEqual(seven.file_hash(path),published['sha256'])
         for path in LORA.rglob('*'):
             self.assertNotIn(path.suffix,('.npz','.pt','.safetensors','.zip'))
         self.assertEqual(seven.file_hash(ROOT/'operator-controls/predictions.jsonl'),provenance['baseline']['predictions_sha256'])
-        self.assertEqual(seven.file_hash(ROOT/'operator-controls/recovered_config.json'),provenance['baseline']['config_sha256'])
+        controls = ROOT/'operator-controls'
+        receipts = seven.read(controls/'provenance.json')['files']
+        baseline = next(row for row in receipts if row['path'] == 'recovered_config.json')
+        self.assertEqual(baseline['sha256'], provenance['baseline']['config_sha256'])
+        self.assertEqual(seven.file_hash(controls/'recovered_config.json'),
+                         baseline.get('published_copy', baseline)['sha256'])
 
     def test_successful_updates_and_epoch_selection(self):
         losses=seven.read(LORA/'training/losses.json');complete=seven.read(LORA/'training/complete.json')
