@@ -1,5 +1,9 @@
 # 03 — Baseline activation patching
 
+**In brief.** I swapped internal states between examples to see whether Qwen would choose the donor’s rule. The swaps changed answers. Across 3,456 interventions, no layer met the rule-transfer criterion. At the final layer, all 54 final-token swaps copied the donor’s predicted answer, including wrong answers.
+
+[Saved plots, trial data, and notebook](../../results/03-activation_patching/README.md)
+
 ## 1. What are we trying to understand?
 
 Suppose Qwen gives the right answer after seeing ten pictures. Did it work out the rule, spot one useful picture, or favour one answer label? Accuracy alone cannot tell us.

@@ -132,8 +132,7 @@ differently. No results are copied to GitHub. Archived results remain unchanged.
 
 ## Implementation credit
 
-The Qwen3-VL runner reuses Roshan and collaborators' external wrapper and
-next-token readout. Qwen3.5 uses Hugging Face through our maintained adapter.
+The Qwen3-VL runner uses the [upstream wrapper and next-token readout](https://github.com/RoshanYSingh23/looking-beyond-attention). Qwen3.5 uses Hugging Face through our maintained adapter.
 Their preprocessing paths differ, so model comparisons include that limitation.
 The folder cleanup preserves the previous prompts, model settings, calculations,
 images and result-file contents. The old internal version strings in archived

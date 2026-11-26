@@ -4,11 +4,11 @@ We asked whether Qwen could infer a rule from positive visual examples. A green 
 
 ## Can Qwen find the hidden rule?
 
-Small three-rule controls showed that Qwen could recognize objects and evaluate a given expression. When asked to choose the hidden rule, its answer often followed the option position. In the seven-rule task we rotated the options for each of 49 sets. Each of the 49 sets fit exactly one of the seven saved truth tables. Pretrained Qwen3.5-4B scored 48/343, close to the one-in-seven chance rate. The suites used different image sets, so comparing their scores cannot isolate the effect of adding rules. [Three-rule controls](three-operand-experiments/experiments/01-operator-controls/README.md) · [Seven-rule controls](benchmark/experiments/07-seven-rule-operator-controls/README.md)
+Small three-rule controls showed that Qwen could recognize objects and evaluate a given expression. When asked to choose the hidden rule, its answer often followed the option position. In the seven-rule task we rotated the options for each of 49 sets. Each of the 49 sets fit exactly one of the seven saved truth tables. Pretrained Qwen3.5-4B scored 48/343, close to the one-in-seven chance rate. The main suites used different image sets. A separate pilot held the sets fixed and added four answer choices. It tested answer-position bias. The full benchmark generated sets from all seven rules. [Three-rule controls](three-operand-experiments/experiments/01-operator-controls/README.md) · [Seven-rule controls](benchmark/experiments/07-seven-rule-operator-controls/README.md)
 
 ## What can a classifier read from Qwen?
 
-We trained separate classifiers on activity inside the pretrained model. The seven-rule probe used a fixed answer order. Each column below reports correct answers across the same 49 validation sets.
+We trained separate classifiers on activity inside the pretrained model. The seven-rule probe used a fixed answer order. Each column below reports correct answers across the same 49 validation sets. The three-rule probe also found a stronger signal with one selected image than with ten.
 
 | Images per set | Qwen | Final-layer probe | Probe trained with shuffled labels |
 |---:|---:|---:|---:|

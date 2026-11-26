@@ -14,7 +14,7 @@ This saves `images/` and `metadata.json` inside `three-operand-experiments/data-
 
 This script makes 1,000 images with green cubes, blue spheres, red cylinders, and other objects.
 
-It uses the image renderer from [Roshan's repository](https://github.com/RoshanYSingh23/looking-beyond-attention).
+It uses the image renderer from the [upstream project](https://github.com/RoshanYSingh23/looking-beyond-attention).
 
 ## Run on Google Colab
 

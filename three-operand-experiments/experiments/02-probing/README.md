@@ -2,7 +2,7 @@
 
 ## Goal
 
-Check what the model knows after it sees the images.
+Test which visual concepts and rule labels a classifier can read from the model’s internal states.
 
 A **probe** is a small classifier. It reads the model's saved activations (numbers inside the model). It does not change the model.
 

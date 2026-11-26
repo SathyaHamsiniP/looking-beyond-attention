@@ -24,7 +24,7 @@ The strongest lesson so far is that **the model's answer does not tell the whole
 
 The five-image probing condition is especially important to interpret carefully: those images were chosen knowing the correct rule. Also, images repeat across some sets, and most of the seven-rule experiments use validation data rather than an untouched final test. Comparing three-rule and seven-rule scores directly would be misleading because the setups differ.
 
-Find the seven-rule CSVs, figures and run records in the [benchmark results folder](results/README.md). Earlier three-rule results are kept separately in [three-operand-experiments](../three-operand-experiments/results/README.md), without duplicate copies. The newer benchmark code is in this `benchmark/` directory. The CPU test command is below.
+Find the seven-rule CSVs, figures and run records in the [benchmark results folder](results/README.md). Start with the [three-rule experiment index](../three-operand-experiments/README.md) for the earlier work. The newer benchmark code is in this `benchmark/` directory. The CPU test command is below.
 
 Large image sets and model checkpoints are not included in the repository. The full seven-rule probing ZIP retains the frozen feature arrays and their metadata; only compact results belong in Git.
 
