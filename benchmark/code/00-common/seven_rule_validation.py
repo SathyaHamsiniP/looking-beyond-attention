@@ -20,7 +20,9 @@ TRUSTED_INPUT_HELPERS={
     '84a76e09994aacefd68c5dca5b55c850ea078b709bbfaa1dc1a285075ec55c7b',
     'b7d06b07bec4f17e61de70a77d64e03f020904d86c58b35149807de4ee3e3686',
     # Same reviewed input/scoring logic after the directory reorganization.
-    'd264ad46a14c5b436796e560dded6c8294dd9cda1dd0b0dbd76098aea2ed2185'}
+    'd264ad46a14c5b436796e560dded6c8294dd9cda1dd0b0dbd76098aea2ed2185',
+    # Same input and scoring logic after publication wording edits.
+    '88223b2b1e75039dff0ce77bb0260b077900cd12dc2304dddc6169bc71a7b57d'}
 
 
 def local_path(path):

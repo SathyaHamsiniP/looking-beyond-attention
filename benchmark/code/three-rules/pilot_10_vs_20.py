@@ -156,7 +156,7 @@ def main():
     p.add_argument("--data-dir", type=Path, required=True)
     p.add_argument("--rules", type=Path, default=source_path("rules.json"))
     p.add_argument("--out", type=Path, required=True,
-                   help="Output directory, ideally")
+                   help="Output directory")
     p.add_argument("--max-pixels", type=int, default=128 * 28 * 28)
     p.add_argument("--validate-only", action="store_true")
     p.add_argument("--smoke-test", action="store_true",
