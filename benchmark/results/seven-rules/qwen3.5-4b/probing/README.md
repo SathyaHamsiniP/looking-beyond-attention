@@ -2,7 +2,7 @@
 
 These are the results of [experiment 09](../../../../experiments/09-seven-rule-probing/README.md): can a small classifier read the correct rule from Qwen's internal activity, even when Qwen's own answer is wrong?
 
-**The run is complete.** We extracted the saved activity from all 32 layers of pretrained Qwen3.5-4B, then trained and evaluated separate probes on the seven-rule dataset. The original results came from the IITM Drive archive `09-seven-rule-probing.zip` (11 November 2026). The ZIP's integrity check passed, and all 588 feature files matched their saved SHA-256 checksums.
+**The run is complete.** We extracted the saved activity from all 32 layers of pretrained Qwen3.5-4B, then trained and evaluated separate probes on the seven-rule dataset. The original results came from the source archive `09-seven-rule-probing.zip` (11 November 2026). The ZIP's integrity check passed, and all 588 feature files matched their saved SHA-256 checksums.
 
 ## What we found
 
@@ -26,7 +26,7 @@ The model's internal information appears more useful for identifying rules than 
 
 ## Files
 
-The complete IITM Drive ZIP preserves all 588 `features.npz` arrays with their matching `metadata.json` files. These large intermediate arrays are **not part of the compact GitHub results**. The files listed below are the original compact results selected for GitHub:
+The complete source archive preserves all 588 `features.npz` arrays with their matching `metadata.json` files. These large intermediate arrays are **not part of the compact GitHub results**. The files listed below are the original compact results selected for GitHub:
 
 - [Layer accuracy](probes/layer_accuracy.csv) — accuracy at each of the 32 layers
 - [Individual probe predictions](probes/probe_predictions.csv) — predictions for each validation set

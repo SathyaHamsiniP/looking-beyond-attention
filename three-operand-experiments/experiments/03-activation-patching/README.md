@@ -285,7 +285,7 @@ For reference, the completed run's command uses these flags. Do not launch it ag
 ```bash
 python three-operand-experiments/code/03-activation-patching/patch_activations_qwen35.py \
   --data-dir /path/to/data-1000 \
-  --experiment-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results' \
+  --experiment-dir '/path/to/three-operand-experiments/results' \
   --pairs-per-rule 2 --rotations 3 --previous-token-control
 ```
 

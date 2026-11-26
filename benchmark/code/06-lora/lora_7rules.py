@@ -1,6 +1,6 @@
 """Seven generating rules, ten images, frozen pretrained versus QLoRA Qwen.
 
-All artifacts go under a new --out directory (normally Google Drive). No imports
+All artifacts go under a new --out directory. No imports
 from historical branches; shared inference comes from compare_3_vs_7. Default
 readout is validation only. final-test explicitly freezes selection first.
 """
@@ -44,8 +44,8 @@ TRAIN = dict(rank=8, alpha=16, dropout=.05, learning_rate=5e-5, epochs=3,
     checkpoint='latest at every successful optimizer boundary',
     selection='lowest validation full-vocabulary answer-token loss',
     initialization='fresh pretrained base and default PEFT LoRA initialization, never the old adapter')
-CAUTION = ('Three operands and seven generating rules. Not an exact replication of Roshan: '
-    'his generation code and exact learning rate are unavailable; differences do not isolate operand count. '
+CAUTION = ('Three operands and seven generating rules. The two- and three-operand setups differ. '
+    'These comparisons do not isolate operand count. '
     'Test images were previously exposed through exploratory experiments. Sets reuse images within '
     'partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. '
     'Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning '
@@ -714,7 +714,7 @@ def main():
     a=p.parse_args()
     repository=REPO
     if a.out.resolve()==repository or repository in a.out.resolve().parents:
-        p.error('Generated manifests/results belong outside Git, normally on Google Drive')
+        p.error('Generated manifests/results belong outside Git')
     if a.out.resolve()==a.data_dir.resolve() or a.data_dir.resolve() in a.out.resolve().parents:
         p.error('Output must be outside the source dataset')
     if a.action=='build':

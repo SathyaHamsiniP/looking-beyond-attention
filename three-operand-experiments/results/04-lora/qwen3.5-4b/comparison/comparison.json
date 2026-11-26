@@ -88,7 +88,7 @@
   "accuracy_difference": 0.011111111111111072,
   "changed": 28,
   "sources": [
-    "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/pretrained/f5eba3974733a1ea",
-    "/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results/04-simple-lora/finetuned-validation-amp8/e09db6ba9e7dff5f"
+    "/path/to/three-operand-experiments/results/04-simple-lora/pretrained/f5eba3974733a1ea",
+    "/path/to/three-operand-experiments/results/04-simple-lora/finetuned-validation-amp8/e09db6ba9e7dff5f"
   ]
 }

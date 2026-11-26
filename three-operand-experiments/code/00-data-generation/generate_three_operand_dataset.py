@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Render a balanced CLEVR-style Boolean scene dataset with Roshan's renderer.
+"""Render a balanced CLEVR-style Boolean scene dataset with the upstream renderer.
 
 The renderer is an external dependency: pass the directory that contains
 code/clevr_logic (or clevr_logic itself as a sibling directory).
 
 Example:
     python generate_three_operand_dataset.py \
-      --renderer-root /content/roshan/looking-beyond-attention-main \
-      --output-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data-1000' \
+      --renderer-root /path/to/upstream-checkout \
+      --output-dir '/path/to/three-operand-experiments/data-1000' \
       --num-images 1000 --seed 42
 
 Existing output images are checked and reused so interrupted Colab runs can resume.

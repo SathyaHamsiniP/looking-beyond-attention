@@ -75,7 +75,7 @@ New results save in separate `dataset-v1/` folders. The old 48-image results are
 
 ## Run on Colab
 
-Use a GPU. Mount Google Drive. Clone this repository if needed:
+Use a GPU. Pass an existing results directory. Clone this repository if needed:
 
 ```bash
 git clone https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
@@ -85,8 +85,8 @@ cd /content/looking-beyond-attention
 The commands below use:
 
 ```bash
-export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data'
-export RESULTS='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results'
+export DATA='/path/to/three-operand-experiments/data'
+export RESULTS='/path/to/three-operand-experiments/results'
 ```
 
 **Qwen3.5-4B** (use a fresh Colab session):
@@ -99,11 +99,11 @@ python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3_5 
 
 **Qwen3-VL-4B** (use a different fresh session):
 
-First clone [Roshan's reference code](https://github.com/RoshanYSingh23/looking-beyond-attention) to `/content/roshan/looking-beyond-attention-main`.
+Set `UP` to your local checkout of the upstream Qwen3-VL wrapper.
 
 ```bash
 pip install -r three-operand-experiments/code/requirements-qwen3vl.txt matplotlib
-export UP='/content/roshan/looking-beyond-attention-main'
+export UP='/path/to/upstream-checkout'
 python three-operand-experiments/code/02-probing/probe_concepts.py --model qwen3 --upstream "$UP" --data-dir "$DATA" --experiment-dir "$RESULTS" --precision 4bit
 python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3 --upstream "$UP" --data-dir "$DATA" --experiment-dir "$RESULTS" --precision 4bit
 ```
@@ -112,7 +112,7 @@ Before a full run, you can add `--validate-only` to check the data or `--smoke-t
 
 ## Saved files
 
-Results go to Google Drive, under `results/probing/<model>/concept/` or `results/probing/<model>/rule/`.
+Results are written under `results/probing/<model>/concept/` or `results/probing/<model>/rule/`.
 
 - `.npz`: saved activations.
 - `.csv`: predictions and layer scores.

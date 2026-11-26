@@ -366,7 +366,7 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--data-dir", type=Path, required=True,
                         help="data-1000 directory with metadata.json and images/")
     parser.add_argument("--experiment-dir", type=Path, default=DEFAULT_RESULTS_ROOT,
-                        help="Existing Google Drive results folder")
+                        help="Existing results directory")
     parser.add_argument("--precision", choices=("4bit", "fp16", "bf16", "fp32"),
                         default="4bit")
     parser.add_argument("--pairs-per-rule", type=int, default=2, choices=range(1, 6),

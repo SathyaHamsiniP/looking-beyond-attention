@@ -5,9 +5,9 @@ Run commands from the repository root. The folders follow the experiment numbers
 - `00-common/`: dataset builder, rule definitions, shared validation and pinned requirements.
 - `three-rules/`: earlier controls and probing, the shared Qwen model loader in `pilot_10_vs_20.py`, and the separate LoRA scaling runner.
 - `06-lora/`, `07-operator-controls/`, `08-activation-patching/`, `09-probing/`: seven-rule runners.
-- `tools/`: School Drive uploads, result imports and checkpoint backups.
+- `tools/`: Optional archive uploads, result imports and checkpoint backups.
 
-There is one copy of each helper. `00-common/benchmark_paths.py` locates these folders so direct script commands and notebook imports use the same modules. Outputs belong outside the repository, normally under `/content`. Research descriptions remain in [experiments](../experiments/). Seven-rule measurements are indexed in [benchmark/results](../results/README.md); earlier three-rule measurements are indexed in [three-operand-experiments/results](../../three-operand-experiments/results/README.md).
+There is one copy of each helper. `00-common/benchmark_paths.py` locates these folders so direct script commands and notebook imports use the same modules. Outputs belong outside the repository under `/content`. Research descriptions remain in [experiments](../experiments/). Seven-rule measurements are indexed in [benchmark/results](../results/README.md); earlier three-rule measurements are indexed in [three-operand-experiments/results](../../three-operand-experiments/results/README.md).
 
 ## Earlier saved runs
 

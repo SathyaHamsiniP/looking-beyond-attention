@@ -23,7 +23,12 @@
     {
       "path": "comparison/comparison.json",
       "bytes": 2086,
-      "sha256": "ddaf66f2b5dff2aae03d9b32a9c8254c73f541d553a7743a777e61ea3ed145a1"
+      "sha256": "ddaf66f2b5dff2aae03d9b32a9c8254c73f541d553a7743a777e61ea3ed145a1",
+      "published_copy": {
+        "bytes": 1986,
+        "sha256": "97a97134ab5c5e7c53f4764625bd02cfa8181f8cc726c8dce0d4d9af45eeee23",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "comparison/matched_predictions.csv",
@@ -93,7 +98,12 @@
     {
       "path": "training/config.json",
       "bytes": 15184,
-      "sha256": "84d1765cdb96d75a73c568012b9a3e3102e20cb574e3413325c3e785831e2fcb"
+      "sha256": "84d1765cdb96d75a73c568012b9a3e3102e20cb574e3413325c3e785831e2fcb",
+      "published_copy": {
+        "bytes": 15084,
+        "sha256": "f39e446ccf18ea079cd24ae5430e85dd7ce49dc32f1a0078a4b5e9c96ef3e3eb",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "training/losses.jsonl",
@@ -103,7 +113,12 @@
     {
       "path": "training/selection.json",
       "bytes": 295,
-      "sha256": "974637373216fdd53a30374902f945bf6a5aa2c016e0f4ad9c39ab5bf220b4f2"
+      "sha256": "974637373216fdd53a30374902f945bf6a5aa2c016e0f4ad9c39ab5bf220b4f2",
+      "published_copy": {
+        "bytes": 245,
+        "sha256": "08bb637083978b3bd8df6bf82dce87302180fd41756d65de42012afb5d4605cf",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     }
   ],
   "policy": "Copied byte-for-byte, originals unchanged. No datasets, adapters, activation arrays or optimizer states imported."

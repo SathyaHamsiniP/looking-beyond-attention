@@ -1,9 +1,7 @@
-"""Shared output location for Colab experiments. Outputs stay on Drive."""
+"""Shared output location for three-operand experiments."""
 from pathlib import Path
 
-DEFAULT_RESULTS_ROOT = Path(
-    '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results'
-)
+DEFAULT_RESULTS_ROOT = Path.home() / 'looking-beyond-attention-results'
 
 
 def require_results_root(path):
@@ -11,7 +9,7 @@ def require_results_root(path):
     if not root.is_dir():
         raise SystemExit(
             f'Results root does not exist: {root}\n'
-            'Mount Google Drive and pass its actual existing results path with '
+            'Pass an existing results directory with '
             '--experiment-dir. No results root was created.'
         )
     return root

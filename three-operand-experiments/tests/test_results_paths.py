@@ -40,12 +40,12 @@ class ResultsPathsTests(unittest.TestCase):
                     result = subprocess.run([sys.executable, str(CODE / script), *extra,
                                              '--experiment-dir', str(missing)], capture_output=True, text=True)
                     self.assertNotEqual(result.returncode, 0)
-                    self.assertIn('Mount Google Drive', result.stderr)
+                    self.assertIn('Pass an existing results directory', result.stderr)
                     self.assertIn('--experiment-dir', result.stderr)
                     self.assertFalse(missing.parent.exists())
 
     def test_default_root(self):
-        self.assertEqual(str(DEFAULT_RESULTS_ROOT), '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results')
+        self.assertEqual(DEFAULT_RESULTS_ROOT, Path.home() / 'looking-beyond-attention-results')
 
 
 if __name__ == '__main__':

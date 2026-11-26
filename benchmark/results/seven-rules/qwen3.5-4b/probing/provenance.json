@@ -1,5 +1,5 @@
 {
-  "source_url": "private Google Drive archive (URL withheld)",
+  "source_url": "Restricted source archive",
   "source_folder": "/tmp/probing-compact-import/seven-rule-probing",
   "rule_count": 7,
   "model": "Qwen/Qwen3.5-4B",
@@ -8,7 +8,7 @@
     "Compact ZIP SHA-256 matches the user-supplied checksum; all ZIP members passed CRC checks.",
     "Exactly 14 requested original result files copied byte-for-byte, with per-file SHA-256 receipts.",
     "No experiments, metric analysis or plot generation performed.",
-    "Full archive and its 588 feature arrays remain at the original IITM Drive URL; the full archive was not downloaded or reverified in this compact import."
+    "Full archive and its 588 feature arrays remain in the source archive; the full archive was not downloaded or reverified in this compact import."
   ],
   "files": [
     {

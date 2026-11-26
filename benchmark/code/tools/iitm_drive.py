@@ -1,4 +1,4 @@
-"""Verified IITM Drive destination; compact results only, no fallback accounts.
+"""Verified backup destination; compact results only, no fallback accounts.
 
 OAuth credentials stay in Colab's credential store. Uploads use resumable updates
 of stable file IDs; interrupted transfers restart that file without duplicates.

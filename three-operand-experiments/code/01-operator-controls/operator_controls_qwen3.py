@@ -141,7 +141,7 @@ ANSWER:"""
 
 def score_trial(scene, mapping, display, modality='images'):
     paths,prompt = build_input(scene,mapping,display,modality)
-    raw = option_probs(vlm,paths,prompt,TOKEN_IDS)  # original Roshan readout
+    raw = option_probs(vlm,paths,prompt,TOKEN_IDS)  # upstream readout
     probs = {label:float(raw[label]) for label in LABELS}
     s = sum(probs.values())
     assert s > 0 and all(math.isfinite(x) and x>=0 for x in probs.values()), probs
@@ -284,7 +284,7 @@ def run_experiment(name='main_72', sampling='coverage', control='cyclic',
     plan=list(layouts(control))
     config={'version':'exp8-three-operand-v1','model':MODEL_ID,'data_hash':DATA_HASH,
             'sampling':sampling,'control':control,'modality':modality,'sets_per_rule':n_sets,
-            'images_per_set':n_images,'seed':seed,'readout':'Roshan option_probs X/Y/Z',
+            'images_per_set':n_images,'seed':seed,'readout':'Upstream option_probs X/Y/Z',
             'expressions':EXPRESSIONS,'labels':list(LABELS),'token_ids':dict(TOKEN_IDS)}
     jobs=[]
     for rule in RULES:
@@ -478,7 +478,7 @@ EXPERIMENTS = (
 
 
 def resolve_upstream_code(upstream: Path) -> Path:
-    """Return a checkout's `code/` directory containing Roshan's loader.
+    """Return a checkout's `code/` directory containing the upstream loader.
 
     Accept the upstream repository root, its `code/` directory, or the parent
     of an extracted `looking-beyond-attention-main/` checkout.
@@ -542,7 +542,7 @@ def verify_sampling() -> None:
 
 def load_upstream_model(code_dir: Path, model_id: str, precision: str,
                         device: str, max_pixels: int) -> None:
-    """Use Roshan's *original* Qwen3-VL wrapper and next-token readout."""
+    """Use the upstream Qwen3-VL wrapper and next-token readout."""
     global vlm, MODEL_ID, TOKEN_IDS, option_probs
     import torch
     if precision == '4bit' and not torch.cuda.is_available():
@@ -613,7 +613,7 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument('--experiment-dir', type=Path, default=DEFAULT_RESULTS_ROOT,
                         help='Existing Drive results root; operator-controls/<model> is appended')
     parser.add_argument('--upstream', type=Path,
-                        help="Path to Roshan's repository root, its code/ directory, or its ZIP archive")
+                        help="Path to the upstream repository root, its code/ directory, or its ZIP archive")
     parser.add_argument('--experiment', choices=EXPERIMENTS, default='main_72',
                         help='Run exactly one experiment; no others are triggered')
     parser.add_argument('--validate-only', action='store_true',
@@ -622,7 +622,7 @@ def make_parser() -> argparse.ArgumentParser:
                         help='Run one image-trial inference only; do not save results')
     parser.add_argument('--model', default=MODEL_ID, help='Hugging Face model ID')
     parser.add_argument('--precision', choices=('4bit', 'fp16', 'bf16', 'fp32'), default='4bit')
-    parser.add_argument('--device', default='auto', help="Passed to Roshan's load_model")
+    parser.add_argument('--device', default='auto', help="Passed to the upstream load_model")
     parser.add_argument('--max-pixels', type=int, default=384 * 28 * 28,
                         help='Maximum image pixels as used in the notebook')
     return parser
@@ -639,7 +639,7 @@ def main(argv: list[str] | None = None) -> int:
         print('CPU-only validation passed; no GPU or model inference was used.')
         return 0
     if args.upstream is None:
-        raise SystemExit('Missing --upstream PATH_TO_ROSHAN_REPOSITORY (see README).')
+        raise SystemExit('Missing --upstream PATH_TO_UPSTREAM_CHECKOUT (see README).')
     # Accept a checkout or a ZIP of the upstream repository. Extraction uses a
     # short-lived directory; no upstream code is redistributed with our script.
     with tempfile.TemporaryDirectory(prefix='operator_controls_upstream_') as tmp:

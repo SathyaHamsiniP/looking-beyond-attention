@@ -28,7 +28,12 @@
       "path": "training/config.json",
       "bytes": 9682,
       "sha256": "6731fc6a9aa97e7e1a066a541f6dde38a580653c8be9e2882d4f64827c25f6fb",
-      "archive_member": "answer_tokens.zip!config.json"
+      "archive_member": "answer_tokens.zip!config.json",
+      "published_copy": {
+        "bytes": 9633,
+        "sha256": "d1f95ee33b8eb04e5747cc26bd908fe14da92f4e419abaf8a5b5bcde154eeaed",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "training/losses.json",
@@ -70,13 +75,23 @@
       "path": "finetuned-validation/config.json",
       "bytes": 9970,
       "sha256": "8e6e0836039ef4bf0ed4c171af1be7d0d7a6b7eac74210768cc5dae4ebc0d3ea",
-      "archive_member": "evaluations/finetuned/validation/config.json"
+      "archive_member": "evaluations/finetuned/validation/config.json",
+      "published_copy": {
+        "bytes": 9921,
+        "sha256": "fc598cb5e1ec58ce2c9d0a8cb3d6da899fdbc177f83931372efab6e83d065857",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "finetuned-validation/metrics.json",
       "bytes": 2161,
       "sha256": "014b5bb10c68dcd11d9891742df48502aaecf867ac9d9352a599350c44c5dd48",
-      "archive_member": "evaluations/finetuned/validation/metrics.json"
+      "archive_member": "evaluations/finetuned/validation/metrics.json",
+      "published_copy": {
+        "bytes": 2112,
+        "sha256": "32332351f7034ba6e7998b3052f355f9154d087d00944a687c23a337d5337f40",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "finetuned-validation/predictions.jsonl",
@@ -88,7 +103,12 @@
       "path": "comparison/summary.json",
       "bytes": 5334,
       "sha256": "5349f13366413b405d72e7221601c83562f63ca778e5a38ff813224b054e7681",
-      "archive_member": "comparison/validation/summary.json"
+      "archive_member": "comparison/validation/summary.json",
+      "published_copy": {
+        "bytes": 5187,
+        "sha256": "b1cb99733949352cc8daa9b2d26b0985d6ec189bc14383d0726e992ef1b291c2",
+        "note": "Redacted attribution or private storage references. Original checksum recorded above."
+      }
     },
     {
       "path": "comparison/loss_curves.png",

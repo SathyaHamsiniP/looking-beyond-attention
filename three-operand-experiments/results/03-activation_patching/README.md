@@ -6,7 +6,7 @@ Read the [Experiment 03 guide](../../experiments/03-activation-patching/README.m
 
 The [analysis script](../../code/03-activation-patching/analyze_baseline.py) reads the original results without loading Qwen. The uploaded ZIP contained the completed run and a separate smoke test. Only the completed `pairs2_rot3_prev1` run is analysed here.
 
-- [raw/](raw/): byte-for-byte copies of the five original files. Google Drive was not modified.
+- [raw/](raw/): byte-for-byte copies of the five original files.
 - [derived/analysis.md](derived/analysis.md): findings and limitations checked against the raw CSV.
 - [derived/](derived/): input manifest, metrics, plots, examples, provenance.
 - [Benchmark import audit](benchmark-import-provenance.json): checksums for identical measurements formerly duplicated in the three-rule benchmark folder.

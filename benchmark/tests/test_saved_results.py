@@ -23,8 +23,9 @@ class SavedResultTests(unittest.TestCase):
         for provenance in receipts:
             for entry in seven.read(provenance)['files']:
                 path=provenance.parent/entry['path']
-                self.assertEqual(path.stat().st_size,entry['bytes'],str(path))
-                self.assertEqual(seven.file_hash(path),entry['sha256'],str(path))
+                published = entry.get('published_copy', entry)
+                self.assertEqual(path.stat().st_size, published['bytes'], str(path))
+                self.assertEqual(seven.file_hash(path),published['sha256'],str(path))
         self.assertFalse(any(p.suffix in ('.npz','.pt','.safetensors') for p in ROOT.rglob('*')))
 
     def test_seven_rule_controls_and_every_patching_effect(self):

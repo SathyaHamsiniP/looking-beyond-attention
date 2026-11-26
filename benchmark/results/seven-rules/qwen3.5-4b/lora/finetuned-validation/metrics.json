@@ -91,5 +91,5 @@
   "rotation_consistency": 0.16326530612244897,
   "mean_correct_rule_probability": 0.2760699110434176,
   "mean_restricted_answer_nll": 1.5993348961933798,
-  "caution": "Three operands and seven generating rules. Not an exact replication of Roshan: his generation code and exact learning rate are unavailable; differences do not isolate operand count. Test images were previously exposed through exploratory experiments. Sets reuse images within partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning or generalization to unseen logical configurations."
+  "caution": "Three operands and seven generating rules. The two- and three-operand setups differ. These comparisons do not isolate operand count. Test images were previously exposed through exploratory experiments. Sets reuse images within partitions and rotations repeat the same sets, so neither trials nor sets are fully independent. Positive-only diagnostic shortcuts are possible; better classification does not prove Boolean reasoning or generalization to unseen logical configurations."
 }
