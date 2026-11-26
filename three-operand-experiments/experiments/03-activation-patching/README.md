@@ -2,7 +2,7 @@
 
 **In brief.** I swapped internal states between examples to see whether Qwen would choose the donor’s rule. The swaps changed answers. Across 3,456 interventions, no layer met the rule-transfer criterion. At the final layer, all 54 final-token swaps copied the donor’s predicted answer, including wrong answers.
 
-[Saved plots, trial data, and notebook](../../results/03-activation_patching/README.md)
+[Saved plots and trial data](../../results/03-activation_patching/README.md)
 
 ## 1. What are we trying to understand?
 
@@ -259,7 +259,7 @@ Each curve shows the fraction of final-token trials where the answer changes. Th
 
 This graph ignores the sign of each donor-rule change before averaging. Similar-sized effects occur in both conditions; size alone does not establish a rule-specific effect.
 
-See the [analysis folder](../../results/03-activation_patching/README.md) for original files, the remaining graphs, exact values and a CPU notebook.
+See the [analysis folder](../../results/03-activation_patching/README.md) for original files, the remaining graphs, and exact values.
 
 ## 12. What can and cannot be concluded?
 
@@ -290,12 +290,6 @@ python three-operand-experiments/code/03-activation-patching/patch_activations_q
 ```
 
 It requires a compatible GPU environment and the dependencies in `code/requirements-qwen35.txt`. The runner checks its configuration before resuming and skips saved trial keys. The smaller `--smoke-test` uses two pairs and first/last layers in a separate folder. No model run was launched for this documentation or analysis work.
-
-### Open the results notebook
-
-Open [explore_baseline.ipynb](../../results/03-activation_patching/explore_baseline.ipynb) in Jupyter or Colab. Run its cells in order. Edit four values to choose a pair, answer rotation, layer and token position. It shows the saved answers and labels each probability as saved, reconstructed or unavailable. It uses pandas, matplotlib and Pillow. It does not need Qwen, PyTorch, Transformers, a GPU or a Drive login.
-
-After cloning, start Jupyter in the repository and open the notebook. In Colab, clone this feature branch into the runtime and open the notebook from that checkout. Run from the checkout root or the notebook folder; paths are found automatically. The notebook never downloads data or asks for authentication. To see images, download dataset-v1 from the GitHub Release and put it in `three-operand-experiments/data-1000/`. Numbers and plots still work without images.
 
 ### Reading the layer-wise results: what actually shifts?
 
