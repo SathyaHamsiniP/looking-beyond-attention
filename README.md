@@ -2,6 +2,8 @@
 
 Can Qwen infer a Boolean rule from several pictures? Imagine that every picture contains a red cylinder or both a green cube and a blue sphere. Can the model figure out the shared rule?
 
+In small three-rule controls, Qwen recognized the objects and did well at evaluating given expressions. It scored near chance when asked to infer the hidden rule.
+
 ## What I did
 
 I designed the three-operand task and built evaluations with three and seven candidate rules. Both benchmarks use the same three visual concepts. I tested whether Qwen followed the images or the answer order. I also trained probes, swapped internal states, and tested LoRA fine-tuning.
@@ -19,6 +21,8 @@ I designed the three-operand task and built evaluations with three and seven can
 ![Accuracy and answer positions before and after LoRA](docs/lora-validation.png)
 
 The LoRA comparison used 49 image sets, each shown in seven answer orders. After training, the model used all seven answer positions. Gains varied by rule. These sets also helped select the checkpoint, so performance on fresh scenes is still open.
+
+**Verify the main result.** [Pretrained predictions](benchmark/results/seven-rules/qwen3.5-4b/operator-controls/predictions.jsonl) · [LoRA predictions](benchmark/results/seven-rules/qwen3.5-4b/lora/finetuned-validation/predictions.jsonl) · [Script to rebuild the plot](docs/plot_lora.py)
 
 <details>
 <summary>See the answer-bias and probing plots</summary>
