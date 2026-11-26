@@ -1,0 +1,100 @@
+{
+  "splits": {
+    "train": {
+      "sets": 147,
+      "unique_source_images": 621,
+      "reused_images": 424
+    },
+    "validation": {
+      "sets": 49,
+      "unique_source_images": 88,
+      "reused_images": 87
+    }
+  },
+  "minimum_configurations": {
+    "R1": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "001",
+        "011",
+        "101",
+        "110",
+        "111"
+      ]
+    },
+    "R2": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "010",
+        "011",
+        "101",
+        "110",
+        "111"
+      ]
+    },
+    "R3": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "011",
+        "100",
+        "101",
+        "110",
+        "111"
+      ]
+    },
+    "R4": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "001",
+        "010",
+        "011",
+        "101",
+        "111"
+      ]
+    },
+    "R5": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "001",
+        "010",
+        "011",
+        "110",
+        "111"
+      ]
+    },
+    "R6": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "001",
+        "010",
+        "101",
+        "110",
+        "111"
+      ]
+    },
+    "R7": {
+      "minimum_distinct_configurations": 5,
+      "witness": [
+        "001",
+        "010",
+        "011",
+        "101",
+        "110"
+      ]
+    }
+  },
+  "full_extraction_forwards": 588,
+  "smoke_forwards": 3,
+  "conditions": [
+    1,
+    5,
+    10
+  ],
+  "rotation": 0,
+  "methodology": "One image is an ambiguous generating-label control. Five-image selection uses oracle knowledge of the true rule and truth tables. Not the older three-rule uniquely diagnostic one-image protocol. Test examples are excluded.",
+  "status": "CPU-only validation of actual saved inputs; no probing inference or fitted scores",
+  "source_manifest_sha256": "12145ccccf229e586917a962307cba16757a7595137a6c466e68a2b40eec92fa",
+  "selected_five_image_subsets_verified": 196,
+  "original_ten_image_sets_modified": false,
+  "test_images_opened": false
+}

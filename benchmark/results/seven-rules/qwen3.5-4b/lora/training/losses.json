@@ -1,0 +1,4689 @@
+[
+  {
+    "update": 1,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0014",
+      "train_R6_0014",
+      "train_R7_0009",
+      "train_R7_0017"
+    ],
+    "examples": 4,
+    "training_loss": 3.6712931394577026,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 228.66590881347656,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 1,
+    "attempted_scales": [
+      8.0,
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": false,
+        "finite_gradients": false,
+        "gradient_norm_before_clipping": null,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 0,
+        "gradient_scale_before": 8.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 63512,
+        "nonfinite_gradient_parameter_names": [
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_qkv.lora_A.default.weight",
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_qkv.lora_B.default.weight",
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_b.lora_A.default.weight",
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_b.lora_B.default.weight",
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_a.lora_A.default.weight",
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_a.lora_B.default.weight"
+        ],
+        "nonfinite_gradient_counts_by_parameter": {
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_qkv.lora_A.default.weight": 20480,
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_qkv.lora_B.default.weight": 2056,
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_b.lora_A.default.weight": 20480,
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_b.lora_B.default.weight": 8,
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_a.lora_A.default.weight": 20480,
+          "base_model.model.model.language_model.layers.0.linear_attn.in_proj_a.lora_B.default.weight": 8
+        }
+      },
+      {
+        "attempt": 1,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 228.66590881347656,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 8
+  },
+  {
+    "update": 2,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0009",
+      "train_R3_0013",
+      "train_R3_0007",
+      "train_R5_0003"
+    ],
+    "examples": 4,
+    "training_loss": 2.087958976626396,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 34.71470642089844,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 34.71470642089844,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 3,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0001",
+      "train_R5_0002",
+      "train_R4_0012",
+      "train_R1_0007"
+    ],
+    "examples": 4,
+    "training_loss": 2.0605419874191284,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 19.453088760375977,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 19.453088760375977,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 4,
+    "epoch": 1,
+    "set_ids": [
+      "train_R1_0004",
+      "train_R2_0003",
+      "train_R7_0016",
+      "train_R4_0016"
+    ],
+    "examples": 4,
+    "training_loss": 2.0093760788440704,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 11.587925910949707,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 11.587925910949707,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 5,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0001",
+      "train_R1_0005",
+      "train_R5_0015",
+      "train_R1_0008"
+    ],
+    "examples": 4,
+    "training_loss": 1.9505235850811005,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 9.180445671081543,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 9.180445671081543,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 6,
+    "epoch": 1,
+    "set_ids": [
+      "train_R5_0020",
+      "train_R6_0004",
+      "train_R4_0014",
+      "train_R5_0016"
+    ],
+    "examples": 4,
+    "training_loss": 2.0252284109592438,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.354227066040039,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.354227066040039,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 7,
+    "epoch": 1,
+    "set_ids": [
+      "train_R1_0010",
+      "train_R3_0010",
+      "train_R1_0001",
+      "train_R2_0000"
+    ],
+    "examples": 4,
+    "training_loss": 1.875361055135727,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.365347385406494,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.365347385406494,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 8,
+    "epoch": 1,
+    "set_ids": [
+      "train_R5_0001",
+      "train_R7_0012",
+      "train_R6_0015",
+      "train_R2_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.952238529920578,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 6.034471035003662,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 6.034471035003662,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 9,
+    "epoch": 1,
+    "set_ids": [
+      "train_R5_0018",
+      "train_R6_0005",
+      "train_R5_0000",
+      "train_R5_0014"
+    ],
+    "examples": 4,
+    "training_loss": 2.009648412466049,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 6.070279598236084,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 6.070279598236084,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 10,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0002",
+      "train_R2_0010",
+      "train_R4_0020",
+      "train_R6_0012"
+    ],
+    "examples": 4,
+    "training_loss": 2.0382223427295685,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.5683088302612305,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.5683088302612305,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 11,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0017",
+      "train_R6_0011",
+      "train_R7_0004",
+      "train_R7_0010"
+    ],
+    "examples": 4,
+    "training_loss": 2.0586574375629425,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 9.826650619506836,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 9.826650619506836,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 12,
+    "epoch": 1,
+    "set_ids": [
+      "train_R1_0017",
+      "train_R6_0006",
+      "train_R1_0012",
+      "train_R2_0006"
+    ],
+    "examples": 4,
+    "training_loss": 2.0189135670661926,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.237193584442139,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.237193584442139,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 13,
+    "epoch": 1,
+    "set_ids": [
+      "train_R7_0015",
+      "train_R7_0020",
+      "train_R6_0019",
+      "train_R7_0003"
+    ],
+    "examples": 4,
+    "training_loss": 2.1334995329380035,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.693103790283203,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.693103790283203,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 14,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0020",
+      "train_R5_0010",
+      "train_R5_0004",
+      "train_R1_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.834080994129181,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.0969834327697754,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.0969834327697754,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 15,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0000",
+      "train_R7_0006",
+      "train_R2_0014",
+      "train_R5_0009"
+    ],
+    "examples": 4,
+    "training_loss": 2.101206123828888,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.6267194747924805,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.6267194747924805,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 16,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0013",
+      "train_R5_0013",
+      "train_R6_0017",
+      "train_R4_0006"
+    ],
+    "examples": 4,
+    "training_loss": 1.764035314321518,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.800844192504883,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.800844192504883,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 17,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0003",
+      "train_R1_0015",
+      "train_R2_0008",
+      "train_R7_0018"
+    ],
+    "examples": 4,
+    "training_loss": 2.046535402536392,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.229717254638672,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.229717254638672,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 18,
+    "epoch": 1,
+    "set_ids": [
+      "train_R7_0014",
+      "train_R3_0018",
+      "train_R5_0005",
+      "train_R1_0013"
+    ],
+    "examples": 4,
+    "training_loss": 1.9360365867614746,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.523094177246094,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.523094177246094,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 19,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0015",
+      "train_R1_0006",
+      "train_R1_0016",
+      "train_R7_0008"
+    ],
+    "examples": 4,
+    "training_loss": 2.144743025302887,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.519269943237305,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.519269943237305,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 20,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0016",
+      "train_R5_0017",
+      "train_R4_0003",
+      "train_R6_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.9805630445480347,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.0618107318878174,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.0618107318878174,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 21,
+    "epoch": 1,
+    "set_ids": [
+      "train_R7_0011",
+      "train_R4_0009",
+      "train_R7_0001",
+      "train_R2_0012"
+    ],
+    "examples": 4,
+    "training_loss": 2.057591199874878,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.3079075813293457,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.3079075813293457,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 22,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0004",
+      "train_R7_0000",
+      "train_R3_0020",
+      "train_R4_0013"
+    ],
+    "examples": 4,
+    "training_loss": 1.8403871357440948,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.4510483741760254,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.4510483741760254,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 23,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0001",
+      "train_R5_0012",
+      "train_R1_0014",
+      "train_R4_0000"
+    ],
+    "examples": 4,
+    "training_loss": 2.0769384503364563,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.0274481773376465,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.0274481773376465,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 24,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0007",
+      "train_R4_0011",
+      "train_R3_0009",
+      "train_R6_0008"
+    ],
+    "examples": 4,
+    "training_loss": 2.093858629465103,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.5611727237701416,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.5611727237701416,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 25,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0012",
+      "train_R3_0017",
+      "train_R3_0004",
+      "train_R3_0005"
+    ],
+    "examples": 4,
+    "training_loss": 1.9376661777496338,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.527120351791382,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.527120351791382,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 26,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0000",
+      "train_R1_0003",
+      "train_R2_0018",
+      "train_R7_0007"
+    ],
+    "examples": 4,
+    "training_loss": 1.963853120803833,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.439943790435791,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.439943790435791,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 27,
+    "epoch": 1,
+    "set_ids": [
+      "train_R5_0007",
+      "train_R5_0006",
+      "train_R4_0019",
+      "train_R1_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.8742403984069824,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.099092721939087,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.099092721939087,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 28,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0016",
+      "train_R2_0015",
+      "train_R2_0016",
+      "train_R4_0005"
+    ],
+    "examples": 4,
+    "training_loss": 2.0415904819965363,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.555217742919922,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.555217742919922,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 29,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0008",
+      "train_R1_0011",
+      "train_R3_0001",
+      "train_R5_0008"
+    ],
+    "examples": 4,
+    "training_loss": 1.9872352182865143,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.5789332389831543,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.5789332389831543,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 30,
+    "epoch": 1,
+    "set_ids": [
+      "train_R1_0009",
+      "train_R7_0019",
+      "train_R4_0002",
+      "train_R5_0011"
+    ],
+    "examples": 4,
+    "training_loss": 2.01553675532341,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.3444011211395264,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.3444011211395264,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 31,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0006",
+      "train_R5_0019",
+      "train_R3_0003",
+      "train_R6_0013"
+    ],
+    "examples": 4,
+    "training_loss": 1.9861711263656616,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.9737799167633057,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.9737799167633057,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 32,
+    "epoch": 1,
+    "set_ids": [
+      "train_R3_0002",
+      "train_R2_0011",
+      "train_R3_0008",
+      "train_R3_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.953183889389038,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.2040419578552246,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.2040419578552246,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 33,
+    "epoch": 1,
+    "set_ids": [
+      "train_R4_0017",
+      "train_R7_0013",
+      "train_R1_0002",
+      "train_R6_0010"
+    ],
+    "examples": 4,
+    "training_loss": 2.0290993452072144,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.335150718688965,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.335150718688965,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 34,
+    "epoch": 1,
+    "set_ids": [
+      "train_R2_0004",
+      "train_R4_0010",
+      "train_R2_0007",
+      "train_R1_0020"
+    ],
+    "examples": 4,
+    "training_loss": 1.950402557849884,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.6713749170303345,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.6713749170303345,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 35,
+    "epoch": 1,
+    "set_ids": [
+      "train_R1_0000",
+      "train_R3_0019",
+      "train_R6_0007",
+      "train_R6_0020"
+    ],
+    "examples": 4,
+    "training_loss": 1.9410425424575806,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.2758169174194336,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.2758169174194336,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 36,
+    "epoch": 1,
+    "set_ids": [
+      "train_R6_0002",
+      "train_R3_0015",
+      "train_R2_0005",
+      "train_R7_0005"
+    ],
+    "examples": 4,
+    "training_loss": 1.944460541009903,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.161343812942505,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.161343812942505,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 37,
+    "epoch": 1,
+    "set_ids": [
+      "train_R7_0002",
+      "train_R4_0018",
+      "train_R2_0009"
+    ],
+    "examples": 3,
+    "training_loss": 1.959821899731954,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.7379684448242188,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.7379684448242188,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 3
+  },
+  {
+    "update": 38,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0014",
+      "train_R2_0018",
+      "train_R5_0012",
+      "train_R2_0004"
+    ],
+    "examples": 4,
+    "training_loss": 1.8765402138233185,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.003386974334717,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.003386974334717,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 39,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0013",
+      "train_R3_0000",
+      "train_R5_0020",
+      "train_R6_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.9247643053531647,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.551630735397339,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.551630735397339,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 40,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0002",
+      "train_R7_0010",
+      "train_R4_0000",
+      "train_R4_0016"
+    ],
+    "examples": 4,
+    "training_loss": 2.007400393486023,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.825932025909424,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.825932025909424,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 41,
+    "epoch": 2,
+    "set_ids": [
+      "train_R7_0005",
+      "train_R5_0002",
+      "train_R7_0001",
+      "train_R6_0009"
+    ],
+    "examples": 4,
+    "training_loss": 1.9762297570705414,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.356480121612549,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.356480121612549,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 42,
+    "epoch": 2,
+    "set_ids": [
+      "train_R6_0006",
+      "train_R6_0017",
+      "train_R6_0008",
+      "train_R5_0006"
+    ],
+    "examples": 4,
+    "training_loss": 1.9959666430950165,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.621429443359375,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.621429443359375,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 43,
+    "epoch": 2,
+    "set_ids": [
+      "train_R6_0010",
+      "train_R2_0010",
+      "train_R2_0005",
+      "train_R7_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.952584445476532,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.3404669761657715,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.3404669761657715,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 44,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0013",
+      "train_R7_0011",
+      "train_R4_0017",
+      "train_R7_0013"
+    ],
+    "examples": 4,
+    "training_loss": 1.9235168099403381,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.871535301208496,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.871535301208496,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 45,
+    "epoch": 2,
+    "set_ids": [
+      "train_R4_0013",
+      "train_R2_0015",
+      "train_R6_0014",
+      "train_R7_0007"
+    ],
+    "examples": 4,
+    "training_loss": 2.0070643424987793,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.0979435443878174,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.0979435443878174,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 46,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0005",
+      "train_R1_0006",
+      "train_R5_0004",
+      "train_R6_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.8403074443340302,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.0644898414611816,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.0644898414611816,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 47,
+    "epoch": 2,
+    "set_ids": [
+      "train_R6_0012",
+      "train_R7_0006",
+      "train_R5_0011",
+      "train_R2_0016"
+    ],
+    "examples": 4,
+    "training_loss": 1.8726769387722015,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.132539987564087,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.132539987564087,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 48,
+    "epoch": 2,
+    "set_ids": [
+      "train_R7_0008",
+      "train_R7_0012",
+      "train_R7_0002",
+      "train_R4_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.9523660838603973,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.7810771465301514,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.7810771465301514,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 49,
+    "epoch": 2,
+    "set_ids": [
+      "train_R4_0006",
+      "train_R7_0004",
+      "train_R4_0018",
+      "train_R5_0008"
+    ],
+    "examples": 4,
+    "training_loss": 1.874476671218872,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.4383275508880615,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.4383275508880615,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 50,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0009",
+      "train_R3_0012",
+      "train_R1_0013",
+      "train_R5_0000"
+    ],
+    "examples": 4,
+    "training_loss": 1.9138599038124084,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.791597843170166,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.791597843170166,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 51,
+    "epoch": 2,
+    "set_ids": [
+      "train_R2_0009",
+      "train_R3_0010",
+      "train_R7_0015",
+      "train_R4_0003"
+    ],
+    "examples": 4,
+    "training_loss": 2.1765486001968384,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.5787389278411865,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.5787389278411865,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 52,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0018",
+      "train_R2_0011",
+      "train_R2_0002",
+      "train_R3_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.8118159174919128,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.608891487121582,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.608891487121582,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 53,
+    "epoch": 2,
+    "set_ids": [
+      "train_R2_0000",
+      "train_R6_0015",
+      "train_R1_0000",
+      "train_R7_0009"
+    ],
+    "examples": 4,
+    "training_loss": 2.2429239749908447,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.7550249099731445,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.7550249099731445,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 54,
+    "epoch": 2,
+    "set_ids": [
+      "train_R4_0020",
+      "train_R1_0001",
+      "train_R3_0015",
+      "train_R6_0016"
+    ],
+    "examples": 4,
+    "training_loss": 2.0485486686229706,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.3449535369873047,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.3449535369873047,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 55,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0016",
+      "train_R6_0000",
+      "train_R7_0017",
+      "train_R4_0005"
+    ],
+    "examples": 4,
+    "training_loss": 2.03588929772377,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.2758498191833496,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.2758498191833496,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 56,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0007",
+      "train_R5_0001",
+      "train_R2_0017",
+      "train_R1_0014"
+    ],
+    "examples": 4,
+    "training_loss": 2.176873028278351,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.9687211513519287,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.9687211513519287,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 57,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0004",
+      "train_R7_0020",
+      "train_R6_0020",
+      "train_R3_0020"
+    ],
+    "examples": 4,
+    "training_loss": 1.7961232662200928,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.178821563720703,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.178821563720703,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 58,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0008",
+      "train_R6_0004",
+      "train_R7_0000",
+      "train_R4_0008"
+    ],
+    "examples": 4,
+    "training_loss": 1.9963685274124146,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.9916718006134033,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.9916718006134033,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 59,
+    "epoch": 2,
+    "set_ids": [
+      "train_R6_0001",
+      "train_R7_0016",
+      "train_R1_0010",
+      "train_R1_0009"
+    ],
+    "examples": 4,
+    "training_loss": 1.9490505754947662,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.931495428085327,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.931495428085327,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 60,
+    "epoch": 2,
+    "set_ids": [
+      "train_R4_0012",
+      "train_R2_0013",
+      "train_R2_0001",
+      "train_R1_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.926642268896103,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.9663983583450317,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.9663983583450317,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 61,
+    "epoch": 2,
+    "set_ids": [
+      "train_R4_0009",
+      "train_R3_0007",
+      "train_R3_0011",
+      "train_R2_0014"
+    ],
+    "examples": 4,
+    "training_loss": 1.8950475752353668,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.942265272140503,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.942265272140503,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 62,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0012",
+      "train_R4_0004",
+      "train_R2_0012",
+      "train_R3_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.9632282257080078,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.481013536453247,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.481013536453247,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 63,
+    "epoch": 2,
+    "set_ids": [
+      "train_R2_0020",
+      "train_R1_0007",
+      "train_R5_0015",
+      "train_R2_0003"
+    ],
+    "examples": 4,
+    "training_loss": 1.9365413188934326,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.498687744140625,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.498687744140625,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 64,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0014",
+      "train_R1_0015",
+      "train_R4_0015",
+      "train_R2_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.914168894290924,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.2716023921966553,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.2716023921966553,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 65,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0016",
+      "train_R5_0010",
+      "train_R3_0005",
+      "train_R3_0017"
+    ],
+    "examples": 4,
+    "training_loss": 2.0625549256801605,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.722102165222168,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.722102165222168,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 66,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0017",
+      "train_R6_0005",
+      "train_R6_0019",
+      "train_R3_0006"
+    ],
+    "examples": 4,
+    "training_loss": 2.1306500136852264,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 6.32899284362793,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 6.32899284362793,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 67,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0016",
+      "train_R3_0008",
+      "train_R2_0007",
+      "train_R3_0002"
+    ],
+    "examples": 4,
+    "training_loss": 1.8731099367141724,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.5018534660339355,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.5018534660339355,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 68,
+    "epoch": 2,
+    "set_ids": [
+      "train_R6_0002",
+      "train_R3_0001",
+      "train_R6_0007",
+      "train_R5_0009"
+    ],
+    "examples": 4,
+    "training_loss": 1.8206897974014282,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 6.1891303062438965,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 6.1891303062438965,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 69,
+    "epoch": 2,
+    "set_ids": [
+      "train_R7_0018",
+      "train_R2_0008",
+      "train_R4_0001",
+      "train_R6_0003"
+    ],
+    "examples": 4,
+    "training_loss": 1.986265242099762,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 7.692206382751465,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 7.692206382751465,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 70,
+    "epoch": 2,
+    "set_ids": [
+      "train_R7_0003",
+      "train_R4_0002",
+      "train_R1_0017",
+      "train_R4_0014"
+    ],
+    "examples": 4,
+    "training_loss": 2.1748024821281433,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 11.880400657653809,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 11.880400657653809,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 71,
+    "epoch": 2,
+    "set_ids": [
+      "train_R5_0003",
+      "train_R1_0019",
+      "train_R4_0010",
+      "train_R4_0007"
+    ],
+    "examples": 4,
+    "training_loss": 2.028378814458847,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 9.315999984741211,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 9.315999984741211,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 72,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0003",
+      "train_R5_0005",
+      "train_R7_0014",
+      "train_R5_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.9878250062465668,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.35462760925293,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.35462760925293,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 73,
+    "epoch": 2,
+    "set_ids": [
+      "train_R3_0004",
+      "train_R5_0019",
+      "train_R4_0019",
+      "train_R1_0003"
+    ],
+    "examples": 4,
+    "training_loss": 1.9410196840763092,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.921259880065918,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.921259880065918,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 74,
+    "epoch": 2,
+    "set_ids": [
+      "train_R1_0020",
+      "train_R6_0013",
+      "train_R2_0006"
+    ],
+    "examples": 3,
+    "training_loss": 2.9376944700876875,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 45.89227294921875,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 45.89227294921875,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 3
+  },
+  {
+    "update": 75,
+    "epoch": 3,
+    "set_ids": [
+      "train_R7_0020",
+      "train_R1_0017",
+      "train_R6_0013",
+      "train_R3_0000"
+    ],
+    "examples": 4,
+    "training_loss": 2.5734954178333282,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 27.57671546936035,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 27.57671546936035,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 76,
+    "epoch": 3,
+    "set_ids": [
+      "train_R7_0002",
+      "train_R2_0013",
+      "train_R6_0003",
+      "train_R6_0001"
+    ],
+    "examples": 4,
+    "training_loss": 1.9774279296398163,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.0340518951416016,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.0340518951416016,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 77,
+    "epoch": 3,
+    "set_ids": [
+      "train_R1_0001",
+      "train_R4_0000",
+      "train_R2_0010",
+      "train_R1_0009"
+    ],
+    "examples": 4,
+    "training_loss": 1.8812046945095062,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.385969638824463,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.385969638824463,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 78,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0018",
+      "train_R7_0005",
+      "train_R6_0008",
+      "train_R6_0015"
+    ],
+    "examples": 4,
+    "training_loss": 1.8973242938518524,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.0090715885162354,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.0090715885162354,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 79,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0007",
+      "train_R2_0019",
+      "train_R4_0015",
+      "train_R2_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.8948254883289337,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.8328776359558105,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.8328776359558105,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 80,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0020",
+      "train_R6_0000",
+      "train_R1_0013",
+      "train_R1_0008"
+    ],
+    "examples": 4,
+    "training_loss": 2.0151127576828003,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.942080020904541,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.942080020904541,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 81,
+    "epoch": 3,
+    "set_ids": [
+      "train_R5_0020",
+      "train_R4_0013",
+      "train_R5_0018",
+      "train_R1_0019"
+    ],
+    "examples": 4,
+    "training_loss": 2.0744196474552155,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.5830159187316895,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.5830159187316895,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 82,
+    "epoch": 3,
+    "set_ids": [
+      "train_R5_0001",
+      "train_R1_0010",
+      "train_R5_0019",
+      "train_R6_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.9048593044281006,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.919510841369629,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.919510841369629,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 83,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0000",
+      "train_R5_0017",
+      "train_R1_0005",
+      "train_R5_0016"
+    ],
+    "examples": 4,
+    "training_loss": 1.9171978533267975,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 1.7784957885742188,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 1.7784957885742188,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 84,
+    "epoch": 3,
+    "set_ids": [
+      "train_R4_0020",
+      "train_R4_0017",
+      "train_R3_0004",
+      "train_R7_0017"
+    ],
+    "examples": 4,
+    "training_loss": 1.986210823059082,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.609114408493042,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.609114408493042,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 85,
+    "epoch": 3,
+    "set_ids": [
+      "train_R3_0016",
+      "train_R2_0006",
+      "train_R5_0013",
+      "train_R6_0017"
+    ],
+    "examples": 4,
+    "training_loss": 1.8737526834011078,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.5497894287109375,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.5497894287109375,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 86,
+    "epoch": 3,
+    "set_ids": [
+      "train_R3_0008",
+      "train_R5_0010",
+      "train_R7_0003",
+      "train_R1_0006"
+    ],
+    "examples": 4,
+    "training_loss": 1.8656688332557678,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 2.6948909759521484,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 2.6948909759521484,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 87,
+    "epoch": 3,
+    "set_ids": [
+      "train_R4_0007",
+      "train_R7_0006",
+      "train_R4_0002",
+      "train_R1_0004"
+    ],
+    "examples": 4,
+    "training_loss": 2.186726838350296,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.9834089279174805,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.9834089279174805,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 88,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0015",
+      "train_R7_0004",
+      "train_R3_0015",
+      "train_R7_0010"
+    ],
+    "examples": 4,
+    "training_loss": 2.203068286180496,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 9.40578556060791,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 9.40578556060791,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 89,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0002",
+      "train_R7_0014",
+      "train_R4_0010",
+      "train_R5_0005"
+    ],
+    "examples": 4,
+    "training_loss": 2.079197347164154,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.8487868309021,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.8487868309021,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 90,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0017",
+      "train_R3_0013",
+      "train_R6_0014",
+      "train_R1_0015"
+    ],
+    "examples": 4,
+    "training_loss": 1.9320046305656433,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.073520183563232,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.073520183563232,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 91,
+    "epoch": 3,
+    "set_ids": [
+      "train_R3_0012",
+      "train_R6_0004",
+      "train_R2_0004",
+      "train_R4_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.7895717918872833,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.9215261936187744,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.9215261936187744,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 92,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0006",
+      "train_R4_0005",
+      "train_R1_0018",
+      "train_R5_0014"
+    ],
+    "examples": 4,
+    "training_loss": 1.8626822233200073,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.0333502292633057,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.0333502292633057,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 93,
+    "epoch": 3,
+    "set_ids": [
+      "train_R3_0014",
+      "train_R3_0007",
+      "train_R2_0012",
+      "train_R2_0005"
+    ],
+    "examples": 4,
+    "training_loss": 1.905979722738266,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 5.184688091278076,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 5.184688091278076,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 94,
+    "epoch": 3,
+    "set_ids": [
+      "train_R4_0012",
+      "train_R6_0012",
+      "train_R7_0018",
+      "train_R1_0012"
+    ],
+    "examples": 4,
+    "training_loss": 1.7884816825389862,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.340251922607422,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.340251922607422,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 95,
+    "epoch": 3,
+    "set_ids": [
+      "train_R5_0004",
+      "train_R4_0006",
+      "train_R4_0003",
+      "train_R6_0009"
+    ],
+    "examples": 4,
+    "training_loss": 1.752701461315155,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 4.886830806732178,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 4.886830806732178,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 96,
+    "epoch": 3,
+    "set_ids": [
+      "train_R7_0000",
+      "train_R2_0002",
+      "train_R3_0020",
+      "train_R7_0019"
+    ],
+    "examples": 4,
+    "training_loss": 1.876601904630661,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 3.717686414718628,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 3.717686414718628,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 97,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0007",
+      "train_R6_0019",
+      "train_R5_0009",
+      "train_R7_0015"
+    ],
+    "examples": 4,
+    "training_loss": 2.204303503036499,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.851548194885254,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.851548194885254,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 98,
+    "epoch": 3,
+    "set_ids": [
+      "train_R5_0003",
+      "train_R3_0019",
+      "train_R7_0016",
+      "train_R7_0013"
+    ],
+    "examples": 4,
+    "training_loss": 1.9310188591480255,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.053905487060547,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.053905487060547,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 99,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0014",
+      "train_R2_0009",
+      "train_R3_0005",
+      "train_R2_0001"
+    ],
+    "examples": 4,
+    "training_loss": 2.1992653012275696,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 9.19419002532959,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 9.19419002532959,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 100,
+    "epoch": 3,
+    "set_ids": [
+      "train_R4_0008",
+      "train_R2_0003",
+      "train_R4_0009",
+      "train_R3_0002"
+    ],
+    "examples": 4,
+    "training_loss": 2.155391901731491,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 10.260191917419434,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 10.260191917419434,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 101,
+    "epoch": 3,
+    "set_ids": [
+      "train_R7_0001",
+      "train_R4_0018",
+      "train_R5_0015",
+      "train_R3_0001"
+    ],
+    "examples": 4,
+    "training_loss": 2.2536702752113342,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.828746795654297,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.828746795654297,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 102,
+    "epoch": 3,
+    "set_ids": [
+      "train_R7_0012",
+      "train_R3_0010",
+      "train_R1_0020",
+      "train_R5_0012"
+    ],
+    "examples": 4,
+    "training_loss": 1.3661243915557861,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 7.23092794418335,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 7.23092794418335,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 103,
+    "epoch": 3,
+    "set_ids": [
+      "train_R3_0018",
+      "train_R1_0011",
+      "train_R3_0017",
+      "train_R7_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.6709669530391693,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 8.466917037963867,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 8.466917037963867,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 104,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0010",
+      "train_R5_0002",
+      "train_R4_0001",
+      "train_R3_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.5092953145503998,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 10.12718391418457,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 10.12718391418457,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 105,
+    "epoch": 3,
+    "set_ids": [
+      "train_R6_0005",
+      "train_R2_0008",
+      "train_R5_0000",
+      "train_R6_0018"
+    ],
+    "examples": 4,
+    "training_loss": 1.384877771139145,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 7.417973518371582,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 7.417973518371582,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 106,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0016",
+      "train_R1_0016",
+      "train_R4_0011",
+      "train_R6_0016"
+    ],
+    "examples": 4,
+    "training_loss": 1.8287207186222076,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 25.55890464782715,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 25.55890464782715,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 107,
+    "epoch": 3,
+    "set_ids": [
+      "train_R4_0014",
+      "train_R7_0009",
+      "train_R1_0003",
+      "train_R3_0009"
+    ],
+    "examples": 4,
+    "training_loss": 2.257460832595825,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 13.1574068069458,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 13.1574068069458,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 108,
+    "epoch": 3,
+    "set_ids": [
+      "train_R1_0014",
+      "train_R7_0007",
+      "train_R1_0000",
+      "train_R7_0008"
+    ],
+    "examples": 4,
+    "training_loss": 2.016516774892807,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 33.83462142944336,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 33.83462142944336,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 109,
+    "epoch": 3,
+    "set_ids": [
+      "train_R5_0007",
+      "train_R4_0016",
+      "train_R3_0006",
+      "train_R1_0002"
+    ],
+    "examples": 4,
+    "training_loss": 3.476384252309799,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 24.46647834777832,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 24.46647834777832,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 110,
+    "epoch": 3,
+    "set_ids": [
+      "train_R2_0020",
+      "train_R4_0004",
+      "train_R5_0008",
+      "train_R5_0011"
+    ],
+    "examples": 4,
+    "training_loss": 1.7940416932106018,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 61.05246353149414,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 61.05246353149414,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 4
+  },
+  {
+    "update": 111,
+    "epoch": 3,
+    "set_ids": [
+      "train_R1_0007",
+      "train_R3_0003",
+      "train_R5_0006"
+    ],
+    "examples": 3,
+    "training_loss": 2.0242432355880737,
+    "optimizer_step_occurred": true,
+    "finite_gradients": true,
+    "gradient_norm_before_clipping": 62.38610076904297,
+    "lora_b_matrices": 248,
+    "lora_b_matrices_changed": 248,
+    "gradient_scale_before": 4.0,
+    "gradient_scale_after": 4.0,
+    "nonfinite_gradient_values": 0,
+    "nonfinite_gradient_parameter_names": [],
+    "nonfinite_gradient_counts_by_parameter": {},
+    "retry_count": 0,
+    "attempted_scales": [
+      4.0
+    ],
+    "attempts": [
+      {
+        "attempt": 0,
+        "optimizer_step_occurred": true,
+        "finite_gradients": true,
+        "gradient_norm_before_clipping": 62.38610076904297,
+        "lora_b_matrices": 248,
+        "lora_b_matrices_changed": 248,
+        "gradient_scale_before": 4.0,
+        "gradient_scale_after": 4.0,
+        "nonfinite_gradient_values": 0,
+        "nonfinite_gradient_parameter_names": [],
+        "nonfinite_gradient_counts_by_parameter": {}
+      }
+    ],
+    "attempted_presentations": 3
+  }
+]

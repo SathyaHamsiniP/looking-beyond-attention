@@ -8,7 +8,7 @@
   "sets_per_rule": 8,
   "images_per_set": 10,
   "seed": 2026,
-  "readout": "Roshan option_probs X/Y/Z",
+  "readout": "Upstream option_probs X/Y/Z",
   "expressions": {
     "R1": "(A AND B) OR C",
     "R2": "(A AND C) OR B",

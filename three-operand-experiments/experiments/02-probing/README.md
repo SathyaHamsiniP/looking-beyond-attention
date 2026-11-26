@@ -2,7 +2,7 @@
 
 ## Goal
 
-Check what the model knows after it sees the images.
+Test which visual concepts and rule labels a classifier can read from the model’s internal states.
 
 A **probe** is a small classifier. It reads the model's saved activations (numbers inside the model). It does not change the model.
 
@@ -52,7 +52,9 @@ The models contain useful information about the objects. This does **not** mean 
 
 The concept test has only 16 test images. One wrong prediction changes the score by 6.25 percentage points. Picking the best layer on this small test can also make the result look better than it is.
 
-**Rule probing:** The code is ready, but no GPU results have been reported yet. The test has only three sets, so its accuracy cannot support a strong conclusion. A probe may also identify a rule just by spotting one special type of image, without doing the full reasoning task.
+**Original 48-image rule probing:** No GPU results have been confirmed for this particular 24-training-set/3-test-set protocol. This is different from the completed [later three-rule Qwen3.5 run](../../results/02-probing/qwen3.5-4b/README.md), which used 90 training sets and 30 test sets. The tiny original test cannot support a strong conclusion. Even a successful probe might identify a rule from a distinctive image rather than reasoning across the set.
+
+A separate later [Qwen3.5 three-rule probing run](../../results/02-probing/qwen3.5-4b/README.md) used 90 training sets and 30 test sets. Its saved probe results are available, but it is a different protocol from the original 48-image probe above.
 
 ## Using the 1,000-image dataset
 
@@ -73,7 +75,7 @@ New results save in separate `dataset-v1/` folders. The old 48-image results are
 
 ## Run on Colab
 
-Use a GPU. Mount Google Drive. Clone this repository if needed:
+Use a GPU. Pass an existing results directory. Clone this repository if needed:
 
 ```bash
 git clone https://github.com/SathyaHamsiniP/looking-beyond-attention.git /content/looking-beyond-attention
@@ -83,8 +85,8 @@ cd /content/looking-beyond-attention
 The commands below use:
 
 ```bash
-export DATA='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data'
-export RESULTS='/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results'
+export DATA='/path/to/three-operand-experiments/data'
+export RESULTS='/path/to/three-operand-experiments/results'
 ```
 
 **Qwen3.5-4B** (use a fresh Colab session):
@@ -97,11 +99,11 @@ python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3_5 
 
 **Qwen3-VL-4B** (use a different fresh session):
 
-First clone [Roshan's reference code](https://github.com/RoshanYSingh23/looking-beyond-attention) to `/content/roshan/looking-beyond-attention-main`.
+Set `UP` to your local checkout of the upstream Qwen3-VL wrapper.
 
 ```bash
 pip install -r three-operand-experiments/code/requirements-qwen3vl.txt matplotlib
-export UP='/content/roshan/looking-beyond-attention-main'
+export UP='/path/to/upstream-checkout'
 python three-operand-experiments/code/02-probing/probe_concepts.py --model qwen3 --upstream "$UP" --data-dir "$DATA" --experiment-dir "$RESULTS" --precision 4bit
 python three-operand-experiments/code/02-probing/probe_rules.py --model qwen3 --upstream "$UP" --data-dir "$DATA" --experiment-dir "$RESULTS" --precision 4bit
 ```
@@ -110,7 +112,7 @@ Before a full run, you can add `--validate-only` to check the data or `--smoke-t
 
 ## Saved files
 
-Results go to Google Drive, under `results/probing/<model>/concept/` or `results/probing/<model>/rule/`.
+Results are written under `results/probing/<model>/concept/` or `results/probing/<model>/rule/`.
 
 - `.npz`: saved activations.
 - `.csv`: predictions and layer scores.

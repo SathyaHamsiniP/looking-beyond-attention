@@ -1,50 +1,58 @@
 # Looking Beyond Attention
 
-We test whether vision-language models can find a Boolean rule from a set of images.
+Can Qwen infer a Boolean rule from several pictures? Imagine that every picture contains a red cylinder or both a green cube and a blue sphere. Can the model figure out the shared rule?
 
-A is a green cube. B is a blue sphere. C is a red cylinder. We give the model ten images and ask which rule explains them.
+In small three-rule controls, Qwen recognized the objects and did well at evaluating given expressions. It scored near chance when asked to infer the hidden rule.
 
-Earlier experiments compared Qwen3-VL-4B and Qwen3.5-4B. New runs use **Qwen3.5-4B only**.
+## What I did
 
-## Experiments
+I designed the three-operand task and built evaluations with three and seven candidate rules. Both benchmarks use the same three visual concepts. I tested whether Qwen followed the images or the answer order. I also trained probes, swapped internal states, and tested LoRA fine-tuning.
 
-- [01 — Operator controls](three-operand-experiments/experiments/01-operator-controls/README.md): Ask the model to find the rule. Test changes to prompts and answer choices.
-- [02 — Probing](three-operand-experiments/experiments/02-probing/README.md): Check which object and rule information is present at each model layer.
-- [03 — Activation patching](three-operand-experiments/experiments/03-activation-patching/README.md): Same-rule and different-rule patching in Qwen3.5-4B. Code is ready for the first Colab test; no results yet.
+## What I found
 
-The earlier experiments used **48 images**. Their saved results have not been changed.
+| Question | Result |
+|---|---|
+| Can Qwen find the rule? | In the three-rule controls, both models recognized the objects in all eight images and did well at evaluating given expressions. Hidden-rule accuracy stayed near chance. |
+| What happens when the choices move? | In seven-rule validation, pretrained Qwen3.5-4B used only the last two answer positions. It got 48 of 343 answers right. |
+| What can we read from its layers? | With five selected images, a classifier read the correct rule from the final layer on 19 of 49 sets. Qwen answered correctly on 7. The images were selected using the true rule. |
+| Does fine-tuning help? | LoRA improved seven-rule accuracy from **48/343 to 112/343 (14.0% to 32.7%)** on matched validation prompts. |
+| Do internal states affect the answer? | Swapping states changed predictions. The controls gave no convincing evidence that a swap transferred the donor’s rule. |
 
-## Get the 1,000 images
+![Accuracy and answer positions before and after LoRA](docs/lora-validation.png)
 
-Download the [dataset-v1 release](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1), or run:
+The LoRA comparison used 49 image sets, each shown in seven answer orders. After training, the model used all seven answer positions. Gains varied by rule. These sets also helped select the checkpoint, so performance on fresh scenes is still open.
+
+**Verify the main result.** [Pretrained predictions](benchmark/results/seven-rules/qwen3.5-4b/operator-controls/predictions.jsonl) · [LoRA predictions](benchmark/results/seven-rules/qwen3.5-4b/lora/finetuned-validation/predictions.jsonl) · [Script to rebuild the plot](docs/plot_lora.py)
+
+<details>
+<summary>See the answer-bias and probing plots</summary>
+
+![Answer positions and rule confusion for pretrained Qwen](benchmark/results/seven-rules/qwen3.5-4b/operator-controls/answer_bias_and_confusion.png)
+
+![Probe accuracy across model layers](benchmark/results/seven-rules/qwen3.5-4b/probing/probes/layer_accuracy.png)
+
+</details>
+
+## Explore the research
+
+- [Three-rule experiments](three-operand-experiments/README.md) cover the first task, its controls, probing, patching, and early LoRA.
+- [Seven-rule benchmark](benchmark/README.md) covers the expanded task and the matched LoRA evaluation.
+- [Research summary](RESEARCH_SUMMARY.md) explains the evidence, limits, and next test.
+
+## Data
+
+The original 48-image experiments remain available. Later work uses the [1,000-image dataset](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1):
 
 ```bash
 python three-operand-experiments/code/00-data-generation/download_dataset.py
 ```
 
-This creates `three-operand-experiments/data-1000/` with:
+This creates `three-operand-experiments/data-1000/` with `images/` and `metadata.json`. The release has 800 training and 200 test images. The seven-rule experiments use a saved 800/100/100 train/validation/test assignment and saved ten-image sets; reuse that manifest rather than generating replacements. Images can appear in multiple sets within a partition.
 
-- `images/` — 1,000 images.
-- `metadata.json` — object labels and train/test groups.
+[Image-generation instructions](three-operand-experiments/code/00-data-generation/README.md) describe how the dataset was made.
 
-There are 800 training images and 200 test images. The download is checked before it is saved.
+For run commands and saved outputs, start with the experiment links above.
 
-To use these images, pass `--data-dir three-operand-experiments/data-1000` to an experiment script. The original 48-image dataset still works with the old `data/` path.
+## Implementation credit
 
-[Generate the images yourself](three-operand-experiments/code/00-data-generation/README.md) if you prefer.
-
-## Where results go
-
-Experiment results are saved to Google Drive. They are not added to GitHub automatically.
-
-Default results folder in Colab:
-
-```text
-/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results
-```
-
-Use `--experiment-dir` if your results folder is elsewhere. Runs using the 1,000 images save in separate `dataset-v1/` folders, so they do not overwrite the earlier results.
-
-## Credit
-
-This work builds on [Roshan's two-operand experiments](https://github.com/RoshanYSingh23/looking-beyond-attention). Our image generator and Qwen3-VL runs use parts of that public repository. Qwen3.5 uses a separate model loader.
+The image generator uses an [upstream renderer](three-operand-experiments/code/00-data-generation/README.md). The Qwen3-VL runs use its [model wrapper and next-token readout](three-operand-experiments/experiments/01-operator-controls/README.md#implementation-credit). Qwen3.5 uses a separate loader.

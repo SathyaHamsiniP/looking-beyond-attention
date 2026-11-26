@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "precision": "4bit",
+    "max_pixels": 100352,
+    "prompt_hash": "04776205b5230f45ca50aadaf9c347d30558063d92c6b8084a69976c2b32a7cb",
+    "scoring": "conditional answer-sequence log likelihood, normalized over XYZ"
+  },
+  "kind": "evaluation",
+  "partition": "validation",
+  "smoke_test": false,
+  "adapter": null,
+  "manifest_hash": "701936daac921fd19da203fccda2524d43c7277999ebdee0412041d987f1fcd4",
+  "software": {
+    "git_commit": "0dda13ddd1f07b9ba3956631222e459ab3bafe01",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.22.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  }
+}

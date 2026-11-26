@@ -6,9 +6,10 @@ Read the [Experiment 03 guide](../../experiments/03-activation-patching/README.m
 
 The [analysis script](../../code/03-activation-patching/analyze_baseline.py) reads the original results without loading Qwen. The uploaded ZIP contained the completed run and a separate smoke test. Only the completed `pairs2_rot3_prev1` run is analysed here.
 
-- [raw/](raw/): byte-for-byte copies of the five original files. Google Drive was not modified.
+- [raw/](raw/): byte-for-byte copies of the five original files.
 - [derived/analysis.md](derived/analysis.md): findings and limitations checked against the raw CSV.
 - [derived/](derived/): input manifest, metrics, plots, examples, provenance.
+- [Benchmark import audit](benchmark-import-provenance.json): checksums for identical measurements formerly duplicated in the three-rule benchmark folder.
 - [explore_baseline.ipynb](explore_baseline.ipynb): open this CPU notebook in Jupyter or Colab. Edit four variables to inspect a saved trial. No model or Drive login is needed.
 
 The checks confirm 3,456 trials, all 18 pairs, three rotations, 32 layers and two positions. Ordered inputs match the saved dataset fingerprint. The original layer averages and the layer-6 peak/control result agree with recalculation.
@@ -34,7 +35,7 @@ The script writes ordered input manifests, metrics, original predictions, counts
 
 Install `pandas matplotlib Pillow` in a Python notebook environment. Open `explore_baseline.ipynb` and run all cells from top to bottom. There are four short sections. To inspect another trial, edit `pair`, `rotation`, `layer` and `token_position`, then rerun section 2.
 
-In Colab, clone `feature/complete-research-pipeline` first. Run the notebook from the checkout root or from this folder. It finds the saved files using relative paths. There is no Drive authentication or model download. For local Jupyter, open the notebook directly in the clone.
+In Colab, clone the revision that contains this notebook first. Run the notebook from the checkout root or from this folder. It finds the saved files using relative paths. There is no Drive authentication or model download. For local Jupyter, open the notebook directly in the clone.
 
 Images are separate from the results. Download them from the [dataset-v1 release](https://github.com/SathyaHamsiniP/looking-beyond-attention/releases/tag/dataset-v1) and extract them into `three-operand-experiments/data-1000/`, or edit `dataset` in the notebook. Missing images show a helpful message; all numerical inspection still works. The Boolean labels are inspection aids, not the input text given to Qwen.
 

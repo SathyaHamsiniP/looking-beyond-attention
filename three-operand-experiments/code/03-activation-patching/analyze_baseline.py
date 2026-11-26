@@ -401,6 +401,77 @@ def main():
         "",
         "Source files are copied byte-for-byte into raw/. No model was rerun. Read the parent guide for the beginner explanation.",
     ]
+    # Recompute this explanation from saved rows so it survives report regeneration.
+    selected_layers = (1, 6, 19, 23, 31, 32)
+    layer_six = [
+        r for r in rows if r["condition"] == "different"
+        and r["position"] == "final" and int(r["layer"]) == 6
+    ]
+    layer_six_deltas = [float(r["delta_p_donor_rule"]) for r in layer_six]
+    positives = sum(d > 1e-9 for d in layer_six_deltas)
+    negatives = sum(d < -1e-9 for d in layer_six_deltas)
+    near_zero = len(layer_six_deltas) - positives - negatives
+    means = [lookup["different", "final", layer]["signed_change"] for layer in range(1, 33)]
+    lines += [
+        "",
+        "## How to interpret the changes across all 32 layers",
+        "",
+        "The **signed mean** averages P_after(donor true rule) minus P_before(donor true rule). "
+        "Positive and negative shifts can cancel. The **mean absolute change** averages "
+        "their magnitudes regardless of direction. **Answer-change rate** counts changes "
+        "to the winning option; it does not necessarily measure correct rule transfer.",
+        "",
+        "For example, +2 and -4 percentage-point shifts produce a -1 pp signed "
+        "mean and 3 pp mean absolute change.",
+        "",
+        "| Layer | Different-rule final-token signed mean | Mean absolute shift | Answer changed | Changed to donor true rule |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for layer in selected_layers:
+        row = lookup["different", "final", layer]
+        n = row["n"]
+        lines.append(
+            f"| {layer} | {100 * row['signed_change']:+.4f} pp "
+            f"| {100 * row['absolute_change']:.2f} pp "
+            f"| {round(row['answer_change_rate'] * n)}/{n} "
+            f"| {round(row['donor_true_rule_change_rate'] * n)}/{n} |"
+        )
+    lines += [
+        "",
+        f"Layer 6 has the **least negative** signed mean "
+        f"({100 * lookup['different', 'final', 6]['signed_change']:+.4f} pp), "
+        "not the largest probability shift. Among its 36 different-rule final-token "
+        f"patches, {positives} increased donor-rule probability, {negatives} "
+        f"decreased it, and {near_zero} was effectively unchanged. Opposite "
+        "changes nearly cancel, even though the absolute changes are larger.",
+        "",
+        (
+            "Every one of the 32 different-rule final-token layer means is negative "
+            "in this run. This does not mean every individual patch was negative."
+            if all(d < 0 for d in means)
+            else "Some different-rule final-token layer means are positive in this run."
+        ),
+        "",
+        "Early layers generally change less; later layers tend to affect scores "
+        "and answers more, but not monotonically. Layer 32 sits immediately before "
+        "the answer readout at the final token; large changes there may copy "
+        "the donor's **incorrect predicted answer**, not transfer its generating rule.",
+        "",
+        f"At layer 32 the mean absolute shift was "
+        f"{100 * lookup['different', 'final', 32]['absolute_change']:.2f} pp "
+        f"for different-rule patches versus "
+        f"{100 * lookup['same', 'final', 32]['absolute_change']:.2f} pp "
+        "for same-rule patches. Magnitude alone is not rule specificity.",
+        "",
+        "The saved measurements cannot by themselves explain why the average "
+        "is negative; answer bias, donor mistakes, visual differences and "
+        "opposing trial effects cannot be disentangled from this aggregate.",
+        "",
+        "For single-layer LoRA, define 'shift' first, compare the same-rule and "
+        "previous-token controls, select the candidate on validation examples "
+        "and test against a control layer. No rule-computation layer is established.",
+        "",
+    ]
     (out / "analysis.md").write_text("\n".join(lines) + "\n")
     write_json(
         out / "provenance.json",

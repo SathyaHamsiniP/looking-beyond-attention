@@ -74,6 +74,8 @@ the final answer was wrong. That led to [experiment 02](../02-probing/README.md)
 Good recognition and explicit gate evaluation do not by themselves establish
 successful rule induction.
 
+A later, separate Qwen3.5-4B three-rule benchmark includes a [10-versus-20-image pilot](../../results/01-operator-controls/qwen3.5-4b/ten-vs-twenty-images/summary.json) and a [three-versus-seven-choice comparison](../../results/01-operator-controls/qwen3.5-4b/three-vs-seven-choices/summary.json). These do not replace the 48-image experiment above.
+
 ## Using the 1,000-image dataset
 
 The results above are from the old 48-image dataset. They have not been rerun on the new images.
@@ -96,17 +98,17 @@ The default main test still uses 8 sets per rule. It does not use all 1,000 pict
 
 ## Running these controls
 
-Use Colab with a GPU and mounted Drive. From `/content/looking-beyond-attention`,
+Use a GPU. From `/content/looking-beyond-attention`,
 install the selected model's shared requirements. Use a fresh runtime for each
 model because the Transformers versions differ. Colab supplies CUDA PyTorch.
 The commands below assume the existing images and metadata are in the project's
-Drive `data/` directory; use their actual existing path if different.
+local `data/` directory; use their actual existing path if different.
 
 ```bash
 python -m pip install -r three-operand-experiments/code/requirements-qwen35.txt
 python three-operand-experiments/code/01-operator-controls/operator_controls_qwen35.py \
-  --data-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data' \
-  --experiment-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results' \
+  --data-dir '/path/to/three-operand-experiments/data' \
+  --experiment-dir '/path/to/three-operand-experiments/results' \
   --precision 4bit --smoke-test
 ```
 
@@ -115,23 +117,21 @@ For Qwen3-VL, extract the supplied reference repository separately first:
 ```bash
 python -m pip install -r three-operand-experiments/code/requirements-qwen3vl.txt
 python three-operand-experiments/code/01-operator-controls/operator_controls_qwen3.py \
-  --upstream '/content/roshan/looking-beyond-attention-main' \
-  --data-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/data' \
-  --experiment-dir '/content/drive/MyDrive/LogicCBM++/looking-beyond-attention/three-operand-experiments/results' \
+  --upstream '/path/to/upstream-checkout' \
+  --data-dir '/path/to/three-operand-experiments/data' \
+  --experiment-dir '/path/to/three-operand-experiments/results' \
   --precision 4bit --smoke-test
 ```
 
 Replace `--smoke-test` with `--experiment main_72` for the main experiment; use
 `--help` for the other controls. `--validate-only` checks data and sampling
-without loading weights. All new outputs stay on Drive under `operator-controls/qwen3/` or
-`operator-controls/qwen3_5/`. The results root defaults to the path above and
-must already exist; `--experiment-dir` overrides it when Drive is mounted
-differently. No results are copied to GitHub. Archived results remain unchanged.
+without loading weights. New outputs go under `operator-controls/qwen3/` or
+`operator-controls/qwen3_5/`. The default results root is `~/looking-beyond-attention-results` and
+must already exist; `--experiment-dir` sets the output location. Saved results are linked above.
 
 ## Implementation credit
 
-The Qwen3-VL runner reuses Roshan and collaborators' external wrapper and
-next-token readout. Qwen3.5 uses Hugging Face through our maintained adapter.
+The Qwen3-VL runner uses the upstream wrapper and next-token readout. Qwen3.5 uses Hugging Face through our maintained adapter.
 Their preprocessing paths differ, so model comparisons include that limitation.
 The folder cleanup preserves the previous prompts, model settings, calculations,
 images and result-file contents. The old internal version strings in archived
