@@ -1,0 +1,41 @@
+{
+  "render_seed": 41112,
+  "design_seed": 202611,
+  "repeats": 1,
+  "manifest_sha256": "3ea8f3d3248932bdc17788688bb02fb4a3820b0cec619577b1f139abc23df077",
+  "fresh_images": 32,
+  "sets": 36,
+  "groups": 7,
+  "candidate_counts": {
+    "5": 6,
+    "4": 6,
+    "3": 5,
+    "2": 6,
+    "1": 7,
+    "6": 6
+  },
+  "conditions": {
+    "progressive": {
+      "sets": 36,
+      "groups": 7,
+      "unique_answer_counts": {
+        "R7": 1,
+        "R4": 1,
+        "R5": 1,
+        "R6": 1,
+        "R1": 1,
+        "R2": 1,
+        "R3": 1
+      },
+      "configuration_counts": {
+        "100": 15,
+        "011": 18,
+        "001": 10,
+        "010": 5,
+        "110": 24,
+        "101": 20,
+        "111": 19
+      }
+    }
+  }
+}

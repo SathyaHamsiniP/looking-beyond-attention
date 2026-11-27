@@ -1,0 +1,80 @@
+{
+  "render_seed": 41112,
+  "design_seed": 202611,
+  "repeats": 1,
+  "manifest_sha256": "97d726626446e6bc115f001f26a93336ec4202f6b4b1c6506746f31ea492857e",
+  "fresh_images": 32,
+  "sets": 92,
+  "groups": 46,
+  "candidate_counts": {
+    "1": 92
+  },
+  "conditions": {
+    "context": {
+      "sets": 36,
+      "groups": 18,
+      "unique_answer_counts": {
+        "R4": 6,
+        "R1": 4,
+        "R5": 6,
+        "R6": 6,
+        "R7": 6,
+        "R2": 4,
+        "R3": 4
+      },
+      "configuration_counts": {
+        "111": 30,
+        "011": 30,
+        "100": 20,
+        "101": 30,
+        "010": 19,
+        "110": 30,
+        "001": 21
+      }
+    },
+    "control": {
+      "sets": 14,
+      "groups": 7,
+      "unique_answer_counts": {
+        "R7": 2,
+        "R4": 2,
+        "R5": 2,
+        "R6": 2,
+        "R1": 2,
+        "R2": 2,
+        "R3": 2
+      },
+      "configuration_counts": {
+        "110": 12,
+        "010": 10,
+        "101": 12,
+        "001": 8,
+        "011": 12,
+        "100": 8,
+        "111": 12
+      }
+    },
+    "replacement": {
+      "sets": 42,
+      "groups": 21,
+      "unique_answer_counts": {
+        "R2": 6,
+        "R1": 6,
+        "R3": 6,
+        "R4": 6,
+        "R5": 6,
+        "R6": 6,
+        "R7": 6
+      },
+      "configuration_counts": {
+        "101": 36,
+        "010": 25,
+        "110": 36,
+        "011": 36,
+        "111": 36,
+        "001": 21,
+        "100": 24
+      }
+    }
+  }
+}
