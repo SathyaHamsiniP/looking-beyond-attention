@@ -3,6 +3,7 @@
 import setup_paths
 from collections import Counter, defaultdict
 from itertools import combinations
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -104,7 +105,12 @@ class DesignTests(unittest.TestCase):
                 calls.append(row)
                 return str((int(row["answers"][0][1:]) - 1 - row["rotation"]) % 7 + 1)
 
-            checkpoint(folder, tasks, 12, infer, limit=1)
+            first = checkpoint(folder, tasks, 12, infer, limit=1)
+            saved = json.loads((folder / (tasks[0][0] + ".json")).read_text())
+            self.assertEqual(
+                saved["response"], str((int(first[0]["answers"][0][1:]) - 1) % 7 + 1)
+            )
+            self.assertEqual(saved["response_status"], "valid_correct")
             with self.assertRaisesRegex(ValueError, "Incomplete"):
                 checkpoint(folder, tasks, 12, None)
             full = checkpoint(folder, tasks, 12, infer)
@@ -175,3 +181,71 @@ class DesignTests(unittest.TestCase):
                     args.rotations = 7
                     with self.assertRaisesRegex(ValueError, "Incompatible"):
                         runner.run(number, args, manifest)
+
+    def test_balanced_pool_and_minimum_reuse(self):
+        from evidence_design import allocation_audit
+
+        pool = {b: [f"{b}-{i}.png" for i in range(32)] for b in BITS}
+        for number, expected in [(11, (36, 0, 48)), (12, (224, 76, 376))]:
+            rows = design(number, pool, 202611, 1)
+            audit = allocation_audit(rows, pool)
+            self.assertEqual(
+                tuple(
+                    audit[k]
+                    for k in (
+                        "distinct_files",
+                        "repeated_allocations",
+                        "balanced_pool_for_disjoint_groups",
+                    )
+                ),
+                expected,
+            )
+            for stat in audit["by_configuration"].values():
+                self.assertEqual(
+                    stat["repeated_allocations"],
+                    max(0, stat["required_without_reuse"] - stat["available"]),
+                )
+            larger = {b: [f"{b}-{i}.png" for i in range(47)] for b in BITS}
+            other = design(number, larger, 202611, 1)
+            self.assertEqual([r["bits"] for r in rows], [r["bits"] for r in other])
+            self.assertEqual(allocation_audit(other, larger)["repeated_allocations"], 0)
+
+    def test_format_status_and_grouped_intervals(self):
+        from evidence_metrics import response_status
+
+        gold = ["R1", "R3", "R5"]
+        cases = {
+            " 5,1,3\n": "valid_correct",
+            "1": "valid_incorrect",
+            "1,3,7": "valid_incorrect",
+            "1, 3 or 5": "invalid_format",
+            "1,3,5 or 2": "invalid_format",
+            "Answer: 1,3,5": "invalid_format",
+            "[1,3,5]": "invalid_format",
+            "1\n3\n5": "invalid_format",
+            "1,1,3,5": "invalid_format",
+            "": "invalid_format",
+        }
+        for response, expected in cases.items():
+            with self.subTest(response=response):
+                self.assertEqual(
+                    response_status(parse(response, 0, 11), gold), expected
+                )
+
+        rows = design(11, POOL, 202611, 1)
+        scored = [
+            dict(
+                r,
+                prediction=r["answers"] if r["member"] == 1 else None,
+                rotation=rotation,
+            )
+            for r in rows
+            for rotation in range(2)
+        ]
+        report = summarize(scored)
+        self.assertEqual(
+            report["response_counts"],
+            dict(valid_correct=14, valid_incorrect=0, invalid_format=58),
+        )
+        self.assertEqual(report["cluster_intervals"]["exact"]["clusters"], 7)
+        self.assertEqual(paired_delta(scored, scored)["ci95"], [0.0, 0.0])

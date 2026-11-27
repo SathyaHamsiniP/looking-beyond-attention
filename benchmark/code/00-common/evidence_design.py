@@ -44,7 +44,7 @@ def example(group, member, condition, bits, files, focal=None):
     )
 
 
-def chains(pool, rng, repeats):
+def chains(allocate, rng, repeats):
     rows = []
     sizes = Counter()
     for rep in range(repeats):
@@ -58,7 +58,7 @@ def chains(pool, rng, repeats):
                 return sum(1 / (1 + sizes[k]) for k in counts)
 
             path = max(paths, key=score)
-            files = [rng.choice(pool[b]) for b in path]
+            files = [allocate(b) for b in path]
             for i in range(1, len(path) + 1):
                 row = example(f"{rep}-{rule}", i, "progressive", path[:i], files[:i])
                 sizes[len(row["answers"])] += 1
@@ -66,7 +66,7 @@ def chains(pool, rng, repeats):
     return rows
 
 
-def pairs(pool, rng, repeats):
+def pairs(allocate, rng, repeats):
     unique = unique_sets()
     rows = []
 
@@ -77,12 +77,12 @@ def pairs(pool, rng, repeats):
         additions = sorted(set(right) - set(left))
         rng.shuffle(additions)
         right = [b if b in right else additions.pop() for b in left]
-        files = {b: rng.choice(pool[b]) for b in sorted(set(left + right))}
+        files = {b: allocate(b) for b in sorted(set(left + right))}
         first = [files[b] for b in left]
         second = [files[b] for b in right]
         if kind == "control":
             i = rng.randrange(len(right))
-            second[i] = rng.choice([f for f in pool[right[i]] if f != second[i]])
+            second[i] = allocate(right[i], exclude=second[i])
         focus = left.index(focal) if focal else None
         rows.extend(
             [
@@ -125,7 +125,20 @@ def design(number, pool, seed, repeats):
             "Need positive repeats and two fresh variants per configuration"
         )
     rng = random.Random(seed)
-    rows = (chains if number == 11 else pairs)(pool, rng, repeats)
+    # Shuffle once to make tie-breaking deterministic without tying logical
+    # sampling to pool size. Least-used files minimize repeat allocations.
+    image_rng = random.Random(f"{seed}:images:{number}")
+    variants = {bits: sorted(files) for bits, files in pool.items()}
+    for files in variants.values():
+        image_rng.shuffle(files)
+    usage = Counter()
+
+    def allocate(bits, exclude=None):
+        file = min((f for f in variants[bits] if f != exclude), key=usage.__getitem__)
+        usage[file] += 1
+        return file
+
+    rows = (chains if number == 11 else pairs)(allocate, rng, repeats)
     grouped = defaultdict(list)
     for row in rows:
         inferred = [next(b for b in BITS if f in pool[b]) for f in row["image_files"]]
@@ -164,3 +177,33 @@ def design(number, pool, seed, repeats):
             if not valid:
                 raise ValueError(f"Invalid matched evidence in {a['group']}")
     return rows
+
+
+def allocation_audit(rows, pool):
+    """Count each file once per chain or pair, ignoring deliberate within-group reuse."""
+    groups = defaultdict(set)
+    for row in rows:
+        groups[row["group"]].update(row["image_files"])
+    usage = Counter(file for files in groups.values() for file in files)
+    by_configuration = {}
+    for bits, files in pool.items():
+        demands = [usage[f] for f in files]
+        by_configuration[bits] = dict(
+            available=len(files),
+            required_without_reuse=sum(demands),
+            distinct_used=sum(n > 0 for n in demands),
+            repeated_allocations=sum(max(n - 1, 0) for n in demands),
+        )
+    slots = sum(usage.values())
+    required = max(c["required_without_reuse"] for c in by_configuration.values())
+    return dict(
+        group_image_slots=slots,
+        distinct_files=len(usage),
+        repeated_allocations=slots - len(usage),
+        files_in_multiple_groups=sum(n > 1 for n in usage.values()),
+        groups_with_shared_files=sum(
+            any(usage[f] > 1 for f in files) for files in groups.values()
+        ),
+        balanced_pool_for_disjoint_groups=len(BITS) * required,
+        by_configuration=by_configuration,
+    )

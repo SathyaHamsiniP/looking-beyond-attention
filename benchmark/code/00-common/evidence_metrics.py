@@ -5,9 +5,18 @@ from itertools import combinations, groupby
 from statistics import mean
 
 from evidence_design import RULES, solve
+from seven_rule_validation import bootstrap
 
 
-def summarize(records):
+def response_status(prediction, answers):
+    if prediction is None:
+        return "invalid_format"
+    if prediction == answers:
+        return "valid_correct"
+    return "valid_incorrect"
+
+
+def score_records(records):
     values = defaultdict(list)
 
     def record(name, value):
@@ -19,9 +28,12 @@ def summarize(records):
         by_set[row["set_id"]].append(row)
         by_group[row["group"], row["rotation"]].append(row)
         gold, pred = set(row["answers"]), row["prediction"]
-        hit = pred is not None and set(pred) == gold
+        status = response_status(pred, row["answers"])
+        hit = status == "valid_correct"
         record("exact", hit)
-        record("invalid_format", pred is None)
+        record("invalid_format", status == "invalid_format")
+        record("valid_incorrect", status == "valid_incorrect")
+        record("all_selected_rules_consistent", bool(pred) and set(pred) <= gold)
         record(f"exact/candidates-{len(gold)}", hit)
         record("exact/" + row["condition"], hit)
         overlap = len(gold.intersection(pred or []))
@@ -91,6 +103,48 @@ def summarize(records):
     )
 
 
+def summarize(records):
+    """Percentile cluster bootstrap with the same weighting as the reported rates."""
+    import numpy as np
+
+    summary = score_records(records)
+    grouped = defaultdict(list)
+    for row in records:
+        grouped[row["group"]].append(row)
+    clusters = [score_records(rows) for rows in grouped.values()]
+    rng = np.random.default_rng(2026)
+    intervals = {}
+    for metric in summary["rates"]:
+        weights = np.asarray(
+            [c["denominators"][metric] for c in clusters if metric in c["rates"]]
+        )
+        rates = np.asarray(
+            [c["rates"][metric] for c in clusters if metric in c["rates"]]
+        )
+        # A single contributing cluster cannot support a resampling interval.
+        if len(weights) < 2:
+            continue
+        draws = rng.integers(len(weights), size=(5000, len(weights)))
+        sampled_rates = (rates * weights)[draws].sum(axis=1) / weights[draws].sum(
+            axis=1
+        )
+        intervals[metric] = dict(
+            clusters=len(weights),
+            ci95=np.quantile(sampled_rates, [0.025, 0.975]).tolist(),
+        )
+    summary["cluster_intervals"] = intervals
+    n = summary["presentations"]
+    summary["response_counts"] = {
+        label: round(n * summary["rates"][metric])
+        for label, metric in (
+            ("valid_correct", "exact"),
+            ("valid_incorrect", "valid_incorrect"),
+            ("invalid_format", "invalid_format"),
+        )
+    }
+    return summary
+
+
 def baselines(row):
     # Ground-truth annotations give these shortcuts perfect perception.
     index = row["focal"] if row["focal"] is not None else 0
@@ -120,9 +174,12 @@ def paired_delta(left, right):
             )
         }
 
+    def tasks(rows):
+        return {(r["set_id"], r["rotation"]): (r["group"], r["answers"]) for r in rows}
+
+    if tasks(left) != tasks(right):
+        raise ValueError("Unmatched presentations")
     a, b = groups(left), groups(right)
-    if a.keys() != b.keys():
-        raise ValueError("Unmatched groups")
     diffs = [b[k] - a[k] for k in a]
     return dict(
         groups=len(diffs),
@@ -130,4 +187,5 @@ def paired_delta(left, right):
         improved=sum(d > 0 for d in diffs),
         tied=diffs.count(0),
         declined=sum(d < 0 for d in diffs),
+        ci95=bootstrap(diffs) if len(diffs) > 1 else None,
     )

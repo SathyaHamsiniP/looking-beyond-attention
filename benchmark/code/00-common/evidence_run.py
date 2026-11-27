@@ -10,8 +10,8 @@ import sys
 
 from benchmark_paths import REPO, BENCHMARK
 import lora_7rules as seven
-from evidence_design import BITS, RULES, design
-from evidence_metrics import baselines, paired_delta, summarize
+from evidence_design import BITS, RULES, allocation_audit, design
+from evidence_metrics import baselines, paired_delta, response_status, summarize
 
 RESULTS = BENCHMARK / "results/seven-rules/qwen3.5-4b"
 WRAPPER = (
@@ -74,6 +74,8 @@ def inventory(data, historical):
         used.add(key)
         hashes[name] = seven.file_hash(path)
         pool[bits].append(name)
+    if len({len(pool[b]) for b in BITS}) != 1:
+        raise ValueError("Expected a balanced pool across all eight configurations")
     return {b: sorted(pool[b]) for b in BITS}, hashes, meta["seed"]
 
 
@@ -104,6 +106,7 @@ def prepare(number, args):
         sets=len(manifest["sets"]),
         groups=len({r["group"] for r in manifest["sets"]}),
         candidate_counts=dict(Counter(len(r["answers"]) for r in manifest["sets"])),
+        allocation=allocation_audit(manifest["sets"], pool),
         conditions={},
     )
     for kind in sorted({r["condition"] for r in manifest["sets"]}):
@@ -138,9 +141,11 @@ def prompt(row, rotation, mode, number):
     lines.extend(options)
     lines.append(
         "Which rules are consistent with every scene? Select all that apply. "
-        "Reply only with their option numbers, separated by commas."
+        "Reply with distinct option numbers separated by commas, like 1,3,5. "
+        "If only one fits, give its number. Do not add any other text."
         if number == 11
-        else "Which rule is consistent with every scene? Reply only with its option number."
+        else "Which rule is consistent with every scene? Reply with one option number from 1 to 7. "
+        "Do not add any other text."
     )
     return "\n".join(lines)
 
@@ -177,11 +182,14 @@ def checkpoint(folder, tasks, number, infer, limit=None):
                 continue
             response = infer(row)
             saved = dict(key=key, response=response)
-            seven.atomic_json(path, saved)
             pending += 1
-        records.append(
-            dict(row, prediction=parse(saved["response"], row["rotation"], number))
-        )
+        prediction = parse(saved["response"], row["rotation"], number)
+        status = response_status(prediction, row["answers"])
+        if not path.exists():
+            seven.atomic_json(
+                path, dict(saved, prediction=prediction, response_status=status)
+            )
+        records.append(dict(row, prediction=prediction, response_status=status))
     return records
 
 
@@ -313,7 +321,17 @@ def report(number, out, manifest):
         for name, rows in baseline_rows.items():
             summary[name] = summarize(rows)
     seven.atomic_json(
-        out / "comparison.json", dict(conditions=summary, paired_differences=deltas)
+        out / "comparison.json",
+        dict(
+            conditions=summary,
+            paired_differences=deltas,
+            uncertainty=dict(
+                method="95% percentile cluster bootstrap",
+                draws=5000,
+                seed=2026,
+                unit="chain" if number == 11 else "matched pair",
+            ),
+        ),
     )
     fig, ax = plt.subplots(figsize=(7, 4))
     if number == 11:
